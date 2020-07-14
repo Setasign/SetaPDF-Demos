@@ -1,0 +1,40 @@
+@orange-light-color: #e69e04;
+@orange-color: #d97d05;
+
+@green-color: #5b9645;
+
+@thin-border-color: #d3d3d3;
+
+@error-color: #dd571d;
+
+@hint-color: #ffc459;
+
+.box-sizing-border-box ()
+{
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+}
+
+.border-radius(@radius)
+{
+    -webkit-border-radius: @radius;
+    -moz-border-radius: @radius;
+    -ms-border-radius: @radius;
+    -o-border-radius: @radius;
+    border-radius: @radius;
+}
+
+.shadow(@offsetX, @offsetY, @blurRadius, @spreadRadius, @color)
+{
+    -moz-box-shadow:    @offsetX @offsetY @blurRadius @spreadRadius @color;
+    -webkit-box-shadow: @offsetX @offsetY @blurRadius @spreadRadius @color;
+    box-shadow:         @offsetX @offsetY @blurRadius @spreadRadius @color;
+}
+
+.clearAfter
+{
+    content: '';
+    clear: both;
+    display: block;
+}

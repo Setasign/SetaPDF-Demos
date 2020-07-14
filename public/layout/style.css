@@ -1,0 +1,221 @@
+.clearAfter {
+  content: '';
+  clear: both;
+  display: block;
+}
+@font-face {
+  font-family: "Noto Serif";
+  src: url("fonts/NotoSerif/NotoSerif-Regular.ttf");
+}
+body {
+  font-family: "Noto Serif";
+  background-color: #f4f4f4;
+  -moz-font-feature-settings: "lnum";
+  -webkit-font-feature-settings: "lnum";
+  font-feature-settings: "lnum";
+}
+.wrapper {
+  min-width: 1000px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p,
+ul,
+ol,
+dl {
+  margin: 0;
+  font-family: "Noto Serif";
+  word-wrap: break-word;
+}
+a {
+  color: #d97d05;
+  text-decoration: none;
+  font-family: "Noto Serif";
+}
+header {
+  background-color: #558f40;
+  border-bottom: 1px solid #ffffff;
+  background-image: -webkit-linear-gradient(#72ba57 0%, #558f40 98%);
+  background-image: -moz-linear-gradient(#72ba57 0%, #558f40 98%);
+  background-image: -o-linear-gradient(#72ba57 0%, #558f40 98%);
+  background-image: linear-gradient(#72ba57 0%, #558f40 98%);
+}
+header:after {
+  content: '';
+  clear: both;
+  display: block;
+}
+header h1 {
+  float: left;
+  color: #fff;
+  font-size: 32px;
+  text-shadow: 1px 2px 1px rgba(52, 74, 44, 0.75);
+  line-height: 34px;
+  padding: 26px 0;
+}
+header img.logo {
+  float: left;
+  height: 76px;
+  margin: 3px 6px 0 0;
+}
+header img.companyLogo {
+  float: right;
+  height: 32px;
+  padding: 27px 20px;
+}
+#breadcrumb {
+  background-color: #f4f4f4;
+  border-top: 1px solid #d3d3d3;
+  border-bottom: 1px solid #ffffff;
+  height: 30px;
+}
+#breadcrumb nav ul {
+  list-style: none;
+  padding: 0;
+  font-size: 14px;
+  line-height: 30px;
+}
+#breadcrumb nav li {
+  color: #6e6f71 !important;
+  float: left;
+  margin-right: 5px;
+  position: relative;
+}
+#breadcrumb nav li a {
+  color: #6e6f71 !important;
+}
+#breadcrumb nav li:after {
+  content: '>';
+  margin-left: 5px;
+}
+#breadcrumb nav li:last-child:after {
+  display: none;
+}
+footer {
+  font-family: "Noto Serif";
+  font-size: 14px;
+  clear: both;
+  border-top: 1px solid #d3d3d3;
+  background-color: #f4f4f4;
+}
+footer .copyright {
+  margin: 22px 0;
+}
+footer .copyright {
+  float: left;
+}
+#content {
+  min-height: 500px;
+  margin: 10px;
+}
+#content p,
+#content ul,
+#content ol,
+#content pre {
+  margin-bottom: 15px;
+}
+#content h3,
+#content h4,
+#content h5,
+#content h6 {
+  margin-bottom: 8px;
+}
+#content h2,
+#content h3,
+#content h4,
+#content h5,
+#content h6 {
+  color: #5b9645;
+}
+#content h2 a.anchor,
+#content h3 a.anchor,
+#content h4 a.anchor,
+#content h5 a.anchor,
+#content h6 a.anchor {
+  color: transparent;
+  margin-left: 6px;
+}
+#content h2:hover a.anchor,
+#content h3:hover a.anchor,
+#content h4:hover a.anchor,
+#content h5:hover a.anchor,
+#content h6:hover a.anchor {
+  color: gray;
+}
+#content h2 {
+  font-size: 32px;
+  line-height: 36px;
+}
+#content h2 span {
+  color: black;
+  display: block;
+  font-size: 18px;
+  line-height: 20px;
+  padding-bottom: 10px;
+}
+#content h2 + p {
+  margin-top: 8px;
+}
+#content h3 {
+  font-size: 20px;
+}
+#content h4 {
+  font-size: 18px;
+}
+#content h5 {
+  font-size: 16px;
+}
+#content h6 {
+  font-size: 14px;
+}
+#content p {
+  font-size: 14px;
+  line-height: 130%;
+}
+#content dl {
+  font-size: 14px;
+}
+#content ul,
+#content ol {
+  padding: 5px 0 10px 0;
+  background-color: #fff;
+  font-size: 14px;
+  font-family: "Noto Serif";
+  line-height: 2em;
+  list-style-position: outside;
+}
+#content ul li,
+#content ol li {
+  margin: 0 24px;
+}
+#content ul ul,
+#content ol ul,
+#content ul ol,
+#content ol ol {
+  margin: 0;
+  padding: 0;
+}
+#content ul {
+  list-style-type: square;
+  /* http://www.patternify.com/ */
+  list-style-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAcAAAAHCAYAAADEUlfTAAAAFklEQVQImWNgIAZETXP9j44HVBIbAADn3jcVxmILQwAAAABJRU5ErkJggg==);
+}
+#content a[target^="_blank"]:after {
+  content: '\f08e';
+  font-family: "FontAwesome";
+  margin-left: 3px;
+  font-size: 80%;
+  line-height: 80%;
+}
+#content a[target^="_blank"].img:after {
+  content: '';
+  font-family: "FontAwesome";
+  margin-left: 0;
+}
+/*# sourceMappingURL=style.css.map */
