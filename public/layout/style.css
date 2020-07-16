@@ -264,90 +264,59 @@ footer .copyright {
   cursor: not-allowed;
 }
 #content div.run {
-  position: relative;
+  height: 35px;
 }
 #content div.run ul {
   margin: 0;
   padding: 0;
   list-style: none;
   background-color: transparent;
-  position: absolute;
-  margin-left: -35px;
-  width: 35px;
-  text-align: right;
+  width: auto;
 }
 #content div.run ul li {
+  float: left;
+  width: auto;
+  height: 35px;
   margin: 0;
-  padding: 0;
-  width: 35px;
 }
 #content div.run a {
   display: block;
   background-color: #DDDDDD;
   font-family: "Font Awesome 5 Free";
-  font-size: 24px;
+  font-size: 18px;
   line-height: 35px;
-  width: 100%;
+  white-space: nowrap;
+  padding: 0 8px;
+  width: auto;
   height: 35px;
   text-align: center;
   color: #777777;
 }
 #content div.run a span {
-  display: none;
+  display: inline-block;
+  font-family: "Noto Serif";
+  font-size: 90%;
+  line-height: 100%;
 }
 #content div.run a.inactive {
-  width: 85%;
-  margin-left: 15%;
+  height: 28px;
+  margin-top: 7px;
+  line-height: 26px;
   background-color: #c4c4c4;
 }
 #content div.run a.disabled {
-  width: 85%;
-  margin-left: 15%;
+  height: 28px;
+  margin-top: 7px;
   background-color: #e8e8e8;
   color: #d9d9d9;
   cursor: not-allowed;
+  line-height: 26px;
 }
 #content div.run a.disabled:hover {
   color: #d9d9d9;
 }
 #content div.run a:hover {
   color: #d97d05;
-}
-#content div.run.bottom {
-  height: 35px;
-  margin-bottom: 0.3em;
-}
-#content div.run.bottom ul {
-  margin-left: 0;
-  width: auto;
-}
-#content div.run.bottom ul li {
-  float: left;
-  width: auto;
-  height: 35px;
-}
-#content div.run.bottom a {
-  width: auto !important;
-  white-space: nowrap;
-  padding: 0 8px;
-  font-size: 18px;
-}
-#content div.run.bottom a span {
-  display: inline-block;
-  font-family: "Noto Serif";
-  font-size: 90%;
-  line-height: 100%;
-}
-#content div.run.bottom a.inactive,
-#content div.run.bottom a.disabled {
-  margin-left: 0;
-  height: 80%;
-  line-height: 26px;
-}
-#content div.run.bottom:after {
-  content: '';
-  clear: both;
-  display: block;
 }
 #content div.code {
   position: relative;

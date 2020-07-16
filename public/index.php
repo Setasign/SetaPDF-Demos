@@ -35,20 +35,13 @@ echo <<<HTML
 </header>
 HTML;
 
-$demosDirectory = dirname(__DIR__) . '/demos';
+$demosDirectory = __DIR__ . '/demos';
 $route = null;
 $isDemo = false;
-$callDemo = false;
 $pathInfo = isset($_SERVER['PATH_INFO']) ? $_SERVER['PATH_INFO'] : '';
 if (strpos($pathInfo, '/demo/') === 0) {
     $isDemo = true;
     $requestPath = trim(substr($pathInfo, strlen('/demo/')), '/');
-} elseif (strpos($pathInfo, '/call-demo/') === 0) {
-    $callDemo = true;
-    $requestPath = trim(substr($pathInfo, strlen('/call-demo/')), '/');
-    $requestedFile = substr($requestPath, strrpos($requestPath, '/'));
-    $requestPath = substr($requestPath, 0, -strlen($requestedFile));
-    $requestedFile .= '.php';
 } else {
     $requestPath = trim($pathInfo, '/');
 }
@@ -56,22 +49,6 @@ if (strpos($pathInfo, '/demo/') === 0) {
 if (strpos($requestPath, '..') !== false || !is_dir($demosDirectory . '/' . $requestPath)) {
     header("HTTP/1.0 404 Not Found");
     ob_end_clean();
-    return;
-}
-
-if ($callDemo) {
-    /**
-     * @var string $requestedFile
-     */
-    ob_end_clean();
-    if (strpos($requestedFile, '..') !== false || !is_file($demosDirectory . '/' . $requestPath . $requestedFile)) {
-        header("HTTP/1.0 404 Not Found");
-        return;
-    }
-
-    // todo list of allowed files
-
-    require_once $demosDirectory . '/' . $requestPath . $requestedFile;
     return;
 }
 
@@ -172,54 +149,52 @@ if ($isDemo) {
             echo '<li>' . $missingRequire . '</li>';
         }
         echo '</ul></p>';
-    } elseif (!isset($demoData['tabs'])) {
-        $path = '/call-demo' . '/' . $requestPath . '/index';
-        echo '<iframe src="' . $path . '" frameborder="0" style="width: 100%; height: 100%;"></iframe>';
     } else {
-        $tabs = $demoData['tabs'];
+        $previewFiles = array_merge(['script.php'], isset($demoData['previewFiles']) ? $demoData['previewFiles'] : []);
+
         echo '<div class="setapdf-demo">'
             . '<div class="run"><ul>';
-        foreach ($tabs as $tab) {
+
+        foreach ($previewFiles as $previewFile) {
+            $className = md5($previewFile);
             echo '<li>'
-                . '<a href="#' . $tab['id'] . '" title="' . $tab['title'] . '">'
-                . $tab['icon'] . ' <span>' . $tab['title'] . '</span>'
+                . '<a href="#' . $className . '" title="' . $previewFile . '">'
+                . '&#xF121; <span>' . $previewFile . '</span>'
                 . '</a>'
                 . '</li>';
         }
-        echo '</ul></div>'
+
+        echo '<li><a href="#execute" title="Run">&#xF04B; <span>Run</span></a></li>'
+            . '</ul></div>'
             . '<div class="demoTabPanel">';
 
-        foreach ($tabs as $tab) {
-            echo '<div class="step ' . $tab['id'] . '">';
-
-            list($contentType, $content) = explode(':', $tab['content'], 2);
-            if ($contentType === 'call') {
-                $path = '/call-demo' . '/' . $requestPath . '/' . $content;
-                echo '<iframe src="' . $path . '" frameborder="0" style="width: 100%; height: 100%;"></iframe>';
-            } elseif ($contentType === 'preview') {
-                $isPhp = true;
-                echo '<div class="code"><ul class="buttons">'
-                    . '<li><a href="#" class="copy"' . ($isPhp ? ' title="copy PHP code"' : '') . '>copy</a></li>'
-                    . '</ul><pre class="code" data-lang="php">'
-                    . htmlspecialchars(file_get_contents($demoDirectory . '/' . $content), ENT_QUOTES | ENT_HTML5)
-                    . '</pre></div>';
-            } else {
-                throw new Exception(\sprintf('Invalid content type for tab "%s".', $contentType));
+        foreach ($previewFiles as $previewFile) {
+            $className = md5($previewFile);
+            $extension = strtolower(pathinfo($demoDirectory . '/' . $previewFile, PATHINFO_EXTENSION));
+            switch ($extension) {
+                case 'php':
+                    $codemirrorLang = 'php';
+                    break;
+                case 'js':
+                    $codemirrorLang = 'javascript';
+                    break;
+                default:
+                    throw new Exception(sprintf('Unknown extension "%s".', $extension));
             }
-
-            echo '</div>';
+            echo '<div class="step ' . $className . '">'
+                . '<div class="code"><ul class="buttons">'
+                . '<li><a href="#" class="copy"' . ($codemirrorLang === 'php' ? ' title="copy PHP code"' : '') . '>copy</a></li>'
+                . '</ul><pre class="code" data-lang="' . $codemirrorLang . '">'
+                . htmlspecialchars(file_get_contents($demoDirectory . '/' . $previewFile), ENT_QUOTES | ENT_HTML5)
+                . '</pre></div>'
+                . '</div>';
         }
 
-        echo '</div>'
-            . '<div class="run bottom"><ul>';
-        foreach ($tabs as $tab) {
-            echo '<li>'
-                . '<a href="#' . $tab['id'] . '" title="' . $tab['title'] . '">'
-                . $tab['icon'] . ' <span>' . $tab['title'] . '</span>'
-                . '</a>'
-                . '</li>';
-        }
-        echo '</ul></div>'
+        echo '<div class="step execute">'
+            . '<iframe src="/demos/' . $requestPath . '/script.php" frameborder="0" style="width: 100%; height: 100%;">'
+            . '</iframe>'
+            . '</div>'
+            . '</div>'
             . '</div>';
     }
 

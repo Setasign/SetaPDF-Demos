@@ -294,7 +294,7 @@ footer
 
 #content {
     div.run {
-        position: relative;
+        height: 35px;
 
         // style="width:2.5%;margin-left:.5%;background-color: #c4c4c4;"
         ul {
@@ -302,15 +302,13 @@ footer
             padding: 0;
             list-style: none;
             background-color: transparent;
-            position: absolute;
-            margin-left: -35px;
-            width: 35px;
+            width: auto;
 
-            text-align: right;
             li {
+                float: left;
+                width: auto;
+                height: 35px;
                 margin: 0;
-                padding: 0;
-                width: 35px;
             }
         }
 
@@ -318,32 +316,39 @@ footer
             display: block;
             background-color: #DDDDDD;
             font-family: "Font Awesome 5 Free";
-            font-size: 24px;
+            font-size: 18px;
             line-height: 35px;
+            white-space: nowrap;
+            padding: 0 8px;
 
-            width: 100%;
+            width: auto;
             height: 35px;
 
             text-align: center;
             color: #777777;
 
             span {
-                display: none;
+                display: inline-block;
+                font-family: "Noto Serif";
+                font-size: 90%;
+                line-height: 100%;
             }
         }
 
         a.inactive {
-            width: 85%;
-            margin-left: 15%;
+            height: 28px;
+            margin-top: 7px;
+            line-height: 26px;
             background-color: #c4c4c4;
         }
 
         a.disabled {
-            width: 85%;
-            margin-left: 15%;
+            height: 28px;
+            margin-top: 7px;
             background-color: #e8e8e8;
             color: #d9d9d9;
             cursor: not-allowed;
+            line-height: 26px;
 
             &:hover {
                 color: #d9d9d9;
@@ -354,48 +359,6 @@ footer
             color: @orange-color;
         }
     }
-
-    div.run.bottom {
-        height: 35px;
-        margin-bottom: .3em;
-
-        ul {
-            margin-left: 0;
-            width: auto;
-
-            li {
-                float: left;
-                width: auto;
-                height: 35px;
-            }
-        }
-
-        a {
-            width: auto !important;
-            white-space: nowrap;
-            padding: 0 8px;
-            font-size: 18px;
-
-            span {
-                display: inline-block;
-                font-family: "Noto Serif";
-                font-size: 90%;
-                line-height: 100%;
-            }
-        }
-
-        a.inactive,
-        a.disabled {
-            margin-left: 0;
-            height: 80%;
-            line-height: 26px;
-        }
-
-        &:after {
-            .clearAfter;
-        }
-    }
-
 
     div.code {
         position: relative;

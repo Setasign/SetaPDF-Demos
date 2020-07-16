@@ -3,5 +3,8 @@
     "teaserText": "Use Fortify with the SetaPDF-Signer component to sign PDFs in the browser.",
     "requires": [
         "SetaPDF-Core", "SetaPDF-Signer"
+    ],
+    "previewFiles": [
+        "controller.php", "js/main.js"
     ]
 }

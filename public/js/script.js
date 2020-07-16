@@ -67,5 +67,5 @@ $(function ($) {
         event.preventDefault();
     });
 
-    $('div.run li:first a, div.run.bottom li:first a').click();
+    $('div.run li:first a, div.run li:first a').click();
 });

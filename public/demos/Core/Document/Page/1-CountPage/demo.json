@@ -1,0 +1,7 @@
+{
+    "name": "Page Count",
+    "teaserText": "Get the page count from a PDF document with PHP.",
+    "requires": [
+        "SetaPDF-Core"
+    ]
+}

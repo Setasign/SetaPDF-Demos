@@ -1,12 +1,12 @@
 <?php
 
-require_once __DIR__ . '/../../../../../bootstrap.php';
+require_once __DIR__ . '/../../../../../../bootstrap.php';
 
-$files = array_merge([
+$files = [
     $assetDirectory . '/pdfs/Brand-Guide.pdf',
     $assetDirectory . '/pdfs/camtown/Terms-and-Conditions.pdf',
     $assetDirectory . '/pdfs/etown/Laboratory-Report.pdf',
-], $sessionFiles);
+];
 
 if (!isset($_GET['f']) || !in_array($_GET['f'], $files)) {
     foreach ($files as $path) {
@@ -23,23 +23,12 @@ if (!isset($_GET['f']) || !in_array($_GET['f'], $files)) {
 //require_once('library/SetaPDF/Autoload.php');
 // or if you use composer require_once('vendor/autoload.php');
 
-// create a file writer
-$writer = new SetaPDF_Core_Writer_Http('rotated.pdf', true);
-// load document by filename
-$document = SetaPDF_Core_Document::loadByFilename($_GET['f'], $writer);
+$document = SetaPDF_Core_Document::loadByFilename($_GET['f']);
 
-// get pages object
 $pages = $document->getCatalog()->getPages();
-// get page count
 $pageCount = $pages->count();
+// or
+// $pageCount = count($pages);
 
-for ($pageNumber = 1; $pageNumber <= $pageCount; $pageNumber++) {
-    // get page object for this page
-    $page = $pages->getPage($pageNumber);
-
-    // rotate by...
-    $page->rotateBy(90);
-}
-
-// save and finish the document
-$document->save()->finish();
+echo 'The document "' . basename($_GET['f']) . '" has ' .
+    ($pageCount == 1 ? '1 page' : $pageCount . ' pages');
