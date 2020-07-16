@@ -1,4 +1,5 @@
 @import "dynamic.less";
+@import "fonts/fontawesome-free-5.13.1/less/solid.css";
 
 @font-face {
     font-family: "Noto Serif";
@@ -83,7 +84,6 @@ header {
     {
         list-style: none;
         padding: 0;
-        //margin: 0 @default-offset;
         font-size: 14px;
         line-height: 30px;
     }
@@ -224,7 +224,7 @@ footer
 
     a[target^="_blank"]:after {
         content: '\f08e';
-        font-family: "FontAwesome";
+        font-family: "Font Awesome 5 Free";
         margin-left: 3px;
         font-size: 80%;
         line-height: 80%;
@@ -232,7 +232,230 @@ footer
 
     a[target^="_blank"].img:after {
         content: '';
-        font-family: "FontAwesome";
+        font-family: "Font Awesome 5 Free";
         margin-left: 0;
+    }
+
+    .setapdf-demo {
+        margin-left: 30px;
+
+        .demoTabPanel {
+            border-left: 2px solid #DDDDDD;
+
+            background-color: #fff;
+            padding: 9px 9px 0 9px;
+            margin-bottom: 0 !important;
+
+            & > div.step
+            {
+                min-height: 220px;
+            }
+
+            button.run {
+                float: none;
+            }
+
+            pre.code {
+                border: 0 !important;
+                padding-left: 0 !important;
+                max-height: 600px;
+                margin-bottom: 0;
+            }
+
+            iframe {
+                border: none;
+                margin: 0;
+                padding: 0;
+                width: 100%;
+                min-height: 600px;
+            }
+
+            label.inline {
+                float: none;
+                display: inline;
+            }
+
+            .button.disabled {
+                background-color: #c4c4c4;
+                border-color: #c4c4c4;
+                color: #E5E5E5;
+                text-shadow: 1px 2px 1px rgba(159, 159, 159, 0.74);
+
+                &:hover {
+                    -moz-box-shadow: none;
+                    -webkit-box-shadow: none;
+                    box-shadow: none;
+                    cursor: not-allowed;
+                }
+            }
+        }
+    }
+}
+
+#content {
+    div.run {
+        position: relative;
+
+        // style="width:2.5%;margin-left:.5%;background-color: #c4c4c4;"
+        ul {
+            margin: 0;
+            padding: 0;
+            list-style: none;
+            background-color: transparent;
+            position: absolute;
+            margin-left: -35px;
+            width: 35px;
+
+            text-align: right;
+            li {
+                margin: 0;
+                padding: 0;
+                width: 35px;
+            }
+        }
+
+        a {
+            display: block;
+            background-color: #DDDDDD;
+            font-family: "Font Awesome 5 Free";
+            font-size: 24px;
+            line-height: 35px;
+
+            width: 100%;
+            height: 35px;
+
+            text-align: center;
+            color: #777777;
+
+            span {
+                display: none;
+            }
+        }
+
+        a.inactive {
+            width: 85%;
+            margin-left: 15%;
+            background-color: #c4c4c4;
+        }
+
+        a.disabled {
+            width: 85%;
+            margin-left: 15%;
+            background-color: #e8e8e8;
+            color: #d9d9d9;
+            cursor: not-allowed;
+
+            &:hover {
+                color: #d9d9d9;
+            }
+        }
+
+        a:hover {
+            color: @orange-color;
+        }
+    }
+
+    div.run.bottom {
+        height: 35px;
+        margin-bottom: .3em;
+
+        ul {
+            margin-left: 0;
+            width: auto;
+
+            li {
+                float: left;
+                width: auto;
+                height: 35px;
+            }
+        }
+
+        a {
+            width: auto !important;
+            white-space: nowrap;
+            padding: 0 8px;
+            font-size: 18px;
+
+            span {
+                display: inline-block;
+                font-family: "Noto Serif";
+                font-size: 90%;
+                line-height: 100%;
+            }
+        }
+
+        a.inactive,
+        a.disabled {
+            margin-left: 0;
+            height: 80%;
+            line-height: 26px;
+        }
+
+        &:after {
+            .clearAfter;
+        }
+    }
+
+
+    div.code {
+        position: relative;
+
+        & ul.buttons {
+            position: absolute;
+            right: 26px;
+            top: 9px;
+
+            width: auto;
+            list-style: none;
+
+            li {
+                padding: 0 5px 0 0;
+            }
+
+            a {
+                visibility: hidden;
+                opacity: 0;
+                -webkit-transition: all .2s ease-in-out;
+                -moz-transition: all .2s ease-in-out;
+                -ms-transition: all .2s ease-in-out;
+                -o-transition: all .2s ease-in-out;
+                transition: all .2s ease-in-out;
+                cursor: pointer;
+            }
+
+            a.copied:after {
+                content: '\f00c';
+                font-family: "Font Awesome 5 Free";
+                margin-left: 4px;
+            }
+        }
+
+        &:hover .buttons a
+        {
+            visibility: visible !important;
+            opacity: 1 !important;
+        }
+    }
+
+    pre.code {
+        border-left: 2px solid #DDDDDD;
+        font-family: "Courier New";
+        padding: 9px;
+        font-weight: normal;
+        font-size: 0.9em;
+        background-color: white;
+        margin-top: 0;
+        margin-bottom: 1em;
+        overflow: auto;
+        width: auto;
+        white-space: pre;
+
+        span.highlight {
+            background-color: yellow;
+        }
+    }
+
+    .demo pre.code {
+        padding-top: 0;
     }
 }

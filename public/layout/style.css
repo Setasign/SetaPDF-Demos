@@ -1,3 +1,4 @@
+@import "fonts/fontawesome-free-5.13.1/less/solid.css";
 .clearAfter {
   content: '';
   clear: both;
@@ -208,14 +209,195 @@ footer .copyright {
 }
 #content a[target^="_blank"]:after {
   content: '\f08e';
-  font-family: "FontAwesome";
+  font-family: "Font Awesome 5 Free";
   margin-left: 3px;
   font-size: 80%;
   line-height: 80%;
 }
 #content a[target^="_blank"].img:after {
   content: '';
-  font-family: "FontAwesome";
+  font-family: "Font Awesome 5 Free";
   margin-left: 0;
+}
+#content .setapdf-demo {
+  margin-left: 30px;
+}
+#content .setapdf-demo .demoTabPanel {
+  border-left: 2px solid #DDDDDD;
+  background-color: #fff;
+  padding: 9px 9px 0 9px;
+  margin-bottom: 0 !important;
+}
+#content .setapdf-demo .demoTabPanel > div.step {
+  min-height: 220px;
+}
+#content .setapdf-demo .demoTabPanel button.run {
+  float: none;
+}
+#content .setapdf-demo .demoTabPanel pre.code {
+  border: 0 !important;
+  padding-left: 0 !important;
+  max-height: 600px;
+  margin-bottom: 0;
+}
+#content .setapdf-demo .demoTabPanel iframe {
+  border: none;
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  min-height: 600px;
+}
+#content .setapdf-demo .demoTabPanel label.inline {
+  float: none;
+  display: inline;
+}
+#content .setapdf-demo .demoTabPanel .button.disabled {
+  background-color: #c4c4c4;
+  border-color: #c4c4c4;
+  color: #E5E5E5;
+  text-shadow: 1px 2px 1px rgba(159, 159, 159, 0.74);
+}
+#content .setapdf-demo .demoTabPanel .button.disabled:hover {
+  -moz-box-shadow: none;
+  -webkit-box-shadow: none;
+  box-shadow: none;
+  cursor: not-allowed;
+}
+#content div.run {
+  position: relative;
+}
+#content div.run ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  background-color: transparent;
+  position: absolute;
+  margin-left: -35px;
+  width: 35px;
+  text-align: right;
+}
+#content div.run ul li {
+  margin: 0;
+  padding: 0;
+  width: 35px;
+}
+#content div.run a {
+  display: block;
+  background-color: #DDDDDD;
+  font-family: "Font Awesome 5 Free";
+  font-size: 24px;
+  line-height: 35px;
+  width: 100%;
+  height: 35px;
+  text-align: center;
+  color: #777777;
+}
+#content div.run a span {
+  display: none;
+}
+#content div.run a.inactive {
+  width: 85%;
+  margin-left: 15%;
+  background-color: #c4c4c4;
+}
+#content div.run a.disabled {
+  width: 85%;
+  margin-left: 15%;
+  background-color: #e8e8e8;
+  color: #d9d9d9;
+  cursor: not-allowed;
+}
+#content div.run a.disabled:hover {
+  color: #d9d9d9;
+}
+#content div.run a:hover {
+  color: #d97d05;
+}
+#content div.run.bottom {
+  height: 35px;
+  margin-bottom: 0.3em;
+}
+#content div.run.bottom ul {
+  margin-left: 0;
+  width: auto;
+}
+#content div.run.bottom ul li {
+  float: left;
+  width: auto;
+  height: 35px;
+}
+#content div.run.bottom a {
+  width: auto !important;
+  white-space: nowrap;
+  padding: 0 8px;
+  font-size: 18px;
+}
+#content div.run.bottom a span {
+  display: inline-block;
+  font-family: "Noto Serif";
+  font-size: 90%;
+  line-height: 100%;
+}
+#content div.run.bottom a.inactive,
+#content div.run.bottom a.disabled {
+  margin-left: 0;
+  height: 80%;
+  line-height: 26px;
+}
+#content div.run.bottom:after {
+  content: '';
+  clear: both;
+  display: block;
+}
+#content div.code {
+  position: relative;
+}
+#content div.code ul.buttons {
+  position: absolute;
+  right: 26px;
+  top: 9px;
+  width: auto;
+  list-style: none;
+}
+#content div.code ul.buttons li {
+  padding: 0 5px 0 0;
+}
+#content div.code ul.buttons a {
+  visibility: hidden;
+  opacity: 0;
+  -webkit-transition: all 0.2s ease-in-out;
+  -moz-transition: all 0.2s ease-in-out;
+  -ms-transition: all 0.2s ease-in-out;
+  -o-transition: all 0.2s ease-in-out;
+  transition: all 0.2s ease-in-out;
+  cursor: pointer;
+}
+#content div.code ul.buttons a.copied:after {
+  content: '\f00c';
+  font-family: "Font Awesome 5 Free";
+  margin-left: 4px;
+}
+#content div.code:hover .buttons a {
+  visibility: visible !important;
+  opacity: 1 !important;
+}
+#content pre.code {
+  border-left: 2px solid #DDDDDD;
+  font-family: "Courier New";
+  padding: 9px;
+  font-weight: normal;
+  font-size: 0.9em;
+  background-color: white;
+  margin-top: 0;
+  margin-bottom: 1em;
+  overflow: auto;
+  width: auto;
+  white-space: pre;
+}
+#content pre.code span.highlight {
+  background-color: yellow;
+}
+#content .demo pre.code {
+  padding-top: 0;
 }
 /*# sourceMappingURL=style.css.map */

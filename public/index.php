@@ -21,6 +21,10 @@ echo <<<HTML
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <link rel="stylesheet" type="text/css" href="/layout/normalize.css"/>
     <link rel="stylesheet" type="text/css" href="/layout/style.css"/>
+    <link rel="stylesheet" type="text/css" href="/js/codemirror-5.11/lib/codemirror.css"/>
+    <script type="text/javascript" src="/js/jquery-3.5.1.min.js"></script>
+    <script type="text/javascript" src="/js/codemirror-5.11/lib/codemirror.min.js"></script>
+    <script type="text/javascript" src="/js/clipboard.js"></script>
 </head>
 <body>
 <header>
@@ -34,14 +38,17 @@ HTML;
 $demosDirectory = dirname(__DIR__) . '/demos';
 $route = null;
 $isDemo = false;
-$executeDemo = false;
+$callDemo = false;
 $pathInfo = isset($_SERVER['PATH_INFO']) ? $_SERVER['PATH_INFO'] : '';
 if (strpos($pathInfo, '/demo/') === 0) {
     $isDemo = true;
     $requestPath = trim(substr($pathInfo, strlen('/demo/')), '/');
-} elseif (strpos($pathInfo, '/execute-demo/') === 0) {
-    $executeDemo = true;
-    $requestPath = trim(substr($pathInfo, strlen('/execute-demo/')), '/');
+} elseif (strpos($pathInfo, '/call-demo/') === 0) {
+    $callDemo = true;
+    $requestPath = trim(substr($pathInfo, strlen('/call-demo/')), '/');
+    $requestedFile = substr($requestPath, strrpos($requestPath, '/'));
+    $requestPath = substr($requestPath, 0, -strlen($requestedFile));
+    $requestedFile .= '.php';
 } else {
     $requestPath = trim($pathInfo, '/');
 }
@@ -52,9 +59,19 @@ if (strpos($requestPath, '..') !== false || !is_dir($demosDirectory . '/' . $req
     return;
 }
 
-if ($executeDemo) {
+if ($callDemo) {
+    /**
+     * @var string $requestedFile
+     */
     ob_end_clean();
-    require_once $demosDirectory . '/' . $requestPath . '/index.php';
+    if (strpos($requestedFile, '..') !== false || !is_file($demosDirectory . '/' . $requestPath . $requestedFile)) {
+        header("HTTP/1.0 404 Not Found");
+        return;
+    }
+
+    // todo list of allowed files
+
+    require_once $demosDirectory . '/' . $requestPath . $requestedFile;
     return;
 }
 
@@ -132,7 +149,6 @@ if ($isDemo) {
     $demoData = json_decode(file_get_contents($demoDirectory . '/demo.json'), true);
     $name = isset($demoData['name']) ? $demoData['name'] : basename($demoDirectory);
     $requires = isset($demoData['requires']) ? $demoData['requires'] : [];
-    $path = '/execute-demo' . '/' . $requestPath;
 
     $hasAllRequires = true;
     $missingRequires = [];
@@ -157,20 +173,54 @@ if ($isDemo) {
         }
         echo '</ul></p>';
     } elseif (!isset($demoData['tabs'])) {
+        $path = '/call-demo' . '/' . $requestPath . '/index';
         echo '<iframe src="' . $path . '" frameborder="0" style="width: 100%; height: 100%;"></iframe>';
     } else {
         $tabs = $demoData['tabs'];
         echo '<div class="setapdf-demo">'
-            . '<div class="run">'
-            . '<ul>';
+            . '<div class="run"><ul>';
         foreach ($tabs as $tab) {
-
+            echo '<li>'
+                . '<a href="#' . $tab['id'] . '" title="' . $tab['title'] . '">'
+                . $tab['icon'] . ' <span>' . $tab['title'] . '</span>'
+                . '</a>'
+                . '</li>';
         }
-        echo '</ul></div>';
+        echo '</ul></div>'
+            . '<div class="demoTabPanel">';
 
+        foreach ($tabs as $tab) {
+            echo '<div class="step ' . $tab['id'] . '">';
 
+            list($contentType, $content) = explode(':', $tab['content'], 2);
+            if ($contentType === 'call') {
+                $path = '/call-demo' . '/' . $requestPath . '/' . $content;
+                echo '<iframe src="' . $path . '" frameborder="0" style="width: 100%; height: 100%;"></iframe>';
+            } elseif ($contentType === 'preview') {
+                $isPhp = true;
+                echo '<div class="code"><ul class="buttons">'
+                    . '<li><a href="#" class="copy"' . ($isPhp ? ' title="copy PHP code"' : '') . '>copy</a></li>'
+                    . '</ul><pre class="code" data-lang="php">'
+                    . htmlspecialchars(file_get_contents($demoDirectory . '/' . $content), ENT_QUOTES | ENT_HTML5)
+                    . '</pre></div>';
+            } else {
+                throw new Exception(\sprintf('Invalid content type for tab "%s".', $contentType));
+            }
 
-        echo '</div>';
+            echo '</div>';
+        }
+
+        echo '</div>'
+            . '<div class="run bottom"><ul>';
+        foreach ($tabs as $tab) {
+            echo '<li>'
+                . '<a href="#' . $tab['id'] . '" title="' . $tab['title'] . '">'
+                . $tab['icon'] . ' <span>' . $tab['title'] . '</span>'
+                . '</a>'
+                . '</li>';
+        }
+        echo '</ul></div>'
+            . '</div>';
     }
 
     echo '</div>';
@@ -261,6 +311,7 @@ echo <<<HTML
     </div>
 </footer>
 <a href="#head" id="up"><i class="fa fa-arrow-circle-up"></i></a>
+<script type="text/javascript" src="/js/script.js"></script>
 </body>
 </html>
 HTML;

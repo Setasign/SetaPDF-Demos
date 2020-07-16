@@ -20,5 +20,15 @@ if (!isset($_GET['f']) || !in_array($_GET['f'], $files)) {
     die();
 }
 
-$file = $_GET['f'];
-require 'generate.php';
+//require_once('library/SetaPDF/Autoload.php');
+// or if you use composer require_once('vendor/autoload.php');
+
+$document = SetaPDF_Core_Document::loadByFilename($_GET['f']);
+
+$pages = $document->getCatalog()->getPages();
+$pageCount = $pages->count();
+// or
+// $pageCount = count($pages);
+
+echo 'The document "' . basename($_GET['f']) . '" has ' .
+    ($pageCount == 1 ? '1 page' : $pageCount . ' pages');

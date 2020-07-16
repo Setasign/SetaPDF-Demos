@@ -6,11 +6,15 @@
     ],
     "tabs": [
         {
-            "name": "generate.php"
+            "id":  "index",
+            "title": "index.php",
+            "icon": "&#xF121;",
+            "content": "preview:index.php"
         }, {
-            "name": "index.php"
-        }, {
-            "name": "Run"
+            "id":  "run",
+            "title": "Run",
+            "icon": "&#xF04B;",
+            "content": "call:index"
         }
     ]
 }
