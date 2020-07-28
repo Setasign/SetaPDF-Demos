@@ -4,14 +4,14 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "8e9d3a4d42e50ed1eda9347bb3ea329d",
+    "content-hash": "9b7c44ffe49a16c3f5ed8fad5a60de92",
     "packages": [
         {
             "name": "setasign/setapdf-core",
-            "version": "2.34.0.1487",
+            "version": "2.35.0.1507",
             "dist": {
                 "type": "zip",
-                "url": "https://www.setasign.com/downloads/2642184/SetaPDF-Core_2.34.0.1487-without-demos.zip"
+                "url": "https://www.setasign.com/downloads/2682376/SetaPDF-Core_2.35.0.1507-without-demos.zip"
             },
             "type": "library",
             "autoload": {
@@ -25,17 +25,17 @@
             "support": {
                 "email": "support@setasign.com"
             },
-            "time": "2020-06-17T00:00:00+00:00"
+            "time": "2020-07-23T00:00:00+00:00"
         },
         {
             "name": "setasign/setapdf-extractor",
-            "version": "2.34.0.1487",
+            "version": "2.35.0.1507",
             "dist": {
                 "type": "zip",
-                "url": "https://www.setasign.com/downloads/2642188/SetaPDF-Extractor_2.34.0.1487-without-core.zip"
+                "url": "https://www.setasign.com/downloads/2682362/SetaPDF-Extractor_2.35.0.1507-without-core.zip"
             },
             "require": {
-                "setasign/setapdf-core": "2.34.0.1487"
+                "setasign/setapdf-core": "2.35.0.1507"
             },
             "type": "library",
             "autoload": {
@@ -49,17 +49,17 @@
             "support": {
                 "email": "support@setasign.com"
             },
-            "time": "2020-06-17T00:00:00+00:00"
+            "time": "2020-07-23T00:00:00+00:00"
         },
         {
             "name": "setasign/setapdf-formfiller_full",
-            "version": "2.34.0.1487",
+            "version": "2.35.0.1507",
             "dist": {
                 "type": "zip",
-                "url": "https://www.setasign.com/downloads/2642196/SetaPDF-FormFiller-Full_2.34.0.1487-without-core.zip"
+                "url": "https://www.setasign.com/downloads/2682358/SetaPDF-FormFiller-Full_2.35.0.1507-without-core.zip"
             },
             "require": {
-                "setasign/setapdf-core": "2.34.0.1487"
+                "setasign/setapdf-core": "2.35.0.1507"
             },
             "type": "library",
             "autoload": {
@@ -73,17 +73,17 @@
             "support": {
                 "email": "support@setasign.com"
             },
-            "time": "2020-06-17T00:00:00+00:00"
+            "time": "2020-07-23T00:00:00+00:00"
         },
         {
             "name": "setasign/setapdf-merger",
-            "version": "2.34.0.1487",
+            "version": "2.35.0.1507",
             "dist": {
                 "type": "zip",
-                "url": "https://www.setasign.com/downloads/2642208/SetaPDF-Merger_2.34.0.1487-without-core.zip"
+                "url": "https://www.setasign.com/downloads/2682368/SetaPDF-Merger_2.35.0.1507-without-core.zip"
             },
             "require": {
-                "setasign/setapdf-core": "2.34.0.1487"
+                "setasign/setapdf-core": "2.35.0.1507"
             },
             "type": "library",
             "autoload": {
@@ -97,17 +97,17 @@
             "support": {
                 "email": "support@setasign.com"
             },
-            "time": "2020-06-17T00:00:00+00:00"
+            "time": "2020-07-23T00:00:00+00:00"
         },
         {
             "name": "setasign/setapdf-signer",
-            "version": "2.34.0.1487",
+            "version": "2.35.0.1507",
             "dist": {
                 "type": "zip",
-                "url": "https://www.setasign.com/downloads/2642190/SetaPDF-Signer_2.34.0.1487-without-core.zip"
+                "url": "https://www.setasign.com/downloads/2682364/SetaPDF-Signer_2.35.0.1507-without-core.zip"
             },
             "require": {
-                "setasign/setapdf-core": "2.34.0.1487"
+                "setasign/setapdf-core": "2.35.0.1507"
             },
             "type": "library",
             "autoload": {
@@ -121,17 +121,17 @@
             "support": {
                 "email": "support@setasign.com"
             },
-            "time": "2020-06-17T00:00:00+00:00"
+            "time": "2020-07-23T00:00:00+00:00"
         },
         {
             "name": "setasign/setapdf-stamper",
-            "version": "2.34.0.1487",
+            "version": "2.35.0.1507",
             "dist": {
                 "type": "zip",
-                "url": "https://www.setasign.com/downloads/2642198/SetaPDF-Stamper_2.34.0.1487-without-core.zip"
+                "url": "https://www.setasign.com/downloads/2682361/SetaPDF-Stamper_2.35.0.1507-without-core.zip"
             },
             "require": {
-                "setasign/setapdf-core": "2.34.0.1487"
+                "setasign/setapdf-core": "2.35.0.1507"
             },
             "type": "library",
             "autoload": {
@@ -145,7 +145,7 @@
             "support": {
                 "email": "support@setasign.com"
             },
-            "time": "2020-06-17T00:00:00+00:00"
+            "time": "2020-07-23T00:00:00+00:00"
         }
     ],
     "packages-dev": [],
@@ -155,8 +155,9 @@
     "prefer-stable": false,
     "prefer-lowest": false,
     "platform": {
-        "php": ">=5.6"
+        "php": ">=5.6",
+        "ext-json": "*"
     },
     "platform-dev": [],
-    "plugin-api-version": "1.1.0"
+    "plugin-api-version": "2.0.0"
 }

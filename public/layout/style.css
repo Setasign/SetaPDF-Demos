@@ -16,9 +16,12 @@ body {
   font-feature-settings: "lnum";
 }
 .wrapper {
-  min-width: 1000px;
   max-width: 1200px;
   margin: 0 auto;
+  padding: 0 10px;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
 }
 h1,
 h2,
@@ -111,10 +114,6 @@ footer .copyright {
 footer .copyright {
   float: left;
 }
-#content {
-  min-height: 500px;
-  margin: 10px;
-}
 #content p,
 #content ul,
 #content ol,
@@ -150,15 +149,17 @@ footer .copyright {
   color: gray;
 }
 #content h2 {
+  color: #5b9645;
   font-size: 32px;
   line-height: 36px;
 }
 #content h2 span {
-  color: black;
-  display: block;
-  font-size: 18px;
-  line-height: 20px;
-  padding-bottom: 10px;
+  font-weight: normal;
+  color: #6e6f71;
+  /*font-size: .45em;*/
+  font-size: 15px;
+  margin-left: 10px;
+  margin-right: 10px;
 }
 #content h2 + p {
   margin-top: 8px;
@@ -207,6 +208,37 @@ footer .copyright {
   /* http://www.patternify.com/ */
   list-style-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAcAAAAHCAYAAADEUlfTAAAAFklEQVQImWNgIAZETXP9j44HVBIbAADn3jcVxmILQwAAAABJRU5ErkJggg==);
 }
+#content ul.buttons {
+  background-color: transparent !important;
+  list-style: none !important;
+  padding: 0 !important;
+  margin-top: 0 !important;
+  margin-bottom: 0 !important;
+  height: 25px;
+}
+#content ul.buttons li {
+  list-style: none !important;
+  float: left;
+  padding: 0 5px 0 0;
+  position: relative;
+  margin: 0 !important;
+  font-size: 12pt;
+}
+#content ul.buttons li a {
+  -webkit-border-radius: 15px;
+  -moz-border-radius: 15px;
+  -ms-border-radius: 15px;
+  -o-border-radius: 15px;
+  border-radius: 15px;
+  background-color: #e69e04;
+  border: 1px solid #e69e04;
+  color: #fff;
+  margin: 0;
+  padding: 0 14px 3px;
+  line-height: 20px;
+  text-align: center;
+  text-shadow: 1px 2px 1px rgba(187, 127, 0, 0.75);
+}
 #content a[target^="_blank"]:after {
   content: '\f08e';
   font-family: "Font Awesome 5 Free";
@@ -221,6 +253,18 @@ footer .copyright {
 }
 #content .setapdf-demo {
   margin-left: 30px;
+}
+#content .setapdf-demo.extended {
+  margin-left: 0;
+}
+#content .setapdf-demo.extended div.run {
+  display: none;
+}
+#content .setapdf-demo.extended div.run.bottom {
+  display: block;
+}
+#content .setapdf-demo.extended .demoTabPanel {
+  border-left: 0 !important;
 }
 #content .setapdf-demo .demoTabPanel {
   border-left: 2px solid #DDDDDD;
@@ -263,34 +307,57 @@ footer .copyright {
   box-shadow: none;
   cursor: not-allowed;
 }
-#content div.run {
-  height: 35px;
+#content div.demoTeaser {
+  width: 50%;
+  float: left;
+  border-top: 1px solid #d3d3d3;
+  padding-top: 1.3em;
+}
+#content div.demoTeaser img {
+  float: left;
+  width: 58px;
+  height: 58px;
+  border: 1px solid #c6c6c6;
+  margin: 0 18px 30px 0;
+}
+#content div.demoTeaser h3 {
+  padding: 0 !important;
+  margin: 0 !important;
+  line-height: 1.4em;
+  clear: none !important;
+}
+#content div.demoTeaser p {
+  width: auto !important;
+  background-color: transparent !important;
+  clear: none !important;
 }
 #content div.run ul {
-  margin: 0;
+  margin: 0 0 0 -35px;
   padding: 0;
   list-style: none;
   background-color: transparent;
-  width: auto;
+  position: absolute;
+  width: 35px;
+  text-align: right;
 }
 #content div.run ul li {
-  float: left;
-  width: auto;
-  height: 35px;
   margin: 0;
+  padding: 0;
+  width: 35px;
+}
+#content div.run ul li a span {
+  display: none;
 }
 #content div.run a {
   display: block;
-  background-color: #DDDDDD;
+  background-color: #DDD;
   font-family: "Font Awesome 5 Free";
   font-size: 18px;
   line-height: 35px;
-  white-space: nowrap;
-  padding: 0 8px;
-  width: auto;
+  width: 100%;
   height: 35px;
   text-align: center;
-  color: #777777;
+  color: #777;
 }
 #content div.run a span {
   display: inline-block;
@@ -299,9 +366,8 @@ footer .copyright {
   line-height: 100%;
 }
 #content div.run a.inactive {
-  height: 28px;
-  margin-top: 7px;
-  line-height: 26px;
+  width: 85%;
+  margin-left: 15%;
   background-color: #c4c4c4;
 }
 #content div.run a.disabled {
@@ -318,8 +384,38 @@ footer .copyright {
 #content div.run a:hover {
   color: #d97d05;
 }
+#content div.run.bottom {
+  height: 35px;
+  margin-bottom: 0.3em;
+}
+#content div.run.bottom ul {
+  margin-left: 0;
+  width: auto;
+}
+#content div.run.bottom ul li {
+  float: left;
+  width: auto;
+  height: 35px;
+}
+#content div.run.bottom a {
+  width: auto !important;
+  white-space: nowrap;
+  padding: 0 8px;
+  font-size: 18px;
+}
+#content div.run.bottom a.inactive {
+  margin-left: 0;
+  height: 80%;
+  line-height: 26px;
+}
+#content div.run.bottom a span {
+  display: inline-block;
+  font-size: 90%;
+  line-height: 100%;
+}
 #content div.code {
   position: relative;
+  min-height: 220px;
 }
 #content div.code ul.buttons {
   position: absolute;
@@ -350,6 +446,14 @@ footer .copyright {
   visibility: visible !important;
   opacity: 1 !important;
 }
+#content div.code .phpInfo {
+  position: absolute;
+  right: 0;
+  top: -20px;
+  font-family: source-code-pro;
+  font-style: italic;
+  color: #c4c4c4;
+}
 #content pre.code {
   border-left: 2px solid #DDDDDD;
   font-family: "Courier New";
@@ -368,5 +472,69 @@ footer .copyright {
 }
 #content .demo pre.code {
   padding-top: 0;
+}
+#content .demoDirectory {
+  clear: both;
+}
+#content .demoDirectory img {
+  float: left;
+  width: 160px;
+}
+#content div.pageNavigation {
+  position: relative;
+  color: #1d1d1b;
+  font-size: 14px;
+  vertical-align: center;
+  margin-left: 3%;
+  margin-right: 3%;
+  border-bottom: 1px solid #d3d3d3;
+  padding-top: 1em;
+  padding-bottom: 1.7em;
+  margin-bottom: 1.3em;
+  content: '';
+  clear: both;
+  display: block;
+}
+#content div.pageNavigation.bottom {
+  border-bottom: none;
+  border-top: 1px solid #d3d3d3;
+  padding-top: 1.7em;
+  padding-bottom: 0.3em;
+  margin-bottom: 0.3em;
+}
+#content div.pageNavigation .emptyNext {
+  float: right;
+}
+#content div.pageNavigation a {
+  color: #000;
+  font-weight: bold;
+  line-height: 25px;
+}
+#content div.pageNavigation a.next {
+  float: right;
+}
+#content div.pageNavigation a.prev:before,
+#content div.pageNavigation a.next:before {
+  content: '';
+  width: 7px;
+  height: 25px;
+  display: block;
+  background: transparent url(img/page-navi-arrow.png) no-repeat 0 center;
+}
+#content div.pageNavigation a.next:before {
+  float: right;
+  margin-left: 10px;
+  background-position: 0 center;
+}
+#content div.pageNavigation a.next:hover:before {
+  background-position: -14px center;
+}
+#content div.pageNavigation a.prev:before {
+  float: left;
+  margin-right: 10px;
+  background-position: -7px center;
+}
+#content div.pageNavigation a.prev:hover:before {
+  background-position: -21px center;
 }
 /*# sourceMappingURL=style.css.map */

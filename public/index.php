@@ -114,7 +114,7 @@ foreach ($breadCrumb as $crumb) {
 }
 
 echo '</ul></nav></div></div>'
-    . '<div id="content">';
+    . '<div id="content"><div class="wrapper">';
 
 if ($isDemo) {
     $demoDirectory = $demosDirectory . '/' . $requestPath;
@@ -152,7 +152,7 @@ if ($isDemo) {
     } else {
         $previewFiles = array_merge(['script.php'], isset($demoData['previewFiles']) ? $demoData['previewFiles'] : []);
 
-        echo '<div class="setapdf-demo">'
+        echo '<div class="setapdf-demo' . (\count($previewFiles) > 1 ? ' extended' : '') . '">'
             . '<div class="run"><ul>';
 
         foreach ($previewFiles as $previewFile) {
@@ -181,8 +181,11 @@ if ($isDemo) {
                 default:
                     throw new Exception(sprintf('Unknown extension "%s".', $extension));
             }
+
             echo '<div class="step ' . $className . '">'
-                . '<div class="code"><ul class="buttons">'
+                . '<div class="code">'
+                . ($codemirrorLang === 'php' ? '<div class="phpInfo" title="The PHP source code that is executed by this demo.">PHP</div>' : '')
+                . '<ul class="buttons">'
                 . '<li><a href="#" class="copy"' . ($codemirrorLang === 'php' ? ' title="copy PHP code"' : '') . '>copy</a></li>'
                 . '</ul><pre class="code" data-lang="' . $codemirrorLang . '">'
                 . htmlspecialchars(file_get_contents($demoDirectory . '/' . $previewFile), ENT_QUOTES | ENT_HTML5)
@@ -194,10 +197,27 @@ if ($isDemo) {
             . '<iframe src="/demos/' . $requestPath . '/script.php" frameborder="0" style="width: 100%; height: 100%;">'
             . '</iframe>'
             . '</div>'
+            . '</div>';
+
+        echo '<div class="run bottom"><ul>';
+
+        foreach ($previewFiles as $previewFile) {
+            $className = md5($previewFile);
+            echo '<li>'
+                . '<a href="#' . $className . '" title="' . $previewFile . '">'
+                . '&#xF121; <span>' . $previewFile . '</span>'
+                . '</a>'
+                . '</li>';
+        }
+
+        echo '<li><a href="#execute" title="Run">&#xF04B; <span>Run</span></a></li>'
+            . '</ul>'
             . '</div>'
             . '</div>';
     }
 
+    echo '</div>';
+    echo '<div class="pageNavigation bottom"><a class="prev" href="#">Previous</a><a class="next" href="#">Next</a>';
     echo '</div>';
 } else {
     foreach (glob($demosDirectory . ($requestPath !== '' ? '/' . $requestPath : '') . '/*', GLOB_ONLYDIR) as $dir) {
@@ -215,7 +235,7 @@ if ($isDemo) {
 
         $hasIcon = file_exists($dir . '/icon.png');
 
-        echo '<div class="demoDirectory">';
+        echo '<div class="demoDirectory' . ($hasIcon ? ' withIcon' : '') . '">';
 
         if ($hasIcon) {
             echo '<a href="' . $path . '" title="' . htmlspecialchars($name, ENT_QUOTES | ENT_HTML5) . '">'
@@ -224,9 +244,9 @@ if ($isDemo) {
                 . '</a>';
         }
 
-        echo '<h3><a href="' . $path . '" title="' . htmlspecialchars($name, ENT_QUOTES | ENT_HTML5) . '">'
+        echo '<h2><a href="' . $path . '" title="' . htmlspecialchars($name, ENT_QUOTES | ENT_HTML5) . '">'
             . htmlspecialchars($name, ENT_QUOTES | ENT_HTML5)
-            . '</a></h3>'
+            . '</a></h2>'
             . '<p>' . htmlspecialchars($teaserText, ENT_QUOTES | ENT_HTML5) . '</p>'
             . '</div>';
     }
@@ -275,6 +295,7 @@ if ($isDemo) {
 
 $year = date('Y');
 echo <<<HTML
+</div>
 </div>
 <footer>
     <div class="wrapper">
