@@ -1,0 +1,7 @@
+{
+    "name": "Read metadata",
+    "teaserText": "Read metadata from a PDF document with PHP.",
+    "requires": [
+        "SetaPDF-Core"
+    ]
+}

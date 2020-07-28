@@ -30,7 +30,7 @@ echo <<<HTML
 <header>
     <div class="wrapper default">
         <h1>SetaPDF Demos</h1>
-        <a href="http://www.setasign.com"><img src="/layout/img/small-logo.png" class="companyLogo" /></a>
+        <a href="http://www.setasign.com"><img src="/layout/img/small-logo.png" class="companyLogo" alt="Logo"/></a>
     </div>
 </header>
 HTML;
@@ -136,6 +136,32 @@ if ($isDemo) {
         }
     }
 
+    $previousDemos = [];
+    $nextDemos = [];
+    $currentDemoFound = false;
+    foreach (glob(dirname($demoDirectory) . '/*/demo.json') as $actualDemo) {
+        $actualDemoDirectory = dirname($actualDemo);
+        $actualDemoData = json_decode(file_get_contents($actualDemo), true);
+        $actualDemoName = isset($actualDemoData['name']) ? $actualDemoData['name'] : basename($actualDemoDirectory);
+        $actualDemoPath = '/demo' . substr($actualDemoDirectory, strlen($demosDirectory));
+
+        if ($actualDemoDirectory === $demoDirectory) {
+            $currentDemoFound = true;
+        } elseif ($currentDemoFound) {
+            $nextDemos[] = [
+                'name' => $actualDemoName,
+                'path' => $actualDemoPath,
+            ];
+        } else {
+            $previousDemos[] = [
+                'name' => $actualDemoName,
+                'path' => $actualDemoPath
+            ];
+        }
+
+        unset($actualDemoDirectory, $actualDemoData, $actualDemoName, $actualDemoPath);
+    }
+
     echo '<div class="demo">'
         . (
             file_exists($demoDirectory . '/description.html')
@@ -217,8 +243,50 @@ if ($isDemo) {
     }
 
     echo '</div>';
-    echo '<div class="pageNavigation bottom"><a class="prev" href="#">Previous</a><a class="next" href="#">Next</a>';
-    echo '</div>';
+
+    echo '<div class="pageNavigation bottom">';
+    if (count($nextDemos) > 0) {
+        $nextDemo = array_shift($nextDemos);
+        echo '<span>'
+           . '<a href="' . $nextDemo['path'] . '" class="next" title="' . $nextDemo['name'] . '">'
+            . $nextDemo['name']
+            . '</a>';
+
+        /** @noinspection NotOptimalIfConditionsInspection */
+        if (count($nextDemos) > 0) {
+            echo '<div class="others"><ul>';
+            foreach ($nextDemos as $nextDemo) {
+                echo '<li><a href="' . $nextDemo['path'] . '">' . $nextDemo['name'] . '</a></li>';
+            }
+            echo '</ul></div>';
+        }
+        echo '</span>';
+    } else {
+        echo '<span class="emptyNext">&nbsp;</span>';
+    }
+
+    if (count($previousDemos) > 0) {
+        $previousDemo = array_pop($previousDemos);
+        echo '<span>'
+            . '<a href="' . $previousDemo['path'] . '" class="prev" title="' . $previousDemo['name'] . '">'
+            . $previousDemo['name']
+            . '</a>';
+
+        /** @noinspection NotOptimalIfConditionsInspection */
+        if (count($previousDemos) > 0) {
+            echo '<div class="others"><ul>';
+            foreach ($previousDemos as $previousDemo) {
+                echo '<li><a href="' . $previousDemo['path'] . '">' . $previousDemo['name'] . '</a></li>';
+            }
+            echo '</ul></div>';
+        }
+
+        echo '</span>';
+    } else {
+        echo '<span class="emptyPrev">&nbsp;</span>';
+    }
+    echo '</div>'
+        . '</div>';
 } else {
     foreach (glob($demosDirectory . ($requestPath !== '' ? '/' . $requestPath : '') . '/*', GLOB_ONLYDIR) as $dir) {
         if (file_exists($dir . '/demo.json')) {
@@ -231,8 +299,7 @@ if ($isDemo) {
 
         $name = isset($metaData['name']) ? $metaData['name'] : basename($dir);
         $teaserText = isset($metaData['teaserText']) ? $metaData['teaserText'] : '';
-        $path = ($requestPath !== '' ? '/' . $requestPath : '') . '/' . basename($dir);
-
+        $path = substr($dir, strlen($demosDirectory));
         $hasIcon = file_exists($dir . '/icon.png');
 
         echo '<div class="demoDirectory' . ($hasIcon ? ' withIcon' : '') . '">';
@@ -259,7 +326,7 @@ if ($isDemo) {
         $teaserText = isset($demoData['teaserText']) ? $demoData['teaserText'] : '';
         $requires = isset($demoData['requires']) ? $demoData['requires'] : [];
         $hasIcon = file_exists($demoDirectory . '/icon.png');
-        $path = '/demo' . ($requestPath !== '' ? '/' . $requestPath : '') . '/' . basename($demoDirectory);
+        $path = '/demo' . substr($demoDirectory, strlen($demosDirectory));
 
         $hasAllRequires = true;
         $missingRequires = [];
