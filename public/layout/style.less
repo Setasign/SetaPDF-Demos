@@ -133,6 +133,8 @@ footer
 }
 #content
 {
+    padding: 22px;
+
     p, ul, ol, pre {
         margin-bottom: 15px;
     }
@@ -345,7 +347,11 @@ footer
 
     div.demoTeaser
     {
-        width: 50%;
+        //width: 50%;
+        width: 44%;
+        margin-left: 3%;
+        margin-right: 3%;
+        min-height: 90px;
         float: left;
         border-top: 1px solid @thin-border-color;
         padding-top: 1.3em;
@@ -640,6 +646,48 @@ footer
             &.prev:hover:before {
                 background-position: -21px center;
             }
+        }
+
+        .others {
+            position: absolute;
+            display: none;
+            top: (34px);
+            z-index: 10;
+            width: 250px;
+            padding: 0 20px;
+
+            ul {
+                background-color: #FAFAFA !important;
+                list-style: none !important;
+                line-height: 20px !important;
+
+                margin: 0 0 !important;
+                padding: 0 5px !important;
+                width: 100% !important;
+                .shadow(2px, 3px, 2px, 0, #777);
+
+                li {
+                    margin: 5px 0 !important;
+                }
+
+                a {
+                    font-weight: normal;
+                    font-size: 14px;
+                }
+            }
+        }
+
+        &.bottom .others {
+            top: (44px);
+        }
+
+        a.next + .others {
+            right: 0;
+            text-align: right;
+        }
+
+        span:hover .others {
+            display: block;
         }
     }
 }

@@ -114,6 +114,9 @@ footer .copyright {
 footer .copyright {
   float: left;
 }
+#content {
+  padding: 22px;
+}
 #content p,
 #content ul,
 #content ol,
@@ -308,7 +311,10 @@ footer .copyright {
   cursor: not-allowed;
 }
 #content div.demoTeaser {
-  width: 50%;
+  width: 44%;
+  margin-left: 3%;
+  margin-right: 3%;
+  min-height: 90px;
   float: left;
   border-top: 1px solid #d3d3d3;
   padding-top: 1.3em;
@@ -536,5 +542,41 @@ footer .copyright {
 }
 #content div.pageNavigation a.prev:hover:before {
   background-position: -21px center;
+}
+#content div.pageNavigation .others {
+  position: absolute;
+  display: none;
+  top: 34px;
+  z-index: 10;
+  width: 250px;
+  padding: 0 20px;
+}
+#content div.pageNavigation .others ul {
+  background-color: #FAFAFA !important;
+  list-style: none !important;
+  line-height: 20px !important;
+  margin: 0 0 !important;
+  padding: 0 5px !important;
+  width: 100% !important;
+  -moz-box-shadow: 2px 3px 2px 0 #777;
+  -webkit-box-shadow: 2px 3px 2px 0 #777;
+  box-shadow: 2px 3px 2px 0 #777;
+}
+#content div.pageNavigation .others ul li {
+  margin: 5px 0 !important;
+}
+#content div.pageNavigation .others ul a {
+  font-weight: normal;
+  font-size: 14px;
+}
+#content div.pageNavigation.bottom .others {
+  top: 44px;
+}
+#content div.pageNavigation a.next + .others {
+  right: 0;
+  text-align: right;
+}
+#content div.pageNavigation span:hover .others {
+  display: block;
 }
 /*# sourceMappingURL=style.css.map */
