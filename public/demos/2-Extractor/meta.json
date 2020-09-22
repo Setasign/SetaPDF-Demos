@@ -1,4 +1,5 @@
 {
     "name": "SetaPDF-Extractor",
-    "teaserText": "Demos of the SetaPDF-Extractor component."
+    "teaserText": "Extract text and words with their coordinates in PDF documents with the SetaPDF-Extractor component.",
+    "requires": ["SetaPDF-Core", "SetaPDF-Extractor"]
 }

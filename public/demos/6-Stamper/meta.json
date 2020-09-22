@@ -1,4 +1,5 @@
 {
     "name": "SetaPDF-Stamper",
-    "teaserText": "Demos of the SetaPDF-Stamper component."
+    "teaserText": "Add new content to existing PDF documents without changing their internal structure or loosing any functionality.",
+    "requires": ["SetaPDF-Core", "SetaPDF-Stamper"]
 }

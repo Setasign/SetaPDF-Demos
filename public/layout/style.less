@@ -2,13 +2,31 @@
 @import "fonts/fontawesome-free-5.13.1/less/solid.css";
 
 @font-face {
-    font-family: "Noto Serif";
-    src: url("fonts/NotoSerif/NotoSerif-Regular.ttf");
+    font-family: "PT Serif";
+    src: url("fonts/PT_Serif/PTSerif-Regular.ttf");
+}
+
+@font-face {
+    font-family: "PT Serif";
+    src: url("fonts/PT_Serif/PTSerif-Bold.ttf");
+    font-weight: bold;
+}
+
+@font-face{
+    font-family: 'Source Code Pro';
+    font-weight: 400;
+    font-style: normal;
+    font-stretch: normal;
+    src: url('fonts/SourceCodePro/SourceCodePro-Regular.eot') format('embedded-opentype'),
+    url('fonts/SourceCodePro/SourceCodePro-Regular.ttf.woff2') format('woff2'),
+    url('fonts/SourceCodePro/SourceCodePro-Regular.otf.woff') format('woff'),
+    url('fonts/SourceCodePro/SourceCodePro-Regular.otf') format('opentype'),
+    url('fonts/SourceCodePro/SourceCodePro-Regular.ttf') format('truetype');
 }
 
 body
 {
-    font-family: "Noto Serif";
+    font-family: "PT Serif";
     background-color: #f4f4f4;
     -moz-font-feature-settings: "lnum";
     -webkit-font-feature-settings: "lnum";
@@ -26,16 +44,16 @@ body
 
 h1, h2, h3, h4, h5, h6, p, ul, ol, dl
 {
+    font-family: "PT Serif";
     margin: 0;
-    font-family: "Noto Serif";
     word-wrap: break-word;
 }
 
 a
 {
+    font-family: "PT Serif";
     color: @orange-color;
     text-decoration: none;
-    font-family: "Noto Serif";
 }
 
 header {
@@ -117,7 +135,7 @@ header {
 
 footer
 {
-    font-family: "Noto Serif";
+    font-family: "PT Serif";
     font-size: 14px;
     clear: both;
     border-top: 1px solid @thin-border-color;
@@ -160,15 +178,7 @@ footer
         color: @green-color;
         font-size: 32px;
         line-height: 36px;
-
-        span {
-            font-weight: normal;
-            color: #6e6f71;
-            /*font-size: .45em;*/
-            font-size: 15px;
-            margin-left: 10px;
-            margin-right: 10px;
-        }
+        margin-bottom: 8px;
 
         & + p {
             margin-top: 8px;
@@ -204,8 +214,8 @@ footer
         padding: 5px 0 10px 0;
 
         background-color: #fff;
+        font-family: "PT Serif";
         font-size: 14px;
-        font-family: "Noto Serif";
         line-height: 2em;
         list-style-position: outside;
 
@@ -255,6 +265,13 @@ footer
                 line-height: 20px;
                 text-align: center;
                 text-shadow: 1px 2px 1px rgba(187,127,0,.75);
+
+                &:hover,
+                &:active {
+                    -moz-box-shadow: 0 2px 2px #777;
+                    -webkit-box-shadow: 0 2px 2px #777;
+                    box-shadow: 0 2px 2px #777;
+                }
             }
         }
     }
@@ -295,73 +312,82 @@ footer
 
         .demoTabPanel {
             border-left: 2px solid #DDDDDD;
+            border-bottom: 2px solid #DDDDDD;
 
             background-color: #fff;
-            padding: 9px 9px 0 9px;
+            padding: 9px;
             margin-bottom: 0 !important;
 
-            & > div.step
-            {
+            & > div.step {
                 min-height: 220px;
+
+                &.execute {
+                    font-size: 0;
+                }
             }
 
             button.run {
                 float: none;
             }
 
-            pre.code {
-                border: 0 !important;
-                padding-left: 0 !important;
-                max-height: 600px;
-                margin-bottom: 0;
-            }
-
-            iframe {
-                border: none;
+            pre.code, iframe {
+                border: 0;
                 margin: 0;
                 padding: 0;
-                width: 100%;
+                max-height: 600px;
                 min-height: 600px;
+                width: 100%;
             }
+        }
+    }
 
-            label.inline {
-                float: none;
-                display: inline;
-            }
+    div.demoTeaserWrapper, div.directoriesWrapper {
+        display:flex;
+        flex-direction:row;
+        flex-wrap: wrap;
+    }
 
-            .button.disabled {
-                background-color: #c4c4c4;
-                border-color: #c4c4c4;
-                color: #E5E5E5;
-                text-shadow: 1px 2px 1px rgba(159, 159, 159, 0.74);
+    div.demoTeaser,
+    div.demoDirectory
+    {
+        width: 47%;
+        &:nth-child(odd) {
+            margin-right: 3%;
+        }
 
-                &:hover {
-                    -moz-box-shadow: none;
-                    -webkit-box-shadow: none;
-                    box-shadow: none;
-                    cursor: not-allowed;
-                }
-            }
+        &:nth-child(even) {
+            margin-left: 3%;
         }
     }
 
     div.demoTeaser
     {
-        //width: 50%;
-        width: 44%;
-        margin-left: 3%;
-        margin-right: 3%;
         min-height: 90px;
-        float: left;
         border-top: 1px solid @thin-border-color;
         padding-top: 1.3em;
 
-        img {
+        img, a.teaserIcon {
+            display: block;
             float: left;
             width: 58px;
             height: 58px;
             border: 1px solid #c6c6c6;
             margin: 0 18px 30px 0;
+        }
+
+        a.teaserIcon {
+            background-color: #fff !important;
+            &:after {
+                display: block;
+                width: 100%;
+                height: 100%;
+                text-align: center;
+                line-height: 58px;
+                color: @thin-border-color;
+                content: attr(data-faIcon); // \f121
+                font-family: "Font Awesome 5 Free";
+                font-size: 28px;
+            }
         }
 
         h3 {
@@ -376,6 +402,44 @@ footer
             background-color: transparent !important;
             clear: none !important;
         }
+    }
+
+    div.demoDirectory
+    {
+        img, a.teaserIcon {
+            display: block;
+            float: left;
+            width: 200px;
+            height: 200px;
+            margin: 0 18px 30px 0;
+        }
+
+        a.teaserIcon {
+            border: 1px solid #c6c6c6;
+            background-color: #fff !important;
+            &:after {
+                display: block;
+                width: 100%;
+                height: 100%;
+                text-align: center;
+                line-height: 200px;
+                color: @thin-border-color;
+                content: attr(data-faIcon); // \f07c
+                font-family: "Font Awesome 5 Free";
+                font-size: 140px;
+            }
+        }
+    }
+
+    .missingRequire a {
+        color: gray;
+    }
+
+    .missingRequireTip {
+        font-family: "Font Awesome 5 Free";
+        font-size: 16px;
+        cursor: help;
+        color: gray;
     }
 
     div.run
@@ -415,7 +479,7 @@ footer
 
             span {
                 display: inline-block;
-                font-family: "Noto Serif";
+                font-family: "PT Serif";
                 font-size: 90%;
                 line-height: 100%;
             }
@@ -428,12 +492,9 @@ footer
         }
 
         a.disabled {
-            height: 28px;
-            margin-top: 7px;
             background-color: #e8e8e8;
             color: #d9d9d9;
             cursor: not-allowed;
-            line-height: 26px;
 
             &:hover {
                 color: #d9d9d9;
@@ -525,7 +586,7 @@ footer
             position: absolute;
             right: 0;
             top: -20px;
-            font-family: source-code-pro;
+            font-family: 'Source Code Pro';
             font-style: italic;
             color: #c4c4c4;
         }
@@ -534,7 +595,7 @@ footer
     pre.code
     {
         border-left: 2px solid #DDDDDD;
-        font-family: "Courier New";
+        font-family: 'Source Code Pro';
         padding: 9px;
         font-weight: normal;
         font-size: 0.9em;
@@ -555,22 +616,6 @@ footer
         padding-top: 0;
     }
 
-    .demoDirectory
-    {
-        clear: both;
-
-        &.withIcon {
-            //width: 50%;
-            //margin: 0 auto;
-        }
-
-
-        img {
-            float: left;
-            width: 160px;
-        }
-    }
-
     div.pageNavigation
     {
         position: relative;
@@ -578,8 +623,6 @@ footer
         font-size: 14px;
         vertical-align: center;
 
-        margin-left: @default-offset;
-        margin-right: @default-offset;
         border-bottom: 1px solid @thin-border-color;
         padding-top: 1em;
         padding-bottom: 1.7em;
@@ -592,6 +635,7 @@ footer
             border-top: 1px solid @thin-border-color;
             padding-top: 1.7em;
             padding-bottom: .3em;
+            margin-top: 1.7em;
             margin-bottom: .3em;
         }
 

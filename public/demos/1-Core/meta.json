@@ -1,4 +1,4 @@
 {
     "name": "SetaPDF-Core",
-    "teaserText": "Demos of the SetaPDF-Core component."
+    "teaserText": "The SetaPDF-Core component is the root of all other SetaPDF components. See how you can interact with PDF documents on a low level in pure PHP."
 }

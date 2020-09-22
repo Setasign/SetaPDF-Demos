@@ -36,7 +36,6 @@ echo <<<HTML
 HTML;
 
 $demosDirectory = __DIR__ . '/demos';
-$route = null;
 $isDemo = false;
 $pathInfo = isset($_SERVER['PATH_INFO']) ? $_SERVER['PATH_INFO'] : '';
 if (strpos($pathInfo, '/demo/') === 0) {
@@ -74,7 +73,7 @@ if (class_exists(SetaPDF_Stamper::class)) {
 
 
 echo '<div id="breadcrumb"><div class="wrapper">'
-    . '<nav><ul itemscope itemtype="http://data-vocabulary.org/Breadcrumb">';
+    . '<nav><ul>';
 
 $breadCrumb = [
     ['path' => '/', 'text' => 'Demos']
@@ -163,84 +162,82 @@ if ($isDemo) {
     }
 
     echo '<div class="demo">'
+        . '<h2>' . htmlentities($name, ENT_QUOTES, "UTF-8") . '</h2>'
         . (
             file_exists($demoDirectory . '/description.html')
             ? file_get_contents($demoDirectory . '/description.html')
             : ''
         );
 
+    $previewFiles = array_merge(['script.php'], isset($demoData['previewFiles']) ? $demoData['previewFiles'] : []);
+
+    echo '<div class="setapdf-demo' . (\count($previewFiles) > 1 ? ' extended' : '') . '">'
+        . '<div class="run"><ul>';
+
+    foreach ($previewFiles as $previewFile) {
+        $className = md5($previewFile);
+        echo '<li>'
+            . '<a href="#' . $className . '" title="' . $previewFile . '">'
+            . '&#xF121; <span>' . $previewFile . '</span>'
+            . '</a>'
+            . '</li>';
+    }
+
+    $runTitle = 'Run';
     if (!$hasAllRequires) {
-        echo '<p class="missingRequires"><h4>Missing requires</h4><ul>';
-        foreach ($missingRequires as $missingRequire) {
-            echo '<li>' . $missingRequire . '</li>';
-        }
-        echo '</ul></p>';
-    } else {
-        $previewFiles = array_merge(['script.php'], isset($demoData['previewFiles']) ? $demoData['previewFiles'] : []);
+        $runTitle = 'To execute this demo following dependencies are missing: ' . implode(', ', $missingRequires);
+    }
+    echo '<li><a href="#execute" title="' . $runTitle . '"' . ($hasAllRequires ? '' : ' class="disabled"')
+        . '>&#xF04B; <span>Run</span></a></li>'
+        . '</ul></div>'
+        . '<div class="demoTabPanel">';
 
-        echo '<div class="setapdf-demo' . (\count($previewFiles) > 1 ? ' extended' : '') . '">'
-            . '<div class="run"><ul>';
-
-        foreach ($previewFiles as $previewFile) {
-            $className = md5($previewFile);
-            echo '<li>'
-                . '<a href="#' . $className . '" title="' . $previewFile . '">'
-                . '&#xF121; <span>' . $previewFile . '</span>'
-                . '</a>'
-                . '</li>';
-        }
-
-        echo '<li><a href="#execute" title="Run">&#xF04B; <span>Run</span></a></li>'
-            . '</ul></div>'
-            . '<div class="demoTabPanel">';
-
-        foreach ($previewFiles as $previewFile) {
-            $className = md5($previewFile);
-            $extension = strtolower(pathinfo($demoDirectory . '/' . $previewFile, PATHINFO_EXTENSION));
-            switch ($extension) {
-                case 'php':
-                    $codemirrorLang = 'php';
-                    break;
-                case 'js':
-                    $codemirrorLang = 'javascript';
-                    break;
-                default:
-                    throw new Exception(sprintf('Unknown extension "%s".', $extension));
-            }
-
-            echo '<div class="step ' . $className . '">'
-                . '<div class="code">'
-                . ($codemirrorLang === 'php' ? '<div class="phpInfo" title="The PHP source code that is executed by this demo.">PHP</div>' : '')
-                . '<ul class="buttons">'
-                . '<li><a href="#" class="copy"' . ($codemirrorLang === 'php' ? ' title="copy PHP code"' : '') . '>copy</a></li>'
-                . '</ul><pre class="code" data-lang="' . $codemirrorLang . '">'
-                . htmlspecialchars(file_get_contents($demoDirectory . '/' . $previewFile), ENT_QUOTES | ENT_HTML5)
-                . '</pre></div>'
-                . '</div>';
+    foreach ($previewFiles as $previewFile) {
+        $className = md5($previewFile);
+        $extension = strtolower(pathinfo($demoDirectory . '/' . $previewFile, PATHINFO_EXTENSION));
+        switch ($extension) {
+            case 'php':
+                $codemirrorLang = 'php';
+                break;
+            case 'js':
+                $codemirrorLang = 'javascript';
+                break;
+            default:
+                throw new Exception(sprintf('Unknown extension "%s".', $extension));
         }
 
-        echo '<div class="step execute">'
-            . '<iframe src="/demos/' . $requestPath . '/script.php" frameborder="0" style="width: 100%; height: 100%;">'
-            . '</iframe>'
-            . '</div>'
-            . '</div>';
-
-        echo '<div class="run bottom"><ul>';
-
-        foreach ($previewFiles as $previewFile) {
-            $className = md5($previewFile);
-            echo '<li>'
-                . '<a href="#' . $className . '" title="' . $previewFile . '">'
-                . '&#xF121; <span>' . $previewFile . '</span>'
-                . '</a>'
-                . '</li>';
-        }
-
-        echo '<li><a href="#execute" title="Run">&#xF04B; <span>Run</span></a></li>'
-            . '</ul>'
-            . '</div>'
+        echo '<div class="step ' . $className . '">'
+            . '<div class="code">'
+            . ($codemirrorLang === 'php' ? '<div class="phpInfo" title="The PHP source code that is executed by this demo.">PHP</div>' : '')
+            . '<ul class="buttons">'
+            . '<li><a href="#" class="copy"' . ($codemirrorLang === 'php' ? ' title="copy PHP code"' : '') . '>copy</a></li>'
+            . '</ul><pre class="code" data-lang="' . $codemirrorLang . '">'
+            . htmlspecialchars(file_get_contents($demoDirectory . '/' . $previewFile), ENT_QUOTES | ENT_HTML5)
+            . '</pre></div>'
             . '</div>';
     }
+
+    echo '<div class="step execute">'
+        . '<iframe src="/demos/' . $requestPath . '/script.php" frameborder="0" style="width: 100%; height: 100%;">'
+        . '</iframe>'
+        . '</div>'
+        . '</div>';
+
+    echo '<div class="run bottom"><ul>';
+
+    foreach ($previewFiles as $previewFile) {
+        $className = md5($previewFile);
+        echo '<li>'
+            . '<a href="#' . $className . '" title="' . $previewFile . '">'
+            . '&#xF121; <span>' . $previewFile . '</span>'
+            . '</a>'
+            . '</li>';
+    }
+
+    echo '<li><a href="#execute" title="Run"' . ($hasAllRequires ? '' : ' class="disabled"') . '>&#xF04B; <span>Run</span></a></li>'
+        . '</ul>'
+        . '</div>'
+        . '</div>';
 
     echo '</div>';
 
@@ -288,6 +285,12 @@ if ($isDemo) {
     echo '</div>'
         . '</div>';
 } else {
+
+    if (isset($metaData['longText']) || isset($metaData['teaserText'])) {
+        echo isset($metaData['longText']) ? $metaData['longText'] : ('<p>' . $metaData['teaserText'] . '</p>');
+    }
+
+    echo '<div class="directoriesWrapper">';
     foreach (glob($demosDirectory . ($requestPath !== '' ? '/' . $requestPath : '') . '/*', GLOB_ONLYDIR) as $dir) {
         if (file_exists($dir . '/demo.json')) {
             continue;
@@ -299,24 +302,45 @@ if ($isDemo) {
 
         $name = isset($metaData['name']) ? $metaData['name'] : basename($dir);
         $teaserText = isset($metaData['teaserText']) ? $metaData['teaserText'] : '';
+        $longText = isset($metaData['longText']) ? $metaData['longText'] : '';
         $path = substr($dir, strlen($demosDirectory));
+        $requires = isset($metaData['requires']) ? $metaData['requires'] : [];
         $hasIcon = file_exists($dir . '/icon.png');
+        $faIcon = isset($metaData['faIcon']) ? $metaData['faIcon'] : '&#xf07c;';
 
-        echo '<div class="demoDirectory' . ($hasIcon ? ' withIcon' : '') . '">';
+        $missingRequires = [];
+        foreach ($requires as $require) {
+            if (!in_array($require, $availablePackages, true)) {
+                $missingRequires[] = $require;
+            }
+        }
+
+        echo '<div class="demoDirectory' . (count($missingRequires) > 0 ? ' missingRequire' : '') . '">';
 
         if ($hasIcon) {
             echo '<a href="' . $path . '" title="' . htmlspecialchars($name, ENT_QUOTES | ENT_HTML5) . '">'
                 . '<img alt="Demo Icon" src="data:image/png;base64,'
                     . base64_encode(file_get_contents($dir . '/icon.png')) . '"/>'
                 . '</a>';
+        } else {
+            echo '<a href="' . $path . '" title="' . htmlspecialchars($name, ENT_QUOTES | ENT_HTML5)
+                . '" class="teaserIcon" data-faIcon="' . $faIcon . '"></a>';
         }
 
         echo '<h2><a href="' . $path . '" title="' . htmlspecialchars($name, ENT_QUOTES | ENT_HTML5) . '">'
             . htmlspecialchars($name, ENT_QUOTES | ENT_HTML5)
-            . '</a></h2>'
+            . '</a>';
+        if (count($missingRequires) > 0) {
+            $tip = 'To execute this demo following dependencies are missing: ' . implode(', ', $missingRequires);
+            echo ' <span class="missingRequireTip" title="' . htmlspecialchars($tip, ENT_QUOTES | ENT_HTML5) . '">&#xf05a;</span>';
+        }
+        echo '</h2>'
             . '<p>' . htmlspecialchars($teaserText, ENT_QUOTES | ENT_HTML5) . '</p>'
             . '</div>';
     }
+    echo '</div>';
+
+    echo '<div class="demoTeaserWrapper">';
 
     /** @noinspection LowPerformingFilesystemOperationsInspection */
     foreach (glob($demosDirectory . ($requestPath !== '' ? '/' . $requestPath : '') . '/*/demo.json') as $demo) {
@@ -328,36 +352,38 @@ if ($isDemo) {
         $hasIcon = file_exists($demoDirectory . '/icon.png');
         $path = '/demo' . substr($demoDirectory, strlen($demosDirectory));
 
-        $hasAllRequires = true;
         $missingRequires = [];
         foreach ($requires as $require) {
             if (!in_array($require, $availablePackages, true)) {
-                $hasAllRequires = false;
                 $missingRequires[] = $require;
             }
         }
 
-        echo '<div class="demoTeaser' . (!$hasAllRequires ? ' missingRequire' : '') . '">';
+        echo '<div class="demoTeaser' . (count($missingRequires) > 0 ? ' missingRequire' : '') . '">';
         if ($hasIcon) {
             echo '<a href="' . $path . '" title="' . htmlspecialchars($name, ENT_QUOTES | ENT_HTML5) . '">'
                 . '<img alt="Demo Icon" src="data:image/png;base64,'
                 . base64_encode(file_get_contents($demoDirectory . '/icon.png')) . '"/>'
                 . '</a>';
+        } else {
+            echo '<a href="' . $path . '" title="' . htmlspecialchars($name, ENT_QUOTES | ENT_HTML5) . '" class="teaserIcon">'
+                . '</a>';
         }
 
         echo '<h3><a href="' . $path . '" title="' . htmlspecialchars($name, ENT_QUOTES | ENT_HTML5) . '">'
             . htmlspecialchars($name, ENT_QUOTES | ENT_HTML5)
-            . '</a></h3>'
-            . '<p>' . htmlspecialchars($teaserText, ENT_QUOTES | ENT_HTML5) . '</p>';
-        if (!$hasAllRequires) {
-            echo '<p class="missingRequires"><h4>Missing requires</h4><ul>';
-            foreach ($missingRequires as $missingRequire) {
-                echo '<li>' . $missingRequire . '</li>';
-            }
-            echo '</ul></p>';
+            . '</a>';
+
+        if (count($missingRequires) > 0) {
+            $tip = 'To execute this demo following dependencies are missing: ' . implode(', ', $missingRequires);
+            echo ' <span class="missingRequireTip" title="' . htmlspecialchars($tip, ENT_QUOTES | ENT_HTML5) . '">&#xf05a;</span>';
         }
+
+        echo '</h3>';
+        echo '<p>' . htmlspecialchars($teaserText, ENT_QUOTES | ENT_HTML5) . '</p>';
         echo '</div>';
     }
+    echo '</div>';
 }
 
 $year = date('Y');
@@ -368,8 +394,7 @@ echo <<<HTML
     <div class="wrapper">
         <div class="copyright">
             ©{$year} Setasign GmbH &amp; Co. KG
-            · <a href="https://www.setasign.com/contact/">Contact / Imprint</a>
-            · <a href="https://www.setasign.com/data-privacy-statement/en/">Data Privacy Statement</a> (<a href="https://www.setasign.com/data-privacy-statement/de/">German</a>)
+            · <a href="https://www.setasign.com/contact/">Contact / Imprint</a>           
         </div>
     </div>
 </footer>

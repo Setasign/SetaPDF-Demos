@@ -1,4 +1,5 @@
 {
     "name": "SetaPDF-Merger",
-    "teaserText": "Demos of the SetaPDF-Merger component."
+    "teaserText": "See how to concatenate PDF documents in pure PHP. You also can create PDF Portfolios (aka PDF Packages or Collections) with the SetaPDF-Merger component.",
+    "requires": ["SetaPDF-Core", "SetaPDF-Merger"]
 }

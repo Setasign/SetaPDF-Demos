@@ -1,1 +1,1 @@
-{"version":3,"sources":["brands.less"],"names":[],"mappings":";;;;AAMA;EACE,aAAa,uBAAb;EACA,kBAAA;EACA,gBAAA;EACA,mBAAA;EACA,SAAS,gCAAT;EACA,SAAS,wCAA4C,OAAO,0BACtD,mCAAuC,OAAO,cAC9C,kCAAsC,OAAO,aAC7C,iCAAqC,OAAO,iBAC5C,6CAAiD,OAAO,MAJ9D;;AAOF;EACE,aAAa,uBAAb;EACA,gBAAA","file":"brands.css"}
+{"version":3,"sources":["$stdin","brands.less"],"names":[],"mappings":";;;AACA,WACE,YAAa,wBACb,WAAY,OCGZ,YAAa,IACb,aAAa,MACb,IAAA,mCACA,IAAA,0CAAA,4BAAA,qCAAA,gBAAA,oCAAA,eAAA,mCAAA,mBAAA,+CAAA,cAEA,KACS,YAA4C,wBDDrD,YAAa"}

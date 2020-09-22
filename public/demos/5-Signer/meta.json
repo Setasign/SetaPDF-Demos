@@ -1,4 +1,5 @@
 {
     "name": "SetaPDF-Signer",
-    "teaserText": "Demos of the SetaPDF-Signer component."
+    "teaserText": "Digital sign PDF documents in pure PHP with the SetaPDF-Signer component. Check out different signature modules, appearances or how to implement external signature providers.",
+    "requires": ["SetaPDF-Core", "SetaPDF-Signer"]
 }
