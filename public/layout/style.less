@@ -277,7 +277,7 @@ footer
     }
 
     a[target^="_blank"]:after {
-        content: '\f08e';
+        content: '\f35d';
         font-family: "Font Awesome 5 Free";
         margin-left: 3px;
         font-size: 80%;
@@ -415,6 +415,8 @@ footer
         }
 
         a.teaserIcon {
+            width: 100px;
+            height: 100px;
             border: 1px solid #c6c6c6;
             background-color: #fff !important;
             &:after {
@@ -422,11 +424,11 @@ footer
                 width: 100%;
                 height: 100%;
                 text-align: center;
-                line-height: 200px;
+                line-height: 100px;
                 color: @thin-border-color;
                 content: attr(data-faIcon); // \f07c
                 font-family: "Font Awesome 5 Free";
-                font-size: 140px;
+                font-size: 80px;
             }
         }
     }
@@ -655,7 +657,7 @@ footer
 
             &:hover,
             &:active {
-                //color: @orange-color;
+                color: @orange-color;
             }
 
             &.next {

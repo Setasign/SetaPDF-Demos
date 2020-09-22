@@ -162,12 +162,13 @@ if ($isDemo) {
     }
 
     echo '<div class="demo">'
-        . '<h2>' . htmlentities($name, ENT_QUOTES, "UTF-8") . '</h2>'
-        . (
-            file_exists($demoDirectory . '/description.html')
-            ? file_get_contents($demoDirectory . '/description.html')
-            : ''
-        );
+        . '<h2>' . htmlentities($name, ENT_QUOTES, "UTF-8") . '</h2>';
+
+    if (file_exists($demoDirectory . '/description.html')) {
+        echo file_get_contents($demoDirectory . '/description.html');
+    } elseif (isset($demoData['teaserText'])) {
+        echo '<p>' . $demoData['teaserText'] . '</p>';
+    }
 
     $previewFiles = array_merge(['script.php'], isset($demoData['previewFiles']) ? $demoData['previewFiles'] : []);
 
@@ -288,8 +289,10 @@ if ($isDemo) {
 
     echo '<h2>' . (isset($metaData['name']) ? $metaData['name'] : $pathPart) . '</h2>';
 
-    if (isset($metaData['longText']) || isset($metaData['teaserText'])) {
-        echo isset($metaData['longText']) ? $metaData['longText'] : ('<p>' . $metaData['teaserText'] . '</p>');
+    if (file_exists($demosDirectory . '/' . $requestPath . '/description.html')) {
+        echo file_get_contents($demosDirectory . '/' . $requestPath . '/description.html');
+    } elseif (isset($metaData['teaserText'])) {
+        echo '<p>' . $metaData['teaserText'] . '</p>';
     }
 
     echo '<div class="directoriesWrapper">';
@@ -304,7 +307,6 @@ if ($isDemo) {
 
         $name = isset($metaData['name']) ? $metaData['name'] : basename($dir);
         $teaserText = isset($metaData['teaserText']) ? $metaData['teaserText'] : '';
-        $longText = isset($metaData['longText']) ? $metaData['longText'] : '';
         $path = substr($dir, strlen($demosDirectory));
         $requires = isset($metaData['requires']) ? $metaData['requires'] : [];
         $hasIcon = file_exists($dir . '/icon.png');
@@ -369,8 +371,8 @@ if ($isDemo) {
                 . base64_encode(file_get_contents($demoDirectory . '/icon.png')) . '"/>'
                 . '</a>';
         } else {
-            echo '<a href="' . $path . '" title="' . htmlspecialchars($name, ENT_QUOTES | ENT_HTML5) . '" class="teaserIcon" data-faIcon="' . $faIcon . '">'
-                . '</a>';
+            echo '<a href="' . $path . '" title="' . htmlspecialchars($name, ENT_QUOTES | ENT_HTML5)
+                . '" class="teaserIcon" data-faIcon="' . $faIcon . '"></a>';
         }
 
         echo '<h3><a href="' . $path . '" title="' . htmlspecialchars($name, ENT_QUOTES | ENT_HTML5) . '">'
