@@ -286,6 +286,8 @@ if ($isDemo) {
         . '</div>';
 } else {
 
+    echo '<h2>' . (isset($metaData['name']) ? $metaData['name'] : $pathPart) . '</h2>';
+
     if (isset($metaData['longText']) || isset($metaData['teaserText'])) {
         echo isset($metaData['longText']) ? $metaData['longText'] : ('<p>' . $metaData['teaserText'] . '</p>');
     }
@@ -351,6 +353,7 @@ if ($isDemo) {
         $requires = isset($demoData['requires']) ? $demoData['requires'] : [];
         $hasIcon = file_exists($demoDirectory . '/icon.png');
         $path = '/demo' . substr($demoDirectory, strlen($demosDirectory));
+        $faIcon = isset($demoData['faIcon']) ? $demoData['faIcon'] : '&#xf121;';
 
         $missingRequires = [];
         foreach ($requires as $require) {
@@ -366,7 +369,7 @@ if ($isDemo) {
                 . base64_encode(file_get_contents($demoDirectory . '/icon.png')) . '"/>'
                 . '</a>';
         } else {
-            echo '<a href="' . $path . '" title="' . htmlspecialchars($name, ENT_QUOTES | ENT_HTML5) . '" class="teaserIcon">'
+            echo '<a href="' . $path . '" title="' . htmlspecialchars($name, ENT_QUOTES | ENT_HTML5) . '" class="teaserIcon" data-faIcon="' . $faIcon . '">'
                 . '</a>';
         }
 
