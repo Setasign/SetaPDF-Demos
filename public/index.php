@@ -398,12 +398,10 @@ echo <<<HTML
 <footer>
     <div class="wrapper">
         <div class="copyright">
-            ©{$year} Setasign GmbH &amp; Co. KG
-            · <a href="https://www.setasign.com/contact/">Contact / Imprint</a>           
+            ©{$year} <a href="https://www.setasign.com/">Setasign GmbH &amp; Co. KG</a>
         </div>
     </div>
 </footer>
-<a href="#head" id="up"><i class="fa fa-arrow-circle-up"></i></a>
 <script type="text/javascript" src="/js/script.js"></script>
 </body>
 </html>
