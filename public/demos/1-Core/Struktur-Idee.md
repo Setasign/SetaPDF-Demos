@@ -4,7 +4,7 @@
 - ~~Delete JavaScript~~
 
 ## Analyze:
-- Check for Digital Signatures
+- ~~Check for Digital Signatures~~
 - Check for Text
 - Check for Transparency
 - Get Color Spaces

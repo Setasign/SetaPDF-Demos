@@ -8,7 +8,7 @@ require_once __DIR__ . '/../../../../bootstrap.php';
 
 date_default_timezone_set('Europe/Berlin');
 
-$fileToSign = $assetDirectory . '/pdfs/tektown/Laboratory-Report.pdf';
+$fileToSign = $assetsDirectory . '/pdfs/tektown/Laboratory-Report.pdf';
 
 // for demonstration purpose we use a session for state handling
 // in a production environment you may use a more reasonable solution

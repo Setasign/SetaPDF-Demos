@@ -1,0 +1,6 @@
+{
+    "name": "Check for text",
+    "teaserText": "Check whether text is output on a page or not.",
+    "faIcon": "&#xf1dd;",
+    "previewFiles": ["TextProcessor.php"]
+}

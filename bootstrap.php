@@ -12,5 +12,5 @@ require_once __DIR__ . '/vendor/autoload.php';
 
 
 session_start();
-$assetDirectory = __DIR__ . '/assets';
+$assetsDirectory = __DIR__ . '/assets';
 $sessionFiles = isset($_SESSION['files']) ? $_SESSION['files'] : [];

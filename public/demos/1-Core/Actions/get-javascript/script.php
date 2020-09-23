@@ -4,7 +4,7 @@
 require_once('../../../../../bootstrap.php');
 
 // list some files
-$files = glob($assetDirectory . '/pdfs/*.pdf');
+$files = glob($assetsDirectory . '/pdfs/*.pdf');
 if (!isset($_GET['f']) || !in_array($_GET['f'], $files)) {
     header("Content-Type: text/html; charset=utf-8");
     foreach ($files AS $path) {

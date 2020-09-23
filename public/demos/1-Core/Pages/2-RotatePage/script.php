@@ -3,9 +3,9 @@
 require_once __DIR__ . '/../../../../../bootstrap.php';
 
 $files = array_merge([
-    $assetDirectory . '/pdfs/Brand-Guide.pdf',
-    $assetDirectory . '/pdfs/camtown/Terms-and-Conditions.pdf',
-    $assetDirectory . '/pdfs/etown/Laboratory-Report.pdf',
+    $assetsDirectory . '/pdfs/Brand-Guide.pdf',
+    $assetsDirectory . '/pdfs/camtown/Terms-and-Conditions.pdf',
+    $assetsDirectory . '/pdfs/etown/Laboratory-Report.pdf',
 ], $sessionFiles);
 
 if (!isset($_GET['f']) || !in_array($_GET['f'], $files)) {

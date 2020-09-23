@@ -1,4 +1,5 @@
 {
+    "name": "Analyze",
     "teaserText": "Analyze a PDF document for specific properties, such as e.g. encryption, text, images, fonts, colors or digital signatures, or...",
     "faIcon": "&#xf5da;"
 }
