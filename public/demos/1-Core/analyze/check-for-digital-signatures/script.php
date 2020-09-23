@@ -23,6 +23,8 @@ if (!isset($_GET['f']) || !in_array($_GET['f'], $files, true)) {
 $document = SetaPDF_Core_Document::loadByFilename($_GET['f']);
 $terminalFields = $document->getCatalog()->getAcroForm()->getTerminalFieldsObjects();
 
+$signatureFieldFound = false;
+
 foreach ($terminalFields AS $fieldData) {
     $fieldData = $fieldData->ensure();
 
@@ -33,6 +35,7 @@ foreach ($terminalFields AS $fieldData) {
 
     $fieldName = SetaPDF_Core_Document_Catalog_AcroForm::resolveFieldName($fieldData);
     echo sprintf('Signature Field "%s" found! ', $fieldName);
+    $signatureFieldFound = true;
 
     $v = SetaPDF_Core_Type_Dictionary_Helper::resolveAttribute($fieldData, 'V');
     if (!$v || !$v->ensure() instanceof SetaPDF_Core_Type_Dictionary) {
@@ -52,4 +55,8 @@ foreach ($terminalFields AS $fieldData) {
         'download="signature.pkcs7">download</a><br />';
 
     echo '<br /><br />';
+}
+
+if ($signatureFieldFound === false) {
+    echo 'No signature field found.';
 }
