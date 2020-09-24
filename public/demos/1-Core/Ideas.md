@@ -5,9 +5,9 @@
 
 ## Analyze:
 - ~~Check for Digital Signatures~~
-- Check for Text
-- Check for Transparency
-- Get Color Spaces
+- ~~Check for Text~~
+- ~~Check for Transparency~~
+- ~~Get Color Spaces~~
 - Get Fonts
 - Get Image Sizes and Resolution
 - Check for Encryption
@@ -22,6 +22,7 @@
 - Add Link
 - Add Push-Button
 - Add Text Field
+    (Show handling of rotated pages, too)
 
 ## Document:
 - Get Metadata
