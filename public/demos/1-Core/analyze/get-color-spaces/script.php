@@ -19,7 +19,7 @@ if (isset($_GET['f']) && in_array($_GET['f'], $files, true)) {
     $inspector = new ColorInspector($document);
     $colors = $inspector->getColors();
 
-    echo "<pre>";
+    echo '<pre>';
     if (count($colors) === 0) {
         echo 'No color definitions found.';
         exit();
@@ -30,34 +30,35 @@ if (isset($_GET['f']) && in_array($_GET['f'], $files, true)) {
         $allColorSpaces[$color['colorSpace']] = $color['colorSpace'];
     }
 
-    echo 'Color space(s) found: ' . implode(', ', $allColorSpaces);
-    echo "\n\n";
+    echo 'Color space(s) found: ' . implode(', ', $allColorSpaces) . '<br/><br/>';
 
     foreach ($colors AS $color) {
         $className = get_class($color['data']);
-        echo $color['colorSpace'] . ': ' . $className . "\n";
+        echo $color['colorSpace'] . ': ' . $className . '<br/>';
 
         switch ($className) {
             case SetaPDF_Core_ColorSpace_Separation::class:
                 /** @var SetaPDF_Core_ColorSpace_Separation $data */
                 $data = $color['data'];
-                echo '    Name: ' . $data->getName() . "\n";
-                echo '    Alt: ' . $data->getAlternateColorSpace()->getFamily() . "\n";
+                echo '    Name: ' . $data->getName() . '<br/>';
+                echo '    Alt: ' . $data->getAlternateColorSpace()->getFamily() . '<br/>';
                 break;
 
             case SetaPDF_Core_ColorSpace_IccBased::class:
                 /** @var SetaPDF_Core_ColorSpace_IccBased $data */
                 $data = $color['data'];
                 $parser = $data->getIccProfileStream()->getParser();
-                echo '    Description: ' . $parser->getDescription() . "\n";
-                echo '    Number of components: ' . $parser->getNumberOfComponents() . "\n";
+                echo '    Description: ' . $parser->getDescription() . '<br/>';
+                echo '    Number of components: ' . $parser->getNumberOfComponents() . '<br/>';
                 break;
         }
 
-        echo '    Location: ' . $color['location'] . "\n";
-        echo '    Info: ' . $color['info'] . "\n";
-        echo "\n";
+        echo '    Location: ' . $color['location'] . '<br/>';
+        echo '    Info: ' . $color['info'] . '<br/>';
+        echo '<br/>';
     }
+
+    echo '</pre>';
 
 } else {
 
