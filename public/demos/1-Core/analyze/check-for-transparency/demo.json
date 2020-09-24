@@ -1,0 +1,6 @@
+{
+    "name": "Check for Transparency",
+    "teaserText": "Check whether transparency elements are found in a PDF document or not.",
+    "faIcon": "&#xf070;",
+    "previewFiles": ["TransparencyInspector.php"]
+}
