@@ -2,5 +2,5 @@
     "name": "Get Fonts",
     "teaserText": "Extract information about fonts in a PDF document.",
     "faIcon": "&#xf031;",
-    "previewFiles": ["FontInspector.php"]
+    "previewFiles": ["../../../../../classes/Inspector/FontInspector.php"]
 }

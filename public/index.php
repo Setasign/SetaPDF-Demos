@@ -176,9 +176,10 @@ if ($isDemo) {
         . '<div class="run"><ul>';
 
     foreach ($previewFiles as $previewFile) {
-        $className = md5($previewFile);
+        $tabHasg = md5($previewFile);
+        $previewFile = basename($previewFile);
         echo '<li>'
-            . '<a href="#' . $className . '" title="' . $previewFile . '">'
+            . '<a href="#' . $tabHasg . '" title="' . $previewFile . '">'
             . '&#xF121; <span>' . $previewFile . '</span>'
             . '</a>'
             . '</li>';
@@ -194,7 +195,7 @@ if ($isDemo) {
         . '<div class="demoTabPanel">';
 
     foreach ($previewFiles as $previewFile) {
-        $className = md5($previewFile);
+        $tabHasg = md5($previewFile);
         $extension = strtolower(pathinfo($demoDirectory . '/' . $previewFile, PATHINFO_EXTENSION));
         switch ($extension) {
             case 'php':
@@ -207,7 +208,7 @@ if ($isDemo) {
                 throw new Exception(sprintf('Unknown extension "%s".', $extension));
         }
 
-        echo '<div class="step ' . $className . '">'
+        echo '<div class="step ' . $tabHasg . '">'
             . '<div class="code">'
             . ($codemirrorLang === 'php' ? '<div class="phpInfo" title="The PHP source code that is executed by this demo.">PHP</div>' : '')
             . '<ul class="buttons">'
@@ -227,9 +228,10 @@ if ($isDemo) {
     echo '<div class="run bottom"><ul>';
 
     foreach ($previewFiles as $previewFile) {
-        $className = md5($previewFile);
+        $tabHasg = md5($previewFile);
+        $previewFile = basename($previewFile);
         echo '<li>'
-            . '<a href="#' . $className . '" title="' . $previewFile . '">'
+            . '<a href="#' . $tabHasg . '" title="' . $previewFile . '">'
             . '&#xF121; <span>' . $previewFile . '</span>'
             . '</a>'
             . '</li>';

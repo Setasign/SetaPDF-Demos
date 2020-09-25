@@ -1,12 +1,16 @@
 <?php
 
+namespace com\setasign\SetaPDF\Demos\Inspector;
+
+use com\setasign\SetaPDF\Demos\ContentStreamProcessor\ColorProcessor;
+
 /**
  * Class ColorInspector
  */
 class ColorInspector
 {
     /**
-     * @var SetaPDF_Core_Document
+     * @var \SetaPDF_Core_Document
      */
     protected $_document;
 
@@ -27,9 +31,9 @@ class ColorInspector
     /**
      * The constructor
      *
-     * @param SetaPDF_Core_Document $document
+     * @param \SetaPDF_Core_Document $document
      */
-    public function __construct(SetaPDF_Core_Document $document)
+    public function __construct(\SetaPDF_Core_Document $document)
     {
         $this->_document = $document;
     }
@@ -73,14 +77,14 @@ class ColorInspector
 
                 foreach ($ap AS $type => $value) {
                     $object = $value->ensure();
-                    if ($object instanceof SetaPDF_Core_Type_Stream) {
+                    if ($object instanceof \SetaPDF_Core_Type_Stream) {
                         $streamProcessor = new ColorProcessor($annotation->getAppearance($type)->getCanvas(), $this);
                         $streamProcessor->process();
 
-                    } elseif ($object instanceof SetaPDF_Core_Type_Dictionary) {
+                    } elseif ($object instanceof \SetaPDF_Core_Type_Dictionary) {
                         foreach ($object AS $subType => $subValue) {
                             $subOject = $subValue->ensure();
-                            if ($subOject instanceof SetaPDF_Core_Type_Stream) {
+                            if ($subOject instanceof \SetaPDF_Core_Type_Stream) {
                                 $streamProcessor = new ColorProcessor(
                                     $annotation->getAppearance($type, $subType)->getCanvas(), $this
                                 );

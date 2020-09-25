@@ -1,12 +1,14 @@
 <?php
 
+namespace com\setasign\SetaPDF\Demos\Inspector;
+
 /**
  * Class FontInspector
  */
 class FontInspector
 {
     /**
-     * @var SetaPDF_Core_Document
+     * @var \SetaPDF_Core_Document
      */
     protected $_document;
 
@@ -22,7 +24,7 @@ class FontInspector
      */
     public function __construct($path)
     {
-        $this->_document = SetaPDF_Core_Document::loadByFilename($path);
+        $this->_document = \SetaPDF_Core_Document::loadByFilename($path);
     }
 
     /**
@@ -48,13 +50,13 @@ class FontInspector
 
                 foreach ($ap AS $type => $value) {
                     $object = $value->ensure();
-                    if ($object instanceof SetaPDF_Core_Type_Stream) {
+                    if ($object instanceof \SetaPDF_Core_Type_Stream) {
                         $this->_resolveFonts($annotation->getAppearance($type));
 
-                    } elseif ($object instanceof SetaPDF_Core_Type_Dictionary) {
+                    } elseif ($object instanceof \SetaPDF_Core_Type_Dictionary) {
                         foreach ($object AS $subType => $subValue) {
                             $subObject = $subValue->ensure();
-                            if ($subObject instanceof SetaPDF_Core_Type_Stream) {
+                            if ($subObject instanceof \SetaPDF_Core_Type_Stream) {
                                 $this->_resolveFonts($annotation->getAppearance($type, $subType));
                             }
                         }
@@ -80,9 +82,9 @@ class FontInspector
     /**
      * Walks through an dictionary and saves the found font object references
      *
-     * @param SetaPDF_Core_Type_Dictionary $fonts
+     * @param \SetaPDF_Core_Type_Dictionary $fonts
      */
-    protected function _remFonts(SetaPDF_Core_Type_Dictionary $fonts)
+    protected function _remFonts(\SetaPDF_Core_Type_Dictionary $fonts)
     {
         foreach ($fonts AS $fontIndirectObject) {
             $key = $fontIndirectObject->getObjectId() . '-' . $fontIndirectObject->getGen();
@@ -97,16 +99,16 @@ class FontInspector
     /**
      * Resolves the fonts of a page or xobject
      *
-     * @param SetaPDF_Core_Document_Page|SetaPDF_Core_XObject_Form $object
+     * @param \SetaPDF_Core_Document_Page|\SetaPDF_Core_XObject_Form $object
      */
     protected function _resolveFonts($object)
     {
-        $fonts = $object->getCanvas()->getResources(true, false, SetaPDF_Core_Resource::TYPE_FONT);
+        $fonts = $object->getCanvas()->getResources(true, false, \SetaPDF_Core_Resource::TYPE_FONT);
         if ($fonts) {
             $this->_remFonts($fonts);
         }
 
-        $xObjects = $object->getCanvas()->getResources(true, false, SetaPDF_Core_Resource::TYPE_X_OBJECT);
+        $xObjects = $object->getCanvas()->getResources(true, false, \SetaPDF_Core_Resource::TYPE_X_OBJECT);
         if (!$xObjects) {
             return;
         }
@@ -117,7 +119,7 @@ class FontInspector
                 continue;
             }
 
-            $xObject = SetaPDF_Core_XObject::get($xObjectIndirectObject);
+            $xObject = \SetaPDF_Core_XObject::get($xObjectIndirectObject);
             $this->_resolveFonts($xObject);
         }
     }
@@ -125,12 +127,12 @@ class FontInspector
     /**
      * Checks if a font program is embedded
      *
-     * @param SetaPDF_Core_Font $font
+     * @param \SetaPDF_Core_Font $font
      *
      * @return bool
-     * @throws SetaPDF_Exception_NotImplemented
+     * @throws \SetaPDF_Exception_NotImplemented
      */
-    public function isFontEmbedded(SetaPDF_Core_Font $font)
+    public function isFontEmbedded(\SetaPDF_Core_Font $font)
     {
         $dict = $font->getIndirectObject($this->_document)->ensure();
 
@@ -162,13 +164,13 @@ class FontInspector
 
                 foreach (['FontFile', 'FontFile2', 'FontFile3'] AS $key) {
                     $fontFile = $fontDescriptor->getValue($key);
-                    if ($fontFile && $fontFile->ensure() instanceof SetaPDF_Core_Type_Stream)
+                    if ($fontFile && $fontFile->ensure() instanceof \SetaPDF_Core_Type_Stream)
                         return true;
                 }
 
                 return false;
             case 'Type3':
-                throw new SetaPDF_Exception_NotImplemented('Type3 fonts are not supported.');
+                throw new \SetaPDF_Exception_NotImplemented('Type3 fonts are not supported.');
         }
     }
 }

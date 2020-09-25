@@ -1,5 +1,7 @@
 <?php
 
+namespace com\setasign\SetaPDF\Demos\ContentStreamProcessor;
+
 /**
  * Class TextProcessor
  */
@@ -8,7 +10,7 @@ class TextProcessor
     /**
      * The canvas object
      *
-     * @var SetaPDF_Core_Canvas
+     * @var \SetaPDF_Core_Canvas
      */
     protected $_canvas;
 
@@ -22,9 +24,9 @@ class TextProcessor
      *
      * The parameter are the content stream and its resources dictionary.
      *
-     * @param SetaPDF_Core_Canvas $canvas
+     * @param \SetaPDF_Core_Canvas $canvas
      */
-    public function __construct(SetaPDF_Core_Canvas $canvas)
+    public function __construct(\SetaPDF_Core_Canvas $canvas)
     {
         $this->_canvas = $canvas;
     }
@@ -56,11 +58,11 @@ class TextProcessor
     /**
      * Create a content parser instance.
      *
-     * @return SetaPDF_Core_Parser_Content
+     * @return \SetaPDF_Core_Parser_Content
      */
     protected function _createContentParser()
     {
-        $contentParser = new SetaPDF_Core_Parser_Content($this->_canvas->getStream());
+        $contentParser = new \SetaPDF_Core_Parser_Content($this->_canvas->getStream());
 
         // register a callback for text output operators
         $contentParser->registerOperator(
@@ -75,15 +77,15 @@ class TextProcessor
         $contentParser->registerOperator(
             'Do',
             function ($arguments) {
-                $xObjects = $this->_canvas->getResources(true, false, SetaPDF_Core_Resource::TYPE_X_OBJECT);
+                $xObjects = $this->_canvas->getResources(true, false, \SetaPDF_Core_Resource::TYPE_X_OBJECT);
                 if ($xObjects === false) {
                     return;
                 }
 
                 $xObject = $xObjects->getValue($arguments[0]->getValue());
-                $xObject = SetaPDF_Core_XObject::get($xObject);
+                $xObject = \SetaPDF_Core_XObject::get($xObject);
 
-                if ($xObject instanceof SetaPDF_Core_XObject_Form) {
+                if ($xObject instanceof \SetaPDF_Core_XObject_Form) {
                     $processor = new self($xObject->getCanvas());
 
                     $this->_hasText = $processor->hasText();

@@ -1,5 +1,9 @@
 <?php
 
+namespace com\setasign\SetaPDF\Demos\ContentStreamProcessor;
+
+use com\setasign\SetaPDF\Demos\Inspector\ColorInspector;
+
 /**
  * Class ColorsProcessor
  *
@@ -13,22 +17,22 @@ class ColorProcessor
     protected $_colorInspector;
 
     /**
-     * @var SetaPDF_Core_Canvas
+     * @var \SetaPDF_Core_Canvas
      */
     protected $_canvas;
 
     /**
-     * @var SetaPDF_Core_Parser_Content
+     * @var \SetaPDF_Core_Parser_Content
      */
     protected $_parser;
 
     /**
      * The constructor
      *
-     * @param SetaPDF_Core_Canvas $canvas
+     * @param \SetaPDF_Core_Canvas $canvas
      * @param ColorInspector $colorInspector
      */
-    public function __construct(SetaPDF_Core_Canvas $canvas, ColorInspector $colorInspector)
+    public function __construct(\SetaPDF_Core_Canvas $canvas, ColorInspector $colorInspector)
     {
         $this->_canvas = $canvas;
         $this->_colorInspector = $colorInspector;
@@ -42,12 +46,12 @@ class ColorProcessor
      */
     public function _color(array $args, $operator)
     {
-        $color = SetaPDF_Core_DataStructure_Color::createByComponents($args);
+        $color = \SetaPDF_Core_DataStructure_Color::createByComponents($args);
 
         $info = 'Standard color operator (' . $operator . ') in content stream.';
-        if ($color instanceof SetaPDF_Core_DataStructure_Color_Rgb) {
+        if ($color instanceof \SetaPDF_Core_DataStructure_Color_Rgb) {
             $colorSpace = 'DeviceRGB';
-        } elseif ($color instanceof SetaPDF_Core_DataStructure_Color_Cmyk) {
+        } elseif ($color instanceof \SetaPDF_Core_DataStructure_Color_Cmyk) {
             $colorSpace = 'DeviceCMYK';
         } else {
             $colorSpace = 'DeviceGray';
@@ -61,17 +65,17 @@ class ColorProcessor
      *
      * @param array $args
      * @param string $operator
-     * @throws SetaPDF_Core_Exception
+     * @throws \SetaPDF_Core_Exception
      */
     public function _colorSpace(array $args, $operator)
     {
         $colorSpace = $args[0];
-        $colorSpaces = $this->_canvas->getResources(true, false, SetaPDF_Core_Resource::TYPE_COLOR_SPACE);
+        $colorSpaces = $this->_canvas->getResources(true, false, \SetaPDF_Core_Resource::TYPE_COLOR_SPACE);
         if ($colorSpaces && $colorSpaces->offsetExists($colorSpace->getValue())) {
             $colorSpace = $colorSpaces->getValue($colorSpace->getValue());
         }
 
-        $colorSpace = SetaPDF_Core_ColorSpace::createByDefinition($colorSpace);
+        $colorSpace = \SetaPDF_Core_ColorSpace::createByDefinition($colorSpace);
 
         $info = 'Color space operator (' . $operator . ') in content stream.';
         $this->_resolveColorSpace($colorSpace, $info);
@@ -80,30 +84,30 @@ class ColorProcessor
     /**
      * Helper method to recursily resolve color space and their alternate color spaces
      *
-     * @param SetaPDF_Core_ColorSpace $colorSpace
+     * @param \SetaPDF_Core_ColorSpace $colorSpace
      * @param string $info
-     * @throws SetaPDF_Core_Exception
+     * @throws \SetaPDF_Core_Exception
      */
-    protected function _resolveColorSpace(SetaPDF_Core_ColorSpace $colorSpace, $info)
+    protected function _resolveColorSpace(\SetaPDF_Core_ColorSpace $colorSpace, $info)
     {
         $this->_colorInspector->addFoundColor($colorSpace->getFamily(), $colorSpace, $info);
 
-        if ($colorSpace instanceof SetaPDF_Core_ColorSpace_Separation) {
+        if ($colorSpace instanceof \SetaPDF_Core_ColorSpace_Separation) {
             $alternate = $colorSpace->getAlternateColorSpace();
             $info = 'Alternate color space for Separation color space.';
             $this->_resolveColorSpace($alternate, $info);
 
-        } elseif ($colorSpace instanceof SetaPDF_Core_ColorSpace_DeviceN) {
+        } elseif ($colorSpace instanceof \SetaPDF_Core_ColorSpace_DeviceN) {
             $alternate = $colorSpace->getAlternateColorSpace();
             $info = 'Alternate color space for DeviceN color space.';
             $this->_resolveColorSpace($alternate, $info);
 
-        } elseif ($colorSpace instanceof SetaPDF_Core_ColorSpace_Indexed) {
+        } elseif ($colorSpace instanceof \SetaPDF_Core_ColorSpace_Indexed) {
             $base = $colorSpace->getBase();
             $info = 'Base color space for Indexed color space.';
             $this->_resolveColorSpace($base, $info);
 
-        } elseif ($colorSpace instanceof SetaPDF_Core_ColorSpace_IccBased) {
+        } elseif ($colorSpace instanceof \SetaPDF_Core_ColorSpace_IccBased) {
             $stream = $colorSpace->getIccProfileStream();
             $alternate = $stream->getAlternate();
             if ($alternate) {
@@ -123,25 +127,25 @@ class ColorProcessor
      * Callback for painting a XObject
      *
      * @param array $args
-     * @throws SetaPDF_Core_Exception
-     * @throws SetaPDF_Exception_NotImplemented
+     * @throws \SetaPDF_Core_Exception
+     * @throws \SetaPDF_Exception_NotImplemented
      */
     public function _paintXObject(array $args)
     {
         $name = $args[0]->getValue();
-        $xObjects = $this->_canvas->getResources(true, false, SetaPDF_Core_Resource::TYPE_X_OBJECT);
+        $xObjects = $this->_canvas->getResources(true, false, \SetaPDF_Core_Resource::TYPE_X_OBJECT);
 
         if ($xObjects === false) {
             return;
         }
 
         $xObjectIndirectObject = $xObjects->getValue($name);
-        if (!($xObjectIndirectObject instanceof SetaPDF_Core_Type_IndirectReference)) {
+        if (!($xObjectIndirectObject instanceof \SetaPDF_Core_Type_IndirectReference)) {
             return;
         }
 
-        $xObject = SetaPDF_Core_XObject::get($xObjectIndirectObject);
-        if ($xObject instanceof SetaPDF_Core_XObject_Image) {
+        $xObject = \SetaPDF_Core_XObject::get($xObjectIndirectObject);
+        if ($xObject instanceof \SetaPDF_Core_XObject_Image) {
             $dict = $xObject->getIndirectObject()->ensure()->getValue();
             if ($dict->offsetExists('ImageMask') && $dict->getValue('ImageMask')->ensure()->getValue() === true) {
                 return;
@@ -151,15 +155,15 @@ class ColorProcessor
             $info = 'Color space of an image used in a content stream.';
             $this->_resolveColorSpace($colorSpace, $info);
 
-        } elseif ($xObject instanceof SetaPDF_Core_XObject_Form) {
+        } elseif ($xObject instanceof \SetaPDF_Core_XObject_Form) {
 
             /* Get the colorspace from the transparency group */
             $group = $xObject->getGroup();
-            if ($group instanceof SetaPDF_Core_TransparencyGroup) {
+            if ($group instanceof \SetaPDF_Core_TransparencyGroup) {
                 $colorSpace = $group->getColorSpace();
                 if ($colorSpace !== null) {
                     $info = 'Color space from Transparency Group of XObject.';
-                    $this->_resolveColorSpace(SetaPDF_Core_ColorSpace::createByDefinition($colorSpace), $info);
+                    $this->_resolveColorSpace(\SetaPDF_Core_ColorSpace::createByDefinition($colorSpace), $info);
                 }
             }
 
@@ -177,7 +181,7 @@ class ColorProcessor
      */
     public function _startInlineImageData($args)
     {
-        $dict = new SetaPDF_Core_Type_Dictionary();
+        $dict = new \SetaPDF_Core_Type_Dictionary();
 
         for ($i = 0, $c = count($args); $i < $c; $i += 2) {
             $dict[$args[$i]] = $args[$i + 1];
@@ -207,7 +211,7 @@ class ColorProcessor
 
         $info = 'Color space of an inline image in content stream.';
         $this->_colorInspector->addFoundColor(
-            $colorSpace, SetaPDF_Core_ColorSpace::createByDefinition($colorSpace), $info
+            $colorSpace, \SetaPDF_Core_ColorSpace::createByDefinition($colorSpace), $info
         );
     }
 
@@ -215,26 +219,26 @@ class ColorProcessor
      * Callback for shading operator
      *
      * @param array $args
-     * @throws SetaPDF_Core_Exception
+     * @throws \SetaPDF_Core_Exception
      */
     public function _paintShapeAndColourShading($args)
     {
         $name = $args[0]->getValue();
-        $shadings = $this->_canvas->getResources(true, false, SetaPDF_Core_Resource::TYPE_SHADING);
+        $shadings = $this->_canvas->getResources(true, false, \SetaPDF_Core_Resource::TYPE_SHADING);
 
         if ($shadings === false) {
             return;
         }
 
         $shadingIndirectObject = $shadings->getValue($name);
-        if (!($shadingIndirectObject instanceof SetaPDF_Core_Type_IndirectReference)) {
+        if (!($shadingIndirectObject instanceof \SetaPDF_Core_Type_IndirectReference)) {
             return;
         }
 
         try {
-            /** @var SetaPDF_Core_Type_Dictionary $shading */
+            /** @var \SetaPDF_Core_Type_Dictionary $shading */
             $shading = $shadingIndirectObject->ensure();
-        } catch (SetaPDF_Core_Type_IndirectReference_Exception $e) {
+        } catch (\SetaPDF_Core_Type_IndirectReference_Exception $e) {
             return;
         }
 
@@ -243,7 +247,7 @@ class ColorProcessor
             return;
         }
 
-        $colorSpace = SetaPDF_Core_ColorSpace::createByDefinition($colorSpaceValue);
+        $colorSpace = \SetaPDF_Core_ColorSpace::createByDefinition($colorSpaceValue);
         $info = 'Paint shading operator in content stream.';
         $this->_resolveColorSpace($colorSpace, $info);
     }
@@ -253,7 +257,7 @@ class ColorProcessor
      */
     public function process()
     {
-        $this->_parser = new SetaPDF_Core_Parser_Content($this->_canvas->getStream());
+        $this->_parser = new \SetaPDF_Core_Parser_Content($this->_canvas->getStream());
 
         /* Register colorspace operators
          * f.g. -> /DeviceRGB CS   % Set DeviceRGB colour space
