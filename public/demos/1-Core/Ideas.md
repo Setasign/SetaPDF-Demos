@@ -9,7 +9,7 @@
 - ~~Check for Transparency~~
 - ~~Get Color Spaces~~
 - ~~Get Fonts~~
-- Get Image Sizes and Resolution
+- ~~Get Image Sizes and Resolution~~
 - Check for Encryption
 - Check for Collection
 

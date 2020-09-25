@@ -1,0 +1,6 @@
+{
+    "name": "Get Images Size and Resolution",
+    "teaserText": "Get size and resolution of used images in a PDF document.",
+    "faIcon": "&#xf302;",
+    "previewFiles": ["../../../../../classes/ContentStreamProcessor/ImageProcessor.php"]
+}
