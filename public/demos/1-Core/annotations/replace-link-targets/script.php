@@ -13,8 +13,10 @@ $files = [
 
 displayFiles($files);
 
+// create a writer
+$writer = new SetaPDF_Core_Writer_Http('links-replaced.pdf', true);
 // create a document
-$document = SetaPDF_Core_Document::loadByFilename($_GET['f']);
+$document = SetaPDF_Core_Document::loadByFilename($_GET['f'], $writer);
 
 // Get the pages helper
 $pages = $document->getCatalog()->getPages();
@@ -28,14 +30,16 @@ for ($pageNo = 1, $pageCount = $pages->count(); $pageNo <= $pageCount; $pageNo++
     foreach ($linkAnnotations AS $linkAnnotation) {
         $action = $linkAnnotation->getAction();
         if ($action && $action instanceof SetaPDF_Core_Document_Action_Uri) {
-            echo 'Link Annotation on Page #' . $pageNo . '<br/>';
-            echo '&nbsp; &nbsp; URI: ' . $action->getUri() . '<br/><br/>';
+            // simply set the new URI
+            $action->setUri('https://www.setasign.com');
             $linksFound = true;
             break;
         }
     }
 }
 
-if ($linksFound === false) {
+if ($linksFound) {
+    $document->save()->finish();
+} else {
     echo 'No links found!';
 }
