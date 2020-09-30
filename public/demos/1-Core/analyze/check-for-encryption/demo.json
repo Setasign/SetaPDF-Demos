@@ -1,0 +1,5 @@
+{
+    "name": "Check for Encryption",
+    "teaserText": "Checks wether a document is encrypted and what permissions are granted.",
+    "faIcon": "&#xf3c1;"
+}

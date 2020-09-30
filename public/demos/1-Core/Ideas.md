@@ -10,7 +10,7 @@
 - ~~Get Color Spaces~~
 - ~~Get Fonts~~
 - ~~Get Image Sizes and Resolution~~
-- Check for Encryption
+- ~~Check for Encryption~~
 - Check for Collection
 
 ## Annotations:
