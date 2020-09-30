@@ -15,7 +15,7 @@
 
 ## Annotations:
 - Get Comments (https://www.setasign.com/products/setapdf-core/demos/extract-comments/)
-- Get Link Annotations
+- ~~Get Link Annotations~~
 - Replace Link Targets
 - Get Form Field Information
 - Flatten
