@@ -11,7 +11,7 @@
 - ~~Get Fonts~~
 - ~~Get Image Sizes and Resolution~~
 - ~~Check for Encryption~~
-- Check for Collection
+- ~~Check for Collection~~
 
 ## Annotations:
 - Get Comments (https://www.setasign.com/products/setapdf-core/demos/extract-comments/)

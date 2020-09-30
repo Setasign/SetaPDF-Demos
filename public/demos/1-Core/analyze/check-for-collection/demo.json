@@ -1,0 +1,5 @@
+{
+    "name": "Check for Collection",
+    "teaserText": "Checks whether a PDF document is a Collection (aka PDF Portfolio or PDF Package).",
+    "faIcon": "&#xf187;"
+}
