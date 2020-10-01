@@ -1,0 +1,1 @@
+Stamp annotation on all pages + closing signature (emulation of several appearances)

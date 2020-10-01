@@ -33,7 +33,7 @@ if (!isset($_GET['p'])) {
 
         echo '<pre>';
         if (count($images)) {
-            echo '<a href="?f=' . urlencode($_GET['f']) . '&p=' . $pageNo . '">Found '
+            echo '<a href="?f=' . urlencode($_GET['f']) . '&p=' . $pageNo . '#page=' . $pageNo . '">Found '
                 . count($images) . ' images on page #' . $pageNo . "</a>.\n";
         } else {
             echo 'Found no images on page #' . $pageNo . ".\n";
@@ -60,7 +60,7 @@ if (!isset($_GET['p'])) {
 } else {
 
     // let's create a writer and document instance
-    $writer = new SetaPDF_Core_Writer_Http('marked.pdf');
+    $writer = new SetaPDF_Core_Writer_Http('marked.pdf', true);
     $document = SetaPDF_Core_Document::loadByFilename($_GET['f'], $writer);
 
     // get access to the pages object
@@ -94,17 +94,4 @@ if (!isset($_GET['p'])) {
 
     // send the document to the client
     $document->save()->finish();
-
 }
-//else {
-//
-//    // list the files
-//    foreach ($files AS $path) {
-//        $name = basename($path);
-//        echo '<a href="?f=' . urlencode($path) . '" target="pdfFrame">' . htmlspecialchars($name) . '</a><br />';
-//    }
-//
-//    echo '<br />';
-//    echo '<iframe width="100%" height="300" name="pdfFrame" src="about:blank"/>';
-//
-//}
