@@ -18,7 +18,7 @@
 - ~~Get Link Annotations~~
 - ~~Replace Link Targets~~
 - ~~Get Form Fields Information~~
-- Flatten
+- ~~Flatten Annotations~~
 - Add Link
 - Add Push-Button
 - Add Text Field
