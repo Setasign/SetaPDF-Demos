@@ -12,6 +12,7 @@ $files = [
 ];
 
 displayFiles($files);
+
 // create a reader
 $reader = new SetaPDF_Core_Reader_File($_GET['f']);
 // create a document
