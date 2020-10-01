@@ -255,7 +255,7 @@ if ($isDemo) {
         /** @noinspection NotOptimalIfConditionsInspection */
         if (count($nextDemos) > 0) {
             echo '<div class="others"><ul>';
-            foreach ($nextDemos as $nextDemo) {
+            foreach (array_reverse($nextDemos) as $nextDemo) {
                 echo '<li><a href="' . $nextDemo['path'] . '">' . $nextDemo['name'] . '</a></li>';
             }
             echo '</ul></div>';

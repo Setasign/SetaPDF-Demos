@@ -19,17 +19,21 @@ $sessionFiles = isset($_SESSION['files']) ? $_SESSION['files'] : [];
 function displayFiles($files, $iframe = true)
 {
     if (!isset($_GET['f']) || !in_array($_GET['f'], $files, true)) {
+        echo '<html><head><link rel="stylesheet" type="text/css" href="/layout/demo.css"/></head><body>';
+        echo '<div id="fileSelector">';
+
         // list the files
         foreach ($files AS $path) {
             $name = basename($path);
             echo '<a href="?f=' . urlencode($path) . '"' . ($iframe ? ' target="pdfFrame"' : ''). '>' . htmlspecialchars($name) . '</a><br />';
         }
+        echo '</div>';
 
         if ($iframe) {
-            echo '<br />';
             echo '<iframe width="100%" height="300" name="pdfFrame" src="about:blank"/>';
         }
 
+        echo '</body></html>';
         die();
     }
 }
