@@ -1,4 +1,5 @@
 composer.phar
+auth.json
 /vendor/
 /assets/private/
 
