@@ -11,39 +11,39 @@ if (PHP_SAPI === 'cli-server') {
 
 require_once __DIR__ . '/../bootstrap.php';
 
+$scriptName = isset($_SERVER['SCRIPT_NAME']) ? $_SERVER['SCRIPT_NAME'] : '/index.php';
+$base = rtrim(str_replace(DIRECTORY_SEPARATOR, '/', dirname($scriptName)), '/') . '/';
+
 ob_start();
 echo <<<HTML
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <title>SetaPDF Demos</title>
+    <base href="{$base}"/>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-    <link rel="stylesheet" type="text/css" href="/layout/normalize.css"/>
-    <link rel="stylesheet" type="text/css" href="/layout/style.css"/>
-    <link rel="stylesheet" type="text/css" href="/js/codemirror-5.11/lib/codemirror.css"/>
-    <script type="text/javascript" src="/js/jquery-3.5.1.min.js"></script>
-    <script type="text/javascript" src="/js/codemirror-5.11/lib/codemirror.min.js"></script>
-    <script type="text/javascript" src="/js/clipboard.js"></script>
+    <link rel="stylesheet" type="text/css" href="./layout/normalize.css"/>
+    <link rel="stylesheet" type="text/css" href="./layout/style.css"/>
+    <link rel="stylesheet" type="text/css" href="./js/codemirror-5.11/lib/codemirror.css"/>
+    <script type="text/javascript" src="./js/jquery-3.5.1.min.js"></script>
+    <script type="text/javascript" src="./js/codemirror-5.11/lib/codemirror.min.js"></script>
+    <script type="text/javascript" src="./js/clipboard.js"></script>
 </head>
 <body>
 <header>
     <div class="wrapper default">
         <h1>SetaPDF Demos</h1>
-        <a href="http://www.setasign.com"><img src="/layout/img/small-logo.png" class="companyLogo" alt="Logo"/></a>
+        <a href="http://www.setasign.com"><img src="./layout/img/small-logo.png" class="companyLogo" alt="Logo"/></a>
     </div>
 </header>
 HTML;
 
 $demosDirectory = __DIR__ . '/demos';
-$isDemo = false;
-$pathInfo = isset($_SERVER['PATH_INFO']) ? $_SERVER['PATH_INFO'] : '';
-if (strpos($pathInfo, '/demo/') === 0) {
-    $isDemo = true;
-    $requestPath = trim(substr($pathInfo, strlen('/demo/')), '/');
-} else {
-    $requestPath = trim($pathInfo, '/');
-}
+$requestPath = isset($_GET['p']) ? $_GET['p'] : '';
+$isDemo = (strpos($requestPath, '/demo/') === 0);
+
+$requestPath = trim($isDemo ? substr($requestPath, strlen('/demo/')) : $requestPath, '/');
 
 if (strpos($requestPath, '..') !== false || !is_dir($demosDirectory . '/' . $requestPath)) {
     header("HTTP/1.0 404 Not Found");
@@ -109,7 +109,9 @@ foreach (explode('/', $requestPath) as $pathPart) {
 unset($fullPath);
 
 foreach ($breadCrumb as $crumb) {
-    echo '<li itemprop="title"><a itemprop="url" href="' . $crumb['path'] . '">' . $crumb['text'] . '</a></li>';
+    echo '<li itemprop="title"><a itemprop="url" href="?p=' . urlencode($crumb['path']) . '">'
+        . $crumb['text']
+        . '</a></li>';
 }
 
 echo '</ul></nav></div></div>'
@@ -176,10 +178,10 @@ if ($isDemo) {
         . '<div class="run"><ul>';
 
     foreach ($previewFiles as $previewFile) {
-        $tabHasg = md5($previewFile);
+        $previewFileIdent = md5($previewFile);
         $previewFile = basename($previewFile);
         echo '<li>'
-            . '<a href="#' . $tabHasg . '" title="' . $previewFile . '">'
+            . '<a href="#' . $previewFileIdent . '" title="' . $previewFile . '">'
             . '&#xF121; <span>' . $previewFile . '</span>'
             . '</a>'
             . '</li>';
@@ -195,7 +197,7 @@ if ($isDemo) {
         . '<div class="demoTabPanel">';
 
     foreach ($previewFiles as $previewFile) {
-        $tabHasg = md5($previewFile);
+        $previewFileIdent = md5($previewFile);
         $extension = strtolower(pathinfo($demoDirectory . '/' . $previewFile, PATHINFO_EXTENSION));
         switch ($extension) {
             case 'php':
@@ -208,7 +210,7 @@ if ($isDemo) {
                 throw new Exception(sprintf('Unknown extension "%s".', $extension));
         }
 
-        echo '<div class="step ' . $tabHasg . '">'
+        echo '<div class="step ' . $previewFileIdent . '">'
             . '<div class="code">'
             . ($codemirrorLang === 'php' ? '<div class="phpInfo" title="The PHP source code that is executed by this demo.">PHP</div>' : '')
             . '<ul class="buttons">'
@@ -220,7 +222,7 @@ if ($isDemo) {
     }
 
     echo '<div class="step execute">'
-        . '<iframe src="/demos/' . $requestPath . '/script.php" frameborder="0" style="width: 100%; height: 100%;">'
+        . '<iframe src="./demos/' . $requestPath . '/script.php" frameborder="0" style="width: 100%; height: 100%;">'
         . '</iframe>'
         . '</div>'
         . '</div>';
@@ -228,16 +230,17 @@ if ($isDemo) {
     echo '<div class="run bottom"><ul>';
 
     foreach ($previewFiles as $previewFile) {
-        $tabHasg = md5($previewFile);
+        $previewFileIdent = md5($previewFile);
         $previewFile = basename($previewFile);
         echo '<li>'
-            . '<a href="#' . $tabHasg . '" title="' . $previewFile . '">'
+            . '<a href="#' . $previewFileIdent . '" title="' . $previewFile . '">'
             . '&#xF121; <span>' . $previewFile . '</span>'
             . '</a>'
             . '</li>';
     }
 
-    echo '<li><a href="#execute" title="Run"' . ($hasAllRequires ? '' : ' class="disabled"') . '>&#xF04B; <span>Run</span></a></li>'
+    echo '<li><a href="#execute" title="Run"' . ($hasAllRequires ? '' : ' class="disabled"') . '>'
+        . '&#xF04B; <span>Run</span></a></li>'
         . '</ul>'
         . '</div>'
         . '</div>';
@@ -248,7 +251,7 @@ if ($isDemo) {
     if (count($nextDemos) > 0) {
         $nextDemo = array_shift($nextDemos);
         echo '<span>'
-           . '<a href="' . $nextDemo['path'] . '" class="next" title="' . $nextDemo['name'] . '">'
+           . '<a href="?p=' . urlencode($nextDemo['path']) . '" class="next" title="' . $nextDemo['name'] . '">'
             . $nextDemo['name']
             . '</a>';
 
@@ -256,7 +259,7 @@ if ($isDemo) {
         if (count($nextDemos) > 0) {
             echo '<div class="others"><ul>';
             foreach (array_reverse($nextDemos) as $nextDemo) {
-                echo '<li><a href="' . $nextDemo['path'] . '">' . $nextDemo['name'] . '</a></li>';
+                echo '<li><a href="?p=' . urlencode($nextDemo['path']) . '">' . $nextDemo['name'] . '</a></li>';
             }
             echo '</ul></div>';
         }
@@ -268,7 +271,7 @@ if ($isDemo) {
     if (count($previousDemos) > 0) {
         $previousDemo = array_pop($previousDemos);
         echo '<span>'
-            . '<a href="' . $previousDemo['path'] . '" class="prev" title="' . $previousDemo['name'] . '">'
+            . '<a href="?p=' . urlencode($previousDemo['path']) . '" class="prev" title="' . $previousDemo['name'] . '">'
             . $previousDemo['name']
             . '</a>';
 
@@ -276,7 +279,7 @@ if ($isDemo) {
         if (count($previousDemos) > 0) {
             echo '<div class="others"><ul>';
             foreach ($previousDemos as $previousDemo) {
-                echo '<li><a href="' . $previousDemo['path'] . '">' . $previousDemo['name'] . '</a></li>';
+                echo '<li><a href="?p=' . urlencode($previousDemo['path']) . '">' . $previousDemo['name'] . '</a></li>';
             }
             echo '</ul></div>';
         }
@@ -288,8 +291,7 @@ if ($isDemo) {
     echo '</div>'
         . '</div>';
 } else {
-
-    echo '<h2>' . (isset($metaData['name']) ? $metaData['name'] : $pathPart) . '</h2>';
+    echo '<h2>' . (isset($metaData['name']) ? $metaData['name'] : end($breadCrumb)['text']) . '</h2>';
 
     if (file_exists($demosDirectory . '/' . $requestPath . '/description.html')) {
         echo file_get_contents($demosDirectory . '/' . $requestPath . '/description.html');
@@ -324,16 +326,16 @@ if ($isDemo) {
         echo '<div class="demoDirectory' . (count($missingRequires) > 0 ? ' missingRequire' : '') . '">';
 
         if ($hasIcon) {
-            echo '<a href="' . $path . '" title="' . htmlspecialchars($name, ENT_QUOTES | ENT_HTML5) . '">'
+            echo '<a href="?p=' . urlencode($path) . '" title="' . htmlspecialchars($name, ENT_QUOTES | ENT_HTML5) . '">'
                 . '<img alt="Demo Icon" src="data:image/png;base64,'
                     . base64_encode(file_get_contents($dir . '/icon.png')) . '"/>'
                 . '</a>';
         } else {
-            echo '<a href="' . $path . '" title="' . htmlspecialchars($name, ENT_QUOTES | ENT_HTML5)
+            echo '<a href="?p=' . urlencode($path) . '" title="' . htmlspecialchars($name, ENT_QUOTES | ENT_HTML5)
                 . '" class="teaserIcon" data-faIcon="' . $faIcon . '"></a>';
         }
 
-        echo '<h2><a href="' . $path . '" title="' . htmlspecialchars($name, ENT_QUOTES | ENT_HTML5) . '">'
+        echo '<h2><a href="?p=' . urlencode($path) . '" title="' . htmlspecialchars($name, ENT_QUOTES | ENT_HTML5) . '">'
             . htmlspecialchars($name, ENT_QUOTES | ENT_HTML5)
             . '</a>';
         if (count($missingRequires) > 0) {
@@ -368,16 +370,16 @@ if ($isDemo) {
 
         echo '<div class="demoTeaser' . (count($missingRequires) > 0 ? ' missingRequire' : '') . '">';
         if ($hasIcon) {
-            echo '<a href="' . $path . '" title="' . htmlspecialchars($name, ENT_QUOTES | ENT_HTML5) . '">'
+            echo '<a href="?p=' . urlencode($path) . '" title="' . htmlspecialchars($name, ENT_QUOTES | ENT_HTML5) . '">'
                 . '<img alt="Demo Icon" src="data:image/png;base64,'
                 . base64_encode(file_get_contents($demoDirectory . '/icon.png')) . '"/>'
                 . '</a>';
         } else {
-            echo '<a href="' . $path . '" title="' . htmlspecialchars($name, ENT_QUOTES | ENT_HTML5)
+            echo '<a href="?p=' . urlencode($path) . '" title="' . htmlspecialchars($name, ENT_QUOTES | ENT_HTML5)
                 . '" class="teaserIcon" data-faIcon="' . $faIcon . '"></a>';
         }
 
-        echo '<h3><a href="' . $path . '" title="' . htmlspecialchars($name, ENT_QUOTES | ENT_HTML5) . '">'
+        echo '<h3><a href="?p=' . urlencode($path) . '" title="' . htmlspecialchars($name, ENT_QUOTES | ENT_HTML5) . '">'
             . htmlspecialchars($name, ENT_QUOTES | ENT_HTML5)
             . '</a>';
 
@@ -404,7 +406,7 @@ echo <<<HTML
         </div>
     </div>
 </footer>
-<script type="text/javascript" src="/js/script.js"></script>
+<script type="text/javascript" src="./js/script.js"></script>
 </body>
 </html>
 HTML;
