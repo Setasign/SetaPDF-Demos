@@ -5,8 +5,13 @@ ini_set('display_errors', 1);
 ini_set('memory_limit', '2500M');
 date_default_timezone_set('Europe/Berlin');
 
-// if you use composer
-require_once __DIR__ . '/vendor/autoload.php';
+if (is_file(__DIR__ . '/../library/SetaPDF/Autoload.php')) {
+    // if the demos are bundled with setapdf
+    require_once __DIR__ . '/../library/SetaPDF/Autoload.php';
+} else {
+    // if you use composer
+    require_once __DIR__ . '/vendor/autoload.php';
+}
 // otherwise include your setapdf directory INSTEAD
 //require_once __DIR__ . '/../SetaPDF/library/SetaPDF/Autoload.php';
 
@@ -23,7 +28,7 @@ function displayFiles($files, $iframe = true)
         echo '<div id="fileSelector">';
 
         // list the files
-        foreach ($files AS $path) {
+        foreach ($files as $path) {
             $name = basename($path);
             echo '<a href="?f=' . urlencode($path) . '"' . ($iframe ? ' target="pdfFrame"' : ''). '>' . htmlspecialchars($name) . '</a><br />';
         }
