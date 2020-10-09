@@ -20,7 +20,7 @@
 - ~~Get Form Fields Information~~
 - ~~Flatten Annotations~~
 - ~~Add Link~~
-- Add Push-Button
+- ~~Add Push-Button~~
 - Add Text Field
     (Show handling of rotated pages, too)
 - Show creation of annotations on rotated/shifted pages.

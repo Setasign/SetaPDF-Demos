@@ -1,0 +1,1 @@
+Stamp all files in a portfolio
