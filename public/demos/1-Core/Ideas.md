@@ -68,7 +68,7 @@
     
 
 ## Document:
-- Get Metadata
+- ~~Get Metadata~~
 - Set Metadata
 - Extract Attachments
 - Multiple Pages per Sheet
