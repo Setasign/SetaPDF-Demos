@@ -1,0 +1,8 @@
+{
+    "name": "List and Extract Attachments",
+    "teaserText": "Get access to embedded files.",
+    "requires": [
+        "SetaPDF-Core"
+    ],
+    "faIcon": "&#xf0c6;"
+}
