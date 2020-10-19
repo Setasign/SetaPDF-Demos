@@ -70,7 +70,8 @@
 ## Document:
 - ~~Get Metadata~~
 - ~~Set Metadata~~
-- Extract Attachments
+- ~~Extract Attachments~~
+    - Take annotations into account, too
 - Multiple Pages per Sheet
 - Tile a Page
 - Remove Digital Signatures
