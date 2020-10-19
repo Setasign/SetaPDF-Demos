@@ -69,7 +69,7 @@
 
 ## Document:
 - ~~Get Metadata~~
-- Set Metadata
+- ~~Set Metadata~~
 - Extract Attachments
 - Multiple Pages per Sheet
 - Tile a Page

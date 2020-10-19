@@ -1,0 +1,9 @@
+{
+    "name": "Set Metadata",
+    "teaserText": "Set metadata in an existing PDF document.",
+    "requires": [
+        "SetaPDF-Core"
+    ],
+    "faIcon": "&#xf05a;",
+    "faIcon2": "&#xf2f6;"
+}

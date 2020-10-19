@@ -4,5 +4,6 @@
     "requires": [
         "SetaPDF-Core"
     ],
-    "faIcon": "&#xf05a;"
+    "faIcon": "&#xf05a;",
+    "faIcon2": "&#xf2f5;"
 }
