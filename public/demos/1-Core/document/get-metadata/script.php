@@ -13,10 +13,10 @@ $files = [
 
 displayFiles($files);
 
-// Create a document instance
+// create a document instance
 $document = SetaPDF_Core_Document::loadByFilename($_GET['f']);
 
-// Get the documents info dictionary helper
+// get the documents info dictionary helper
 $info = $document->getInfo();
 
 echo '<pre>';
@@ -32,16 +32,15 @@ echo  'Creator: ' . $info->getCreator() . "\n"
     . 'Trapped: ' . $info->getTrapped() . "\n"
     . 'Keywords: ' . $info->getKeywords() . "\n\n";
 
-// Alternatively you can also use the getAll() method:
+// alternatively you can also use the getAll() method:
 echo "Result of getAll():\n";
 print_r($info->getAll());
 
-// The previous method already includes custom metadata.
-// You can get them individually by the getAllCustomMetadata() method:
+// the previous method already includes custom metadata
+// you can get them individually by the getAllCustomMetadata() method, too:
 echo "\n\nResult of getAllCustomMetadata():\n";
 print_r($info->getAllCustomMetadata());
 
-// additionally you can access the XMP data package:
-$metadata = $info->getMetadata();
-echo "\nThe XMP data package:\n\n";
-echo htmlentities($metadata->saveXML());
+// additionally you can access the XMP metadata package:
+$metadata = $document->getCatalog()->getMetadata();
+echo htmlentities($metadata);

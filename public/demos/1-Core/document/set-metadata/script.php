@@ -38,6 +38,13 @@ $info->setCustomMetadata('Valid-Until', '2024-05-12');
 // update the modification date
 $info->setModDate(new DateTime());
 
+// you can also get access to the DOMDocument instance of the XMP package if you want to modify it directly:
+$xml = $info->getMetadata();
+// $description = $xml->createElementNS('http://www.w3.org/1999/02/22-rdf-syntax-ns#', 'Description');
+// ...
+// $rdf = $xml->getElementsByTagName('RDF')->item(0);
+// $rdf->appendChild($description);
+
 // sync XMP metadata package
 $info->syncMetadata();
 
