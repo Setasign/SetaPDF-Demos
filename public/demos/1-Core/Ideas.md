@@ -78,7 +78,7 @@
 - ~~Remove Usage Rights~~
 
 ## Images:
-- Replace Images
+- ~~Replace Images~~
 - Image To PDF
 - Image in specific Resolution
 
