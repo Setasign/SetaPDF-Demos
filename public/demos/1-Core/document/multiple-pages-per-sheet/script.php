@@ -13,6 +13,10 @@ displayFiles($files);
 
 $perSheet = 2;
 
+if (($perSheet & ($perSheet - 1)) !== 0) {
+    throw new InvalidArgumentException('Per page is not a square from 2');
+}
+
 $gridSizeShortSide = 1;
 $gridSizeLongSide = 1;
 
