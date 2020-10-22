@@ -1,0 +1,8 @@
+{
+    "name": "Tile a Page",
+    "teaserText": "Tiles a single page into multiple pages.",
+    "requires": [
+        "SetaPDF-Core"
+    ],
+    "faIcon": "&#xf0c4;"
+}
