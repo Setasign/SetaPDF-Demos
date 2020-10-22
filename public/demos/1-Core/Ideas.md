@@ -80,7 +80,7 @@
 ## Images:
 - ~~Replace Images~~
 - ~~Image To PDF~~
-- Image in specific Resolution
+- ~~Image in specific Resolution~~
 
 ## Outlines:
 - Get Outlines
