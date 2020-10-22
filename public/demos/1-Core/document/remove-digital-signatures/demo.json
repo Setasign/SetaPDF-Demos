@@ -1,0 +1,8 @@
+{
+    "name": "Remove Digital Signatures",
+    "teaserText": "Empty signature field values.",
+    "requires": [
+        "SetaPDF-Core"
+    ],
+    "faIcon": "&#xf12d;"
+}

@@ -74,7 +74,7 @@
     - Take annotations into account, too
 - ~~Multiple Pages per Sheet~~
 - ~~Tile a Page~~
-- Remove Digital Signatures
+- ~~Remove Digital Signatures~~
 - Remove Usage Rights
 
 ## Images:
