@@ -75,7 +75,7 @@
 - ~~Multiple Pages per Sheet~~
 - ~~Tile a Page~~
 - ~~Remove Digital Signatures~~
-- Remove Usage Rights
+- ~~Remove Usage Rights~~
 
 ## Images:
 - Replace Images

@@ -1,0 +1,9 @@
+{
+    "name": "Remove Usage Rights",
+    "teaserText": "Check for usage rights and removes them.",
+    "requires": [
+        "SetaPDF-Core"
+    ],
+    "faIcon": "&#xf0d0;",
+    "faIcon2": "&#xf056;"
+}
