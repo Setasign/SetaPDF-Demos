@@ -2,6 +2,7 @@
 - ~~Add JavaScript~~
 - ~~Get JavaScript~~
 - ~~Delete JavaScript~~
+- Add an action that jumps to a specifc page and zoom when the document is opened.
 
 ## Analyze:
 - ~~Check for Digital Signatures~~
