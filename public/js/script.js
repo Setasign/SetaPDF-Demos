@@ -11,7 +11,6 @@ function newClipboard(selector) {
     var clipboard = new ClipboardJS(selector,
         {
             text: function(trigger) {
-                console.info('trigger');
                 var text = $(trigger).parents('.buttons').nextAll('.code').text();
                 text = text.replace(/\\n/g, "\\r\\n");
                 return text;
@@ -20,7 +19,6 @@ function newClipboard(selector) {
     );
 
     clipboard.on('success', function(event) {
-        console.info('click');
         var button = $(event.trigger);
         button.addClass('copied');
         button.text('copied');
@@ -32,7 +30,6 @@ function newClipboard(selector) {
     });
 
     clipboard.on('error', function(event) {
-        console.info('click2');
         var button = $(event.trigger);
         button.text('Unable to copy, sorry. Please copy manually.');
         window.clearTimeout(timer);
