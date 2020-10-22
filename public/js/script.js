@@ -59,6 +59,10 @@ $(function ($) {
             var h = hash.substring(1);
             if (hash === clickedHash) {
                 $('.step.' + h, demoTabPanel).show().trigger('show');
+                if (h === 'execute') {
+                    var ifrm = $('.step.' + h + ' iframe', demoTabPanel);
+                    ifrm.attr('src', ifrm.data('src'));
+                }
             } else {
                 $('.step.' + h, demoTabPanel).hide();
             }
