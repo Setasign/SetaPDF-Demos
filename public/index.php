@@ -222,7 +222,7 @@ if ($isDemo) {
     }
 
     echo '<div class="step execute">'
-        . '<iframe src="./demos/' . $requestPath . '/script.php" frameborder="0" style="width: 100%; height: 100%;">'
+        . '<iframe data-src="./demos/' . $requestPath . '/script.php" src="about:blank" frameborder="0" style="width: 100%; height: 100%;">'
         . '</iframe>'
         . '</div>'
         . '</div>';

@@ -75,11 +75,11 @@
 - ~~Multiple Pages per Sheet~~
 - ~~Tile a Page~~
 - ~~Remove Digital Signatures~~
-- Remove Usage Rights
+- ~~Remove Usage Rights~~
 
 ## Images:
-- Replace Images
-- Image To PDF
+- ~~Replace Images~~
+- ~~Image To PDF~~
 - Image in specific Resolution
 
 ## Outlines:

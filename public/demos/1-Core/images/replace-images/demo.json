@@ -1,0 +1,9 @@
+{
+    "name": "Replace Images",
+    "teaserText": "Replace existing images with anothers.",
+    "requires": [
+        "SetaPDF-Core"
+    ],
+    "faIcon": "&#xf079;",
+    "previewFiles": ["../../../../../classes/ContentStreamProcessor/ImageProcessor.php"]
+}

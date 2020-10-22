@@ -1,0 +1,9 @@
+{
+    "name": "Image to PDF",
+    "teaserText": "Convert an image to a PDF file.",
+    "requires": [
+        "SetaPDF-Core"
+    ],
+    "faIcon": "&#xf03e;",
+    "faIcon2": "&#xf1c1;"
+}

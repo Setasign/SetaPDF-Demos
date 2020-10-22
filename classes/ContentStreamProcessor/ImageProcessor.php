@@ -153,6 +153,7 @@ class ImageProcessor
             return;
         }
 
+        $xObjectReference = $xObject;
         $xObject = \SetaPDF_Core_XObject::get($xObject);
 
         if ($xObject instanceof \SetaPDF_Core_XObject_Form) {
@@ -201,7 +202,8 @@ class ImageProcessor
                 'resolutionX' => $xObject->getWidth() / $width * 72,
                 'resolutionY' => $xObject->getHeight() / $height * 72,
                 'pixelWidth' => $xObject->getWidth(),
-                'pixelHeight' => $xObject->getHeight()
+                'pixelHeight' => $xObject->getHeight(),
+                'objectReference' => $xObjectReference
             ];
         }
     }
