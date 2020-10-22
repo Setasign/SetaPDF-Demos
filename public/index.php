@@ -214,7 +214,7 @@ if ($isDemo) {
             . '<div class="code">'
             . ($codemirrorLang === 'php' ? '<div class="phpInfo" title="The PHP source code that is executed by this demo.">PHP</div>' : '')
             . '<ul class="buttons">'
-            . '<li><a href="?p=' . $_GET['p'] . '#" class="copy"' . ($codemirrorLang === 'php' ? ' title="copy PHP code"' : '') . '>copy</a></li>'
+            . '<li><a href="?p=' . urlencode($_GET['p']) . '#" class="copy"' . ($codemirrorLang === 'php' ? ' title="copy PHP code"' : '') . '>copy</a></li>'
             . '</ul><pre class="code" data-lang="' . $codemirrorLang . '">'
             . htmlspecialchars(file_get_contents($demoDirectory . '/' . $previewFile), ENT_QUOTES | ENT_HTML5)
             . '</pre></div>'
