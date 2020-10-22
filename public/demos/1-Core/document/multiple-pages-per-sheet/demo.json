@@ -1,0 +1,8 @@
+{
+    "name": "Multiple Pages per Sheet",
+    "teaserText": "Combine multiple pages on new pages.",
+    "requires": [
+        "SetaPDF-Core"
+    ],
+    "faIcon": "&#xf0db;"
+}
