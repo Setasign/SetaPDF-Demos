@@ -83,8 +83,9 @@
 - ~~Image in specific Resolution~~
 
 ## Outlines:
-- Get Outlines
+- ~~Get Outlines~~
 - Add Entry to Extisting Outline (TBD)
+- Replace a {Placeholder} in all entries
 
 ## Pages:
 - Count

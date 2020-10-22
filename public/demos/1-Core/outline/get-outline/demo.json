@@ -1,0 +1,9 @@
+{
+    "name": "Get Bookmark Outline",
+    "teaserText": "Access information of the bookmark outline of a PDF document.",
+    "requires": [
+        "SetaPDF-Core"
+    ],
+    "faIcon": "&#xf02e;",
+    "faIcon2": "&#xf2f5;"
+}
