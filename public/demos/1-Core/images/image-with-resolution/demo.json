@@ -1,0 +1,9 @@
+{
+    "name": "Image to PDF with pre-defined resolution",
+    "teaserText": "Convert an image to a PDF file with a pre-defined resolution.",
+    "requires": [
+        "SetaPDF-Core"
+    ],
+    "faIcon": "&#xf03e;",
+    "faIcon2": "&#xf1c1;"
+}
