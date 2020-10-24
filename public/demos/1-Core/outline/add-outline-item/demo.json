@@ -1,0 +1,9 @@
+{
+    "name": "Add Outline Item",
+    "teaserText": "Add a new outline item to the document bookmark outline.",
+    "requires": [
+        "SetaPDF-Core"
+    ],
+    "faIcon": "&#xf02e;",
+    "faIcon2": "&#xf2f6;"
+}

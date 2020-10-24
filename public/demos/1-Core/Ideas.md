@@ -85,7 +85,7 @@
 
 ## Outlines:
 - ~~Get Outlines~~
-- Add Entry to Extisting Outline (TBD)
+- ~~Add Entry to Existing Outline~~
 - Replace a {Placeholder} in all entries
 
 ## Pages:
