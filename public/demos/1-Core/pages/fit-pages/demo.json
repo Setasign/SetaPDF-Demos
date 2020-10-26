@@ -1,0 +1,8 @@
+{
+    "name": "Fit Pages",
+    "teaserText": "Fit existing PDF pages in a pre-defined page size.",
+    "requires": [
+        "SetaPDF-Core"
+    ],
+    "faIcon": "&#xf78c;"
+}

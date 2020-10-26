@@ -91,7 +91,7 @@
 ## Pages:
 - ~~Count~~
 - ~~Crop~~
-- Fit
+- ~~Fit~~
 - ~~Get Information~~
 - Resize
 - ~~Rotate~~
