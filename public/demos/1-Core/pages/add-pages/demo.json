@@ -1,0 +1,9 @@
+{
+    "name": "Add pages",
+    "teaserText": "Append or prepend pages to a PDF document.",
+    "requires": [
+        "SetaPDF-Core"
+    ],
+    "faIcon": "&#xf15b;",
+    "faIcon2": "&#xf067;"
+}

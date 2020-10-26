@@ -95,6 +95,6 @@
 - Get Data
 - Resize
 - ~~Rotate~~
-- Add
+- ~~Add~~
 - Delete
 
