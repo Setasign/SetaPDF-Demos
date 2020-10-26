@@ -92,7 +92,7 @@
 - ~~Count~~
 - Crop
 - Fit
-- Get Data
+- ~~Get Data~~
 - Resize
 - ~~Rotate~~
 - ~~Add~~
