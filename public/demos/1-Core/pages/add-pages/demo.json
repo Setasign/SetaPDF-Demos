@@ -1,5 +1,5 @@
 {
-    "name": "Add pages",
+    "name": "Add Pages",
     "teaserText": "Append or prepend pages to a PDF document.",
     "requires": [
         "SetaPDF-Core"
