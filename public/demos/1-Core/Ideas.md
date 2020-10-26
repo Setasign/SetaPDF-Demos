@@ -89,12 +89,12 @@
 - Replace a {Placeholder} in all entries
 
 ## Pages:
-- Count
+- ~~Count~~
 - Crop
 - Fit
 - Get Data
 - Resize
-- Rotate
+- ~~Rotate~~
 - Add
 - Delete
 

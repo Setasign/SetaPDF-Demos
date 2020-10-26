@@ -3,5 +3,6 @@
     "teaserText": "Rotate pages from a PDF document with PHP.",
     "requires": [
         "SetaPDF-Core"
-    ]
+    ],
+    "faIcon": "&#xf021;"
 }

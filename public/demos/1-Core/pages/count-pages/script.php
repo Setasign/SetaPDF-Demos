@@ -1,5 +1,6 @@
 <?php
 
+// load and register the autoload function
 require_once __DIR__ . '/../../../../../bootstrap.php';
 
 $files = [
@@ -8,21 +9,7 @@ $files = [
     $assetsDirectory . '/pdfs/etown/Laboratory-Report.pdf',
 ];
 
-foreach ($files as $path) {
-    $name = basename($path);
-    echo '<a href="?f=' . urlencode($path) . '">';
-    echo htmlspecialchars($name, ENT_QUOTES | ENT_HTML5);
-    echo '</a><br />';
-}
-
-echo '<br />';
-
-if (!isset($_GET['f']) || !in_array($_GET['f'], $files, true)) {
-    return;
-}
-
-//require_once('library/SetaPDF/Autoload.php');
-// or if you use composer require_once('vendor/autoload.php');
+displayFiles($files);
 
 $document = SetaPDF_Core_Document::loadByFilename($_GET['f']);
 

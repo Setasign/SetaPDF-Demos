@@ -1,28 +1,15 @@
 <?php
 
+// load and register the autoload function
 require_once __DIR__ . '/../../../../../bootstrap.php';
 
-$files = array_merge([
+$files = [
     $assetsDirectory . '/pdfs/Brand-Guide.pdf',
     $assetsDirectory . '/pdfs/camtown/Terms-and-Conditions.pdf',
     $assetsDirectory . '/pdfs/etown/Laboratory-Report.pdf',
-], $sessionFiles);
+];
 
-if (!isset($_GET['f']) || !in_array($_GET['f'], $files)) {
-    foreach ($files as $path) {
-        $name = basename($path);
-        echo '<a href="?f=' . urlencode($path) . '" target="pdfFrame">';
-        echo htmlspecialchars($name, ENT_QUOTES | ENT_HTML5);
-        echo '</a><br />';
-    }
-
-    echo '<br />';
-    echo '<iframe width="100%" height="500" id="pdfFrame" name="pdfFrame" src="about:blank"/>';
-    die();
-}
-
-//require_once('library/SetaPDF/Autoload.php');
-// or if you use composer require_once('vendor/autoload.php');
+displayFiles($files);
 
 // create a file writer
 $writer = new SetaPDF_Core_Writer_Http('rotated.pdf', true);
