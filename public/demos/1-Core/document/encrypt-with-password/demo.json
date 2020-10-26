@@ -1,0 +1,8 @@
+{
+    "name": "Encrypt with Password",
+    "teaserText": "Encrypt a PDF document with a user and owner password.",
+    "requires": [
+        "SetaPDF-Core"
+    ],
+    "faIcon": "&#xf023;"
+}

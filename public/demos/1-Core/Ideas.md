@@ -77,6 +77,7 @@
 - ~~Tile a Page~~
 - ~~Remove Digital Signatures~~
 - ~~Remove Usage Rights~~
+- ~~Encrypt with a Password~~
 
 ## Images:
 - ~~Replace Images~~
@@ -93,7 +94,7 @@
 - ~~Crop~~
 - ~~Fit~~
 - ~~Get Information~~
-- Resize
+- ~~Resize~~
 - ~~Rotate~~
 - ~~Add~~
 - ~~Delete~~
