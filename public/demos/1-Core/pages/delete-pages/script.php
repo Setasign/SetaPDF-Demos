@@ -18,12 +18,12 @@ $writer = new SetaPDF_Core_Writer_Http('delete-pages.pdf', true);
 // create a document
 $document = SetaPDF_Core_Document::load($reader, $writer);
 
-// Get the pages helper
+// get the pages helper
 $pages = $document->getCatalog()->getPages();
 // or
 // $pages = $document->getPages();
 
-// Delete all but the first page
+// delete all but the first page
 while ($pages->count() > 1) {
     $pages->deletePage($pages->count());
 }
