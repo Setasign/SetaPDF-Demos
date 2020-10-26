@@ -1,0 +1,9 @@
+{
+    "name": "Delete Pages",
+    "teaserText": "Remove pages from a PDF document.",
+    "requires": [
+        "SetaPDF-Core"
+    ],
+    "faIcon": "&#xf15b;",
+    "faIcon2": "&#xf068;"
+}

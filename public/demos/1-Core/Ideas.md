@@ -96,5 +96,5 @@
 - Resize
 - ~~Rotate~~
 - ~~Add~~
-- Delete
+- ~~Delete~~
 
