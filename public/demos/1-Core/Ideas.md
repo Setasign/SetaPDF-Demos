@@ -90,7 +90,7 @@
 
 ## Pages:
 - ~~Count~~
-- Crop
+- ~~Crop~~
 - Fit
 - ~~Get Information~~
 - Resize
