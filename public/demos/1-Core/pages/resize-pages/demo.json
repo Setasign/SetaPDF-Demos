@@ -1,0 +1,8 @@
+{
+    "name": "Resize Pages",
+    "teaserText": "Resize pages boundary boxes.",
+    "requires": [
+        "SetaPDF-Core"
+    ],
+    "faIcon": "&#xf065;"
+}
