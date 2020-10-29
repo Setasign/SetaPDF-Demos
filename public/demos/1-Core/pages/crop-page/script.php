@@ -3,9 +3,14 @@
 // load and register the autoload function
 require_once __DIR__ . '/../../../../../bootstrap.php';
 
-$files = ['red', 'blue', 'yellow', 'green'];
+$rectColors = [
+    'red' => '"red" rect',
+    'blue' => '"blue" rect',
+    'yellow' => '"yellow" rect',
+    'green' => '"green" rect'
+];
 
-displayFiles($files);
+$rectColor = displaySelect('Crop to:', $rectColors);
 
 // create a writer instance
 $writer = new SetaPDF_Core_Writer_Http('cropped.pdf', true);
@@ -37,7 +42,7 @@ foreach (SetaPDF_Core_PageBoundaries::$all AS $boxName) {
     }
 
     // reset the box to the new calculated value
-    $page->setBoundary($position[$_GET['f']], $boxName, false);
+    $page->setBoundary($position[$rectColor], $boxName, false);
 }
 
 $document->save()->finish();
