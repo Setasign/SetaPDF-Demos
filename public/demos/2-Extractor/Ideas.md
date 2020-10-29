@@ -4,7 +4,7 @@
     - ~~Exact Plain Text~~
     - ~~Glyph~~
     - ~~Word Strategy~~
-    - Word Strategy with Glyphs
+    - ~~Word Strategy with Glyphs~~
     - Word Group
 
 - Filter
