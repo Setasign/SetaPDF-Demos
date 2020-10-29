@@ -1,0 +1,6 @@
+{
+    "name": "Filter",
+    "teaserText": "Demos showing the use of filters.",
+    "requires": ["SetaPDF-Core", "SetaPDF-Extractor"],
+    "faIcon": "&#xf0b0;"
+}

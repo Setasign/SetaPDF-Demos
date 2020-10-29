@@ -1,0 +1,5 @@
+{
+    "name": "Various",
+    "teaserText": "Various demos showing solutions you can create with the SetaPDF-Extractor component.",
+    "requires": ["SetaPDF-Core", "SetaPDF-Extractor"]
+}

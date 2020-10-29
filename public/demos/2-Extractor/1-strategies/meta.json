@@ -1,0 +1,5 @@
+{
+    "name": "Strategies",
+    "teaserText": "Simple demos of all available extraction strategies.",
+    "requires": ["SetaPDF-Core", "SetaPDF-Extractor"]
+}
