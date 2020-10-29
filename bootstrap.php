@@ -25,7 +25,7 @@ function displayFiles($files, $iframe = true, $variants = [])
 {
     if (!isset($_GET['f']) || !in_array($_GET['f'], $files, true)) {
         echo '<html><head><link rel="stylesheet" type="text/css" href="/layout/demo.css"/></head><body>';
-        echo '<div id="fileSelector">';
+        echo '<div id="demoInput">';
 
         // list the files
         foreach ($files as $path) {
@@ -52,4 +52,33 @@ function displayFiles($files, $iframe = true, $variants = [])
         echo '</body></html>';
         die();
     }
+}
+
+function displaySelect($label, $data, $iframe = true)
+{
+    if (!isset($_GET['data']) || !array_key_exists($_GET['data'], $data)) {
+        echo '<html><head><link rel="stylesheet" type="text/css" href="/layout/demo.css"/></head><body>';
+        echo '<div id="demoInput">';
+
+        echo '<form method="GET"';
+        if ($iframe) {
+            echo ' target="pdfFrame"';
+        }
+        echo '><label for="data">' . htmlspecialchars($label) . '</label>'
+            . '<select id="data" name="data" onchange="if(this.value)this.form.submit();">'
+            . '<option value="">--- please choose ---</option>';
+        foreach ($data as $value => $displayValue) {
+            echo '<option value="' . htmlspecialchars($value) . '">' . htmlspecialchars($displayValue) . '</option>';
+        }
+        echo '</select></form></div>';
+
+        if ($iframe) {
+            echo '<iframe width="100%" height="300" name="pdfFrame" src="about:blank"/>';
+        }
+
+        echo '</body></html>';
+        die();
+    }
+
+    return $_GET['data'];
 }
