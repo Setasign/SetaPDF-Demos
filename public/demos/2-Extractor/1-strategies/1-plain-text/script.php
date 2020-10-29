@@ -20,8 +20,8 @@ $extractor = new SetaPDF_Extractor($document);
 //$extractor->setStrategy($strategy);
 
 $pageCount = $document->getCatalog()->getPages()->count();
-for ($pageNo = 1; $pageNo <= $pageCount; $pageNo++) {
 
+for ($pageNo = 1; $pageNo <= $pageCount; $pageNo++) {
     $result = $extractor->getResultByPageNumber($pageNo);
     echo '<b>Result for Page #' . $pageNo . ':</b><br/>';
     echo '<pre>' . htmlspecialchars($result) . '</pre>';
