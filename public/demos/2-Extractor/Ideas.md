@@ -1,7 +1,7 @@
 
 - Strategies
-    - Plain Text
-    - Exact Plain Text
+    - ~~Plain Text~~
+    - ~~Exact Plain Text~~
     - Glyphs
     - Words
     - Word Groups
@@ -15,6 +15,7 @@
     - Filter By Font Size
 
 - Various Demos
+    - The boundary parameter 
     - Add Image Above Placeholder
     - Create Link Annotations
     - Create Links in Table Of Contents 
