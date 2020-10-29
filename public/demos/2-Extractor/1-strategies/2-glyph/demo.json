@@ -1,5 +1,5 @@
 {
-    "name": "Glyphs",
+    "name": "Glyph",
     "teaserText": "Extract all individual glyphs.",
     "requires": [
         "SetaPDF-Core", "SetaPDF-Extractor"
