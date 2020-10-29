@@ -2,7 +2,7 @@
 - Strategies
     - ~~Plain Text~~
     - ~~Exact Plain Text~~
-    - Glyphs
+    - ~~Glyphs~~
     - Words
     - Word Groups
 
