@@ -2,9 +2,10 @@
 - Strategies
     - ~~Plain Text~~
     - ~~Exact Plain Text~~
-    - ~~Glyphs~~
-    - Words
-    - Word Groups
+    - ~~Glyph~~
+    - ~~Word Strategy~~
+    - Word Strategy with Glyphs
+    - Word Group
 
 - Filter
     - Extract Text By Annotations

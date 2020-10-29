@@ -1,0 +1,9 @@
+{
+    "name": "Word",
+    "teaserText": "Get words using the word strategy.",
+    "requires": [
+        "SetaPDF-Core", "SetaPDF-Extractor"
+    ],
+    "faIcon": "&#xf031;",
+    "faIcon2": "&#xf031;"
+}
