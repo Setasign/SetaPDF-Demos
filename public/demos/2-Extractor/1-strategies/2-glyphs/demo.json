@@ -1,0 +1,8 @@
+{
+    "name": "Glyphs",
+    "teaserText": "Extract all individual glyphs.",
+    "requires": [
+        "SetaPDF-Core", "SetaPDF-Extractor"
+    ],
+    "faIcon": "&#xf12e;"
+}

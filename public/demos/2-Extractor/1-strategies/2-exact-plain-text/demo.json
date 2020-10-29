@@ -1,9 +1,0 @@
-{
-    "name": "Exact Plain Text",
-    "teaserText": "Get text using the exact plain text strategy.",
-    "requires": [
-        "SetaPDF-Core", "SetaPDF-Extractor"
-    ],
-    "faIcon": "&#xf031;",
-    "faIcon2": "&#xf05b;"
-}
