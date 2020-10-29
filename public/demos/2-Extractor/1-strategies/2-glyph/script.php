@@ -37,7 +37,7 @@ for ($pageNo = 1; $pageNo <= $pageCount; $pageNo++) {
             $bounds->getLl()->getY(),
             $bounds->getUr()->getX(),
             $bounds->getUr()->getY(),
-            $glyph->getTextItem()->getFont()->getFontName()
+            htmlspecialchars($glyph->getTextItem()->getFont()->getFontName())
         );
     }
 
