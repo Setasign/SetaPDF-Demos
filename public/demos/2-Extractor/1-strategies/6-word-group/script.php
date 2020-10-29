@@ -25,7 +25,6 @@ for ($pageNo = 1; $pageNo <= $pageCount; $pageNo++) {
 
     echo '<b>There are ' . count($wordGroups) . ' word groups on Page #' . $pageNo . ':</b><br/>';
 
-
     foreach ($wordGroups as $i => $words) {
         echo '<p>';
 
