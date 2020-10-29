@@ -5,7 +5,7 @@
     - ~~Glyph~~
     - ~~Word Strategy~~
     - ~~Word Strategy with Glyphs~~
-    - Word Group
+    - ~~Word Group~~
 
 - Filter
     - Extract Text By Annotations

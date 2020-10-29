@@ -1,0 +1,9 @@
+{
+    "name": "Word Group",
+    "teaserText": "Get words in groups by the Word Group strategy.",
+    "requires": [
+        "SetaPDF-Core", "SetaPDF-Extractor"
+    ],
+    "faIcon": "&#xf031;",
+    "faIcon2": "&#xf247;"
+}
