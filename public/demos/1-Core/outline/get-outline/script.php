@@ -9,10 +9,10 @@ $files = [
     $assetsDirectory . '/pdfs/Brand-Guide.pdf',
 ];
 
-displayFiles($files);
+$path = displayFiles($files);
 
 // create a reader
-$reader = new SetaPDF_Core_Reader_File($_GET['f']);
+$reader = new SetaPDF_Core_Reader_File($path);
 // create a document
 $document = SetaPDF_Core_Document::load($reader);
 
@@ -47,7 +47,7 @@ foreach ($iterator AS $outlineItem) {
     $action = $outlineItem->getAction();
     if ($action !== false) {
         $destionationOrAction = $action->getType() . ' Action';
-        switch (1) {
+        switch (true) {
             // handle GoTo Actions
             case $action instanceof SetaPDF_Core_Document_Action_GoTo:
                 $destination = $action->getDestination($document);

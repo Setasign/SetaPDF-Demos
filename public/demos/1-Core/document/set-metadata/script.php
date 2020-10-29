@@ -10,12 +10,12 @@ $files = [
     $assetsDirectory . '/pdfs/etown/Laboratory-Report.pdf'
 ];
 
-displayFiles($files);
+$path = displayFiles($files);
 
 // create a writer instance
 $writer = new SetaPDF_Core_Writer_Http('updated-metadata.pdf', true);
 // create a document instance
-$document = SetaPDF_Core_Document::loadByFilename($_GET['f'], $writer);
+$document = SetaPDF_Core_Document::loadByFilename($path, $writer);
 
 // get the info helper object
 $info = $document->getInfo();

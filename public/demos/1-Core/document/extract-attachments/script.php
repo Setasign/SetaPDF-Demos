@@ -9,10 +9,10 @@ $files = [
     $assetsDirectory . '/pdfs/Logos-Portfolio.pdf',
 ];
 
-displayFiles($files);
+$path = displayFiles($files);
 
 // create a document
-$document = SetaPDF_Core_Document::loadByFilename($_GET['f']);
+$document = SetaPDF_Core_Document::loadByFilename($path);
 
 // get names
 $names = $document->getCatalog()->getNames();
@@ -36,7 +36,7 @@ if (isset($_GET['name'])) {
         // pass the file to the client
         $stream = $embeddedFileStream->getStream();
         header('Content-Type: ' . $contentType);
-        header('Content-Disposition: attachment; filename="' . $filename . '";');
+        header('Content-Disposition: attachment; ' . SetaPDF_Core_Writer_Http::encodeFilenameForHttpHeader($filename));
         header('Content-Transfer-Encoding: binary');
         header('Content-Length: ' . strlen($stream));
         echo $stream;
@@ -55,7 +55,7 @@ foreach ($files AS $name => $file) {
         $size = $params[SetaPDF_Core_EmbeddedFileStream::PARAM_SIZE];
     }
 
-    echo '<a href="?f=' . urlencode($_GET['f']) . '&name=' . urlencode($name) . '">';
+    echo '<a href="?f=' . urlencode($path) . '&name=' . urlencode($name) . '">';
     echo htmlspecialchars($filename) . '</a>';
     if ($size) {
         echo ' (' . $size . ' Bytes)';

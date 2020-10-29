@@ -9,10 +9,10 @@ $files = [
     $assetsDirectory . '/pdfs/Fact-Sheet-form.pdf'
 ];
 
-displayFiles($files);
+$path = displayFiles($files);
 
 // create a document
-$document = SetaPDF_Core_Document::loadByFilename($_GET['f']);
+$document = SetaPDF_Core_Document::loadByFilename($path);
 
 // get names
 $names = $document->getCatalog()->getNames();
@@ -25,7 +25,7 @@ $shouldSave = false;
 if ($javaScriptTree) {
     // walk through all java scripts
     foreach ($javaScriptTree->getAll(true) as $name) {
-        $out .= 'Remove: <a href="?f=' . urlencode($_GET['f']) . '&name=' . urlencode($name) . '">' . htmlspecialchars($name) . "</a><br />";
+        $out .= 'Remove: <a href="?f=' . urlencode($path) . '&name=' . urlencode($name) . '">' . htmlspecialchars($name) . "</a><br />";
         if (isset($_GET['name']) && $_GET['name'] === $name) {
             $javaScriptTree->remove($name);
             $shouldSave = true;

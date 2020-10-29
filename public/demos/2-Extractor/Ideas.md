@@ -13,7 +13,7 @@
     - Extract Grouped Customer Data (only by Filter)
         - With one or more files
         - Get Words At specifc Location
-    - Filter By Font Size
+    - ~~Filter By Font Size~~
 
 - Various Demos
     - The boundary parameter 

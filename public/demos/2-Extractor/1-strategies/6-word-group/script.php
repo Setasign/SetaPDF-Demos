@@ -10,9 +10,9 @@ $files = [
     $assetsDirectory . '/pdfs/Brand-Guide.pdf',
 ];
 
-displayFiles($files);
+$path = displayFiles($files);
 
-$document = SetaPDF_Core_Document::loadByFilename($_GET['f']);
+$document = SetaPDF_Core_Document::loadByFilename($path);
 $extractor = new SetaPDF_Extractor($document);
 
 $strategy = new SetaPDF_Extractor_Strategy_WordGroup();

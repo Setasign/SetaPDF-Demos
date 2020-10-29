@@ -10,10 +10,10 @@ $files = [
     $assetsDirectory . '/pdfs/tektown/products/All-Portfolio.pdf',
 ];
 
-displayFiles($files);
+$path = displayFiles($files);
 
 // create a document
-$document = SetaPDF_Core_Document::loadByFilename($_GET['f']);
+$document = SetaPDF_Core_Document::loadByFilename($path);
 
 $catalog = $document->getCatalog();
 $dictionary = $catalog->getDictionary();

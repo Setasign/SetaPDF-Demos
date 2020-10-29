@@ -10,13 +10,13 @@ $files = [
     $assetsDirectory . '/pdfs/etown/Laboratory-Report.pdf'
 ];
 
-displayFiles($files, false);
+$path = displayFiles($files, false);
 
 // create a writer instance
 $writer = new SetaPDF_Core_Writer_Http('encrypted.pdf');
 
 // create a document instance
-$document = SetaPDF_Core_Document::loadByFilename($_GET['f'], $writer);
+$document = SetaPDF_Core_Document::loadByFilename($path, $writer);
 
 // create a security handler instance
 $secHandler = SetaPDF_Core_SecHandler_Standard_Aes256::factory(

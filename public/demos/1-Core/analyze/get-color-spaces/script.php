@@ -10,13 +10,13 @@ $files = glob($assetsDirectory . '/pdfs/misc/*.pdf');
 $files[] = $assetsDirectory . '/pdfs/Brand-Guide.pdf';
 $files[] = $assetsDirectory . '/pdfs/Brand-Guide - with-comments.pdf';
 
-displayFiles($files);
+$path = displayFiles($files);
 
 // require helper classes
 require_once $classesDirectory . '/ContentStreamProcessor/ColorProcessor.php';
 require_once $classesDirectory . '/Inspector/ColorInspector.php';
 
-$document = SetaPDF_Core_Document::loadByFilename($_GET['f']);
+$document = SetaPDF_Core_Document::loadByFilename($path);
 $inspector = new ColorInspector($document);
 $colors = $inspector->getColors();
 

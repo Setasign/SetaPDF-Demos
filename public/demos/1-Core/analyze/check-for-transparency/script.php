@@ -9,12 +9,12 @@ require_once '../../../../../bootstrap.php';
 $files = glob($assetsDirectory . '/pdfs/misc/*.pdf');
 $files[] = $assetsDirectory . '/pdfs/Brand-Guide.pdf';
 
-displayFiles($files);
+$path = displayFiles($files);
 
 // require the text processor class
 require_once $classesDirectory . '/Inspector/TransparencyInspector.php';
 
-$document = SetaPDF_Core_Document::loadByFilename($_GET['f']);
+$document = SetaPDF_Core_Document::loadByFilename($path);
 
 $inspector = new TransparencyInspector($document);
 $transparencyElements = $inspector->process();

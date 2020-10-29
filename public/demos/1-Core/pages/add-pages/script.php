@@ -9,10 +9,10 @@ $files = [
     $assetsDirectory . '/pdfs/etown/Laboratory-Report.pdf'
 ];
 
-displayFiles($files);
+$path = displayFiles($files);
 
 // create a reader
-$reader = new SetaPDF_Core_Reader_File($_GET['f']);
+$reader = new SetaPDF_Core_Reader_File($path);
 // create a writer
 $writer = new SetaPDF_Core_Writer_Http('add-pages.pdf', true);
 // create a document

@@ -9,10 +9,10 @@ $files = [
     $assetsDirectory . '/pdfs/forms/Sunnysunday-Example.pdf',
 ];
 
-displayFiles($files, false);
+$path = displayFiles($files, false);
 
 // create a document
-$document = SetaPDF_Core_Document::loadByFilename($_GET['f']);
+$document = SetaPDF_Core_Document::loadByFilename($path);
 
 $permissions = $document->getCatalog()->getPermissions();
 

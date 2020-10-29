@@ -11,16 +11,16 @@ $files = [
     $assetsDirectory . '/pdfs/misc/FPDF-ex74.pdf',
 ];
 
-displayFiles($files);
+$path = displayFiles($files);
 
 // create a document instance
-$document = SetaPDF_Core_Document::loadByFilename($_GET['f']);
+$document = SetaPDF_Core_Document::loadByFilename($path);
 
 // get the documents info dictionary helper
 $info = $document->getInfo();
 
 echo '<pre>';
-echo 'Following metadata were extracted from the file "' . basename($_GET['f']) . "\":\n\n";
+echo 'Following metadata were extracted from the file "' . basename($path) . "\":\n\n";
 
 echo  'Creator: ' . $info->getCreator() . "\n"
     . 'CreationDate: ' . $info->getCreationDate() . "\n"

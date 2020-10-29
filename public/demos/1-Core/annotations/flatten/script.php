@@ -10,10 +10,10 @@ $files = [
     $assetsDirectory . '/pdfs/camtown/Fact-Sheet-letterhead-as-annotation.pdf'
 ];
 
-displayFiles($files);
+$path = displayFiles($files);
 
 $writer = new SetaPDF_Core_Writer_Http('flatten-annotations.pdf', true);
-$document = SetaPDF_Core_Document::loadByFilename($_GET['f'], $writer);
+$document = SetaPDF_Core_Document::loadByFilename($path, $writer);
 
 $pages = $document->getCatalog()->getPages();
 $pageCount = $pages->count();

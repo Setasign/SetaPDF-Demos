@@ -6,14 +6,14 @@ require_once '../../../../../bootstrap.php';
 // prepare some files
 $files = glob($assetsDirectory . '/images/*/*.{png,jpg,jpeg,gif}', GLOB_BRACE);
 
-displayFiles($files, true, ['dpi' => [72, 96, 150, 300]]);
+$imgPath = displayFiles($files, true, ['dpi' => [72, 96, 150, 300]]);
 
 // create a writer
 $writer = new SetaPDF_Core_Writer_Http('ImgInSpecificResolution.pdf', true);
 // create a document
 $document = new SetaPDF_Core_Document($writer);
 
-$img = SetaPDF_Core_Image::getByPath($_GET['f']);
+$img = SetaPDF_Core_Image::getByPath($imgPath);
 $xObject = $img->toXObject($document);
 $width = $xObject->getWidth();
 $height = $xObject->getHeight();

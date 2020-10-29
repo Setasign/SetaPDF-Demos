@@ -10,10 +10,10 @@ $files = [
     $assetsDirectory . '/pdfs/camtown/Laboratory-Report-signed.pdf',
 ];
 
-displayFiles($files, false);
+$path = displayFiles($files, false);
 
-$writer = new SetaPDF_Core_Writer_Http(basename($_GET['f']));
-$document = SetaPDF_Core_Document::loadByFilename($_GET['f'], $writer);
+$writer = new SetaPDF_Core_Writer_Http(basename($path));
+$document = SetaPDF_Core_Document::loadByFilename($path, $writer);
 
 // get all terminal fields
 $terminalFields = $document->getCatalog()->getAcroForm()->getTerminalFieldsObjects();

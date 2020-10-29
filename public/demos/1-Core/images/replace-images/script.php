@@ -8,12 +8,12 @@ require_once '../../../../../bootstrap.php';
 // prepare some files
 $files = glob($assetsDirectory . '/pdfs/lenstown/products/*.pdf');
 
-displayFiles($files);
+$path = displayFiles($files);
 
 require_once $classesDirectory . '/ContentStreamProcessor/ImageProcessor.php';
 
 // load a document instance
-$document = SetaPDF_Core_Document::loadByFilename($_GET['f']);
+$document = SetaPDF_Core_Document::loadByFilename($path);
 // get access to the pages object
 $pages = $document->getCatalog()->getPages();
 

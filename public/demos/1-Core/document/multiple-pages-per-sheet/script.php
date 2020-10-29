@@ -9,7 +9,7 @@ $files = [
     $assetsDirectory . '/pdfs/camtown/Terms-and-Conditions.pdf'
 ];
 
-displayFiles($files);
+$path = displayFiles($files);
 
 $perSheet = 2;
 
@@ -30,7 +30,7 @@ for ($a = $perSheet; $a > 1; $a /= 2) {
 }
 
 // load the original document
-$originalDocument = SetaPDF_Core_Document::loadByFilename($_GET['f']);
+$originalDocument = SetaPDF_Core_Document::loadByFilename($path);
 // get the pages instance of the original document
 $originalPages = $originalDocument->getCatalog()->getPages();
 
@@ -43,7 +43,7 @@ $longSide = array_keys($pageSize, max($pageSize))[0];
 $shortSide = array_keys($pageSize, min($pageSize))[0];
 
 // create a new writer for the new document
-$writer = new SetaPDF_Core_Writer_Http(basename($_GET['f']), true);
+$writer = new SetaPDF_Core_Writer_Http(basename($path), true);
 
 // create a new document
 $newDocument = new SetaPDF_Core_Document($writer);

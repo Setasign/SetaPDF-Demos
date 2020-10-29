@@ -9,9 +9,9 @@ $files = [
     $assetsDirectory . '/pdfs/tektown/Laboratory-Report-up=topsecret,op=owner.pdf'
 ];
 
-displayFiles($files);
+$path = displayFiles($files);
 
-$document = SetaPDF_Core_Document::loadByFilename($_GET['f']);
+$document = SetaPDF_Core_Document::loadByFilename($path);
 
 if (!$document->hasSecHandler()) {
     echo 'Document is not encrypted.';

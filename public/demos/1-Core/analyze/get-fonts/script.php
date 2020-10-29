@@ -11,11 +11,11 @@ $files[] = $assetsDirectory . '/pdfs/Brand-Guide.pdf';
 $files[] = $assetsDirectory . '/pdfs/Fact-Sheet-form.pdf';
 $files[] = $assetsDirectory . '/pdfs/misc/Handwritten-Signature.pdf';
 
-displayFiles($files);
+$path = displayFiles($files);
 
 require_once $classesDirectory . '/Inspector/FontInspector.php';
 
-$fontInspector = new FontInspector($_GET['f']);
+$fontInspector = new FontInspector($path);
 $fontObjects = $fontInspector->resolveFonts();
 
 foreach ($fontObjects AS $fontObject) {

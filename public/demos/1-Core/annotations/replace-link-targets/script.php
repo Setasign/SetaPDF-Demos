@@ -11,12 +11,12 @@ $files = [
     $assetsDirectory . '/pdfs/Fact-Sheet-form.pdf',
 ];
 
-displayFiles($files);
+$path = displayFiles($files);
 
 // create a writer
 $writer = new SetaPDF_Core_Writer_Http('links-replaced.pdf', true);
 // create a document
-$document = SetaPDF_Core_Document::loadByFilename($_GET['f'], $writer);
+$document = SetaPDF_Core_Document::loadByFilename($path, $writer);
 
 // Get the pages helper
 $pages = $document->getCatalog()->getPages();

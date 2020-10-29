@@ -52,6 +52,8 @@ function displayFiles($files, $iframe = true, $variants = [])
         echo '</body></html>';
         die();
     }
+
+    return $_GET['f'];
 }
 
 function displaySelect($label, $data, $iframe = true)

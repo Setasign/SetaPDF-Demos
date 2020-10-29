@@ -9,7 +9,7 @@ $files = [
     $assetsDirectory . '/pdfs/camtown/Terms-and-Conditions.pdf'
 ];
 
-displayFiles($files);
+$path = displayFiles($files);
 
 $tileCount = 4;
 $pageNumber = 1;
@@ -38,12 +38,12 @@ if ($gridSizeX === $gridSizeY) {
 }
 
 // load the original document
-$originalDocument = SetaPDF_Core_Document::loadByFilename($_GET['f']);
+$originalDocument = SetaPDF_Core_Document::loadByFilename($path);
 // get the pages instance of the original document
 $originalPages = $originalDocument->getCatalog()->getPages();
 
 // create a new writer for the new document
-$writer = new SetaPDF_Core_Writer_Http(basename($_GET['f']), true);
+$writer = new SetaPDF_Core_Writer_Http(basename($path), true);
 
 // create a new document
 $newDocument = new SetaPDF_Core_Document($writer);

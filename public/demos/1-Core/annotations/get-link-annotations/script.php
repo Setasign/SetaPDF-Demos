@@ -11,10 +11,10 @@ $files = [
     $assetsDirectory . '/pdfs/Fact-Sheet-form.pdf',
 ];
 
-displayFiles($files);
+$path = displayFiles($files);
 
 // create a document
-$document = SetaPDF_Core_Document::loadByFilename($_GET['f']);
+$document = SetaPDF_Core_Document::loadByFilename($path);
 
 // Get the pages helper
 $pages = $document->getCatalog()->getPages();

@@ -9,14 +9,14 @@ $files = [
     $assetsDirectory . '/pdfs/etown/Laboratory-Report.pdf',
 ];
 
-displayFiles($files);
+$path = displayFiles($files);
 
-$document = SetaPDF_Core_Document::loadByFilename($_GET['f']);
+$document = SetaPDF_Core_Document::loadByFilename($path);
 
 $pages = $document->getCatalog()->getPages();
 $pageCount = $pages->count();
 // or
 // $pageCount = count($pages);
 
-echo 'The document "' . basename($_GET['f']) . '" has ' .
+echo 'The document "' . basename($path) . '" has ' .
     ($pageCount === 1 ? '1 page' : $pageCount . ' pages');

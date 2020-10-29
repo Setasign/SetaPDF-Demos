@@ -6,14 +6,14 @@ require_once '../../../../../bootstrap.php';
 // prepare some files
 $files = glob($assetsDirectory . '/images/*/*.{png,jpg,jpeg,gif}', GLOB_BRACE);
 
-displayFiles($files);
+$imgPath = displayFiles($files);
 
 // create a writer
 $writer = new SetaPDF_Core_Writer_Http('ImgToPdf.pdf', true);
 // create a document
 $document = new SetaPDF_Core_Document($writer);
 
-$img = SetaPDF_Core_Image::getByPath($_GET['f']);
+$img = SetaPDF_Core_Image::getByPath($imgPath);
 $xObject = $img->toXObject($document);
 
 $pages = $document->getCatalog()->getPages();

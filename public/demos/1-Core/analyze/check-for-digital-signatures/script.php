@@ -12,9 +12,9 @@ $files = [
     $assetsDirectory . '/pdfs/tektown/eBook-Invoice.pdf',
 ];
 
-displayFiles($files);
+$path = displayFiles($files);
 
-$document = SetaPDF_Core_Document::loadByFilename($_GET['f']);
+$document = SetaPDF_Core_Document::loadByFilename($path);
 $terminalFields = $document->getCatalog()->getAcroForm()->getTerminalFieldsObjects();
 
 $signatureFieldFound = false;

@@ -9,12 +9,12 @@ $files = [
     $assetsDirectory . '/pdfs/Fact-Sheet-form.pdf'
 ];
 
-displayFiles($files, false);
+$path = displayFiles($files, false);
 
 // create a writer instance
 $writer = new SetaPDF_Core_Writer_Http('AddJavaScript.pdf', false);
 // create a document instance
-$document = SetaPDF_Core_Document::loadByFilename($_GET['f'], $writer);
+$document = SetaPDF_Core_Document::loadByFilename($path, $writer);
 
 // this is our JavaScript we want to inject - we check for an
 // existing JavaScript variable in the document to show some logic.

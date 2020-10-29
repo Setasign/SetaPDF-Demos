@@ -11,7 +11,7 @@ $files[] = $assetsDirectory . '/pdfs/Brand-Guide.pdf';
 $files[] = $assetsDirectory . '/pdfs/Fact-Sheet-form.pdf';
 $files[] = $assetsDirectory . '/pdfs/misc/Handwritten-Signature.pdf';
 
-displayFiles($files);
+$path = displayFiles($files);
 
 require_once $classesDirectory . '/ContentStreamProcessor/ImageProcessor.php';
 
@@ -19,7 +19,7 @@ require_once $classesDirectory . '/ContentStreamProcessor/ImageProcessor.php';
 if (!isset($_GET['p'])) {
 
     // load a document instance
-    $document = SetaPDF_Core_Document::loadByFilename($_GET['f']);
+    $document = SetaPDF_Core_Document::loadByFilename($path);
     // get access to the pages object
     $pages = $document->getCatalog()->getPages();
 
@@ -33,7 +33,7 @@ if (!isset($_GET['p'])) {
 
         echo '<pre>';
         if (count($images)) {
-            echo '<a href="?f=' . urlencode($_GET['f']) . '&p=' . $pageNo . '#page=' . $pageNo . '">Found '
+            echo '<a href="?f=' . urlencode($path) . '&p=' . $pageNo . '#page=' . $pageNo . '">Found '
                 . count($images) . ' images on page #' . $pageNo . "</a>.\n";
         } else {
             echo 'Found no images on page #' . $pageNo . ".\n";
@@ -61,7 +61,7 @@ if (!isset($_GET['p'])) {
 
     // let's create a writer and document instance
     $writer = new SetaPDF_Core_Writer_Http('marked.pdf', true);
-    $document = SetaPDF_Core_Document::loadByFilename($_GET['f'], $writer);
+    $document = SetaPDF_Core_Document::loadByFilename($path, $writer);
 
     // get access to the pages object
     $pages = $document->getCatalog()->getPages();
