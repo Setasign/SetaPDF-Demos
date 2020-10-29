@@ -13,6 +13,7 @@
 - ~~Get Image Sizes and Resolution~~
 - ~~Check for Encryption~~
 - ~~Check for Collection~~
+- Find unused Layers/Optional Content Groups
 
 ## Annotations:
 - Get Comments (https://www.setasign.com/products/setapdf-core/demos/extract-comments/)
