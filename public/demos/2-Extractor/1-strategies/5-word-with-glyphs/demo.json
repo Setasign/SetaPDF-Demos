@@ -1,0 +1,9 @@
+{
+    "name": "Word with Glyphs",
+    "teaserText": "Get words includign glyph information using the word strategy.",
+    "requires": [
+        "SetaPDF-Core", "SetaPDF-Extractor"
+    ],
+    "faIcon": "&#xf031;",
+    "faIcon2": "&#xf12e;"
+}
