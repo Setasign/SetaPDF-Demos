@@ -22,20 +22,24 @@ $pageCount = $document->getCatalog()->getPages()->count();
 
 for ($pageNo = 1; $pageNo <= $pageCount; $pageNo++) {
     $glyphs = $extractor->getResultByPageNumber($pageNo);
-    echo '<b>There are ' . count($glyphs) . ' glyphs found on Page #' . $pageNo . ':</b><br/><pre>';
+    echo '<b>There are ' . count($glyphs) . ' glyphs found on Page #' . $pageNo . ':</b><br/>';
+
+    echo '<table border="1" width="100%">';
+    echo '<tr><th>Glyph</th><th>llx</th><th>lly</th><th>urx</th><th>ury</th><th>Font Name</th></tr>';
 
     /** @var SetaPDF_Extractor_Result_Glyph $glyph */
     foreach ($glyphs as $glyph) {
         $bounds = $glyph->getBounds()[0];
         printf(
-            '  Glyph: "%s" [llx: %.3F, lly: %.3F, urx: %.3F, ury: %.3F]<br/>',
+            '<tr><td>&quot%s&quot</td><td>%.3F</td><td>%.3F</td><td>%.3F</td><td>%.3F</td><td>%s</td></tr>',
             htmlspecialchars($glyph->getString()),
             $bounds->getLl()->getX(),
             $bounds->getLl()->getY(),
             $bounds->getUr()->getX(),
-            $bounds->getUr()->getY()
+            $bounds->getUr()->getY(),
+            $glyph->getTextItem()->getFont()->getFontName()
         );
     }
 
-    echo '</pre><br/><br/>';
+    echo '</table><br/><br/>';
 }
