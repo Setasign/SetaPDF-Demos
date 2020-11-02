@@ -1,6 +1,6 @@
 {
     "name": "Filter by Font Size",
-    "teaserText": "Filter results by a font size.",
+    "teaserText": "Filter result by a font size.",
     "requires": [
         "SetaPDF-Core", "SetaPDF-Extractor"
     ],
