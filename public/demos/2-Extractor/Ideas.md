@@ -8,7 +8,7 @@
     - ~~Word Group~~
 
 - Filter
-    - Extract Text By Annotations
+    - ~~Extract Text By Annotations~~
     - Extract Form Data
     - Extract Grouped Customer Data (only by Filter)
         - With one or more files
