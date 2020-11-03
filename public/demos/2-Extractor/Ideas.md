@@ -10,9 +10,8 @@
 - Filter
     - ~~Extract Text By Annotations~~
     - ~~Filter By Form Fields~~
-    - Extract Grouped Customer Data (only by Filter)
-        - With one or more files
-        - Get Words At specifc Location
+    - ~~Extract Grouped Customer Data / Filter Invoice Recipients and numbers~~        
+    - Get Words At specifc Location
     - ~~Filter By Font Size~~
 
 - Various Demos
