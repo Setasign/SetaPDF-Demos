@@ -11,7 +11,7 @@
     - ~~Extract Text By Annotations~~
     - ~~Filter By Form Fields~~
     - ~~Extract Grouped Customer Data / Filter Invoice Recipients and numbers~~        
-    - Get Words At specifc Location
+    - ~~Get Words At specifc Location~~
     - ~~Filter By Font Size~~
 
 - Various Demos

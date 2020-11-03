@@ -1,0 +1,9 @@
+{
+    "name": "Get and Mark Words",
+    "teaserText": "Filter by rectangles and mark the found words.",
+    "requires": [
+        "SetaPDF-Core", "SetaPDF-Extractor"
+    ],
+    "faIcon": "&#xf0b0;",
+    "faIcon2": "&#xf5a1;"
+}
