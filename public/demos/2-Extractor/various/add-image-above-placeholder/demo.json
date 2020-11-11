@@ -1,0 +1,7 @@
+{
+    "name": "Add Image Above Placeholder",
+    "teaserText": "This demo finds a placeholder and adds an image overlay to it.",
+    "requires": [
+        "SetaPDF-Core", "SetaPDF-Extractor"
+    ]
+}
