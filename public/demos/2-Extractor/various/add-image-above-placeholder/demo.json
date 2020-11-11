@@ -3,5 +3,8 @@
     "teaserText": "This demo finds a placeholder and adds an image overlay to it.",
     "requires": [
         "SetaPDF-Core", "SetaPDF-Extractor"
+    ],
+    "previewFiles": [
+        "/assets/pdfs/tektown/Laboratory-Report - with-sig-placeholders.pdf"
     ]
 }

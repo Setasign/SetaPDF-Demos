@@ -5,5 +5,8 @@
         "SetaPDF-Core", "SetaPDF-Extractor"
     ],
     "faIcon": "&#xf0cb;",
-    "faIcon2": "&#xf0c1;"
+    "faIcon2": "&#xf0c1;",
+    "previewFiles": [
+        "/assets/pdfs/Brand-Guide-without-links.pdf"
+    ]
 }
