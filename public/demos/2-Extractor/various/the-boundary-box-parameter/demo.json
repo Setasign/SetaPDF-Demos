@@ -1,0 +1,8 @@
+{
+    "name": "The $boundaryBox parameter",
+    "teaserText": "This demo shows the behavior of the $boundaryBox parameter.",
+    "requires": [
+        "SetaPDF-Core", "SetaPDF-Extractor"
+    ],
+    "faIcon": "&#xf5cb;"
+}
