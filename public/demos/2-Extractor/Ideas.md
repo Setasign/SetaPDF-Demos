@@ -1,5 +1,5 @@
 ## Strategies
- 
+
 - [x] ~~Plain Text~~
 - [x] ~~Exact Plain Text~~
 - [x] ~~Glyph~~

@@ -1,8 +1,9 @@
 ## Various
-- Demo that extracts all fields and information from a PDF (type, value(s), page number, position)
-- Demo creation of RTF values
-- Parsing and forwarding of FDF data.
-- Parsing and forwarding of XFDF data.
+- [ ] Demo that extracts all fields and information from a PDF (type, value(s), 
+    page number, position - including information about absolute position)
+- [ ] Demo creation of RTF values
+- [ ] Parsing and forwarding of FDF data.
+- [ ] Parsing and forwarding of XFDF data.
 
 ## XFA
-- Get caption from fields (see https://stackoverflow.com/questions/64027332/how-to-parse-fields-from-an-acroform-pdf-on-the-basis-of-labels-in-the-actual-pd)
+- [ ] Get caption from fields (see https://stackoverflow.com/questions/64027332/how-to-parse-fields-from-an-acroform-pdf-on-the-basis-of-labels-in-the-actual-pd)

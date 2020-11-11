@@ -1,31 +1,31 @@
 ## Actions:
-- ~~Add JavaScript~~
-- ~~Get JavaScript~~
-- ~~Delete JavaScript~~
-- Add an action that jumps to a specifc page and zoom when the document is opened.
+- [x] [x] ~~Add JavaScript~~
+- [x] ~~Get JavaScript~~
+- [x] ~~Delete JavaScript~~
+- [ ] Add an action that jumps to a specifc page and zoom when the document is opened.
 
 ## Analyze:
-- ~~Check for Digital Signatures~~
-- ~~Check for Text~~
-- ~~Check for Transparency~~
-- ~~Get Color Spaces~~
-- ~~Get Fonts~~
-- ~~Get Image Sizes and Resolution~~
-- ~~Check for Encryption~~
-- ~~Check for Collection~~
-- Find unused Layers/Optional Content Groups
+- [x] ~~Check for Digital Signatures~~
+- [x] ~~Check for Text~~
+- [x] ~~Check for Transparency~~
+- [x] ~~Get Color Spaces~~
+- [x] ~~Get Fonts~~
+- [x] ~~Get Image Sizes and Resolution~~
+- [x] ~~Check for Encryption~~
+- [x] ~~Check for Collection~~
+- [ ] Find unused Layers/Optional Content Groups
 
 ## Annotations:
-- Get Comments (https://www.setasign.com/products/setapdf-core/demos/extract-comments/)
-- ~~Get Link Annotations~~
-- ~~Replace Link Targets~~
-- ~~Get Form Fields Information~~
-- ~~Flatten Annotations~~
-- ~~Add Link~~
-- ~~Add Push-Button~~
-- Add Text Field
+- [ ] Get Comments (https://www.setasign.com/products/setapdf-core/demos/extract-comments/)
+- [x] ~~Get Link Annotations~~
+- [x] ~~Replace Link Targets~~
+- [x] ~~Get Form Fields Information~~
+- [x] ~~Flatten Annotations~~
+- [x] ~~Add Link~~
+- [x] ~~Add Push-Button~~
+- [ ] Add Text Field
     (Show handling of rotated pages, too)
-- Show creation of annotations on rotated/shifted pages.
+- [ ] Show creation of annotations on rotated/shifted pages.
     
     
     $box = $page->getCropBox();
@@ -66,37 +66,37 @@
     $field->getAppearanceCharacteristics(true)->setRotation($rotation);
     
     
-- Show calculation of annotations on rotated pages.
+- [ ] Show calculation of annotations on rotated pages.
     
 
 ## Document:
-- ~~Get Metadata~~
-- ~~Set Metadata~~
-- ~~Extract Attachments~~
-    - Take annotations into account, too
-- ~~Multiple Pages per Sheet~~
-- ~~Tile a Page~~
-- ~~Remove Digital Signatures~~
-- ~~Remove Usage Rights~~
-- ~~Encrypt with a Password~~
+- [x] ~~Get Metadata~~
+- [x] ~~Set Metadata~~
+- [x] ~~Extract Attachments~~
+    - [ ] Take annotations into account, too
+- [x] ~~Multiple Pages per Sheet~~
+- [x] ~~Tile a Page~~
+- [x] ~~Remove Digital Signatures~~
+- [x] ~~Remove Usage Rights~~
+- [x] ~~Encrypt with a Password~~
 
 ## Images:
-- ~~Replace Images~~
-- ~~Image To PDF~~
-- ~~Image in specific Resolution~~
+- [x] ~~Replace Images~~
+- [x] ~~Image To PDF~~
+- [x] ~~Image in specific Resolution~~
 
 ## Outlines:
-- ~~Get Outlines~~
-- ~~Add Entry to Existing Outline~~
-- Replace a {Placeholder} in all entries
+- [x] ~~Get Outlines~~
+- [x] ~~Add Entry to Existing Outline~~
+- [ ] Replace a {Placeholder} in all entries
 
 ## Pages:
-- ~~Count~~
-- ~~Crop~~
-- ~~Fit~~
-- ~~Get Information~~
-- ~~Resize~~
-- ~~Rotate~~
-- ~~Add~~
-- ~~Delete~~
+- [x] ~~Count~~
+- [x] ~~Crop~~
+- [x] ~~Fit~~
+- [x] ~~Get Information~~
+- [x] ~~Resize~~
+- [x] ~~Rotate~~
+- [x] ~~Add~~
+- [x] ~~Delete~~
 
