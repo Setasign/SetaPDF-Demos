@@ -4,5 +4,8 @@
     "requires": [
         "SetaPDF-Core", "SetaPDF-Extractor"
     ],
-    "faIcon": "&#xf5cb;"
+    "faIcon": "&#xf5cb;",
+    "previewFiles": [
+        "/assets/pdfs/misc/Page-Boundaries.pdf"
+    ]
 }

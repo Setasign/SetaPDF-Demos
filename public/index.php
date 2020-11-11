@@ -3,7 +3,7 @@
 if (PHP_SAPI === 'cli-server') {
     // To help the built-in PHP dev server, check if the request was actually for
     // something which should probably be served as a static file
-    $file = __DIR__ . $_SERVER['REQUEST_URI'];
+    $file = __DIR__ . preg_replace('~\?(.*)$~', '', $_SERVER['REQUEST_URI']);
     if (is_file($file)) {
         return false;
     }
@@ -42,6 +42,50 @@ HTML;
 $demosDirectory = __DIR__ . '/demos';
 $requestPath = isset($_GET['p']) ? $_GET['p'] : '';
 $isDemo = (strpos($requestPath, '/demo/') === 0);
+if ($requestPath === 'previewFile') {
+    $file = isset($_GET['f']) ? $_GET['f'] : '';
+    if (strpos($file, '/assets/') === 0 && strpos($file, '..') === false) {
+        $file = __DIR__ . '/..' . $file;
+
+        if (!is_file($file)) {
+            header("HTTP/1.0 404 Not Found");
+            ob_end_clean();
+            return;
+        }
+    } else {
+        $file = realpath($demosDirectory . $file);
+        if ($file === false || strpos($file, realpath($demosDirectory)) !== 0) {
+            header("HTTP/1.0 404 Not Found");
+            ob_end_clean();
+            return;
+        }
+    }
+
+    $extension = strtolower(pathinfo($file, PATHINFO_EXTENSION));
+    if ($extension === 'pdf') {
+        $contentType = 'application/pdf';
+    } elseif ($extension === 'jpg') {
+        $contentType = 'image/jpeg';
+    } elseif ($extension === 'png') {
+        $contentType = 'image/png';
+    } elseif ($extension === 'gif') {
+        $contentType = 'image/gif';
+    } else {
+        throw new RuntimeException('Unknown extension!');
+    }
+    $inline = isset($_GET['inline']) ? $_GET['inline'] : true;
+    ob_end_clean();
+    header('Content-Type: ' . $contentType);
+    if ($inline) {
+        header('Content-Disposition: inline; filename="' . basename($file) . '";');
+    } else {
+        header('Content-Disposition: attachment; filename="' . basename($file) . '";');
+    }
+    header('Content-Length: ' . filesize($file));
+    echo file_get_contents($file);
+
+    return;
+}
 
 $requestPath = trim($isDemo ? substr($requestPath, strlen('/demo/')) : $requestPath, '/');
 
@@ -174,15 +218,25 @@ if ($isDemo) {
 
     $previewFiles = array_merge(['script.php'], isset($demoData['previewFiles']) ? $demoData['previewFiles'] : []);
 
-    echo '<div class="setapdf-demo' . (\count($previewFiles) > 1 ? ' extended' : '') . '">'
+    echo '<div class="setapdf-demo' . (count($previewFiles) > 1 ? ' extended' : '') . '">'
         . '<div class="run"><ul>';
 
     foreach ($previewFiles as $previewFile) {
         $previewFileIdent = md5($previewFile);
         $previewFile = basename($previewFile);
+        $extension = strtolower(pathinfo($previewFile, PATHINFO_EXTENSION));
+
+        if ($extension === 'pdf') {
+            $icon = '&#xF1C1;';
+        } elseif (in_array($extension, ['jpg', 'png', 'gif'], true)) {
+            $icon = '&#xF1C5';
+        } else {
+            $icon = '&#xF121;';
+        }
+
         echo '<li>'
             . '<a href="#' . $previewFileIdent . '" title="' . $previewFile . '">'
-            . '&#xF121; <span>' . $previewFile . '</span>'
+            . $icon . ' <span>' . $previewFile . '</span>'
             . '</a>'
             . '</li>';
     }
@@ -198,7 +252,19 @@ if ($isDemo) {
 
     foreach ($previewFiles as $previewFile) {
         $previewFileIdent = md5($previewFile);
-        $extension = strtolower(pathinfo($demoDirectory . '/' . $previewFile, PATHINFO_EXTENSION));
+        $extension = strtolower(pathinfo($previewFile, PATHINFO_EXTENSION));
+        if (in_array($extension, ['pdf', 'jpg', 'png', 'gif'], true)) {
+            if (strpos($previewFile, '/assets/') !== 0) {
+                $previewFile = '/' . $requestPath . '/' . $previewFile;
+            }
+
+            echo '<div class="step ' . $previewFileIdent . '">'
+                . '<iframe data-src="?p=previewFile&f=' . $previewFile . '" src="about:blank"'
+                . ' frameborder="0" style="width: 100%; height: 100%;"></iframe>'
+                . '</div>';
+            continue;
+        }
+
         switch ($extension) {
             case 'php':
                 $codemirrorLang = 'php';
@@ -232,9 +298,19 @@ if ($isDemo) {
     foreach ($previewFiles as $previewFile) {
         $previewFileIdent = md5($previewFile);
         $previewFile = basename($previewFile);
+        $extension = strtolower(pathinfo($previewFile, PATHINFO_EXTENSION));
+
+        if ($extension === 'pdf') {
+            $icon = '&#xF1C1;';
+        } elseif (in_array($extension, ['jpg', 'png', 'gif'], true)) {
+            $icon = '&#xF1C5';
+        } else {
+            $icon = '&#xF121;';
+        }
+
         echo '<li>'
             . '<a href="#' . $previewFileIdent . '" title="' . $previewFile . '">'
-            . '&#xF121; <span>' . $previewFile . '</span>'
+            . $icon . ' <span>' . $previewFile . '</span>'
             . '</a>'
             . '</li>';
     }
@@ -377,11 +453,9 @@ if ($isDemo) {
                 . '</a>';
         } else {
             echo '<a href="?p=' . urlencode($path) . '" title="' . htmlspecialchars($name, ENT_QUOTES | ENT_HTML5)
-                . '" class="teaserIcon" data-faIcon="' . $faIcon . '"';
-                if ($faIcon2) {
-                    echo ' data-faIcon2="' . $faIcon2 . '"';
-                }
-            echo '></a>';
+                . '" class="teaserIcon" data-faIcon="' . $faIcon . '"'
+                . (($faIcon2) ? ' data-faIcon2="' . $faIcon2 . '"' : '')
+                . '></a>';
         }
 
         echo '<h3><a href="?p=' . urlencode($path) . '" title="' . htmlspecialchars($name, ENT_QUOTES | ENT_HTML5) . '">'
