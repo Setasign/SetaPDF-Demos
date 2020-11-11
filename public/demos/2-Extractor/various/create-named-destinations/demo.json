@@ -1,0 +1,9 @@
+{
+    "name": "Create Named Destinations",
+    "teaserText": "This demo adds named destinations on found phrases.",
+    "requires": [
+        "SetaPDF-Core", "SetaPDF-Extractor"
+    ],
+    "faIcon": "&#xf140;",
+    "faIcon2": "&#xf0c1;"
+}
