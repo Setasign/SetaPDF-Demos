@@ -1,5 +1,5 @@
 ## Actions:
-- [x] [x] ~~Add JavaScript~~
+- [x] ~~Add JavaScript~~
 - [x] ~~Get JavaScript~~
 - [x] ~~Delete JavaScript~~
 - [ ] Add an action that jumps to a specifc page and zoom when the document is opened.
