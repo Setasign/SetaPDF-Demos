@@ -1,0 +1,9 @@
+{
+    "name": "Create Link Annotations",
+    "teaserText": "This demo finds URLs and e-mail addresses and overlays them with clickable link annotations.",
+    "requires": [
+        "SetaPDF-Core", "SetaPDF-Extractor"
+    ],
+    "faIcon": "&#xf002;",
+    "faIcon2": "&#xf0c1;"
+}

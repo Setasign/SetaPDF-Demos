@@ -1,1 +1,2 @@
-Stamp all files in a portfolio
+## Various
+- [ ] Stamp all files in a portfolio

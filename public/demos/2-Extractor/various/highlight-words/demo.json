@@ -1,0 +1,8 @@
+{
+    "name": "Highlight Words",
+    "teaserText": "This demo searches for words and allows you to highlight them.",
+    "requires": [
+        "SetaPDF-Core", "SetaPDF-Extractor"
+    ],
+    "faIcon": "&#xf591;"
+}
