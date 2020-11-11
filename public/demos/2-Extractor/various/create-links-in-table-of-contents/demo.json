@@ -1,0 +1,9 @@
+{
+    "name": "Create Links in Table Of Contents",
+    "teaserText": "This demo analyzes the table of contents and adds links on its entries.",
+    "requires": [
+        "SetaPDF-Core", "SetaPDF-Extractor"
+    ],
+    "faIcon": "&#xf0cb;",
+    "faIcon2": "&#xf0c1;"
+}

@@ -18,6 +18,6 @@
     - ~~The boundary parameter~~ 
     - ~~Add Image Above Placeholder~~
     - ~~Create Link Annotations~~
-    - Create Links in Table Of Contents 
+    - ~~Create Links in Table Of Contents~~ 
     - Create Named Destinations
     - Highlight Words
