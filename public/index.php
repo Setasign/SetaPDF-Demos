@@ -104,6 +104,9 @@ if (class_exists(SetaPDF_Extractor::class)) {
 }
 if (class_exists(SetaPDF_FormFiller::class)) {
     $availablePackages[] = 'SetaPDF-FormFiller';
+    if (class_exists(SetaPDF_FormFiller_Field_List::class)) {
+        $availablePackages[] = 'SetaPDF-FormFiller Full';
+    }
 }
 if (class_exists(SetaPDF_Merger::class)) {
     $availablePackages[] = 'SetaPDF-Merger';
