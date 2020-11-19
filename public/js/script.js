@@ -57,7 +57,7 @@ $(function ($) {
             if (hash === clickedHash) {
                 $('.step.' + h, demoTabPanel).show().trigger('show');
                 var ifrm = $('.step.' + h + ' iframe', demoTabPanel);
-                if (ifrm.data('src') && ifrm.attr('src') === 'about:blank') {
+                if (ifrm.data('src') && ifrm.attr('src') === 'about:blank' || h === 'execute') {
                     ifrm.attr('src', ifrm.data('src'));
                 }
             } else {
