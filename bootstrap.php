@@ -56,7 +56,7 @@ function displayFiles($files, $iframe = true, $variants = [])
     return $_GET['f'];
 }
 
-function displaySelect($label, $data, $iframe = true)
+function displaySelect($label, $data, $iframe = true, $displayValueKey = null)
 {
     if (!isset($_GET['data']) || !array_key_exists($_GET['data'], $data)) {
         echo '<html><head><link rel="stylesheet" type="text/css" href="/layout/demo.css"/></head><body>';
@@ -70,6 +70,10 @@ function displaySelect($label, $data, $iframe = true)
             . '<select id="data" name="data" onchange="if(this.value)this.form.submit();">'
             . '<option value="">--- please choose ---</option>';
         foreach ($data as $value => $displayValue) {
+            if (is_array($displayValue)) {
+                $displayValueKey = $displayValueKey !== null ? $displayValueKey : key($displayValue);
+                $displayValue = $displayValue[$displayValueKey];
+            }
             echo '<option value="' . htmlspecialchars($value) . '">' . htmlspecialchars($displayValue) . '</option>';
         }
         echo '</select></form></div>';
