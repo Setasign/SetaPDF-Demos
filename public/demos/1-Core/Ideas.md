@@ -27,7 +27,7 @@
     (Show handling of rotated pages, too)
 - [ ] Show creation of annotations on rotated/shifted pages.
     
-    
+    // compare with: X:\default\html\customers\NextSigner\test.php
     $box = $page->getCropBox();
     $rotation = $page->getRotation();
     

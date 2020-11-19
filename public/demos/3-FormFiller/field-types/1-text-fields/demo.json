@@ -1,0 +1,10 @@
+{
+    "name": "Text Fields",
+    "teaserText": "Access simple text fields.",
+    "requires": [
+        "SetaPDF-Core", "SetaPDF-FormFiller"
+    ],
+    "previewFiles": [
+        "/assets/pdfs/lenstown/Subscription-tekMag.pdf"
+    ]
+}

@@ -1,0 +1,10 @@
+{
+    "name": "Signature and Push Button Fields",
+    "teaserText": "Access signature and push button fields.",
+    "requires": [
+        "SetaPDF-Core", "SetaPDF-FormFiller Full"
+    ],
+    "previewFiles": [
+        "/assets/pdfs/etown/Order-Form.pdf"
+    ]
+}

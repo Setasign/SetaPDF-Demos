@@ -1,0 +1,11 @@
+{
+    "name": "List Fields",
+    "teaserText": "Access list fields.",
+    "requires": [
+        "SetaPDF-Core", "SetaPDF-FormFiller Full"
+    ],
+    "previewFiles": [
+        "/assets/pdfs/forms/Sunnysunday-Example.pdf"
+    ],
+    "faIcon": "&#xf03a;"
+}

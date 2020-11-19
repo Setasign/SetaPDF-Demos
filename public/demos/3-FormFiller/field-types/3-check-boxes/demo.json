@@ -1,0 +1,11 @@
+{
+    "name": "Check Boxes",
+    "teaserText": "Access check box fields.",
+    "requires": [
+        "SetaPDF-Core", "SetaPDF-FormFiller Full"
+    ],
+    "previewFiles": [
+        "/assets/pdfs/forms/Customizer-Example.pdf"
+    ],
+    "faIcon": "&#xf14a;"
+}

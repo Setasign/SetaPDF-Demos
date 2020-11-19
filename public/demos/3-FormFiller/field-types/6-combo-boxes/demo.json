@@ -1,0 +1,11 @@
+{
+    "name": "Combo Boxes",
+    "teaserText": "Access combo box fields.",
+    "requires": [
+        "SetaPDF-Core", "SetaPDF-FormFiller Full"
+    ],
+    "previewFiles": [
+        "/assets/pdfs/forms/Customizer-Example.pdf"
+    ],
+    "faIcon": "&#xf150;"
+}

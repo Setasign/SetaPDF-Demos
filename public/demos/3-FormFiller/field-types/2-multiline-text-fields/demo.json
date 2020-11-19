@@ -1,0 +1,10 @@
+{
+    "name": "Multiline Text Fields",
+    "teaserText": "Access simple multiline text fields.",
+    "requires": [
+        "SetaPDF-Core", "SetaPDF-FormFiller"
+    ],
+    "previewFiles": [
+        "/assets/pdfs/forms/Customizer-Example.pdf"
+    ]
+}

@@ -1,0 +1,13 @@
+{
+    "name": "Fill All Field Types",
+    "teaserText": "Access all field types.",
+    "requires": [
+        "SetaPDF-Core", "SetaPDF-FormFiller Full"
+    ],
+    "previewFiles": [
+        "data/dataset-1.php",
+        "data/dataset-2.php",
+        "data/dataset-3.php"
+    ]
+
+}

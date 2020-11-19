@@ -1,0 +1,11 @@
+{
+    "name": "Radio Button Groups",
+    "teaserText": "Access radio button groups.",
+    "requires": [
+        "SetaPDF-Core", "SetaPDF-FormFiller Full"
+    ],
+    "previewFiles": [
+        "/assets/pdfs/forms/Customizer-Example.pdf"
+    ],
+    "faIcon": "&#xf111;"
+}
