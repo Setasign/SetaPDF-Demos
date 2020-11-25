@@ -11,8 +11,7 @@
 ## Various
 - [x] ~~Get Field names and types~~
 - [x] ~~Fill and access same named fields~~
-- [ ] Flatten individual fields
-- [ ] Flatten all fields
+- [x] ~~Flatten all/specific fields~~
 - [ ] Demo that extracts all fields and information from a PDF (type, value(s), 
     page number, position - including information about absolute position)
 - [ ] Fill field with an image

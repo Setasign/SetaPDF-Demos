@@ -1,0 +1,8 @@
+{
+    "name": "Flatten Fields",
+    "teaserText": "A simple demo that flattens a specific or all fields.",
+    "requires": [
+        "SetaPDF-Core", "SetaPDF-FormFiller"
+    ],
+    "faIcon": "&#xf247;"
+}
