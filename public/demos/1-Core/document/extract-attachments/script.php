@@ -55,7 +55,7 @@ foreach ($files AS $name => $file) {
         $size = $params[SetaPDF_Core_EmbeddedFileStream::PARAM_SIZE];
     }
 
-    echo '<a href="?f=' . urlencode($path) . '&name=' . urlencode($name) . '">';
+    echo '<a href="?f=' . urlencode($_GET['f']) . '&name=' . urlencode($name) . '">';
     echo htmlspecialchars($filename) . '</a>';
     if ($size) {
         echo ' (' . $size . ' Bytes)';

@@ -23,23 +23,23 @@ $sessionFiles = isset($_SESSION['files']) ? $_SESSION['files'] : [];
 
 function displayFiles($files, $iframe = true, $variants = [])
 {
-    if (!isset($_GET['f']) || !in_array($_GET['f'], $files, true)) {
+    if (!isset($_GET['f']) || !isset($files[$_GET['f']])) {
         echo '<html><head><link rel="stylesheet" type="text/css" href="/layout/demo.css"/></head><body>';
         echo '<div id="demoInput">';
 
         // list the files
-        foreach ($files as $path) {
+        foreach ($files as $f => $path) {
             $name = basename($path);
             if (count($variants) > 0) {
                 foreach ($variants as $variantName => $_variants) {
                     foreach ($_variants as $variant) {
-                        echo '<a href="?f=' . urlencode($path) . '&' . $variantName . '=' . $variant
+                        echo '<a href="?f=' . urlencode($f) . '&' . $variantName . '=' . $variant
                             . '"' . ($iframe ? ' target="pdfFrame"' : ''). '>'
                             . htmlspecialchars($name . ' (' .  $variantName . '=' . $variant . ')') . '</a><br />';
                     }
                 }
             } else {
-                echo '<a href="?f=' . urlencode($path) . '"' . ($iframe ? ' target="pdfFrame"' : ''). '>'
+                echo '<a href="?f=' . urlencode($f) . '"' . ($iframe ? ' target="pdfFrame"' : ''). '>'
                     . htmlspecialchars($name) . '</a><br />';
             }
         }
@@ -53,7 +53,7 @@ function displayFiles($files, $iframe = true, $variants = [])
         die();
     }
 
-    return $_GET['f'];
+    return $files[$_GET['f']];
 }
 
 function displaySelect($label, $data, $iframe = true, $displayValueKey = null)

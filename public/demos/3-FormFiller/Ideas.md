@@ -10,6 +10,7 @@
 
 ## Various
 - [ ] Get Field names and types
+- [ ] Fill and access same named fields
 - [ ] Flatten individual fields
 - [ ] Flatten all fields
 - [ ] Demo that extracts all fields and information from a PDF (type, value(s), 

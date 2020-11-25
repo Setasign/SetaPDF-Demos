@@ -33,7 +33,7 @@ if (!isset($_GET['p'])) {
 
         echo '<pre>';
         if (count($images)) {
-            echo '<a href="?f=' . urlencode($path) . '&p=' . $pageNo . '#page=' . $pageNo . '">Found '
+            echo '<a href="?f=' . urlencode($_GET['f']) . '&p=' . $pageNo . '#page=' . $pageNo . '">Found '
                 . count($images) . ' images on page #' . $pageNo . "</a>.\n";
         } else {
             echo 'Found no images on page #' . $pageNo . ".\n";
