@@ -1,0 +1,5 @@
+{
+    "name": "Various",
+    "teaserText": "Various demos showing things or solutions you can create with the SetaPDF-FormFiller component.",
+    "requires": ["SetaPDF-Core", "SetaPDF-FormFiller"]
+}
