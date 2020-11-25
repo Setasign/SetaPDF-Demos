@@ -1,0 +1,11 @@
+{
+    "name": "Access Same Named Fields",
+    "teaserText": "This demo shows how to fill and access same named fields.",
+    "requires": [
+        "SetaPDF-Core", "SetaPDF-FormFiller"
+    ],
+    "faIcon": "&#xf24d;",
+    "previewFiles": [
+        "/assets/pdfs/etown/Terms-and-Conditions.pdf"
+    ]
+}
