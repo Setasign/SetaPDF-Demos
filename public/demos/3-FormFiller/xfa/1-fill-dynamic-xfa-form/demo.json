@@ -1,0 +1,10 @@
+{
+    "name": "Fill Dynamic XFA",
+    "teaserText": "A demo that shows you how to fill a dynamic XFA form.",
+    "requires": [
+        "SetaPDF-Core", "SetaPDF-FormFiller"
+    ],
+    "previewFiles": [
+        "/assets/pdfs/forms/xfa/Badge.pdf"
+    ]
+}

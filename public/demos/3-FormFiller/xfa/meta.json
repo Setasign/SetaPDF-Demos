@@ -1,0 +1,5 @@
+{
+    "name": "XFA",
+    "teaserText": "Demos showing how to work with XFA forms.",
+    "requires": ["SetaPDF-Core", "SetaPDF-FormFiller"]
+}

@@ -23,7 +23,7 @@
 - [ ] Parsing and forwarding of XFDF data.
 
 ## XFA
-- [ ] Fill dynamic XFA form
+- [x] Fill dynamic XFA form
 - [ ] Fill static XFA form
 - [ ] Remove XFA information
 - [ ] Get caption from fields (see https://stackoverflow.com/questions/64027332/how-to-parse-fields-from-an-acroform-pdf-on-the-basis-of-labels-in-the-actual-pd)
