@@ -1,0 +1,8 @@
+{
+    "name": "Get Field Information",
+    "teaserText": "This demos shows various information of all found form fields.",
+    "requires": [
+        "SetaPDF-Core", "SetaPDF-FormFiller"
+    ],
+    "faIcon": "&#xf05a;"
+}

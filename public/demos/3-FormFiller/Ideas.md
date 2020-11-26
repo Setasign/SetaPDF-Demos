@@ -12,11 +12,12 @@
 - [x] ~~Get Field names and types~~
 - [x] ~~Fill and access same named fields~~
 - [x] ~~Flatten all/specific fields~~
-- [ ] Demo that extracts all fields and information from a PDF (type, value(s), 
-    page number, position - including information about absolute position)
+- [x] ~~Demo that extracts all fields and information from a PDF (type, value(s), 
+    page number, position)~~
+  - [ ] including information about absolute position (rotation / shifted coordinate system)
 - [x] ~~Fill field with an imported PDF page or Image~~
 - [x] ~~Use Indiviual Font and Text Color~~
-- [ ] Fill one template several times
+- [x] ~~Fill one template several times~~
 - [ ] Demo creation of RTF values
 - [ ] Parsing and forwarding of FDF data.
 - [ ] Parsing and forwarding of XFDF data.
