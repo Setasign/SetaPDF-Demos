@@ -1,0 +1,10 @@
+{
+    "name": "Fill Static XFA",
+    "teaserText": "A demo that shows you how to fill a static XFA form.",
+    "requires": [
+        "SetaPDF-Core", "SetaPDF-FormFiller"
+    ],
+    "previewFiles": [
+        "/assets/pdfs/forms/xfa/CheckRequest.pdf"
+    ]
+}
