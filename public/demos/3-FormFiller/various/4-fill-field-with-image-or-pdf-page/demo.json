@@ -1,0 +1,13 @@
+{
+    "name": "Fill Field With an Image or PDF Page",
+    "teaserText": "Use an image or a PDF page as a field appearance.",
+    "requires": [
+        "SetaPDF-Core", "SetaPDF-FormFiller"
+    ],
+    "faIcon": "&#xf03e;",
+    "previewFiles": [
+        "/assets/pdfs/Fact-Sheet-form.pdf",
+        "/assets/pdfs/tektown/Logo.png",
+        "/assets/pdfs/tektown/Logo.pdf"
+    ]
+}
