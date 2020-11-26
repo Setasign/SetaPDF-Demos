@@ -1,0 +1,10 @@
+{
+    "name": "Fill One Template Several Times",
+    "teaserText": "Iterate over data and fill a PDF form template several times.",
+    "requires": [
+        "SetaPDF-Core", "SetaPDF-FormFiller"
+    ],
+    "previewFiles": [
+        "/assets/pdfs/Name-Badge.pdf"
+    ]
+}
