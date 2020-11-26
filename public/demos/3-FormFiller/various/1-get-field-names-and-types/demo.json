@@ -1,5 +1,5 @@
 {
-    "name": "Get Field Names And Types",
+    "name": "Get Field Names and Types",
     "teaserText": "A simple demo that resolves field names and types.",
     "requires": [
         "SetaPDF-Core", "SetaPDF-FormFiller"
