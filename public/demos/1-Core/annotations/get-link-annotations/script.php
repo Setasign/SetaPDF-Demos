@@ -19,6 +19,7 @@ $document = SetaPDF_Core_Document::loadByFilename($path);
 // Get the pages helper
 $pages = $document->getCatalog()->getPages();
 
+echo '<pre>';
 $linksFound = false;
 for ($pageNo = 1, $pageCount = $pages->count(); $pageNo <= $pageCount; $pageNo++) {
     $page = $pages->getPage($pageNo);
@@ -28,8 +29,15 @@ for ($pageNo = 1, $pageCount = $pages->count(); $pageNo <= $pageCount; $pageNo++
     foreach ($linkAnnotations AS $linkAnnotation) {
         $action = $linkAnnotation->getAction();
         if ($action && $action instanceof SetaPDF_Core_Document_Action_Uri) {
-            echo 'Link Annotation on Page #' . $pageNo . '<br/>';
-            echo '&nbsp; &nbsp; URI: ' . $action->getUri() . '<br/><br/>';
+            echo 'Link Annotation on Page #' . $pageNo . "\n";
+            echo '     URI: ' . htmlspecialchars($action->getUri()) . "\n";
+            $rect = $linkAnnotation->getRect();
+            echo '     llx: ' . $rect->getLlx() . "\n";
+            echo '     lly: ' . $rect->getLly() . "\n";
+            echo '     urx: ' . $rect->getUrx() . "\n";
+            echo '     ury: ' . $rect->getUry() . "\n";
+            echo '   width: ' . $rect->getWidth() . "\n";
+            echo '  height: ' . $rect->getHeight() . "\n\n";
             $linksFound = true;
             break;
         }
