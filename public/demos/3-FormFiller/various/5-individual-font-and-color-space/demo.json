@@ -1,0 +1,9 @@
+{
+    "name": "Individual Font and Color Space",
+    "teaserText": "Use an external TTF font and an individual color space.",
+    "requires": [
+        "SetaPDF-Core", "SetaPDF-FormFiller"
+    ],
+    "faIcon": "&#xf031;",
+    "faIcon2": "&#xf53f;"
+}

@@ -15,7 +15,7 @@
 - [ ] Demo that extracts all fields and information from a PDF (type, value(s), 
     page number, position - including information about absolute position)
 - [x] ~~Fill field with an imported PDF page or Image~~
-- [ ] Use Indiviual Font and Text Color
+- [x] ~~Use Indiviual Font and Text Color~~
 - [ ] Fill one template several times
 - [ ] Demo creation of RTF values
 - [ ] Parsing and forwarding of FDF data.
