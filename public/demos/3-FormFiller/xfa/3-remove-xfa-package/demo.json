@@ -1,0 +1,11 @@
+{
+    "name": "Remove XFA Package",
+    "teaserText": "This demo reduces a static XFA form to a normal PDF form.",
+    "requires": [
+        "SetaPDF-Core", "SetaPDF-FormFiller"
+    ],
+    "faIcon": "&#xf05e;",
+    "previewFiles": [
+        "/assets/pdfs/forms/xfa/CheckRequest.pdf"
+    ]
+}
