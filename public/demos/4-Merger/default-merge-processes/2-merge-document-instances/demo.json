@@ -1,0 +1,7 @@
+{
+    "name": "Merge Document Instances",
+    "teaserText": "This demos shows how to merge document instances which are independent from the file system.",
+    "requires": [
+        "SetaPDF-Core", "SetaPDF-Merger"
+    ]
+}
