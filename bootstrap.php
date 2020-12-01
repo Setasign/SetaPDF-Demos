@@ -71,7 +71,7 @@ function displayFiles($files, $iframe = true, $multiple = false)
     echo '</form>';
 
     if ($iframe) {
-        echo '<iframe width="100%" height="300" name="pdfFrame" src="about:blank"/>';
+        echo '<iframe width="100%" name="pdfFrame" src="about:blank"/>';
     }
 
     echo '</body></html>';
@@ -101,7 +101,7 @@ function displaySelect($label, $data, $iframe = true, $displayValueKey = null)
         echo '</select></form></div>';
 
         if ($iframe) {
-            echo '<iframe width="100%" height="300" name="pdfFrame" src="about:blank"/>';
+            echo '<iframe width="100%" name="pdfFrame" src="about:blank"/>';
         }
 
         echo '</body></html>';
