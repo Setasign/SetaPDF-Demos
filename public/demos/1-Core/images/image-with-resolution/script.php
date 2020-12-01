@@ -4,23 +4,31 @@
 require_once '../../../../../bootstrap.php';
 
 // prepare some files
-$files = glob($assetsDirectory . '/images/*/*.{png,jpg,jpeg,gif}', GLOB_BRACE);
+$files = [];
+foreach (glob($assetsDirectory . '/images/*/*.{png,jpg,jpeg,gif}', GLOB_BRACE) as $file) {
+    foreach ([72, 96, 150, 300] as $dpi) {
+        $files[] = [
+            'path' => $file,
+            'displayValue' => basename($file) . ' (' . $dpi . 'dpi)',
+            'dpi' => $dpi
+        ];
+    }
+}
 
-$imgPath = displayFiles($files, true, ['dpi' => [72, 96, 150, 300]]);
+$imgData = displayFiles($files, true);
 
 // create a writer
 $writer = new SetaPDF_Core_Writer_Http('ImgInSpecificResolution.pdf', true);
 // create a document
 $document = new SetaPDF_Core_Document($writer);
 
-$img = SetaPDF_Core_Image::getByPath($imgPath);
+$img = SetaPDF_Core_Image::getByPath($imgData['path']);
 $xObject = $img->toXObject($document);
 $width = $xObject->getWidth();
 $height = $xObject->getHeight();
 
 // calculate the width by the given DPI value
-$dpi = isset($_GET['dpi']) ? abs($_GET['dpi']) : 72;
-$dpi = $dpi == 0 ? 72 : $dpi;
+$dpi = $imgData['dpi'];
 
 $width = $width * 72 / $dpi;
 $height = $height * 72 / $dpi;

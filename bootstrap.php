@@ -21,39 +21,61 @@ $classesDirectory = __DIR__ . '/classes';
 
 $sessionFiles = isset($_SESSION['files']) ? $_SESSION['files'] : [];
 
-function displayFiles($files, $iframe = true, $variants = [])
+function displayFiles($files, $iframe = true, $multiple = false)
 {
-    if (!isset($_GET['f']) || !isset($files[$_GET['f']])) {
-        echo '<html><head><link rel="stylesheet" type="text/css" href="/layout/demo.css"/></head><body>';
-        echo '<div id="demoInput">';
-
-        // list the files
-        foreach ($files as $f => $path) {
-            $name = basename($path);
-            if (count($variants) > 0) {
-                foreach ($variants as $variantName => $_variants) {
-                    foreach ($_variants as $variant) {
-                        echo '<a href="?f=' . urlencode($f) . '&' . $variantName . '=' . $variant
-                            . '"' . ($iframe ? ' target="pdfFrame"' : ''). '>'
-                            . htmlspecialchars($name . ' (' .  $variantName . '=' . $variant . ')') . '</a><br />';
+    if (isset($_GET['f'])) {
+        if ($multiple) {
+            if (is_array($_GET['f'])) {
+                $result = [];
+                foreach ($_GET['f'] as $f) {
+                    if (is_scalar($f) && isset($files[$f])) {
+                        $result[] = $files[$f];
                     }
                 }
-            } else {
-                echo '<a href="?f=' . urlencode($f) . '"' . ($iframe ? ' target="pdfFrame"' : ''). '>'
-                    . htmlspecialchars($name) . '</a><br />';
+
+                if (count($result) > 0) {
+                    return $result;
+                }
+            }
+        } else {
+            if (is_scalar($_GET['f']) && isset($files[$_GET['f']])) {
+                return $files[$_GET['f']];
             }
         }
-        echo '</div>';
-
-        if ($iframe) {
-            echo '<iframe width="100%" height="300" name="pdfFrame" src="about:blank"/>';
-        }
-
-        echo '</body></html>';
-        die();
     }
 
-    return $files[$_GET['f']];
+    echo '<html><head><link rel="stylesheet" type="text/css" href="/layout/demo.css"/></head><body>';
+    echo '<form id="demoInput"' . ($iframe ? ' target="pdfFrame"' : '') . '>';
+
+    // list the files
+    foreach ($files as $f => $path) {
+        if (is_array($path)) {
+            $displayValue = isset($path['displayValue']) ? $path['displayValue'] : null;
+        } else {
+            $displayValue = basename($path);
+        }
+
+        if ($multiple) {
+            echo '<label for="file'. $f . '">';
+            echo '<input type="checkbox" name="f[]" value="' . $f . '" id="file'. $f . '" onclick="checkSubmitBtn(this)" />';
+            echo htmlspecialchars($displayValue) . '</label><br />';
+        } else {
+            echo '<a href="?' . http_build_query(['f' => $f]) . '"' . ($iframe ? ' target="pdfFrame"' : ''). '>'
+                . htmlspecialchars($displayValue) . '</a><br />';
+        }
+    }
+    if ($multiple) {
+        echo '<script>checkSubmitBtn=function(e){var d=0,btn=document.getElementById("submitBtn");document.getElementsByName("f[]").forEach(function(n){d|=n.checked});btn.disabled=!d;}</script>';
+        echo '<input type="submit" value="run" id="submitBtn" disabled/>';
+    }
+    echo '</form>';
+
+    if ($iframe) {
+        echo '<iframe width="100%" height="300" name="pdfFrame" src="about:blank"/>';
+    }
+
+    echo '</body></html>';
+    die();
 }
 
 function displaySelect($label, $data, $iframe = true, $displayValueKey = null)
