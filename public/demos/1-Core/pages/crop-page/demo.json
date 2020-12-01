@@ -4,5 +4,6 @@
     "requires": [
         "SetaPDF-Core"
     ],
-    "faIcon": "&#xf125;"
+    "faIcon": "&#xf125;",
+    "previewFiles": ["/assets/pdfs/misc/4-rects.pdf"]
 }
