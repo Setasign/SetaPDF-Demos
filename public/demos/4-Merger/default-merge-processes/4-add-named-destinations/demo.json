@@ -1,0 +1,8 @@
+{
+    "name": "Add Named Destinations",
+    "teaserText": "Add named destinations to imported PDF files, pages or ranges.",
+    "requires": [
+        "SetaPDF-Core", "SetaPDF-Merger"
+    ],
+    "faIcon": "&#xf13d;"
+}

@@ -3,10 +3,10 @@
 - [x] ~~Merge Several PDF Files (through the file system)~~
 - [x] ~~Merge Document Instances~~
 - [x] ~~Merge individual page ranges~~
+- [x] ~~Merge and Add Named Destinations~~
 - [ ] Append Pages To an Existing PDF Document (SimpleAppend.php)
 - [ ] Repeat a Single Page (AppendSinglePageSeveralTimes.php)
 - [ ] Insert a Page (InsertPage.php)
-- [ ] Merge and Add Named Destinations
 
 ## Handling of Document Outlines
 - [ ] Import an Outline as a Root Outline (MergeWithOutLines.php)
