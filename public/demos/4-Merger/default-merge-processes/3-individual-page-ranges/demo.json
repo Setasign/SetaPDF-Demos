@@ -1,0 +1,10 @@
+{
+    "name": "Individual Page Ranges",
+    "teaserText": "A demo showing how to pass individual page ranges.",
+    "requires": [
+        "SetaPDF-Core", "SetaPDF-Merger"
+    ],
+    "previewFiles": [
+        "/assets/pdfs/misc/large/1000-red.pdf"
+    ]
+}
