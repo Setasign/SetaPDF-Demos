@@ -1,5 +1,6 @@
 {
     "name": "PDF Portfolios",
     "teaserText": "Demos showing how to handle PDF portfolios (aka PDF Packages or PDF Collections).",
-    "requires": ["SetaPDF-Core", "SetaPDF-Merger"]
+    "requires": ["SetaPDF-Core", "SetaPDF-Merger"],
+    "faIcon": "&#xf187;"
 }

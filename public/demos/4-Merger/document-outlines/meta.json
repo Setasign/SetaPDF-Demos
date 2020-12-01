@@ -1,5 +1,6 @@
 {
     "name": "Document Outlines",
     "teaserText": "Demos showing how to control the behavior of imported outlines.",
-    "requires": ["SetaPDF-Core", "SetaPDF-Merger"]
+    "requires": ["SetaPDF-Core", "SetaPDF-Merger"],
+    "faIcon": "&#xf02e;"
 }
