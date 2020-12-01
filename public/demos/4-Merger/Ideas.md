@@ -20,8 +20,8 @@
 
 ## PDF Portfolios / Packages / Collections
 - [ ] Create a Simple Porfolio
+- [ ] Create a Portfolio with Folders
 - [ ] Create a Portfolio with Dynamic Files and Metadata
 - [ ] Create a Portfolio with a Schema
-- [ ] Create a Portfolio with Folders
 - [ ] Extract Files
 - [ ] Extract Files From Folder

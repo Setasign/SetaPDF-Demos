@@ -1,0 +1,5 @@
+{
+    "name": "Default Merge Processes",
+    "teaserText": "Demos showing simple or default merge processes.",
+    "requires": ["SetaPDF-Core", "SetaPDF-Merger"]
+}
