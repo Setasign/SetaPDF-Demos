@@ -1,6 +1,8 @@
 
 ## Default Merge Processes
-- [ ] Merge Several Documents (SimpleMerge.php)
+- [x] ~~Merge Several PDF Files (through the file system)~~
+- [ ] Merge Document Instances
+- [ ] Merge individual page ranges
 - [ ] Append Pages To an Existing PDF Document (SimpleAppend.php)
 - [ ] Repeat a Single Page (AppendSinglePageSeveralTimes.php)
 - [ ] Insert a Page (InsertPage.php)

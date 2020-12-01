@@ -1,0 +1,7 @@
+{
+    "name": "Merge Several PDF Files",
+    "teaserText": "A simple demo showing how to merge several PDF documents stored in the file system.",
+    "requires": [
+        "SetaPDF-Core", "SetaPDF-Merger"
+    ]
+}
