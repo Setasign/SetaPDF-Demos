@@ -1,0 +1,8 @@
+{
+    "name": "Append Pages To an Existing PDF Document",
+    "teaserText": "This demo shows you how to start with an existing PDF and append pages from another document.",
+    "requires": [
+        "SetaPDF-Core", "SetaPDF-Merger"
+    ],
+    "faIcon": "&#xf067;"
+}

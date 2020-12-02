@@ -4,7 +4,7 @@
 - [x] ~~Merge Document Instances~~
 - [x] ~~Merge individual page ranges~~
 - [x] ~~Merge and Add Named Destinations~~
-- [ ] Append Pages To an Existing PDF Document (SimpleAppend.php)
+- [x] ~~Append Pages To an Existing PDF Document (SimpleAppend.php)~~
 - [ ] Repeat a Single Page (AppendSinglePageSeveralTimes.php)
 - [ ] Insert a Page (InsertPage.php)
 
