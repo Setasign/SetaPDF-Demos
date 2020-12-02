@@ -1,0 +1,11 @@
+<p>
+    A simple demo showing how to repeat a page several times.
+</p>
+<p>
+    If the same page is merged from a single document instance (internally cached by the merger component) all pages
+    will share the same objects. That means that changing e.g. the content (stream) of a page all other pages will be
+    changed, too. This results in a very smal file size but can produce problems with PDF viewer or editor applications.
+</p>
+<p>
+    To ensure that all pages and objects are unique, you have to use a new document instance for each appended page.
+</p>

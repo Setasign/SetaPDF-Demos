@@ -1,0 +1,8 @@
+{
+    "name": "Repeat a Single Page",
+    "teaserText": "A demo showing how to repeat a page several times.",
+    "requires": [
+        "SetaPDF-Core", "SetaPDF-Merger"
+    ],
+    "faIcon": "&#xf01e;"
+}
