@@ -1,0 +1,7 @@
+{
+    "name": "Outline Item per Document",
+    "teaserText": "See how to add an outline item per document.",
+    "requires": [
+        "SetaPDF-Core", "SetaPDF-Merger"
+    ]
+}

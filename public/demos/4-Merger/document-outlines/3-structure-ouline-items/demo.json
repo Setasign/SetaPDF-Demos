@@ -1,0 +1,7 @@
+{
+    "name": "Structure Outline Items",
+    "teaserText": "See how you can structure the outline items of merged documents.",
+    "requires": [
+        "SetaPDF-Core", "SetaPDF-Merger"
+    ]
+}

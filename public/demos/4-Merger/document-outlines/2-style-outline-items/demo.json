@@ -1,0 +1,7 @@
+{
+    "name": "Style Outline Items",
+    "teaserText": "Demo that shows possibilites to style outline items.",
+    "requires": [
+        "SetaPDF-Core", "SetaPDF-Merger"
+    ]
+}
