@@ -6,7 +6,7 @@
 - [x] ~~Merge and Add Named Destinations~~
 - [x] ~~Append Pages To an Existing PDF Document (SimpleAppend.php)~~
 - [x] ~~Repeat a Single Page (AppendSinglePageSeveralTimes.php)~~
-- [ ] Insert a Page (InsertPage.php)
+- [x] ~~Insert Pages (InsertPage.php)~~
 
 ## Handling of Document Outlines
 - [ ] Import an Outline as a Root Outline (MergeWithOutLines.php)

@@ -1,0 +1,7 @@
+{
+    "name": "Insert Pages",
+    "teaserText": "Import a whole document but insert pages between.",
+    "requires": [
+        "SetaPDF-Core", "SetaPDF-Merger"
+    ]
+}
