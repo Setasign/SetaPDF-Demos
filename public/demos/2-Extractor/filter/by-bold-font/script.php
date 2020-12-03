@@ -3,16 +3,8 @@
 // load and register the autoload function
 require_once __DIR__ . '/../../../../../bootstrap.php';
 
-$data = [
-    '24' => '24pt',
-    '18' => '18pt',
-    '12' => '12pt'
-];
-
-$fontSize = displaySelect('Filter by:', $data);
-
 // create a document instance
-$document = SetaPDF_Core_Document::loadByFilename($assetsDirectory . '/pdfs/Brand-Guide.pdf');
+$document = SetaPDF_Core_Document::loadByFilename($assetsDirectory . '/pdfs/Fuchslocher-Example.pdf');
 
 // create an extractor instance
 $extractor = new SetaPDF_Extractor($document);
@@ -22,8 +14,20 @@ $strategy = new SetaPDF_Extractor_Strategy_Word();
 // ...and pass it to the extractor
 $extractor->setStrategy($strategy);
 
-// creat an instance of the font size filter
-$filter = new SetaPDF_Extractor_Filter_FontSize((float)$fontSize);
+class BoldTextFilter implements SetaPDF_Extractor_Filter_FilterInterface
+{
+    /**
+     * @param SetaPDF_Extractor_TextItem $textItem
+     * @return bool|string
+     */
+    public function accept(SetaPDF_Extractor_TextItem $textItem)
+    {
+        return $textItem->getFont()->isBold();
+    }
+}
+
+// creat an instance of the filter
+$filter = new BoldTextFilter();
 // ...pass it to the strategy
 $strategy->setFilter($filter);
 
@@ -34,8 +38,7 @@ $pages = $document->getCatalog()->getPages();
 for ($pageNo = 1; $pageNo <= $pages->count(); $pageNo++) {
 
     $words = $extractor->getResultByPageNumber($pageNo);
-    echo '<b>' . count($words) . ' word(s) found on Page #' . $pageNo
-        . ' with the font size ' . $fontSize . 'pt:</b><ul>';
+    echo '<b>' . count($words) . ' bold word(s) found on Page #' . $pageNo . ':</b><ul>';
 
     foreach ($words as $word) {
         echo '<li>' . htmlspecialchars($word->getString()) . '</li>';

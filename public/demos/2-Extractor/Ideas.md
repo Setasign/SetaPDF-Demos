@@ -13,6 +13,7 @@
 - [x] ~~Extract Grouped Customer Data / Filter Invoice Recipients and numbers~~        
 - [x] ~~Get Words At specifc Location~~
 - [x] ~~Filter By Font Size~~
+- [x] ~~Filter by Bold Text~~
 
 ## Various Demos
 - [x] ~~The boundary parameter~~ 
