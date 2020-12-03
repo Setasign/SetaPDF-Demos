@@ -1,0 +1,7 @@
+{
+    "name": "Import Outlines to Root Outline",
+    "teaserText": "See how to copy outlines to the root outline.",
+    "requires": [
+        "SetaPDF-Core", "SetaPDF-Merger"
+    ]
+}
