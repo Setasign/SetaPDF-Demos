@@ -1,0 +1,8 @@
+{
+    "name": "Merge With Layers",
+    "teaserText": "See how to copy layer information to the resulting document.",
+    "requires": [
+        "SetaPDF-Core", "SetaPDF-Merger"
+    ],
+    "faIcon": "&#xf5fd;"
+}
