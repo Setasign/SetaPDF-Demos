@@ -1,0 +1,8 @@
+{
+    "name": "Create a Simple PDF Portfolio",
+    "teaserText": "See how to create a simple PDF portfolio.",
+    "requires": [
+        "SetaPDF-Core", "SetaPDF-Merger"
+    ],
+    "faIcon": "&#xf187;"
+}

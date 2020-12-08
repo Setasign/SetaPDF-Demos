@@ -28,7 +28,7 @@
 - [ ] Split PDF File With Optimized Resources
 
 ## PDF Portfolios / Packages / Collections
-- [ ] Create a Simple Porfolio
+- [x] ~~Create a Simple Porfolio~~
 - [ ] Create a Portfolio with Folders
 - [ ] Create a Portfolio with Dynamic Files and Metadata
 - [ ] Create a Portfolio with a Schema
