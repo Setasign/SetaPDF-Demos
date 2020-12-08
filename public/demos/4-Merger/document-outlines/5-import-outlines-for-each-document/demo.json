@@ -1,0 +1,7 @@
+{
+    "name": "Copy Outlines for Each Document",
+    "teaserText": "See how to copy outlines from each document below an unique ouline item.",
+    "requires": [
+        "SetaPDF-Core", "SetaPDF-Merger"
+    ]
+}

@@ -13,7 +13,7 @@
 - [x] ~~Style Outline Items~~
 - [x] ~~Structure Outline Items~~
 - [x] ~~Import Outline as Root Outlines (MergeWithOutLines.php)~~
-- [ ] Copy Outlines for Each Document (MergeWithOutlines2.php)
+- [x] ~~Copy Outlines for Each Document (MergeWithOutlines2.php)~~
 - [ ] Mix Oultlines Below a New Created Outline Item (MergeWithOutlines3.php)
 - [ ] Merge With Individual Outline
 
