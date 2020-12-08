@@ -1,0 +1,9 @@
+{
+    "name": "Create a PDF Portfolio with Folders",
+    "teaserText": "See how to create a PDF portfolio with folders.",
+    "requires": [
+        "SetaPDF-Core", "SetaPDF-Merger"
+    ],
+    "faIcon": "&#xf187;",
+    "faIcon2": "&#xf07c;"
+}

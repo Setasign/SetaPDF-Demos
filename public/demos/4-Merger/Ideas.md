@@ -29,7 +29,7 @@
 
 ## PDF Portfolios / Packages / Collections
 - [x] ~~Create a Simple Porfolio~~
-- [ ] Create a Portfolio with Folders
+- [x] ~~Create a Portfolio with Folders~~
 - [ ] Create a Portfolio with Dynamic Files and Metadata
 - [ ] Create a Portfolio with a Schema
 - [ ] Extract Files
