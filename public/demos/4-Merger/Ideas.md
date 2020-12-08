@@ -18,10 +18,13 @@
 - [ ] Merge With Individual Outline
 
 ## Various
-- [ ] Merge Encypted PDFs
+- [x] ~~Merge Encypted PDFs~~
 - [ ] Encrypt the Resulting PDF
 - [ ] Merge PDFs and Images
 - [ ] Merge With Layers Information (MergeWithLayers.php)
+- [ ] Optimize Memory Usage (see local-tests)
+- [ ] Split PDF File
+- [ ] Split PDF File With Optimized Resources
 
 ## PDF Portfolios / Packages / Collections
 - [ ] Create a Simple Porfolio

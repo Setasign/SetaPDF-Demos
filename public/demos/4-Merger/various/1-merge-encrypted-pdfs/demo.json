@@ -1,0 +1,8 @@
+{
+    "name": "Merge Encrypted PDFs",
+    "teaserText": "See how to merge encrypted or protected PDF documents.",
+    "requires": [
+        "SetaPDF-Core", "SetaPDF-Merger"
+    ],
+    "faIcon": "&#xf09c;"
+}
