@@ -22,7 +22,8 @@ class BoldTextFilter implements SetaPDF_Extractor_Filter_FilterInterface
      */
     public function accept(SetaPDF_Extractor_TextItem $textItem)
     {
-        return $textItem->getFont()->isBold();
+        $font = $textItem->getFont();
+        return $font->isBold() || stripos($font->getFontName(), 'bold') !== false;
     }
 }
 
