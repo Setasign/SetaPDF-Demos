@@ -1,0 +1,8 @@
+{
+    "name": "Encrypt Resulting PDF",
+    "teaserText": "Merge PDF documents and encrypt the result with a password.",
+    "requires": [
+        "SetaPDF-Core", "SetaPDF-Merger"
+    ],
+    "faIcon": "&#xf023;"
+}
