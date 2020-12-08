@@ -1,0 +1,8 @@
+{
+    "name": "Split a PDF Document",
+    "teaserText": "See how to split a PDF document with the SetaPDF-Merger component.",
+    "requires": [
+        "SetaPDF-Core", "SetaPDF-Merger"
+    ],
+    "faIcon": "&#xf0c4;"
+}

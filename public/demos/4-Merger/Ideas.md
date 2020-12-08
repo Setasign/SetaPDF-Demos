@@ -23,7 +23,8 @@
 - [ ] Merge PDFs and Images
 - [x] ~~Merge With Layers Information (MergeWithLayers.php)~~
 - [ ] Optimize Memory Usage (see local-tests)
-- [ ] Split PDF File
+- [x] ~~Split PDF File~~
+- [ ] Split PDF And Preserve Links (SpltiWithLinks.php)
 - [ ] Split PDF File With Optimized Resources
 
 ## PDF Portfolios / Packages / Collections
