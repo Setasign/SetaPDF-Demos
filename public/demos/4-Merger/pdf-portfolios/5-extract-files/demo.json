@@ -1,0 +1,12 @@
+{
+    "name": "Extract Files",
+    "teaserText": "See how to extract files from a PDF portfolio.",
+    "requires": [
+        "SetaPDF-Core", "SetaPDF-Merger"
+    ],
+    "faIcon": "&#xf187;",
+    "faIcon2": "&#xf56e;",
+    "previewFiles": [
+        "/assets/pdfs/tektown/products/All-Portfolio.pdf"
+    ]
+}
