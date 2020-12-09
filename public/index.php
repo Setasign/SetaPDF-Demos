@@ -396,6 +396,7 @@ if ($isDemo) {
         $requires = isset($metaData['requires']) ? $metaData['requires'] : [];
         $hasIcon = file_exists($dir . '/icon.png');
         $faIcon = isset($metaData['faIcon']) ? $metaData['faIcon'] : '&#xf07c;';
+        $faIcon2 = isset($metaData['faIcon2']) ? $metaData['faIcon2'] : false;
 
         $missingRequires = [];
         foreach ($requires as $require) {
@@ -413,7 +414,9 @@ if ($isDemo) {
                 . '</a>';
         } else {
             echo '<a href="?p=' . urlencode($path) . '" title="' . htmlspecialchars($name, ENT_QUOTES | ENT_HTML5)
-                . '" class="teaserIcon" data-faIcon="' . $faIcon . '"></a>';
+                . '" class="teaserIcon" data-faIcon="' . $faIcon . '"'
+                . (($faIcon2) ? ' data-faIcon2="' . $faIcon2 . '"' : '')
+                . '></a>';
         }
 
         echo '<h2><a href="?p=' . urlencode($path) . '" title="' . htmlspecialchars($name, ENT_QUOTES | ENT_HTML5) . '">'
