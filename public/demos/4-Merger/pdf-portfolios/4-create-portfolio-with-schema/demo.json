@@ -1,0 +1,9 @@
+{
+    "name": "PDF Portfolio With Schema",
+    "teaserText": "See how to define individual fields and data for files in a portfolio.",
+    "requires": [
+        "SetaPDF-Core", "SetaPDF-Merger"
+    ],
+    "faIcon": "&#xf187;",
+    "faIcon2": "&#xf0ce;"
+}
