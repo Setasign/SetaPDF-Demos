@@ -1,0 +1,7 @@
+{
+    "name": "XObject Stamp",
+    "teaserText": "Demos of the XObject stamp class.",
+    "requires": ["SetaPDF-Core", "SetaPDF-Stamper"],
+    "faIcon": "&#xf5bf;",
+    "faIcon2": "&#xf0c8;"
+}

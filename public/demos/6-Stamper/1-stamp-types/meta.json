@@ -1,0 +1,5 @@
+{
+    "name": "Stamp Types",
+    "teaserText": "Demos of all available stamp types.",
+    "requires": ["SetaPDF-Core", "SetaPDF-Stamper"]
+}
