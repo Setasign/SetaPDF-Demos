@@ -33,4 +33,4 @@
 - [x] ~~Create a Portfolio with Dynamic Files and Metadata~~
 - [x] ~~Create a Portfolio with a Schema~~
 - [x] ~~Extract Files~~
-- [ ] Extract Files From Folder
+- [x] ~~Extract Files From Folder~~
