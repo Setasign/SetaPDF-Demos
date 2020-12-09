@@ -79,6 +79,7 @@
 - [x] ~~Remove Digital Signatures~~
 - [x] ~~Remove Usage Rights~~
 - [x] ~~Encrypt with a Password~~
+- [ ] Encrypt With a Public Key
 
 ## Images:
 - [x] ~~Replace Images~~
