@@ -1,0 +1,9 @@
+{
+    "name": "PDF Portfolio With Dynamic Files & Metadata",
+    "teaserText": "See some more low-level things you can define for files in a PDF portfolio.",
+    "requires": [
+        "SetaPDF-Core", "SetaPDF-Merger"
+    ],
+    "faIcon": "&#xf187;",
+    "faIcon2": "&#xf05a;"
+}
