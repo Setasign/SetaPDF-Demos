@@ -1,0 +1,8 @@
+{
+    "name": "Simple Demo",
+    "teaserText": "Add a simple XObject stamp to an existing PDF document.",
+    "requires": [
+        "SetaPDF-Core", "SetaPDF-Stamper"
+    ],
+    "faIcon": "&#xf0c8;"
+}

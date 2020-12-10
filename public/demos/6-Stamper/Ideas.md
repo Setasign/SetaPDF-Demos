@@ -11,7 +11,8 @@
   - [x] ~~Simple Demo (Manual)~~
   - [ ] Dynamic PDF Page (Created with e.g. FPDF)
 - [ ] XObject Stamp
-  - [ ] Simple Demo (Manual)
+  - [x] ~~Simple Demo (Manual)~~
+  - [ ] Individual Text and Image (Text + Image on Canvas)
 
 ## Adding Stamps
 - [ ] Positioning (Manual)
