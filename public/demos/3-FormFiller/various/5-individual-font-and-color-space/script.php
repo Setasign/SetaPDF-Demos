@@ -22,20 +22,20 @@ $color = new SetaPDF_Core_DataStructure_Color_Special(1);
 // let's create a font instance DejaVu Sans Condensed as a TrueType font subset
 $font = new SetaPDF_Core_Font_TrueType_Subset(
     $document,
-    $assetsDirectory . '/fonts/dejavu-fonts-ttf-2.37/ttf/DejaVuSansCondensed-Oblique.ttf'
+    $assetsDirectory . '/fonts/DejaVu/ttf/DejaVuSansCondensed-Oblique.ttf'
 );
 
 // Or as a CID font with true type outlines which allows you to use more than 255 characters
 /*
 $font = new SetaPDF_Core_Font_Type0_Subset(
     $document,
-    $assetsDirectory . '/fonts/dejavu-fonts-ttf-2.37/ttf/DejaVuSansCondensed-Oblique.ttf'
+    $assetsDirectory . '/fonts/dDejaVu/ttf/DejaVuSansCondensed-Oblique.ttf'
 );*/
 
 /* NOT RECOMMENDED: alternatively you can create an instance with a font which will not be embedded.*/
 /* $font = SetaPDF_Core_Font_TrueType::create(
     $document,
-    $assetsDirectory . '/fonts/dejavu-fonts-ttf-2.37/ttf/DejaVuSansCondensed-Oblique.ttf',
+    $assetsDirectory . '/fonts/DejaVu/ttf/DejaVuSansCondensed-Oblique.ttf',
     SetaPDF_Core_Encoding::WIN_ANSI,
     'auto',
     false // <-- don't embedded
