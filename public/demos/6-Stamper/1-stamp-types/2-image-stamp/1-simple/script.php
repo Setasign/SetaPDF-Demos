@@ -4,7 +4,7 @@
 require_once __DIR__ . '/../../../../../../bootstrap.php';
 
 // create a writer
-$writer = new SetaPDF_Core_Writer_Http('png.pdf', true);
+$writer = new SetaPDF_Core_Writer_Http('image-stamp.pdf', true);
 // get a document instance
 $document = SetaPDF_Core_Document::loadByFilename(
     $assetsDirectory . '/pdfs/Fact-Sheet-without-personalization.pdf',
