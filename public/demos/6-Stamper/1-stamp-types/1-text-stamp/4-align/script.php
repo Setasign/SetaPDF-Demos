@@ -3,7 +3,7 @@
 // load and register the autoload function
 require_once __DIR__ . '/../../../../../../bootstrap.php';
 
-$text = "An example text, with some more content\n"
+$text = "An example text with some more content\n"
     . "and line-breaks to be able to align\nthe text at all.";
 
 // we create a blank document to show the behavior
