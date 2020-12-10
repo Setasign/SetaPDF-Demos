@@ -2,7 +2,7 @@
 - [ ] Text Stamp
   - [x] ~~Simple Demo~~
   - [x] ~~Color, Rendering-Mode and Opacity~~
-  - [ ] Advanced Styling (Border, Background, Padding)
+  - [x] Advanced Styling (Border, Background, Padding)
   - [ ] Align Text
 - [ ] Image Stamp
   - [ ] Simple Demo

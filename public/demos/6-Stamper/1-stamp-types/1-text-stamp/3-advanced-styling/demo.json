@@ -1,0 +1,7 @@
+{
+    "name": "Advanced Styling",
+    "teaserText": "A text stamp with borders, background and padding.",
+    "requires": [
+        "SetaPDF-Core", "SetaPDF-Stamper"
+    ]
+}
