@@ -1,0 +1,8 @@
+{
+    "name": "Text Align",
+    "teaserText": "Shows the behavior of text alignment.",
+    "requires": [
+        "SetaPDF-Core", "SetaPDF-Stamper"
+    ],
+    "faIcon": "&#xf037;"
+}

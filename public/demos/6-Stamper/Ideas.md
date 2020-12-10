@@ -2,8 +2,9 @@
 - [ ] Text Stamp
   - [x] ~~Simple Demo~~
   - [x] ~~Color, Rendering-Mode and Opacity~~
-  - [x] Advanced Styling (Border, Background, Padding)
-  - [ ] Align Text
+  - [x] ~~Advanced Styling (Border, Background, Padding)~~
+  - [x] ~~Text Align~~
+  - [ ] Automatic line-breaks
 - [ ] Image Stamp
   - [ ] Simple Demo
 - [ ] PDF Stamp
