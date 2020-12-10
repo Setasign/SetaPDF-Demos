@@ -1,12 +1,12 @@
 ## Stamp Types
-- [ ] Text Stamp
+- [x] ~~Text Stamp~~
   - [x] ~~Simple Demo~~
   - [x] ~~Color, Rendering-Mode and Opacity~~
   - [x] ~~Advanced Styling (Border, Background, Padding)~~
   - [x] ~~Text Align~~
   - [x] ~~Automatic Line-Breaks~~
-- [ ] Image Stamp
-  - [ ] Simple Demo
+- [x] ~~Image Stamp~~
+  - [x] ~~Simple Demo~~
 - [ ] PDF Stamp
   - [ ] Simple Demo (Manual)
   - [ ] Dynamic PDF Page (Created with e.g. FPDF)
