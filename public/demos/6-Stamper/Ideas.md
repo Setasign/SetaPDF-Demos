@@ -1,6 +1,6 @@
 ## Stamp Types
 - [ ] Text Stamp
-  - [ ] Simple Demo
+  - [x] ~~Simple Demo~~
   - [ ] Color, Rendering-Mode and Opacity
   - [ ] Advanced Styling (Border, Background, Padding)
   - [ ] Align Text
