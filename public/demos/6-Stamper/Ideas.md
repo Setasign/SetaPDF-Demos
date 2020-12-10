@@ -4,7 +4,7 @@
   - [x] ~~Color, Rendering-Mode and Opacity~~
   - [x] ~~Advanced Styling (Border, Background, Padding)~~
   - [x] ~~Text Align~~
-  - [ ] Automatic line-breaks
+  - [x] ~~Automatic Line-Breaks~~
 - [ ] Image Stamp
   - [ ] Simple Demo
 - [ ] PDF Stamp

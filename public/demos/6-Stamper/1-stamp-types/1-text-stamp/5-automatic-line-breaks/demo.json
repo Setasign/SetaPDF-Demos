@@ -1,0 +1,8 @@
+{
+    "name": "Automatic Line Breaks",
+    "teaserText": "This demo shows you how to enable automatic line breaks.",
+    "requires": [
+        "SetaPDF-Core", "SetaPDF-Stamper"
+    ],
+    "faIcon": "↵"
+}
