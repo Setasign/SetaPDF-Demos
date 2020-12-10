@@ -1,7 +1,7 @@
 ## Stamp Types
 - [ ] Text Stamp
   - [x] ~~Simple Demo~~
-  - [ ] Color, Rendering-Mode and Opacity
+  - [x] ~~Color, Rendering-Mode and Opacity~~
   - [ ] Advanced Styling (Border, Background, Padding)
   - [ ] Align Text
 - [ ] Image Stamp

@@ -1,0 +1,8 @@
+{
+    "name": "Color, Rendering-Mode and Opacity",
+    "teaserText": "A text stamp with some alternative style elements.",
+    "requires": [
+        "SetaPDF-Core", "SetaPDF-Stamper"
+    ],
+    "faIcon": "&#xf21b;"
+}
