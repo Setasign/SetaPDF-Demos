@@ -8,7 +8,7 @@
 - [x] ~~Image Stamp~~
   - [x] ~~Simple Demo~~
 - [ ] PDF Stamp
-  - [ ] Simple Demo (Manual)
+  - [x] ~~Simple Demo (Manual)~~
   - [ ] Dynamic PDF Page (Created with e.g. FPDF)
 - [ ] XObject Stamp
   - [ ] Simple Demo (Manual)

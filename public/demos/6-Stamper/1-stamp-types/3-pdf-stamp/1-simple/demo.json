@@ -1,0 +1,12 @@
+{
+    "name": "Simple Demo",
+    "teaserText": "Add a simple PDF stamp to an existing PDF document.",
+    "requires": [
+        "SetaPDF-Core", "SetaPDF-Stamper"
+    ],
+    "faIcon": "&#xf1c1;",
+    "previewFiles": [
+        "/assets/pdfs/Fact-Sheet-without-personalization.pdf",
+        "/assets/pdfs/lenstown/Logo.pdf"
+    ]
+}
