@@ -1,0 +1,8 @@
+{
+    "name": "Positioning",
+    "teaserText": "See how to define positions of stamp objects.",
+    "requires": [
+        "SetaPDF-Core", "SetaPDF-Stamper"
+    ],
+    "faIcon": "&#xf546;"
+}

@@ -15,7 +15,8 @@
   - [ ] Individual Text and Image (Text + Image on Canvas)
 
 ## Adding Stamps
-- [ ] Positioning (Manual)
+- [x] ~~Positioning~~
+  - [ ] Translation
 - [ ] Show on Page (Manual)
 - [ ] Rotation (Manual)
 - [ ] Callback (Manual)
