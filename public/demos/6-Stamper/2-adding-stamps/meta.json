@@ -1,5 +1,6 @@
 {
     "name": "Adding Stamps",
-    "teaserText": "See how you can add stamp objects a stamper instance.",
-    "requires": ["SetaPDF-Core", "SetaPDF-Stamper"]
+    "teaserText": "See how you can add stamp objects to a stamper instance.",
+    "requires": ["SetaPDF-Core", "SetaPDF-Stamper"],
+    "faIcon": "&#xf067;"
 }
