@@ -61,7 +61,7 @@ $data = $translations[$value];
 
 $writer = new SetaPDF_Core_Writer_Http('positioning-and-translate.pdf', true);
 $document = new SetaPDF_Core_Document($writer);
-// let's add 2 pages for demonstration purpose
+// let's add some pages for demonstration purpose
 $pages = $document->getCatalog()->getPages();
 $pages->create(SetaPDF_Core_PageFormats::A4, SetaPDF_Core_PageFormats::ORIENTATION_PORTRAIT);
 $pages->create(SetaPDF_Core_PageFormats::A4, SetaPDF_Core_PageFormats::ORIENTATION_LANDSCAPE);
