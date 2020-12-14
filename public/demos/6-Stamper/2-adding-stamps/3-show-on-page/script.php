@@ -3,53 +3,14 @@
 // load and register the autoload function
 require_once __DIR__ . '/../../../../../bootstrap.php';
 
-$translations = [
-    [
-        'displayValue' => 'SetaPDF_Stamper::PAGES_ALL',
-        'showOnPage' => SetaPDF_Stamper::PAGES_ALL
-    ],
-    [
-        'displayValue' => 'SetaPDF_Stamper::PAGES_EVEN',
-        'showOnPage' => SetaPDF_Stamper::PAGES_EVEN
-    ],
-    [
-        'displayValue' => 'SetaPDF_Stamper::PAGES_ODD',
-        'showOnPage' => SetaPDF_Stamper::PAGES_ODD
-    ],
-    [
-        'displayValue' => 'SetaPDF_Stamper::PAGES_FIRST',
-        'showOnPage' => SetaPDF_Stamper::PAGES_FIRST
-    ],
-    [
-        'displayValue' => 'SetaPDF_Stamper::PAGES_LAST',
-        'showOnPage' => SetaPDF_Stamper::PAGES_LAST
-    ],
-    [
-        'displayValue' => "'2-' (2nd page until the last page)",
-        'showOnPage' => '2-'
-    ],
-    [
-        'displayValue' => "'1-5' (page 1 to 5)",
-        'showOnPage' => '1-5'
-    ],
-    [
-        'displayValue' => '[3, 5, 8, 99]',
-        'showOnPage' => [3, 5, 8, 99]
-    ],
-    [
-        'displayValue' => 'second last page (callback function)',
-        'showOnPage' => function($pageNumber, $pageCount) {
-            return $pageNumber === ($pageCount - 1);
-        }
-    ]
-];
+$showOnPageOptions = require 'options.php';
 
-$value = displaySelect('Show on page:', $translations);
-$data = $translations[$value];
+$value = displaySelect('Show on page:', $showOnPageOptions);
+$data = $showOnPageOptions[$value];
 
 $writer = new SetaPDF_Core_Writer_Http('positioning-and-translate.pdf', true);
 $document = new SetaPDF_Core_Document($writer);
-// let's add 2 pages for demonstration purpose
+// let's add some pages for demonstration purpose
 $pages = $document->getCatalog()->getPages();
 for ($i = 100; $i > 0; $i--) {
     $pages->create(

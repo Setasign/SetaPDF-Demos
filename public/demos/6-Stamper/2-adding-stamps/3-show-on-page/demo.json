@@ -3,5 +3,8 @@
     "teaserText": "Define the pages on which a stamp should appear.",
     "requires": [
         "SetaPDF-Core", "SetaPDF-Stamper"
+    ],
+    "previewFiles": [
+        "options.php"
     ]
 }
