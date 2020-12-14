@@ -16,7 +16,7 @@
 
 ## Adding Stamps
 - [x] ~~Positioning~~
-  - [ ] Translation
+  - [x] ~~Translation~~
 - [ ] Show on Page (Manual)
 - [ ] Rotation (Manual)
 - [ ] Callback (Manual)
