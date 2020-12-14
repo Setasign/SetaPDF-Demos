@@ -1,0 +1,11 @@
+{
+    "name": "Rotation",
+    "teaserText": "See how stamps can be rotated.",
+    "requires": [
+        "SetaPDF-Core", "SetaPDF-Stamper"
+    ],
+    "faIcon": "&#xf545;",
+    "previewFiles": [
+        "options.php"
+    ]
+}

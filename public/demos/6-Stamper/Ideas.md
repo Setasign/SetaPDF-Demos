@@ -18,7 +18,7 @@
 - [x] ~~Positioning~~
   - [x] ~~Translation~~
 - [x] ~~Show on Page (Manual)~~
-- [ ] Rotation (Manual)
+- [x] ~~Rotation (Manual)~~
 - [ ] Callback (Manual)
 
 ## Various
