@@ -1,0 +1,8 @@
+{
+    "name": "Callback",
+    "teaserText": "See how to dynamically add a stamp to the stamper instance.",
+    "requires": [
+        "SetaPDF-Core", "SetaPDF-Stamper"
+    ],
+    "faIcon": "&#xf0d0;"
+}

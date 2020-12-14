@@ -19,7 +19,8 @@
   - [x] ~~Translation~~
 - [x] ~~Show on Page (Manual)~~
 - [x] ~~Rotation (Manual)~~
-- [ ] Callback (Manual)
+- [x] ~~Callback (Manual)~~
+- [ ] Add Several Stamp Objects
 
 ## Various
 - [ ] Stamp Visibility (StampVisibility.php)
