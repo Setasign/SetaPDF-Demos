@@ -7,6 +7,7 @@
 - [x] ~~Append Pages To an Existing PDF Document (SimpleAppend.php)~~
 - [x] ~~Repeat a Single Page (AppendSinglePageSeveralTimes.php)~~
 - [x] ~~Insert Pages (InsertPage.php)~~
+- [ ] Merge memory optimized (through a temporary writer/document instance)
 
 ## Handling of Document Outlines
 - [x] ~~Create an Outline Item Per Document~~
