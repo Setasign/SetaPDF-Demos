@@ -1,0 +1,8 @@
+{
+    "name": "Stamp Visibility",
+    "teaserText": "Make stamps only visible for printing or on screen.",
+    "requires": [
+        "SetaPDF-Core", "SetaPDF-Stamper"
+    ],
+    "faIcon": "&#xf06e;"
+}

@@ -21,11 +21,13 @@
 - [x] ~~Rotation (Manual)~~
 - [x] ~~Callback (Manual)~~
 - [ ] Add Several Stamp Objects
+- [ ] Underlay or Overlay
 
 ## Various
-- [ ] Stamp Visibility (StampVisibility.php)
+- [x] ~~Stamp Visibility (StampVisibility.php)~~
 - [ ] Page Numbering (PageNumbering.php)
 - [ ] Stamp Prepended Title Page (StampTitlePage.php)
 - [ ] Stamp Enlarged Pages (StampEnlargedPage.php)
 - [ ] Stamp a QR-Code (Online Demo)
 - [ ] Stamp All Files in a Portfolio
+- [ ] Random Stamp Position
