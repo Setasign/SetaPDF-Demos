@@ -1,0 +1,8 @@
+{
+    "name": "Page Numbering",
+    "teaserText": "Use dynamic data in a stamp object.",
+    "requires": [
+        "SetaPDF-Core", "SetaPDF-Stamper"
+    ],
+    "faIcon": "&#xf162;"
+}

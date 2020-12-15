@@ -25,7 +25,7 @@
 
 ## Various
 - [x] ~~Stamp Visibility (StampVisibility.php)~~
-- [ ] Page Numbering (PageNumbering.php)
+- [x] ~~Page Numbering (PageNumbering.php)~~
 - [ ] Stamp Prepended Title Page (StampTitlePage.php)
 - [ ] Stamp Enlarged Pages (StampEnlargedPage.php)
 - [ ] Stamp a QR-Code (Online Demo)
