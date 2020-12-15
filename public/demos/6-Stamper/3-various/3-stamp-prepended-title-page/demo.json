@@ -1,0 +1,8 @@
+{
+    "name": "Stamp Prepended Title Page",
+    "teaserText": "This demo prepends an empty page and stamps various data on it.",
+    "requires": [
+        "SetaPDF-Core", "SetaPDF-Stamper"
+    ],
+    "faIcon": "&#xf1dc;"
+}
