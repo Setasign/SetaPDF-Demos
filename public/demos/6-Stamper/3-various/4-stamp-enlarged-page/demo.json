@@ -1,0 +1,8 @@
+{
+    "name": "Stamp Enlarged Page",
+    "teaserText": "This demo enlarges a page and adds a stamp in the \"new\" area.",
+    "requires": [
+        "SetaPDF-Core", "SetaPDF-Stamper"
+    ],
+    "faIcon": "&#xf338;"
+}

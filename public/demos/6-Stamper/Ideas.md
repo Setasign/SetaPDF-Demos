@@ -27,7 +27,7 @@
 - [x] ~~Stamp Visibility (StampVisibility.php)~~
 - [x] ~~Page Numbering (PageNumbering.php)~~
 - [x] ~~Stamp Prepended Title Page (StampTitlePage.php)~~
-- [ ] Stamp Enlarged Pages (StampEnlargedPage.php)
+- [x] ~~Stamp Enlarged Pages (StampEnlargedPage.php)~~
 - [ ] Stamp a QR-Code (Online Demo)
 - [ ] Stamp All Files in a Portfolio
 - [ ] Random Stamp Position
