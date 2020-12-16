@@ -3,7 +3,7 @@
 - [x] ~~Create and Add a Signature Field~~
 - [x] ~~Create a Simple Digital Signature~~
 - [x] ~~Use a PFX/P12 File~~
-- [ ] Create a Certification Signature
+- [x] ~~Create a Certification Signature~~
 - [ ] Create a Timestamp Signature
 - [ ] Create a Digital Signature With a Timestamp
 - [ ] Async Signature
