@@ -1,0 +1,8 @@
+{
+    "name": "Create a Simple Digital Signature",
+    "teaserText": "This demo shows you how to create a simple digital signature for a PDF document.",
+    "requires": [
+        "SetaPDF-Core", "SetaPDF-Signer"
+    ],
+    "faIcon": "&#xf5b7;"
+}
