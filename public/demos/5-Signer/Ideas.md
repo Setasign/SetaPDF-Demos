@@ -5,7 +5,7 @@
 - [x] ~~Use a PFX/P12 File~~
 - [x] ~~Create a Certification Signature~~
 - [x] ~~Create a Timestamp Signature~~
-- [ ] Create a Digital Signature With a Timestamp
+- [x] ~~Create a Digital Signature With a Timestamp~~
 - [ ] Async Signature
 - [ ] Async Timstamp
 - [ ] Async Signature With Timestamp

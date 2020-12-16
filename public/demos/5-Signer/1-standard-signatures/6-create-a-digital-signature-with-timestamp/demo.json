@@ -1,0 +1,9 @@
+{
+    "name": "Create a Digital Signature With a Timestamp",
+    "teaserText": "This demo shows you how to create a digital signature including a timestamp.",
+    "requires": [
+        "SetaPDF-Core", "SetaPDF-Signer"
+    ],
+    "faIcon": "&#xf5b7;",
+    "faIcon2": "&#xf017;"
+}
