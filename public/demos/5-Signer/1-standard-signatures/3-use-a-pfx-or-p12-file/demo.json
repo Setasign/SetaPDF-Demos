@@ -1,0 +1,9 @@
+{
+    "name": "Use a PFX/P12 File",
+    "teaserText": "You also can use a PFX/P12 file to access the certificate and private key.",
+    "requires": [
+        "SetaPDF-Core", "SetaPDF-Signer"
+    ],
+    "faIcon": "&#xf15b;",
+    "faIcon2": "&#xf084;"
+}

@@ -2,7 +2,7 @@
 ## Standard Signatures
 - [x] ~~Create and Add a Signature Field~~
 - [x] ~~Create a Simple Digital Signature~~
-- [ ] Use a PFX/P12 File
+- [x] ~~Use a PFX/P12 File~~
 - [ ] Create a Certification Signature
 - [ ] Create a Timestamp Signature
 - [ ] Create a Digital Signature With a Timestamp
