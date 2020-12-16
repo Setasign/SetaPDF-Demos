@@ -1,0 +1,8 @@
+{
+    "name": "Create a Timestamp Signature",
+    "teaserText": "This demo adds a document level timestamp signature to a PDF document.",
+    "requires": [
+        "SetaPDF-Core", "SetaPDF-Signer"
+    ],
+    "faIcon": "&#xf017;"
+}
