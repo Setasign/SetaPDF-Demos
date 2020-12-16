@@ -14,7 +14,7 @@ $certificationLevel = (int)displaySelect('Certification Level:', [
         'SetaPDF_Signer::CERTIFICATION_LEVEL_FORM_FILLING_AND_ANNOTATIONS'
 ], false);
 
-$writer = new SetaPDF_Core_Writer_Http('signed.pdf');
+$writer = new SetaPDF_Core_Writer_Http('certified.pdf');
 $document = SetaPDF_Core_Document::loadByFilename(
     $assetsDirectory . '/pdfs/camtown/Laboratory-Report.pdf',
     $writer
