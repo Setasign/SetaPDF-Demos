@@ -1,0 +1,5 @@
+{
+    "name": "Standard Signatures",
+    "teaserText": "Demos showing the basics for signature and timestamp creation.",
+    "requires": ["SetaPDF-Core", "SetaPDF-Signer"]
+}

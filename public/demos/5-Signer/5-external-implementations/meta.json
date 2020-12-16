@@ -1,0 +1,6 @@
+{
+    "name": "External Implementations",
+    "teaserText": "Use external signature services or programs in the digital signature workflow.",
+    "requires": ["SetaPDF-Core", "SetaPDF-Signer"],
+    "faIcon": "&#xf35d;"
+}

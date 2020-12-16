@@ -1,0 +1,6 @@
+{
+    "name": "VRI / LTV",
+    "teaserText": "Gather and embed validation related information for long term validation.",
+    "requires": ["SetaPDF-Core", "SetaPDF-Signer"],
+    "faIcon": "&#xf017;"
+}

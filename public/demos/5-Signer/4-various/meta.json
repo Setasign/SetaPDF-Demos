@@ -1,0 +1,5 @@
+{
+    "name": "Various",
+    "teaserText": "Various demos of the SetaPDF-Signer component.",
+    "requires": ["SetaPDF-Core", "SetaPDF-Signer"]
+}

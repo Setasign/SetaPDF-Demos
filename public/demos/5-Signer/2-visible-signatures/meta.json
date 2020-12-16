@@ -1,0 +1,6 @@
+{
+    "name": "Visible Signatures",
+    "teaserText": "See how you can use and configure signature appearances.",
+    "requires": ["SetaPDF-Core", "SetaPDF-Signer"],
+    "faIcon": "&#xf56c;"
+}
