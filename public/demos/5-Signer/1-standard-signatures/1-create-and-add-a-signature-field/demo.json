@@ -1,0 +1,8 @@
+{
+    "name": "Create and Add a Signature Field",
+    "teaserText": "A demo that shows you how to create and add signature fields.",
+    "requires": [
+        "SetaPDF-Core", "SetaPDF-Signer"
+    ],
+    "faIcon": "&#xf067;"
+}
