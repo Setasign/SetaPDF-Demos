@@ -28,6 +28,7 @@
 - [x] ~~Page Numbering (PageNumbering.php)~~
 - [x] ~~Stamp Prepended Title Page (StampTitlePage.php)~~
 - [x] ~~Stamp Enlarged Pages (StampEnlargedPage.php)~~
+- [ ] Tagged Stamp Wrapper (local-tests/Stamper/Stamp/Text/Tagged.php - but more flexible)
 - [ ] Stamp a QR-Code (Online Demo)
 - [ ] Stamp All Files in a Portfolio
 - [ ] Random Stamp Position
