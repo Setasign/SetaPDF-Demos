@@ -1,0 +1,8 @@
+{
+    "name": "Use an Existing Signature Field",
+    "teaserText": "A demo that uses an existing signature field.",
+    "requires": [
+        "SetaPDF-Core", "SetaPDF-Signer"
+    ],
+    "faIcon": "&#xf14b;"
+}

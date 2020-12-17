@@ -19,7 +19,7 @@
 - [x] ~~Individual Signature Appearance~~
 - [x] ~~Several Visible Signatures~~
 - [x] ~~Async Visible Signature With Timestamp~~
-- [ ] Use an Existing Signature Field
+- [x] ~~Use an Existing Signature Field~~
 
 ## Validation Related Information / Long Term Validation
 - [ ] In CMS Container
@@ -27,6 +27,7 @@
 - [ ] In CMS Container and Document Security Store
 
 ## Various
+- [ ] Get Signature Fields And Values
 - [ ] Sign an Encrypted PDF Document
 - [ ] Sign And Encrypt
 - [ ] Stamp annotation on all pages including actions to the last page with the real signature + closing signature (emulation of several appearances)
