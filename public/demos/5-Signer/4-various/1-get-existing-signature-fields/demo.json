@@ -1,0 +1,9 @@
+{
+    "name": "Get Existing Signature Fields",
+    "teaserText": "This demo shows you how to get existing signature fields, their names and if they are signed.",
+    "requires": [
+        "SetaPDF-Core", "SetaPDF-Signer"
+    ],
+    "faIcon": "&#xf573;",
+    "faIcon2": "&#xf128;"
+}

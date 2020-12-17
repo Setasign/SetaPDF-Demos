@@ -27,11 +27,11 @@
 - [ ] In CMS Container and Document Security Store
 
 ## Various
-- [ ] Get Signature Fields And Values
+- [x] ~~Get Existing Signature Fields~~
 - [ ] Sign an Encrypted PDF Document
 - [ ] Sign And Encrypt
-- [ ] Stamp annotation on all pages including actions to the last page with the real signature + closing signature (emulation of several appearances)
 - [ ] Validation (Proof of Concept)
+- [ ] Stamp annotation on all pages including actions to the last page with the real signature + closing signature (emulation of several appearances)
 - [ ] Use Link annotations as place-holder for the signature field 
 
 ## External Implementations/Modules
