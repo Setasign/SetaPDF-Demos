@@ -5,5 +5,8 @@
         "SetaPDF-Core", "SetaPDF-Signer"
     ],
     "faIcon": "&#xf03e;",
-    "faIcon2": "&#xf5b7;"
+    "faIcon2": "&#xf5b7;",
+    "previewFiles": [
+        "/assets/images/Handwritten-Signature.png"
+    ]
 }
