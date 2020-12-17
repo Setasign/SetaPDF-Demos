@@ -8,6 +8,7 @@
 - [x] ~~Create a Digital Signature With a Timestamp~~
 - [x] ~~Async Signature With Timestamp~~
   - [ ] Add Link To "Async Signature With External Implementation"
+- [x] ~~Several Signatures~~
 
 ## Visible Signatures
 - [x] ~~Dynamic Appearance~~

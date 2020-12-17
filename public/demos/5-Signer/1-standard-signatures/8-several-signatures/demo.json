@@ -1,0 +1,9 @@
+{
+    "name": "Several Signatures",
+    "teaserText": "Sounds hard but isn't - just restart the signature process with another field name.",
+    "requires": [
+        "SetaPDF-Core", "SetaPDF-Signer"
+    ],
+    "faIcon": "&#xf01e;",
+    "faIcon2": "&#xf5b7;"
+}
