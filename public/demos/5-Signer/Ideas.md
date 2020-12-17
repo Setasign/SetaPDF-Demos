@@ -12,7 +12,7 @@
 ## Visible Signatures
 - [x] ~~Dynamic Appearance~~
 - [x] ~~Dynamic Appearance with Background and Graphic~~
-- [ ] Localized Dynamic Appearance (DynamicVisibleSignatureWithGermanShowTemplates.php)
+- [x] ~~Localized Dynamic Appearance (DynamicVisibleSignatureWithGermanShowTemplates.php)~~
 - [ ] Image As Appearance
 - [ ] PDF Page As Appearance
 - [ ] Several Visible Signatures

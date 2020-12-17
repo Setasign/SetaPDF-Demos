@@ -1,0 +1,8 @@
+{
+    "name": "Localized Dynamic Appearance",
+    "teaserText": "See how to localize labels of the dynamic appearance module.",
+    "requires": [
+        "SetaPDF-Core", "SetaPDF-Signer"
+    ],
+    "faIcon": "&#xf0ac;"
+}
