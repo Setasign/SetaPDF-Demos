@@ -15,11 +15,8 @@ if (is_file(__DIR__ . '/../library/SetaPDF/Autoload.php')) {
 // otherwise include your setapdf directory INSTEAD
 //require_once __DIR__ . '/../SetaPDF/library/SetaPDF/Autoload.php';
 
-session_start();
 $assetsDirectory = __DIR__ . '/assets';
 $classesDirectory = __DIR__ . '/classes';
-
-$sessionFiles = isset($_SESSION['files']) ? $_SESSION['files'] : [];
 
 function displayFiles($files, $iframe = true, $multiple = false)
 {
