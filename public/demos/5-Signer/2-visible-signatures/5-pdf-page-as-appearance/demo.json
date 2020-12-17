@@ -1,0 +1,12 @@
+{
+    "name": "PDF Page as Appearance",
+    "teaserText": "This demo shows you how to use a PDF page as the signature appearance.",
+    "requires": [
+        "SetaPDF-Core", "SetaPDF-Signer"
+    ],
+    "faIcon": "&#xf1c1;",
+    "faIcon2": "&#xf5b7;",
+    "previewFiles": [
+        "/assets/pdfs/misc/Handwritten-Signature.pdf"
+    ]
+}
