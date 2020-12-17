@@ -1,0 +1,8 @@
+{
+    "name": "Individual Signature Appearance",
+    "teaserText": "A demo that shows you how to create an individual signature appearance.",
+    "requires": [
+        "SetaPDF-Core", "SetaPDF-Signer"
+    ],
+    "faIcon": "&#xf72e;"
+}
