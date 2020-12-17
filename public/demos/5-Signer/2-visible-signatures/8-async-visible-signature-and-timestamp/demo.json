@@ -1,0 +1,9 @@
+{
+    "name": "Async Visible Signature With Timestamp",
+    "teaserText": "A demo of an async visible signature and timestamp workflow.",
+    "requires": [
+        "SetaPDF-Core", "SetaPDF-Signer"
+    ],
+    "faIcon": "&#xf362;",
+    "faIcon2": "&#xf5b7;"
+}

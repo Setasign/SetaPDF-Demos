@@ -18,7 +18,7 @@
 - [x] ~~PDF Page as Appearance~~
 - [x] ~~Individual Signature Appearance~~
 - [x] ~~Several Visible Signatures~~
-- [ ] Async Visible Signature With Timestamp
+- [x] ~~Async Visible Signature With Timestamp~~
 - [ ] Use an Existing Signature Field
 
 ## Validation Related Information / Long Term Validation
