@@ -13,8 +13,8 @@
 - [x] ~~Dynamic Appearance~~
 - [x] ~~Dynamic Appearance with Background and Graphic~~
 - [x] ~~Localized Dynamic Appearance (DynamicVisibleSignatureWithGermanShowTemplates.php)~~
-- [ ] Image As Appearance
-- [ ] PDF Page As Appearance
+- [x] ~~Image as Appearance~~
+- [ ] PDF Page as Appearance
 - [ ] Several Visible Signatures
 - [ ] Async Visible Signature With Timestamp
 - [ ] Use an Existing Signature Field

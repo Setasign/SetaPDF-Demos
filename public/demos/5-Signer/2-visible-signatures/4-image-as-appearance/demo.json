@@ -1,0 +1,9 @@
+{
+    "name": "Image as Appearance",
+    "teaserText": "This demo shows you how to use an image as the signature appearance.",
+    "requires": [
+        "SetaPDF-Core", "SetaPDF-Signer"
+    ],
+    "faIcon": "&#xf03e;",
+    "faIcon2": "&#xf5b7;"
+}
