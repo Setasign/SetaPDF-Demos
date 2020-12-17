@@ -6,9 +6,8 @@
 - [x] ~~Create a Certification Signature~~
 - [x] ~~Create a Timestamp Signature~~
 - [x] ~~Create a Digital Signature With a Timestamp~~
-- [ ] Async Signature
-- [ ] Async Timstamp
-- [ ] Async Signature With Timestamp
+- [x] ~~Async Signature With Timestamp~~
+  - [ ] Add Link To "Async Signature With External Implementation"
 
 ## Visible Signatures
 - [ ] Create and Add Visible Signature Fields
@@ -17,7 +16,7 @@
 - [ ] Image As Appearance
 - [ ] PDF Page As Appearance
 - [ ] Several Visible Signatures
-- [ ] Async Visible Signature
+- [ ] Async Visible Signature With Timestamp
 
 ## Validation Related Information / Long Term Validation
 - [ ] In CMS Container
@@ -32,6 +31,7 @@
 - [ ] Use Link annotations as place-holder for the signature field 
 
 ## External Implementations/Modules
+- [ ] Async Signature With External Implementation
 - [ ] Fortify
 - [ ] OpenSSL CLI
   - [ ] dgst
