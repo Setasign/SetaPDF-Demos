@@ -11,7 +11,7 @@
 
 ## Visible Signatures
 - [x] ~~Dynamic Appearance~~
-- [ ] Dynamic Appearance with Background and Logo
+- [x] ~~Dynamic Appearance with Background and Graphic~~
 - [ ] Localized Dynamic Appearance (DynamicVisibleSignatureWithGermanShowTemplates.php)
 - [ ] Image As Appearance
 - [ ] PDF Page As Appearance

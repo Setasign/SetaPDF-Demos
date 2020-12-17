@@ -1,0 +1,9 @@
+{
+    "name": "Dynamic Appearance with Background and Graphic",
+    "teaserText": "An enhanced demo of the dynamic appearance module that uses a background and a graphic.",
+    "requires": [
+        "SetaPDF-Core", "SetaPDF-Signer"
+    ],
+    "faIcon": "&#xf2c2;",
+    "faIcon2":"&#xf06e;"
+}
