@@ -4,6 +4,5 @@
     "requires": [
         "SetaPDF-Core", "SetaPDF-Signer"
     ],
-    "faIcon": "&#xf30c;",
-    "faIcon2": "&#xf309;"
+    "faIcon": "&#xf362;"
 }

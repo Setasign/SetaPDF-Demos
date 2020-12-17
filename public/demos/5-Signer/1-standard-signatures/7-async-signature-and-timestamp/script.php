@@ -56,9 +56,9 @@ if ($state === 'prepared') {
     // and create the signature
     $workflow['signature'] = $signer->createSignature($workflow['tmpDocument'], $module);
 
-    //
-    $dataToSign = $module->getDataToSign($workflow['tmpDocument']->getHashFile());
-    $workflow['signature'] = createSignatureByAnotherImplementation($dataToSign);
+    // if the signature should be created by another service or application
+//    $dataToSign = $module->getDataToSign($workflow['tmpDocument']->getHashFile());
+//    $workflow['signature'] = createSignatureByAnotherImplementation($dataToSign);
 
     $workflow['state'] = 'signatureCreated';
 
