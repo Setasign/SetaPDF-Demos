@@ -10,13 +10,14 @@
   - [ ] Add Link To "Async Signature With External Implementation"
 
 ## Visible Signatures
-- [ ] Create and Add Visible Signature Fields
-- [ ] Dynamic Appearance
+- [x] ~~Dynamic Appearance~~
+- [ ] Dynamic Appearance with Background and Logo
 - [ ] Localized Dynamic Appearance (DynamicVisibleSignatureWithGermanShowTemplates.php)
 - [ ] Image As Appearance
 - [ ] PDF Page As Appearance
 - [ ] Several Visible Signatures
 - [ ] Async Visible Signature With Timestamp
+- [ ] Use an Existing Signature Field
 
 ## Validation Related Information / Long Term Validation
 - [ ] In CMS Container

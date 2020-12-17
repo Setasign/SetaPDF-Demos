@@ -1,0 +1,8 @@
+{
+    "name": "Dynamic Appearance",
+    "teaserText": "This demo shows you how to use the dynamic appearance module.",
+    "requires": [
+        "SetaPDF-Core", "SetaPDF-Signer"
+    ],
+    "faIcon": "&#xf2c2;"
+}
