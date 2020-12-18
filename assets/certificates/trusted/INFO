@@ -1,0 +1,19 @@
+cacert.pem
+========================
+The file includes Certificate data from Mozilla as of: Wed Jan  1 04:12:10 2020 GMT
+It was downloaded from: https://curl.haxx.se/docs/caextract.html
+
+
+adoberoot.cer
+========================
+Source: http://secure.globalsign.com/cacert/adoberoot.cer
+
+
+entrust_2048_ca.cer
+========================
+Source: https://www.entrustdatacard.com/pages/root-certificates-download
+
+
+freetsa-ca.pem
+========================
+Source: https://www.freetsa.org/files/cacert.pem

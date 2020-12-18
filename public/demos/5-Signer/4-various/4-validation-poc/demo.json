@@ -1,0 +1,9 @@
+{
+    "name": "Validation (Proof of Concept)",
+    "teaserText": "A proof of concept for signature validation.",
+    "requires": [
+        "SetaPDF-Core", "SetaPDF-Signer"
+    ],
+    "faIcon": "&#xf5b7;",
+    "faIcon2": "&#xf00c;"
+}
