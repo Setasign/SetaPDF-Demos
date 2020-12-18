@@ -18,7 +18,7 @@ if (is_file(__DIR__ . '/../library/SetaPDF/Autoload.php')) {
 $assetsDirectory = __DIR__ . '/assets';
 $classesDirectory = __DIR__ . '/classes';
 
-function displayFiles($files, $iframe = true, $multiple = false)
+function displayFiles($files, $iframe = true, $multiple = false, $upload = false)
 {
     if (isset($_GET['f'])) {
         if ($multiple) {
@@ -41,8 +41,25 @@ function displayFiles($files, $iframe = true, $multiple = false)
         }
     }
 
+    if ($upload) {
+        if (isset($_FILES['upload']) && $_FILES['upload']['error'] === 0) {
+            return [
+                'file' => $_FILES['upload']['tmp_name'],
+                'filename' => $_FILES['upload']['name']
+            ];
+        }
+    }
+
     echo '<html><head><link rel="stylesheet" type="text/css" href="/layout/demo.css"/></head><body>';
-    echo '<form id="demoInput"' . ($iframe ? ' target="pdfFrame"' : '') . '>';
+    echo '<form id="demoInput"' . ($iframe ? ' target="pdfFrame"' : '');
+    if ($upload) {
+        echo ' method="post" enctype="multipart/form-data"';
+    }
+    echo '>';
+
+    if ($upload) {
+        echo '<div class="uploadRow"><input type="file" name="upload" /><input type="submit" /></div>';
+    }
 
     // list the files
     foreach ($files as $f => $path) {
