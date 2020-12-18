@@ -1,0 +1,9 @@
+{
+    "name": "Sign Encrypted PDF Document",
+    "teaserText": "See how to authenticate for a signature process.",
+    "requires": [
+        "SetaPDF-Core", "SetaPDF-Signer"
+    ],
+    "faIcon": "&#xf573;",
+    "faIcon2": "&#xf3c1;"
+}

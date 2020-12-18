@@ -28,7 +28,7 @@
 
 ## Various
 - [x] ~~Get Existing Signature Fields~~
-- [ ] Sign an Encrypted PDF Document
+- [x] ~~Sign an Encrypted PDF Document~~
 - [ ] Sign And Encrypt
 - [ ] Validation (Proof of Concept)
 - [ ] Stamp annotation on all pages including actions to the last page with the real signature + closing signature (emulation of several appearances)
