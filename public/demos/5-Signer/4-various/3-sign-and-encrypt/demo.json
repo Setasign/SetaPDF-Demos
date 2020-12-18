@@ -1,0 +1,9 @@
+{
+    "name": "Encrypt and Sign",
+    "teaserText": "This demo encrypts and signs a PDF document.",
+    "requires": [
+        "SetaPDF-Core", "SetaPDF-Signer"
+    ],
+    "faIcon": "&#xf023;",
+    "faIcon2": "&#xf5b7;"
+}
