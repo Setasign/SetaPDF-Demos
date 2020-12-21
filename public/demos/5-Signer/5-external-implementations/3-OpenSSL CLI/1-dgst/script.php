@@ -5,7 +5,7 @@ require_once __DIR__ . '/../../../../../../bootstrap.php';
 
 // you need to adjust these paths to yours
 if (strtoupper(substr(PHP_OS, 0, 3)) === 'WIN') {
-    $opensslPath = 'C:\\OpenSSL\\1.1.1g-win64\\';
+    $opensslPath = 'C:\\OpenSSL\\Win64-1.1.1i\\bin\\';
 } else {
     $opensslPath = '/usr/bin/';
 }
