@@ -2,7 +2,6 @@
 
 error_reporting(E_ALL);
 ini_set('display_errors', 1);
-ini_set('memory_limit', '2500M');
 date_default_timezone_set('Europe/Berlin');
 
 if (is_file(__DIR__ . '/../library/SetaPDF/Autoload.php')) {
@@ -17,6 +16,13 @@ if (is_file(__DIR__ . '/../library/SetaPDF/Autoload.php')) {
 
 $assetsDirectory = __DIR__ . '/assets';
 $classesDirectory = __DIR__ . '/classes';
+
+$dir = dirname($_SERVER['SCRIPT_NAME']);
+if (strpos($dir, '/public/') !== false) {
+    $basePath = substr($dir, 0, strpos($dir, '/public/')) . '/public/';
+} else {
+    $basePath = '/';
+}
 
 function displayFiles($files, $iframe = true, $multiple = false, $upload = false)
 {
@@ -50,7 +56,8 @@ function displayFiles($files, $iframe = true, $multiple = false, $upload = false
         }
     }
 
-    echo '<html><head><link rel="stylesheet" type="text/css" href="/layout/demo.css"/></head><body>';
+    echo '<html><head>';
+    echo '<link rel="stylesheet" type="text/css" href="' . $GLOBALS['basePath'] . 'layout/demo.css"/></head><body>';
     echo '<form id="demoInput"' . ($iframe ? ' target="pdfFrame"' : '');
     if ($upload) {
         echo ' method="post" enctype="multipart/form-data"';
@@ -95,7 +102,8 @@ function displayFiles($files, $iframe = true, $multiple = false, $upload = false
 function displaySelect($label, $data, $iframe = true, $displayValueKey = null)
 {
     if (!isset($_GET['data']) || !array_key_exists($_GET['data'], $data)) {
-        echo '<html><head><link rel="stylesheet" type="text/css" href="/layout/demo.css"/></head><body>';
+        echo '<html><head>';
+        echo '<link rel="stylesheet" type="text/css" href="' . $GLOBALS['basePath'] . 'layout/demo.css"/></head><body>';
         echo '<div id="demoInput">';
 
         echo '<form method="GET"';
