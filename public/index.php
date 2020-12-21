@@ -14,6 +14,60 @@ require_once __DIR__ . '/../bootstrap.php';
 $scriptName = isset($_SERVER['SCRIPT_NAME']) ? $_SERVER['SCRIPT_NAME'] : '/index.php';
 $base = rtrim(str_replace(DIRECTORY_SEPARATOR, '/', dirname($scriptName)), '/') . '/';
 
+$demosDirectory = __DIR__ . '/demos';
+$requestPath = isset($_GET['p']) ? $_GET['p'] : '';
+$isDemo = (strpos($requestPath, '/demo/') === 0);
+if ($requestPath === 'previewFile') {
+    $file = isset($_GET['f']) ? $_GET['f'] : '';
+    if (strpos($file, '/assets/') === 0 && strpos($file, '..') === false) {
+        $file = __DIR__ . '/..' . $file;
+
+        if (!is_file($file)) {
+            header("HTTP/1.0 404 Not Found");
+            ob_end_clean();
+            return;
+        }
+    } else {
+        $file = realpath($demosDirectory . $file);
+        if ($file === false || strpos($file, realpath($demosDirectory)) !== 0) {
+            header("HTTP/1.0 404 Not Found");
+            return;
+        }
+    }
+
+    $extension = strtolower(pathinfo($file, PATHINFO_EXTENSION));
+    if ($extension === 'pdf') {
+        $contentType = 'application/pdf';
+    } elseif ($extension === 'jpg') {
+        $contentType = 'image/jpeg';
+    } elseif ($extension === 'png') {
+        $contentType = 'image/png';
+    } elseif ($extension === 'gif') {
+        $contentType = 'image/gif';
+    } else {
+        throw new RuntimeException('Unknown extension!');
+    }
+    $inline = isset($_GET['inline']) ? $_GET['inline'] : true;
+    header('Content-Type: ' . $contentType);
+    if ($inline) {
+        header('Content-Disposition: inline; filename="' . basename($file) . '";');
+    } else {
+        header('Content-Disposition: attachment; filename="' . basename($file) . '";');
+    }
+    header('Content-Length: ' . filesize($file));
+    echo file_get_contents($file);
+
+    return;
+}
+
+$requestPath = trim($isDemo ? substr($requestPath, strlen('/demo/')) : $requestPath, '/');
+
+if (strpos($requestPath, '..') !== false || !is_dir($demosDirectory . '/' . $requestPath)) {
+    header("HTTP/1.0 404 Not Found");
+    ob_end_clean();
+    return;
+}
+
 ob_start();
 echo <<<HTML
 <!DOCTYPE html>
@@ -38,62 +92,6 @@ echo <<<HTML
     </div>
 </header>
 HTML;
-
-$demosDirectory = __DIR__ . '/demos';
-$requestPath = isset($_GET['p']) ? $_GET['p'] : '';
-$isDemo = (strpos($requestPath, '/demo/') === 0);
-if ($requestPath === 'previewFile') {
-    $file = isset($_GET['f']) ? $_GET['f'] : '';
-    if (strpos($file, '/assets/') === 0 && strpos($file, '..') === false) {
-        $file = __DIR__ . '/..' . $file;
-
-        if (!is_file($file)) {
-            header("HTTP/1.0 404 Not Found");
-            ob_end_clean();
-            return;
-        }
-    } else {
-        $file = realpath($demosDirectory . $file);
-        if ($file === false || strpos($file, realpath($demosDirectory)) !== 0) {
-            header("HTTP/1.0 404 Not Found");
-            ob_end_clean();
-            return;
-        }
-    }
-
-    $extension = strtolower(pathinfo($file, PATHINFO_EXTENSION));
-    if ($extension === 'pdf') {
-        $contentType = 'application/pdf';
-    } elseif ($extension === 'jpg') {
-        $contentType = 'image/jpeg';
-    } elseif ($extension === 'png') {
-        $contentType = 'image/png';
-    } elseif ($extension === 'gif') {
-        $contentType = 'image/gif';
-    } else {
-        throw new RuntimeException('Unknown extension!');
-    }
-    $inline = isset($_GET['inline']) ? $_GET['inline'] : true;
-    ob_end_clean();
-    header('Content-Type: ' . $contentType);
-    if ($inline) {
-        header('Content-Disposition: inline; filename="' . basename($file) . '";');
-    } else {
-        header('Content-Disposition: attachment; filename="' . basename($file) . '";');
-    }
-    header('Content-Length: ' . filesize($file));
-    echo file_get_contents($file);
-
-    return;
-}
-
-$requestPath = trim($isDemo ? substr($requestPath, strlen('/demo/')) : $requestPath, '/');
-
-if (strpos($requestPath, '..') !== false || !is_dir($demosDirectory . '/' . $requestPath)) {
-    header("HTTP/1.0 404 Not Found");
-    ob_end_clean();
-    return;
-}
 
 $availablePackages = [];
 if (class_exists(SetaPDF_Core::class)) {
