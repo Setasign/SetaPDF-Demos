@@ -38,8 +38,10 @@
 ## External Implementations/Modules
 - [ ] Async Signature With External Implementation
 - [ ] Fortify
+  - [ ] Webcomponent
+  - [ ] Vanilla JavaScript
 - [ ] OpenSSL CLI
-  - [ ] dgst
+  - [x] ~~dgst~~
   - [ ] dgst-pss
   - [ ] pkeyutl
   - [ ] pkeyutl-capi-engine
@@ -48,5 +50,11 @@
   - [ ] openssl_private_encrypt()
   - [ ] phpseclib
 - [ ] GlobalSign DSS
+  - [ ] Signature + Timestamp
+  - [ ] Document Level Timestamp
 - [ ] Azure Key Vault
+  - [ ] Simple Signature
 - [ ] Swisscom AIS
+  - [ ] Simple Signature
+  - [ ] Document Level Timestamp
+  - [ ] Batch Process
