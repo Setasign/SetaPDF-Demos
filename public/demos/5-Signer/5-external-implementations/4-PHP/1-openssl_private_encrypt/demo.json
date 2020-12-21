@@ -1,0 +1,7 @@
+{
+    "name": "openssl_private_encrypt()",
+    "teaserText": "This demo uses the openssl_private_encrypt() function to create the signature value.",
+    "requires": [
+        "SetaPDF-Core", "SetaPDF-Signer"
+    ]
+}

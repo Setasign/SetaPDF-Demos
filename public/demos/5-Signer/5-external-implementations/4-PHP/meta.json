@@ -1,0 +1,6 @@
+{
+    "name": "PHP",
+    "teaserText": "External implementations using PHP extensions or libraries.",
+    "requires": ["SetaPDF-Core", "SetaPDF-Signer"],
+    "faIcon": "&#xf457;"
+}

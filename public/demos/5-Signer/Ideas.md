@@ -47,7 +47,7 @@
   - [x] ~~pkeyutl-capi-engine~~
   - [x] ~~rsautl~~
 - [ ] PHP
-  - [ ] openssl_private_encrypt()
+  - [x] openssl_private_encrypt()
   - [ ] phpseclib
 - [ ] GlobalSign DSS
   - [ ] Signature + Timestamp
