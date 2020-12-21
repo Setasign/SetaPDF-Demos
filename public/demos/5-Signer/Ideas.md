@@ -43,7 +43,7 @@
 - [ ] OpenSSL CLI
   - [x] ~~dgst~~
   - [x] ~~dgst-pss~~
-  - [ ] pkeyutl
+  - [x] ~~pkeyutl~~
   - [ ] pkeyutl-capi-engine
   - [ ] rsautl
 - [ ] PHP
