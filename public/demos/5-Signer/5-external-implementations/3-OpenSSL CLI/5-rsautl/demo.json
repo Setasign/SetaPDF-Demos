@@ -1,0 +1,8 @@
+{
+    "name": "openssl-rsautl",
+    "teaserText": "Use the openssl-rsautl command to create the signature value.",
+    "requires": [
+        "SetaPDF-Core", "SetaPDF-Signer"
+    ],
+    "faIcon": "&#xf120;"
+}
