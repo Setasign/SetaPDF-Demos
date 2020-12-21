@@ -1,0 +1,9 @@
+{
+    "name": "Add VRI to an Existing PDF Document",
+    "teaserText": "This demo will add VRI information to an already signed PDF document to gain LTV level.",
+    "requires": [
+        "SetaPDF-Core", "SetaPDF-Signer"
+    ],
+    "faIcon": "&#xf0fe;",
+    "faIcon2": "&#xf560;"
+}

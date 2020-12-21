@@ -25,6 +25,7 @@
 - [ ] In CMS Container
 - [ ] In Document Security Store
 - [ ] In CMS Container and Document Security Store
+- [x] ~~Add VRI to an Existing PDF Document~~
 
 ## Various
 - [x] ~~Get Existing Signature Fields~~
