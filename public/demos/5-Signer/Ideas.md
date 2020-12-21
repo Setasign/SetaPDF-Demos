@@ -38,7 +38,8 @@
 ## External Implementations/Modules
 - [ ] Async Signature With External Implementation
 - [ ] Fortify
-  - [ ] Webcomponent
+  - [x] Web-component 
+    - [ ] LTV
   - [ ] Vanilla JavaScript
 - [ ] OpenSSL CLI
   - [x] ~~dgst~~

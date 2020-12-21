@@ -1,0 +1,13 @@
+{
+    "name": "Fortify Web-component",
+    "teaserText": "Use the web-component of Foritfy.",
+    "requires": [
+        "SetaPDF-Core", "SetaPDF-Signer"
+    ],
+    "iframePlaceholder": "Loading...",
+    "faIcon": "&#xf466;",
+    "previewFiles": [
+        "controller.php",
+        "js/main.js"
+    ]
+}

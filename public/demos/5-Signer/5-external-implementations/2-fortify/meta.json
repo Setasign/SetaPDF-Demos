@@ -1,0 +1,5 @@
+{
+    "name": "Fortify",
+    "teaserText": "External implementations using the Fortify to use certificates on the client side.",
+    "requires": ["SetaPDF-Core", "SetaPDF-Signer"]
+}
