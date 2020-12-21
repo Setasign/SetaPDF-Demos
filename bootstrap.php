@@ -1,7 +1,7 @@
 <?php
 
 error_reporting(E_ALL);
-ini_set('display_errors', 1);
+ini_set('display_errors', $_SERVER['SERVER_NAME'] === 'localhost' ? 1 : 0);
 date_default_timezone_set('Europe/Berlin');
 
 if (is_file(__DIR__ . '/../library/SetaPDF/Autoload.php')) {
