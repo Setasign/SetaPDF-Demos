@@ -1,0 +1,13 @@
+{
+    "name": "Fortify With Vanilla JavaScript",
+    "teaserText": "See how to use Fortify with vanilla JavaScript.",
+    "requires": [
+        "SetaPDF-Core", "SetaPDF-Signer"
+    ],
+    "iframePlaceholder": "Please wait while loading...",
+    "faIcon": "&#xf3b8;",
+    "previewFiles": [
+        "controller.php",
+        "js/main.js"
+    ]
+}

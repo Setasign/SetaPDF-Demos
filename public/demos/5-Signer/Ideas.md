@@ -38,9 +38,9 @@
 ## External Implementations/Modules
 - [ ] Async Signature With External Implementation
 - [ ] Fortify
-  - [x] Web-component 
+  - [x] ~~Web-component~~ 
     - [ ] LTV
-  - [ ] Vanilla JavaScript
+  - [x] ~~Vanilla JavaScript~~
 - [ ] OpenSSL CLI
   - [x] ~~dgst~~
   - [x] ~~dgst-pss~~
@@ -48,7 +48,7 @@
   - [x] ~~pkeyutl-capi-engine~~
   - [x] ~~rsautl~~
 - [ ] PHP
-  - [x] openssl_private_encrypt()
+  - [x] ~~openssl_private_encrypt()~~
   - [ ] phpseclib
 - [ ] GlobalSign DSS
   - [ ] Signature + Timestamp
