@@ -44,7 +44,7 @@
   - [x] ~~dgst~~
   - [x] ~~dgst-pss~~
   - [x] ~~pkeyutl~~
-  - [ ] pkeyutl-capi-engine
+  - [x] ~~pkeyutl-capi-engine~~
   - [ ] rsautl
 - [ ] PHP
   - [ ] openssl_private_encrypt()
