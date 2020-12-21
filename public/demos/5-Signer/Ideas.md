@@ -42,7 +42,7 @@
   - [ ] Vanilla JavaScript
 - [ ] OpenSSL CLI
   - [x] ~~dgst~~
-  - [ ] dgst-pss
+  - [x] ~~dgst-pss~~
   - [ ] pkeyutl
   - [ ] pkeyutl-capi-engine
   - [ ] rsautl

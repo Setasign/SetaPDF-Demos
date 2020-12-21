@@ -1,0 +1,8 @@
+{
+    "name": "openssl-dgst + RSASSA-PSS",
+    "teaserText": "Use the dgst command with the RSASSA-PSS signature algorithm to create the signature value.",
+    "requires": [
+        "SetaPDF-Core", "SetaPDF-Signer"
+    ],
+    "faIcon": "&#xf120;"
+}
