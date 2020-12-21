@@ -293,7 +293,8 @@ if ($isDemo) {
 
     echo '<div class="step execute">'
         . '<iframe data-src="./demos/' . $requestPath . '/script.php" src="data:text/html;base64,'
-        . base64_encode('Download started...'). '" frameborder="0" style="width: 100%; height: 100%;">'
+        . base64_encode(isset($demoData['iframePlaceholder']) ? $demoData['iframePlaceholder'] : 'Download started...')
+        . '" frameborder="0" style="width: 100%; height: 100%;">'
         . '</iframe>'
         . '</div>'
         . '</div>';
