@@ -12,8 +12,3 @@ Source: http://secure.globalsign.com/cacert/adoberoot.cer
 entrust_2048_ca.cer
 ========================
 Source: https://www.entrustdatacard.com/pages/root-certificates-download
-
-
-freetsa-ca.pem
-========================
-Source: https://www.freetsa.org/files/cacert.pem
