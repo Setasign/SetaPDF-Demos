@@ -33,6 +33,7 @@
 - [x] ~~Encrypt and Sign~~
 - [x] ~~Validation (Proof of Concept)~~
 - [ ] Stamp annotation on all pages including actions to the last page with the real signature + closing signature (emulation of several appearances)
+- [ ] Prepend a cover page which holds the signature fields. Duplicates of the appearance are used in stamp appearances in the document.
 - [ ] Use Link annotations as place-holder for the signature field 
 
 ## External Implementations/Modules
