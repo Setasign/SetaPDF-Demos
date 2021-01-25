@@ -242,6 +242,10 @@ class ColorProcessor
             return;
         }
 
+        if ($shading instanceof \SetaPDF_Core_Type_Stream) {
+            $shading = $shading->getValue();
+        }
+
         $colorSpaceValue = $shading->getValue('ColorSpace');
         if ($colorSpaceValue === null) {
             return;
