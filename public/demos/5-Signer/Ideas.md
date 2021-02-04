@@ -38,6 +38,7 @@
 
 ## External Implementations/Modules
 - [ ] Async Signature With External Implementation
+- [ ] External implementation + Timestamp
 - [ ] Fortify
   - [x] ~~Web-component~~ 
     - [ ] LTV
