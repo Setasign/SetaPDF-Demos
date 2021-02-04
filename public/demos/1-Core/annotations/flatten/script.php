@@ -74,6 +74,7 @@ function flattenAnnotation(SetaPDF_Core_Document_Page $page, SetaPDF_Core_Docume
         $m->getF()
     );
 
+    $appearance->ensureDefaultKeys();
     $canvas->drawXObject($appearance);
 
     $canvas->restoreGraphicState();
