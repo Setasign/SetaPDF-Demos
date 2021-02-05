@@ -1,0 +1,9 @@
+{
+    "name": "Add Image",
+    "teaserText": "Add an image to an existing PDF file.",
+    "requires": [
+        "SetaPDF-Core"
+    ],
+    "faIcon": "&#xf03e;",
+    "faIcon2": "&#xf067;"
+}

@@ -82,6 +82,7 @@
 - [ ] Encrypt With a Public Key
 
 ## Images:
+- [x] ~~Add Image~~
 - [x] ~~Replace Images~~
 - [x] ~~Image To PDF~~
 - [x] ~~Image in specific Resolution~~
