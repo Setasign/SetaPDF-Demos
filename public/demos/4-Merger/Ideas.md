@@ -21,7 +21,7 @@
 ## Various
 - [x] ~~Merge Encypted PDFs~~
 - [x] ~~Encrypt the Resulting PDF~~
-- [ ] Merge PDFs and Images
+- [x] ~~Merge PDFs and Images~~
 - [x] ~~Merge With Layers Information (MergeWithLayers.php)~~
 - [ ] Optimize Memory Usage (see local-tests)
 - [x] ~~Split PDF File~~

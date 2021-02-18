@@ -1,0 +1,9 @@
+{
+    "name": "Merge PDFs and Images",
+    "teaserText": "Merge images and PDFs with the SetaPDF-Merger component.",
+    "requires": [
+        "SetaPDF-Core", "SetaPDF-Merger"
+    ],
+    "faIcon": "&#xf302;",
+    "faIcon2": "&#xf1c1;"
+}
