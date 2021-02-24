@@ -23,7 +23,7 @@ jobs:
         run: composer update --dev --no-interaction --prefer-dist --no-progress --no-suggest --ansi
 
       - name: Deploy to Live
-        uses: easingthemes/ssh-deploy@v2
+        uses: easingthemes/ssh-deploy@v2.1.5
         env:
           SSH_PRIVATE_KEY: ${{ secrets.SERVER_SSH_KEY }}
           ARGS: "-rltgoDzvO"
