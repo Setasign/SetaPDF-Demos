@@ -10,7 +10,7 @@ jobs:
     steps:
       - name: Checkout on Live
         uses: appleboy/ssh-action@master
-        env:
+        with:
           host: ${{ secrets.REMOTE_HOST }}
           user: ${{ secrets.REMOTE_USER }}
           key: ${{ secrets.SERVER_SSH_KEY }}
