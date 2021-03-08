@@ -8,26 +8,10 @@ jobs:
     name: Deploy
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout
-        uses: actions/checkout@v2
-
-      - name: Install php
-        uses: shivammathur/setup-php@v2
+      - name: Checkout on Live
+        uses: appleboy/ssh-action@master
         with:
-          php-version: "7.4"
-
-      - name: Setup auth.json
-        run: echo "{\"http-basic\":{\"www.setasign.com\":{\"username\":\"${{ secrets.SETASIGN_USER }}\",\"password\":\"${{ secrets.SETASIGN_PASSWORD }}\"}}}" >> auth.json
-
-      - name: Install dependencies
-        run: composer update --dev --no-interaction --prefer-dist --no-progress --no-suggest --ansi
-
-      - name: Deploy to Live
-        uses: easingthemes/ssh-deploy@v2.1.5
-        env:
-          SSH_PRIVATE_KEY: ${{ secrets.SERVER_SSH_KEY }}
-          ARGS: "-rltDzvOC --chmod=D2775,F664"
-          SOURCE: "./"
-          REMOTE_HOST: ${{ secrets.REMOTE_HOST }}
-          REMOTE_USER: ${{ secrets.REMOTE_USER }}
-          TARGET: ${{ secrets.REMOTE_TARGET }}
+          host: ${{ secrets.REMOTE_HOST }}
+          username: ${{ secrets.REMOTE_USER }}
+          key: ${{ secrets.SERVER_SSH_KEY }}
+          script: ~/demos.setasign.com.sh
