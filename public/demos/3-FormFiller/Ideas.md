@@ -19,6 +19,7 @@
 - [x] ~~Use Indiviual Font and Text Color~~
 - [x] ~~Fill one template several times~~
 - [ ] Demo creation of RTF values
+- [ ] Field appearance with external PDF generation library
 - [ ] Parsing and forwarding of FDF data.
 - [ ] Parsing and forwarding of XFDF data.
 
