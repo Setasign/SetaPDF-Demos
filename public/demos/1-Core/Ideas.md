@@ -101,4 +101,4 @@
 - [x] ~~Rotate~~
 - [x] ~~Add~~
 - [x] ~~Delete~~
-
+- [ ] Resize to a specific page format
