@@ -1,0 +1,11 @@
+{
+    "name": "Tagged Stamp",
+    "teaserText": "Proof-of-concept of a stamp proxy that allows you to enclose the stamps in marked-content sequences.",
+    "requires": [
+        "SetaPDF-Core", "SetaPDF-Stamper"
+    ],
+    "faIcon": "&#xf02c;",
+    "previewFiles": [
+        "../../../../../classes/Stamper/Stamp/Tagged.php"
+    ]
+}
