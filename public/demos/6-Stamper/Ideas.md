@@ -29,6 +29,7 @@
 - [x] ~~Stamp Prepended Title Page (StampTitlePage.php)~~
 - [x] ~~Stamp Enlarged Pages (StampEnlargedPage.php)~~
 - [x] ~~Tagged Stamp Wrapper (local-tests/Stamper/Stamp/Text/Tagged.php - but more flexible)~~
+- [x] ~~Artifact Stamp~~
 - [ ] Stamp a QR-Code (Online Demo)
 - [ ] Stamp All Files in a Portfolio
 - [ ] Random Stamp Position

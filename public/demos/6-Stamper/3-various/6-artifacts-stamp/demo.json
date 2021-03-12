@@ -1,0 +1,11 @@
+{
+    "name": "Artifact Stamp",
+    "teaserText": "A simple demo that shows you how to enclose the stamp content in a marked-content sequence to distinguish it from real content.",
+    "requires": [
+        "SetaPDF-Core", "SetaPDF-Stamper"
+    ],
+    "faIcon": "&#xf070;",
+    "previewFiles": [
+        "../../../../../classes/Stamper/Stamp/ArtifactTextStamp.php"
+    ]
+}
