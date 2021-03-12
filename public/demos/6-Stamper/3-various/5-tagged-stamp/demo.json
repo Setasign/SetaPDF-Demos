@@ -1,6 +1,6 @@
 {
     "name": "Tagged Stamp",
-    "teaserText": "Proof-of-concept of a stamp proxy that allows you to enclose the stamps in marked-content sequences.",
+    "teaserText": "Proof-of-concept of a stamp proxy that allows you to add tagging structure to the stamps.",
     "requires": [
         "SetaPDF-Core", "SetaPDF-Stamper"
     ],

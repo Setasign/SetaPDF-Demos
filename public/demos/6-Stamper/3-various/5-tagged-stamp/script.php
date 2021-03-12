@@ -55,7 +55,7 @@ $imageStamp->setHeight(23);
 
 // create a Tagged stamp instance and pass the image stamp to it
 $stamp = new Tagged($imageStamp);
-$stamp->setTagName('Artifact');
+$stamp->setTagName('Figure');
 $stamp->setAlternateText('Logo of "tektown"');
 $stamp->setTitle('tektown');
 
