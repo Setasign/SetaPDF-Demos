@@ -52,6 +52,10 @@ if ($imageOrPdf === 'image') {
         $assetsDirectory . '/pdfs/tektown/Logo.png'
     )->toXObject($document);
 
+    // or e.g. through base64 encoded image data:
+    //$data = base64_decode('iVBORw0KGgoAAAANSUhEUgAABJYAAAEmCAYAAAAwZRqhAAAgAElEQVR4Xu.../w+l98Lb9eaTFwAAAABJRU5ErkJggg==');
+    //$image = SetaPDF_Core_Image::get(new SetaPDF_Core_Reader_String($data));
+
 } else {
     // let's use an existing PDF page as the logo appearance
     $logoDoc = SetaPDF_Core_Document::loadByFilename(
