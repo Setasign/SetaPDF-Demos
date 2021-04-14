@@ -18,6 +18,13 @@ class FontInspector
     public $fonts = [];
 
     /**
+     * All object ids of visited XObjects
+     *
+     * @var array
+     */
+    protected $_xObjectObjectIds = [];
+
+    /**
      * The constructor
      *
      * @param $path
@@ -114,10 +121,16 @@ class FontInspector
         }
 
         foreach ($xObjects AS $xObjectIndirectObject) {
+            if (isset($this->_xObjectObjectIds[$xObjectIndirectObject->getObjectId()])) {
+                continue;
+            }
+
             $dict = $xObjectIndirectObject->ensure()->getValue();
             if ($dict->getValue('Subtype')->getValue() !== 'Form') {
                 continue;
             }
+
+            $this->_xObjectObjectIds[$xObjectIndirectObject->getObjectId()] = true;
 
             $xObject = \SetaPDF_Core_XObject::get($xObjectIndirectObject);
             $this->_resolveFonts($xObject);
