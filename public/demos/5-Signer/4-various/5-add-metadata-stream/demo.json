@@ -1,0 +1,9 @@
+{
+    "name": "Add Metadata Stream to Signature Dictionary",
+    "teaserText": "Shows how to pass a XMP metadata package to the signature dictionary.",
+    "requires": [
+        "SetaPDF-Core", "SetaPDF-Signer"
+    ],
+    "faIcon": "&#xf5b7;",
+    "faIcon2": "&#xf05a;"
+}
