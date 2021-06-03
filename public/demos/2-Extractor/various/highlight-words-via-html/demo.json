@@ -1,0 +1,9 @@
+{
+    "name": "Highlight Words with HTML",
+    "teaserText": "This demo searches for words and highlight them via HTML above an image of the PDF page.",
+    "requires": [
+        "SetaPDF-Core", "SetaPDF-Extractor"
+    ],
+    "faIcon": "&#xf591;",
+    "faIcon2": "&#xf121"
+}
