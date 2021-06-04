@@ -34,3 +34,4 @@
 - [ ] Stamp a QR-Code (Online Demo)
 - [ ] Stamp All Files in a Portfolio
 - [ ] Random Stamp Position
+- [ ] Add Letterhead Background
