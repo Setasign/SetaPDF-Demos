@@ -26,6 +26,10 @@
 - [ ] Add Text Field
     (Show handling of rotated pages, too)
 - [ ] Show creation of annotations on rotated/shifted pages.
+
+    Choose a file (different variations of rotations and shifted origins)
+    Render the file as an image. Click on the image to create an annotation on the given 
+    point and download the PDF.
     
     // compare with: X:\default\html\customers\NextSigner\test.php
     $box = $page->getCropBox();
