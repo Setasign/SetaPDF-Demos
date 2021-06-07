@@ -79,9 +79,9 @@ echo <<<HTML
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <link rel="stylesheet" type="text/css" href="./layout/normalize.css"/>
     <link rel="stylesheet" type="text/css" href="./layout/style.css"/>
-    <link rel="stylesheet" type="text/css" href="./js/codemirror-5.11/lib/codemirror.css"/>
-    <script type="text/javascript" src="./js/jquery-3.5.1.min.js"></script>
-    <script type="text/javascript" src="./js/codemirror-5.11/lib/codemirror.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="./js/codemirror-5.61.1/codemirror.css"/>
+    <script type="text/javascript" src="./js/jquery-3.6.0.min.js"></script>
+    <script type="text/javascript" src="./js/codemirror-5.61.1/codemirror.js"></script>
     <script type="text/javascript" src="./js/clipboard.js"></script>
 </head>
 <body>
