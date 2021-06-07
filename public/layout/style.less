@@ -306,6 +306,21 @@ footer
         margin-left: 0;
     }
 
+    a.github {
+        float: right;
+        display: block;
+
+        &:after {
+            font-family:'Font Awesome 5 Brands';
+            content: '\f09b';
+            color: #777;
+        }
+
+        &:hover:after {
+            color: #e69e04;
+        }
+    }
+
     // flex handling
     .wrapper {
         display: flex;

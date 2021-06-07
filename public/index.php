@@ -208,8 +208,10 @@ if ($isDemo) {
         unset($actualDemoDirectory, $actualDemoData, $actualDemoName, $actualDemoPath);
     }
 
-    echo '<div class="demo">'
-        . '<h2>' . htmlentities($name, ENT_QUOTES, "UTF-8") . '</h2>';
+    echo '<div class="demo">';
+    $gitHub = 'https://github.com/Setasign/SetaPDF-Demos/tree/master/public/demos/' . $requestPath . '/script.php';
+    echo '<h2><a href="' . $gitHub . '" target="_blank" class="github" title="View on GitHub"></a>'
+        . htmlentities($name, ENT_QUOTES, "UTF-8") . '</h2>';
 
     if (file_exists($demoDirectory . '/description.html')) {
         echo file_get_contents($demoDirectory . '/description.html');
