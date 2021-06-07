@@ -1,0 +1,9 @@
+{
+    "name": "Get Signed Version",
+    "teaserText": "Extract the document version that was signed.",
+    "requires": [
+        "SetaPDF-Core", "SetaPDF-Signer"
+    ],
+    "faIcon": "&#xf5b7;",
+    "faIcon2": "&#xf126;"
+}
