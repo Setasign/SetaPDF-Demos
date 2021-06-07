@@ -10,6 +10,11 @@ $files = [
     $assetsDirectory . '/pdfs/camtown/Fact-Sheet-letterhead-as-annotation.pdf'
 ];
 
+// if the SetaPDF-FormFiller component is installed add a demo document with a signature field
+if (class_exists(SetaPDF_FormFiller::class)) {
+    $files[] = $assetsDirectory . '/pdfs/tektown/Laboratory-Report - commented-and-signed.pdf';
+}
+
 $path = displayFiles($files);
 
 $writer = new SetaPDF_Core_Writer_Http('flatten-annotations.pdf', true);
@@ -33,8 +38,8 @@ function flattenAnnotation(SetaPDF_Core_Document_Page $page, SetaPDF_Core_Docume
 
     $canvas = $page->getCanvas();
     $page->getContents()->encapsulateExistingContentInGraphicState();
-    $rect = $annotation->getRect();
-    $bbox = $appearance->getBBox();
+    $rect = $annotation->getRect()->getRectangle();
+    $bbox = $appearance->getBBox()->getRectangle();
 
     $canvas->saveGraphicState();
     $canvas->write(' 0 J 1 w 0 j 0 G 0 g [] 0 d ');
@@ -44,25 +49,28 @@ function flattenAnnotation(SetaPDF_Core_Document_Page $page, SetaPDF_Core_Docume
         $matrix = new SetaPDF_Core_Geometry_Matrix();
     }
 
-    $_rect = $rect->getRectangle();
-    $t = SetaPDF_Core_DataStructure_Rectangle::byRectangle(
-        new SetaPDF_Core_Geometry_Rectangle(
-            SetaPDF_Core_Geometry_Vector::byPoint($_rect->getLl())->multiply($matrix)->toPoint(),
-            SetaPDF_Core_Geometry_Vector::byPoint($_rect->getUr())->multiply($matrix)->toPoint()
-        )
+    $t = new SetaPDF_Core_Geometry_Rectangle(
+        SetaPDF_Core_Geometry_Vector::byPoint($bbox->getLl())->multiply($matrix)->toPoint(),
+        SetaPDF_Core_Geometry_Vector::byPoint($bbox->getUr())->multiply($matrix)->toPoint()
     );
 
-    $m = new SetaPDF_Core_Geometry_Matrix(1, 0, 0, 1, $rect->llx, $rect->lly);
+    if (empty($t->getHeight()) || empty($t->getWidth())) {
+        return;
+    }
+
+    $ll = $rect->getLl();
+
+    $m = new SetaPDF_Core_Geometry_Matrix(1, 0, 0, 1, $ll->getX(), $ll->getY());
     $scaleMatrix = new SetaPDF_Core_Geometry_Matrix(
-        ($rect->urx - $rect->llx) / ($t->urx - $t->llx),
+        ($rect->getWidth()) / ($t->getWidth()),
         0,
         0,
-        ($rect->ury - $rect->lly) / ($t->ury - $t->lly),
+        ($rect->getHeight()) / ($t->getHeight()),
         0,
         0
     );
     $m = $scaleMatrix->multiply($m);
-    $translateMatrix2 = new SetaPDF_Core_Geometry_Matrix(1, 0, 0, 1, -$t->llx, -$t->lly);
+    $translateMatrix2 = new SetaPDF_Core_Geometry_Matrix(1, 0, 0, 1, -$t->getLl()->getX(), -$t->getLl()->getY());
     $m = $translateMatrix2->multiply($m);
 
     $canvas->addCurrentTransformationMatrix(
@@ -85,7 +93,7 @@ for ($pageNo = 1; $pageNo <= $pageCount; $pageNo++) {
     $annotations = $page->getAnnotations();
     $allAnnotations = $annotations->getAll();
 
-    foreach ($allAnnotations as $annotation) {
+    foreach ($allAnnotations as $k => $annotation) {
         if ($annotation instanceof SetaPDF_Core_Document_Page_Annotation_Widget) {
             continue;
         }
@@ -93,6 +101,12 @@ for ($pageNo = 1; $pageNo <= $pageCount; $pageNo++) {
         flattenAnnotation($page, $annotation);
         $annotations->remove($annotation);
     }
+}
+
+// if the SetaPDF-FormFiller component is installed we are going to flatten form fields, too:
+if (class_exists(SetaPDF_FormFiller::class)) {
+    $formFiller = new SetaPDF_FormFiller($document);
+    $formFiller->getFields()->flatten();
 }
 
 $document->save()->finish();
