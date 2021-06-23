@@ -1,0 +1,9 @@
+{
+    "name": "Styled Text",
+    "teaserText": "A XObject stamp with different font styles.",
+    "requires": [
+        "SetaPDF-Core", "SetaPDF-Stamper"
+    ],
+    "faIcon": "&#xf032;",
+    "faIcon2": "&#xf033;"
+}
