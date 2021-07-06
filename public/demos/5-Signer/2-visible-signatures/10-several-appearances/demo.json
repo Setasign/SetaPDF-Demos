@@ -1,0 +1,12 @@
+{
+    "name": "Appearance on Several Pages",
+    "teaserText": "Simulate several appearances of a single signature field by stamp annotations on all pages.",
+    "requires": [
+        "SetaPDF-Core", "SetaPDF-Signer"
+    ],
+    "faIcon": "&#xf1c5;",
+    "faIcon2": "&#xf1c5;",
+    "previewFiles": [
+        "../../../../../classes/Signer/Appearance/OnAllPages.php"
+    ]
+}
