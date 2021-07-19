@@ -1,7 +1,11 @@
 <?php
+
+// load and register the autoload function
+require_once __DIR__ . '/../../../../../bootstrap.php';
+
 // display some links to the named destinations to have some interactivity in this demo
 if (!isset($_GET['e'])) {
-    echo '<html><head><link rel="stylesheet" type="text/css" href="/layout/demo.css"/></head><body><div id="demoInput">';
+    echo '<html><head><link rel="stylesheet" type="text/css" href="' . $basePath . 'layout/demo.css"/></head><body><div id="demoInput">';
 
     foreach (['product-1', 'product-2', 'product-3'] as $destination) {
         echo '<a href="?e=1#' . $destination . '" target="pdfFrame">Named Destination "' . $destination . '"</a><br/>';
@@ -10,9 +14,6 @@ if (!isset($_GET['e'])) {
     echo '</div><iframe width="100%" name="pdfFrame" src="about:blank"/></body></html>';
     die();
 }
-
-// load and register the autoload function
-require_once __DIR__ . '/../../../../../bootstrap.php';
 
 // create a merger instance
 $merger = new SetaPDF_Merger();
