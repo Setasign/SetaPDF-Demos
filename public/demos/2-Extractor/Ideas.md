@@ -23,4 +23,4 @@
 - [x] ~~Create Links in Table Of Contents~~ 
 - [x] ~~Create Named Destinations~~
 - [x] ~~Highlight Words~~
-- [x] Highlight Words via HTML
+- [x] ~~Highlight Words via HTML~~
