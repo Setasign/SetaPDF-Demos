@@ -7,7 +7,6 @@ $files = [
     'Laboratory-Report.pdf' => $assetsDirectory . '/pdfs/tektown/Laboratory-Report.pdf',
     'Fact-Sheet.pdf' => $assetsDirectory . '/pdfs/tektown/Fact-Sheet.pdf',
     'Terms-and-Conditions.pdf' => $assetsDirectory . '/pdfs/camtown/Terms-and-Conditions.pdf',
-    'r90.pdf' => $assetsDirectory . '/pdfs/misc/boxes/[1000 500 -1000 -500]-R90.pdf',
 ];
 $dpi = 72;
 
