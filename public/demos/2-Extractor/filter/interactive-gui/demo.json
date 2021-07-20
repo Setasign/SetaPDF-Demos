@@ -1,0 +1,12 @@
+{
+    "name": "Interactive GUI",
+    "teaserText": "Filter by drawing a rectangle with an interactive GUI",
+    "requires": [
+        "SetaPDF-Core", "SetaPDF-Extractor"
+    ],
+    "faIcon": "&#xf0b0;",
+    "faIcon2": "&#xf248;",
+    "previewFiles": [
+        "gui.php"
+    ]
+}

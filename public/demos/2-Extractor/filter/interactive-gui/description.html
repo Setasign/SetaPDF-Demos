@@ -1,0 +1,11 @@
+<p>
+    This demos shows you how to filter the result by a specific area on a PDF page.
+    Just draw a rectangle above the image and the component will extract the text in this area from the PDF page.
+</p>
+<p>
+    <a href="https://mupdf.com/">MuPDF</a> is used to generate an image of the PDF and
+    <a href="https://jcrop.com/">JCrop</a> is layed over this image to select an area. Afterwards the coordinates
+    of the selected area are normalized to the coordinates inside the original PDF. The SetaPDF-Extractor simply uses
+    these coordinates in an <a href="https://manuals.setasign.com/api-reference/setapdf/c/SetaPDF.Extractor.Filter.Rectangle">Rectangle Filter</a>
+    and returns the extracted text at this location.
+</p>
