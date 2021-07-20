@@ -14,7 +14,7 @@
 - [x] ~~Get Words At specifc Location~~
 - [x] ~~Filter By Font Size~~
 - [x] ~~Filter by Bold Text~~
-- [x] Interactive Demo via JCrop
+- [x] ~~Interactive Demo via JCrop~~
 
 ## Various Demos
 - [x] ~~The boundary parameter~~ 
