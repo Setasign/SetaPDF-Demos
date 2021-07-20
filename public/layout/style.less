@@ -215,6 +215,26 @@ footer
         line-height: 130%;
     }
 
+    blockquote {
+        color: #868686;
+        font-style: italic;
+        display: block;
+        font-size: 14px;
+        margin-top: 0;
+        margin-left: 0;
+        margin-right: 0;
+
+        &:before {
+            content: '»';
+            color: #656565;
+        }
+
+        &:after {
+            content: '«';
+            color: #656565;
+        }
+    }
+
     code {
         padding: 1px 1px 0;
         background-color: #fff;

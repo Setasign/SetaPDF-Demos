@@ -1,0 +1,23 @@
+<p>
+    To display a signature appearance on all pages of a PDF document is a common request. But the PDF specification
+    (at least in PDF 2.0 - before this was only documented in the &quot;Digital Signature Appearance
+    specifications&quot; of Adobe) officially states that:
+</p>
+
+<blockquote>
+    The location of a signature within a document can have a bearing on its legal meaning.
+    For this reason, signature fields shall never refer to more than one annotation.
+</blockquote>
+
+<p>
+    Because of this and according to viewer implementations the SetaPDF-Signer component does not support severals
+    widget annotations for a single signature field.
+</p>
+
+<p>
+    This demo simply makes use of individual stamp annotations which are added to all other pages when the signature
+    appearance is created.
+</p>
+<p>
+    It uses a proxy class that wraps the original appearance instance and adds the stamp annotations.
+</p>

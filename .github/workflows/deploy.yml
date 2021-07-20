@@ -12,6 +12,7 @@ jobs:
         uses: appleboy/ssh-action@master
         with:
           host: ${{ secrets.REMOTE_HOST }}
+          port: 22000
           username: ${{ secrets.REMOTE_USER }}
           key: ${{ secrets.SERVER_SSH_KEY }}
-          script: ~/demos.setasign.com.sh
+          script: ~/deploy.sh
