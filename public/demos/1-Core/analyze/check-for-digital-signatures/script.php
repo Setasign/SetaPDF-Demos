@@ -48,7 +48,29 @@ foreach ($terminalFields as $fieldData) {
     echo '<a href="data:application/pkcs7-mime;base64,' . base64_encode($signatureData) . '" ' .
         'download="signature.pkcs7">download</a><br />';
 
-    echo '<br /><br />';
+    echo '<br />';
+
+    $value = $v->ensure();
+    $signatureProperties = [];
+    foreach (['Name', 'Location', 'ContactInfo', 'Reason', 'M'] as $property) {
+        if (!$value->offsetExists($property)) {
+            continue;
+        }
+
+        $propertyValue = $value->getValue($property)->ensure()->getValue();
+        if ($property === SetaPDF_Signer::PROP_TIME_OF_SIGNING) {
+            $propertyValue = SetaPDF_Core_DataStructure_Date::stringToDateTime($propertyValue);
+        } else {
+            $propertyValue = SetaPDF_Core_Encoding::convertPdfString($propertyValue);
+        }
+
+        $signatureProperties[$property] = $propertyValue;
+    }
+
+    echo 'Signature Properties:<br/>';
+    echo '<pre>';
+    print_r($signatureProperties);
+    echo '</pre><br /><br />';
 }
 
 if ($signatureFieldFound === false) {
