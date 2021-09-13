@@ -42,7 +42,10 @@ switch ($_GET['action']) {
 
         // setup information resolver manager
         $informationResolverManager = new SetaPDF_Signer_InformationResolver_Manager();
-        $informationResolverManager->addResolver(new SetaPDF_Signer_InformationResolver_HttpCurlResolver());
+        $informationResolverManager->addResolver(new SetaPDF_Signer_InformationResolver_HttpCurlResolver([
+            CURLOPT_FOLLOWLOCATION => true,
+            CURLOPT_MAXREDIRS => 5
+        ]));
 
         $extraCerts = new SetaPDF_Signer_X509_Collection();
 
