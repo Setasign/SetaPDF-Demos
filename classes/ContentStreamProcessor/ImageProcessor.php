@@ -97,9 +97,54 @@ class ImageProcessor
             $this->_contentParser->registerOperator(['q', 'Q'], [$this, '_onGraphicStateChange']);
             $this->_contentParser->registerOperator('cm', [$this, '_onCurrentTransformationMatrix']);
             $this->_contentParser->registerOperator('Do', [$this, '_onFormXObject']);
+            $this->_contentParser->registerOperator('ID', [$this, '_onInlineImageData']);
         }
 
         return $this->_contentParser;
+    }
+
+    /**
+     * Callback for inline image data operator
+     *
+     * @param array $arguments
+     * @param string $operator
+     */
+    public function _onInlineImageData($arguments, $operator)
+    {
+        $data = [];
+        for ($i = 0, $c = count($arguments); $i < $c; $i += 2) {
+            $data[$arguments[$i]->getValue()] = $arguments[$i + 1];
+        }
+
+        if (!(isset($data['W']) || isset($data['Width'])) || !(isset($data['H']) || isset($data['Height']))) {
+            return true;
+        }
+
+        $pixelWidth = isset($data['W']) ? $data['W']->getValue() : $data['Width']->getValue();
+        $pixelHeight = isset($data['H']) ? $data['H']->getValue() : $data['Height']->getValue();
+
+        $this->_result[] = $this->_getNewResult($pixelWidth, $pixelHeight);
+
+        $parser = $this->_contentParser->getParser();
+        $reader = $parser->getReader();
+
+        $pos = $reader->getPos();
+        $offset = $reader->getOffset();
+
+        while (
+            (\preg_match(
+                '/EI[\x00\x09\x0A\x0C\x0D\x20]/',
+                $reader->getBuffer(),
+                $m,
+                PREG_OFFSET_CAPTURE
+            )) === 0
+        ) {
+            if ($reader->increaseLength(1000) === false) {
+                return false;
+            }
+        }
+
+        $parser->reset($pos + $offset + $m[0][1] + strlen($m[0][0]));
     }
 
     /**
@@ -181,30 +226,44 @@ class ImageProcessor
             $gs->restore();
 
         } else {
-            // we have an image object, calculate it's outer points in user space
-            $gs = $this->getGraphicState();
-            $ll = $gs->toUserSpace(new \SetaPDF_Core_Geometry_Vector(0, 0, 1));
-            $ul = $gs->toUserSpace(new \SetaPDF_Core_Geometry_Vector(0, 1, 1));
-            $ur = $gs->toUserSpace(new \SetaPDF_Core_Geometry_Vector(1, 1, 1));
-            $lr = $gs->toUserSpace(new \SetaPDF_Core_Geometry_Vector(1, 0, 1));
+            $newResult = $this->_getNewResult($xObject->getWidth(), $xObject->getHeight());
+            $newResult['objectReference'] = $xObjectReference;
 
-            // ...and match some further information
-            $width  = abs($this->_switchWidthAndHeight ? $ur->subtract($ll)->getY() : $ur->subtract($ll)->getX());
-            $height = abs($this->_switchWidthAndHeight ? $ur->subtract($ll)->getX() : $ur->subtract($ll)->getY());
-
-            $this->_result[] = [
-                'll' => $ll->toPoint(),
-                'ul' => $ul->toPoint(),
-                'ur' => $ur->toPoint(),
-                'lr' => $lr->toPoint(),
-                'width' => $width,
-                'height' => $height,
-                'resolutionX' => $xObject->getWidth() / $width * 72,
-                'resolutionY' => $xObject->getHeight() / $height * 72,
-                'pixelWidth' => $xObject->getWidth(),
-                'pixelHeight' => $xObject->getHeight(),
-                'objectReference' => $xObjectReference
-            ];
+            $this->_result[] = $newResult;
         }
+    }
+
+    /**
+     * Helper method to create a result entry.
+     *
+     * @param numeric $pixelWidth
+     * @param numeric $pixelHeight
+     * @return array
+     */
+    protected function _getNewResult($pixelWidth, $pixelHeight)
+    {
+        // we have an image object, calculate it's outer points in user space
+        $gs = $this->getGraphicState();
+        $ll = $gs->toUserSpace(new \SetaPDF_Core_Geometry_Vector(0, 0, 1));
+        $ul = $gs->toUserSpace(new \SetaPDF_Core_Geometry_Vector(0, 1, 1));
+        $ur = $gs->toUserSpace(new \SetaPDF_Core_Geometry_Vector(1, 1, 1));
+        $lr = $gs->toUserSpace(new \SetaPDF_Core_Geometry_Vector(1, 0, 1));
+
+        // ...and match some further information
+        $width  = \abs($this->_switchWidthAndHeight ? $ur->subtract($ll)->getY() : $ur->subtract($ll)->getX());
+        $height = \abs($this->_switchWidthAndHeight ? $ur->subtract($ll)->getX() : $ur->subtract($ll)->getY());
+
+       return [
+            'll' => $ll->toPoint(),
+            'ul' => $ul->toPoint(),
+            'ur' => $ur->toPoint(),
+            'lr' => $lr->toPoint(),
+            'width' => $width,
+            'height' => $height,
+            'resolutionX' => $pixelWidth / $width * 72,
+            'resolutionY' => $pixelHeight / $height * 72,
+            'pixelWidth' => $pixelWidth,
+            'pixelHeight' => $pixelHeight
+        ];
     }
 }
