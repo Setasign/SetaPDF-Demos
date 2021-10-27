@@ -28,6 +28,73 @@ $trustedCerts->add(SetaPDF_Signer_X509_Certificate::fromFile(
     $assetsDirectory . '/certificates/trusted/entrust_2048_ca.cer')
 );
 
+// we store all found intermediate certificates in this collection
+$extraCerts = new SetaPDF_Signer_X509_Collection();
+
+/**
+ * A helper method that verifies a certificate and dumps all information.
+ *
+ * @param SetaPDF_Signer_X509_Certificate $certificate
+ * @param SetaPDF_Signer_X509_Collection $trustedCerts
+ * @param SetaPDF_Signer_X509_Collection $extraCerts
+ * @throws SetaPDF_Signer_Asn1_Exception
+ * @throws SetaPDF_Signer_Exception
+ */
+function verifyAndDumpCertificate(
+    SetaPDF_Signer_X509_Certificate $certificate,
+    SetaPDF_Signer_X509_Collection $trustedCerts,
+    SetaPDF_Signer_X509_Collection $extraCerts
+)
+{
+    echo 'Subject of signing certificate is:<br/>&nbsp;&nbsp;' .
+        $certificate->getSubjectName() . '<br/>';
+    echo 'Issuer:<br/>&nbsp;&nbsp;' . $certificate->getIssuerName() . '<br/>';
+
+    $b64 = base64_encode($certificate->get(SetaPDF_Signer_X509_Format::DER));
+    echo '<a href="data:application/x-pem-file;base64,' . $b64 . '" download="certificate.crt">download</a> | ' .
+        '<a href="https://understandingwebpki.com/?cert=' . urlencode($b64) . '" target="_blank">show details</a><br/>';
+    echo 'Simple certificate dump:<br/>';
+    echo '<div style="white-space: pre; height: 250px; overflow: auto;">' .
+        print_r(openssl_x509_parse($certificate->get()), true) . '</div>';
+
+    $chain = new SetaPDF_Signer_X509_Chain($trustedCerts);
+    $chain->getExtraCertificates()->add($extraCerts);
+    $path = $chain->buildPath($certificate);
+    if ($path === false) {
+        if ($certificate->getSubjectName() === $certificate->getIssuerName()) {
+            echo '<span style="color:darkgray">Certificate is self-signed. ';
+            if ($certificate->verify()) {
+                echo 'And was verified successful.';
+            }
+            echo '</span><br/>';
+            if ($trustedCerts->contains($certificate)) {
+                echo '<span style="color:green">It is located in your trusted certificates store.</span><br/>';
+            } else {
+                echo '<span style="color:red">It is not located in your trusted certificates store.</span><br/>';
+            }
+        } else {
+            echo '<span style="color:darkgray">Signer\'s identity is unknown because it has not been ' .
+                'included in your list of trusted certificates and none of its parent certificate are ' .
+                'trusted certificates.</span><br/>';
+        }
+
+    } else {
+        echo '<span style="color:green">Certificate and its path were validated successfully.</span><br/>';
+
+        echo 'Path is:<br/>';
+        foreach (array_reverse($path) as $no => $certificateInPath) {
+            echo str_repeat('&nbsp;', ($no + 1) * 4);
+            echo $certificateInPath->getSubjectName() . '<br/>';
+        }
+    }
+
+    if (!$certificate->isValidAt(new DateTime())) {
+        echo '<span style="color:darkgray">Certificate is expired and was valid from ' .
+            $certificate->getValidFrom()->format('Y-m-d H:i:s') . ' to ' .
+            $certificate->getValidTo()->format('Y-m-d H:i:s') . '</span><br/>';
+    }
+}
+
 echo '<h1>Checking signatures in ' . htmlspecialchars($filename) . '</h1>';
 
 try {
@@ -45,11 +112,13 @@ try {
                 continue;
             }
 
-            if ($integrityResult->getSignedData() instanceof SetaPDF_Signer_Tsp_Token) {
+            $signedData = $integrityResult->getSignedData();
+            $extraCerts->add($signedData->getCertificates());
+            if ($signedData instanceof SetaPDF_Signer_Tsp_Token) {
                 echo "Signature is a document level timestamp.<br/>";
             }
 
-            $signatureData = (string)$integrityResult->getSignedData()->getAsn1();
+            $signatureData = (string)$signedData->getAsn1();
 
             echo '<a href="https://lapo.it/asn1js/#' . SetaPDF_Core_Type_HexString::str2hex($signatureData) . '" ' .
                 'target="_blank">asn1js</a> | ';
@@ -69,52 +138,36 @@ try {
             }
 
             $signingCertificate = $integrityResult->getSignedData()->getSigningCertificate();
-            echo 'Subject of signing certificate is:<br/>&nbsp;&nbsp;' .
-                $signingCertificate->getSubjectName() . '<br/>';
-            echo 'Issuer:<br/>&nbsp;&nbsp;' . $signingCertificate->getIssuerName() . '<br/>';
+            verifyAndDumpCertificate($signingCertificate, $trustedCerts, $extraCerts);
 
-            $b64 = base64_encode($signingCertificate->get(SetaPDF_Signer_X509_Format::DER));
-            echo '<a href="data:application/x-pem-file;base64,' . $b64 . '" download="certificate.crt">download</a> | ' .
-                '<a href="https://understandingwebpki.com/?cert=' . urlencode($b64) . '" target="_blank">show details</a><br/>';
-            echo 'Simple certificate dump:<br/>';
-            echo '<div style="white-space: pre; height: 250px; overflow: auto;">' .
-                print_r(openssl_x509_parse($signingCertificate->get()), true) . '</div>';
-
-            $chain = new SetaPDF_Signer_X509_Chain($trustedCerts);
-            $chain->getExtraCertificates()->add($integrityResult->getSignedData()->getCertificates());
-            $path = $chain->buildPath($signingCertificate);
-            if ($path === false) {
-                if ($signingCertificate->getSubjectName() === $signingCertificate->getIssuerName()) {
-                    echo '<span style="color:darkgray">Certificate is self-signed. ';
-                    if ($signingCertificate->verify()) {
-                        echo 'And was verified successful.';
-                    }
-                    echo '</span><br/>';
-                    if ($trustedCerts->contains($signingCertificate)) {
-                        echo '<span style="color:green">It is located in your trusted certificates store.</span><br/>';
+            // check for timestamp attribute
+            if ($signedData instanceof SetaPDF_Signer_Cms_SignedData) {
+                $timestampAttribute = $signedData->getUnsignedAttribute('1.2.840.113549.1.9.16.2.14');
+                if ($timestampAttribute) {
+                    echo '<br/>';
+                    echo 'The signature includes an embedded timestamp:<div style="margin-left: 20px;">';
+                    $tspToken = new SetaPDF_Signer_Tsp_Token($timestampAttribute->getChild(0));
+                    $tspCertificate = $tspToken->getSigningCertificate($extraCerts);
+                    if ($tspCertificate === false) {
+                        echo '<span style="color:red">Signing certificate of the timestamp could not be found!</span><br/>';
                     } else {
-                        echo '<span style="color:red">It is not located in your trusted certificates store.</span><br/>';
+                        if ($tspToken->verify($tspCertificate)) {
+                            echo '<span style="color:green">The timestamp verification was succesfully!</span><br/>';
+                        } else {
+                            echo '<span style="color:red">The timestamp verification was NO succesfully!</span><br/>';
+                        }
                     }
-                } else {
-                    echo '<span style="color:darkgray">Signer\'s identity is unknown because it has not been ' .
-                        'included in your list of trusted certificates and none of its parent certificate are ' .
-                        'trusted certificates.</span><br/>';
+
+                    // Check if timestamp belongs to the signature it is part of
+                    if ($tspToken->verifyMessageImprint($signedData->getSignatureValue(false))) {
+                        echo '<span style="color:green">Message imprint of the timestamp matches.</span><br/>';
+                    } else {
+                        echo '<span style="color:red;">Timestamp has a different message imprint than the outer CMS container.</span>';
+                    }
+
+                    verifyAndDumpCertificate($tspCertificate, $trustedCerts, $extraCerts);
+                    echo '</div>';
                 }
-
-            } else {
-                echo '<span style="color:green">Certificate and its path were validated successfully.</span><br/>';
-
-                echo 'Path is:<br/>';
-                foreach (array_reverse($path) as $no => $certificate) {
-                    echo str_repeat('&nbsp;', ($no+1) * 4);
-                    echo $certificate->getSubjectName() . '<br/>';
-                }
-            }
-
-            if (!$signingCertificate->isValidAt(new DateTime())) {
-                echo '<span style="color:darkgray">Certificate is expired and was valid from ' .
-                    $signingCertificate->getValidFrom()->format('Y-m-d H:i:s') . ' to ' .
-                    $signingCertificate->getValidTo()->format('Y-m-d H:i:s') . '</span><br/>';
             }
 
             echo '<br/>';
