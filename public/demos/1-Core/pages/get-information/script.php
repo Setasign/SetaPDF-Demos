@@ -31,6 +31,11 @@ for ($pageNo = 1, $pageCount = $pages->count(); $pageNo <= $pageCount; $pageNo++
         vprintf(' = [llx: %.3F, lly: %.3F, urx: %.3F, ury: %.3F]<br />', $box->toPhp());
     }
 
+    // Width and height:
+    list($width, $height) = $page->getWidthAndHeight();
+    echo 'Width: ' . $width . ' pt<br />';
+    echo 'Height: ' . $height . ' pt<br />';
+
     // print the page rotation value
     echo 'Rotation: ' . $page->getRotation() . '<br />';
 
