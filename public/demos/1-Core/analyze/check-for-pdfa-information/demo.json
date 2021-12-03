@@ -1,0 +1,6 @@
+{
+    "name": "Check for PDF/A information",
+    "teaserText": "This demo extracts the PDF document metadata and checks for PDF/A information.",
+    "faIcon": "&#xf1c1;",
+    "faIcon2": "&#xf031;"
+}

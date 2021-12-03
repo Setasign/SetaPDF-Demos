@@ -14,6 +14,7 @@
 - [x] ~~Check for Encryption~~
 - [x] ~~Check for Collection~~
 - [ ] Find unused Layers/Optional Content Groups
+- [x] ~~Extract Metadata and check for PDF/A information~~
 
 ## Annotations:
 - [ ] Get Comments (https://www.setasign.com/products/setapdf-core/demos/extract-comments/)
