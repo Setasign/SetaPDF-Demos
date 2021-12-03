@@ -12,6 +12,7 @@
 - [x] ~~Get Field names and types~~
 - [x] ~~Fill and access same named fields~~
 - [x] ~~Flatten all/specific fields~~
+- [ ] Delete fields
 - [x] ~~Demo that extracts all fields and information from a PDF (type, value(s), 
     page number, position)~~
   - [ ] including information about absolute position (rotation / shifted coordinate system)
