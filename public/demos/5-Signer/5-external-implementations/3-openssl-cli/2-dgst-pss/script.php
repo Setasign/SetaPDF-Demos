@@ -35,6 +35,16 @@ $tmpDocument = $signer->preSign(new SetaPDF_Core_Writer_File($tempFile), $module
 // https://tools.ietf.org/html/rfc4055#section-3.1
 $cms = $module->getCms();
 
+$saltLength = 256 / 8;
+switch ($module->getDigest()) {
+    case SetaPDF_Signer_Digest::SHA_384:
+        $saltLength = 384 / 8;
+        break;
+    case SetaPDF_Signer_Digest::SHA_512:
+        $saltLength = 512 / 8;
+        break;
+}
+
 $signatureAlgorithmIdentifier = SetaPDF_Signer_Asn1_Element::findByPath('1/0/4/0/4', $cms);
 $signatureAlgorithmIdentifier->getChild(0)->setValue(SetaPDF_Signer_Asn1_Oid::encode("1.2.840.113549.1.1.10"));
 $signatureAlgorithmIdentifier->removeChild($signatureAlgorithmIdentifier->getChild(1));
@@ -80,6 +90,13 @@ $signatureAlgorithmIdentifier->addChild(new SetaPDF_Signer_Asn1_Element(
                 )
             ]
         ),
+        new SetaPDF_Signer_Asn1_Element(
+            SetaPDF_Signer_Asn1_Element::TAG_CLASS_CONTEXT_SPECIFIC | SetaPDF_Signer_Asn1_Element::IS_CONSTRUCTED | "\x02",
+            '',
+            [
+                new SetaPDF_Signer_Asn1_Element(SetaPDF_Signer_Asn1_Element::INTEGER, \chr($saltLength))
+            ]
+        )
     ]
 ));
 
@@ -98,7 +115,7 @@ $tmpFileOut = SetaPDF_Core_Writer_TempFile::createTempPath();
 // build the command
 $cmd = $opensslPath . 'openssl dgst '
     . '-' . $module->getDigest() . ' '
-    . '-sigopt rsa_padding_mode:pss -sigopt rsa_pss_saltlen:-1 '
+    . '-sigopt rsa_padding_mode:pss -sigopt rsa_pss_saltlen:' . escapeshellarg($saltLength) . ' '
     . '-binary '
     . "-sign " . escapeshellarg($privateKey) . ' '
     . '-passin pass:' . escapeshellarg($privateKeyPass) . ' '
