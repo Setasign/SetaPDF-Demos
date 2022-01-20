@@ -35,3 +35,4 @@
 - [x] ~~Create a Portfolio with a Schema~~
 - [x] ~~Extract Files~~
 - [x] ~~Extract Files From Folder~~
+- [ ] Convert to ZIP (including folder structure)
