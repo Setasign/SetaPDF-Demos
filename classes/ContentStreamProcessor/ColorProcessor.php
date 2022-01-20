@@ -163,7 +163,7 @@ class ColorProcessor
                 $colorSpace = $group->getColorSpace();
                 if ($colorSpace !== null) {
                     $info = 'Color space from Transparency Group of XObject.';
-                    $this->_resolveColorSpace(\SetaPDF_Core_ColorSpace::createByDefinition($colorSpace), $info);
+                    $this->_resolveColorSpace($colorSpace, $info);
                 }
             }
 
