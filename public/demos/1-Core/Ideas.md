@@ -25,6 +25,7 @@
 - [x] ~~Add Link~~
 - [x] ~~Add Push-Button~~
 - [ ] Add Stamp Annotation with indiviudal appearance
+      (Maybe an example on a digital signed document)
 - [ ] Add Text Field
     (Show handling of rotated pages, too)
 - [ ] Show creation of annotations on rotated/shifted pages.
