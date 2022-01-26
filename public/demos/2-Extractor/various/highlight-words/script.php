@@ -77,6 +77,7 @@ for ($pageNo = 1; $pageNo <= $pages->count(); $pageNo++) {
             $annotation = new SetaPDF_Core_Document_Page_Annotation_Highlight($rect);
             $annotation->setColor([1, 1, 0]);
             $annotation->setContents('Match #' . (++$found));
+            $annotation->setPrintFlag();
             $annotations->add($annotation);
         }
     }
