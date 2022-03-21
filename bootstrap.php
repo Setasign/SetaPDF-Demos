@@ -117,6 +117,8 @@ function displaySelect($label, $data, $iframe = true, $displayValueKey = null)
             if (is_array($displayValue)) {
                 $displayValueKey = $displayValueKey !== null ? $displayValueKey : key($displayValue);
                 $displayValue = $displayValue[$displayValueKey];
+            } elseif ($displayValueKey === true) {
+                $displayValue = $value;
             }
             echo '<option value="' . htmlspecialchars($value) . '">' . htmlspecialchars($displayValue) . '</option>';
         }
