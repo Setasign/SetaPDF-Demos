@@ -56,9 +56,13 @@ if ($state === 'prepared') {
     // and create the signature
     $workflow['signature'] = $signer->createSignature($workflow['tmpDocument'], $module);
 
-    // if the signature should be created by another service or application
-//    $dataToSign = $module->getDataToSign($workflow['tmpDocument']->getHashFile());
-//    $workflow['signature'] = createSignatureByAnotherImplementation($dataToSign);
+    // if the signature should be created by another service or application you don't need a module instance
+    // in this step but you have to build the digest on your own. Please notice that the external service
+    // may need the digest encoded in a specific format (e.g. hex- or base64 encoded). The following lines create
+    // and pass a binary version of the digest.
+//    $digestMethod = 'sha256';
+//    $digest = hash_file($digestMethod, $workflow['tmpDocument']->getHashFile(), true);
+//    $workflow['signature'] = createSignatureByAnotherImplementation($digest, $digestMethod);
 
     $workflow['state'] = 'signatureCreated';
 
