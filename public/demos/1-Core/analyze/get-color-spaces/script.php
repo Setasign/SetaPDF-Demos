@@ -34,23 +34,25 @@ echo '<pre>';
 echo 'Color space(s) found: ' . implode(', ', $allColorSpaces) . "\n\n";
 
 foreach ($colors AS $color) {
-    $className = get_class($color['data']);
+    $data = $color['data'];
+    $className = get_class($data);
     echo $color['colorSpace'] . ': ' . $className . "\n";
 
-    switch ($className) {
-        case SetaPDF_Core_ColorSpace_Separation::class:
-            /** @var SetaPDF_Core_ColorSpace_Separation $data */
-            $data = $color['data'];
+    switch (true) {
+        case ($data instanceof SetaPDF_Core_ColorSpace_Separation):
             echo '    Name: ' . $data->getName() . "\n";
             echo '    Alt: ' . $data->getAlternateColorSpace()->getFamily() . "\n";
             break;
 
-        case SetaPDF_Core_ColorSpace_IccBased::class:
-            /** @var SetaPDF_Core_ColorSpace_IccBased $data */
-            $data = $color['data'];
+        case ($data instanceof SetaPDF_Core_ColorSpace_IccBased):
             $parser = $data->getIccProfileStream()->getParser();
             echo '    Description: ' . $parser->getDescription() . "\n";
             echo '    Number of components: ' . $parser->getNumberOfComponents() . "\n";
+            break;
+
+        case ($data instanceof SetaPDF_Core_ColorSpace_DeviceN):
+            echo '    Names: ' . implode(', ', $data->getNames()) . "\n";
+            echo '    Alt: ' . $data->getAlternateColorSpace()->getFamily() . "\n";
             break;
     }
 
