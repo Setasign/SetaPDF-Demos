@@ -24,54 +24,15 @@
 - [x] ~~Flatten Annotations~~
 - [x] ~~Add Link~~
 - [x] ~~Add Push-Button~~
-- [ ] Add Stamp Annotation with indiviudal appearance
+- [x] ~~Add Stamp Annotation with indiviudal appearance~~
       (Maybe an example on a digital signed document)
 - [ ] Add Text Field
     (Show handling of rotated pages, too)
-- [ ] Show creation of annotations on rotated/shifted pages.
+- [x] ~~Show creation of annotations on rotated/shifted pages.~~
 
     Choose a file (different variations of rotations and shifted origins)
     Render the file as an image. Click on the image to create an annotation on the given 
     point and download the PDF.
-    
-    // compare with: X:\default\html\customers\NextSigner\test.php
-    $box = $page->getCropBox();
-    $rotation = $page->getRotation();
-    
-    $gs = new SetaPDF_Core_Canvas_GraphicState();
-    switch ($rotation) {
-        case -270:
-        case 90:
-            $gs->translate($box->getWidth(), 0);
-        break;
-        case -180:
-        case 180:
-            $gs->translate($box->getWidth(), $box->getHeight());
-            break;
-        case 270:
-        case -90:
-            $gs->translate(0, $box->getHeight());
-        break;
-    }
-    
-    $gs->rotate($box->llx, $box->lly, $rotation);
-    
-    $f = function($x, $y) use ($gs) {
-        $v = new SetaPDF_Core_Geometry_Vector($x, $y);
-        return $v->multiply($gs->getCurrentTransformationMatrix());
-    };
-    
-    $width = 200;
-    $height = 30;
-    $x = 10;
-    $y = 10;
-    
-    $ll = $f($x, $y);
-    $ur = $f($x + $width, $y + $height);
-    
-    $field = new TextField([$ll->getX(), $ll->getY(), $ur->getX(), $ur->getY()], 'field name', $document);
-    $field->getAppearanceCharacteristics(true)->setRotation($rotation);
-    
     
 - [ ] Show calculation of annotations on rotated pages.
     
