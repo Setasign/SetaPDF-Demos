@@ -36,6 +36,7 @@
 - [x] ~~Get Signed Version~~
 - [ ] Prepend a cover page which holds the signature fields. Duplicates of the appearance are used in stamp appearances in the document.
 - [ ] Use Link annotations as place-holder for the signature field 
+- [ ] Async process with temporary files on an external environment (e.g. through stream-wrappers).
 
 ## External Implementations/Modules
 - [ ] Async Signature With External Implementation
