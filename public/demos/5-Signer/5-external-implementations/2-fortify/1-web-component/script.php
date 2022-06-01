@@ -16,7 +16,7 @@ $controllerPath = 'https://' . $_SERVER['HTTP_HOST'] . $path . 'controller.php';
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>SetaPDF-Signer meets Fortify</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/pure-css-loader@3.3.3/dist/css-loader.css">
-    <link rel="stylesheet" href="https://unpkg.com/@peculiar/fortify-webcomponents@latest/dist/peculiar/peculiar.css">
+    <link rel="stylesheet" href="https://unpkg.com/@peculiar/fortify-webcomponents@^1.0.0/dist/peculiar/peculiar.css">
     <style>
         * {
             box-sizing: border-box;
@@ -165,7 +165,7 @@ $controllerPath = 'https://' . $_SERVER['HTTP_HOST'] . $path . 'controller.php';
         }
 
         try {
-            loadScript('https://unpkg.com/@peculiar/fortify-webcomponents@latest/dist/peculiar/peculiar.esm.js', true)
+            loadScript('https://unpkg.com/@peculiar/fortify-webcomponents@^1.0.0/dist/peculiar/peculiar.esm.js', true)
                 .then(function () {return loadScript('https://verify.ink/webcomponent/index.js', true)})
                 .then(function () {return loadScript('js/main.js')})
                 .catch(function (e) {
