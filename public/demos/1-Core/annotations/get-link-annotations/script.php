@@ -28,9 +28,20 @@ for ($pageNo = 1, $pageCount = $pages->count(); $pageNo <= $pageCount; $pageNo++
     /** @var SetaPDF_Core_Document_Page_Annotation_Link $linkAnnotation */
     foreach ($linkAnnotations AS $linkAnnotation) {
         $action = $linkAnnotation->getAction();
-        if ($action && $action instanceof SetaPDF_Core_Document_Action_Uri) {
+        $destination = $linkAnnotation->getDestination();
+        if ($action || $destination) {
             echo 'Link Annotation on Page #' . $pageNo . "\n";
-            echo '     URI: ' . htmlspecialchars($action->getUri()) . "\n";
+            if ($action instanceof SetaPDF_Core_Document_Action_Uri) {
+                echo '     URI: ' . htmlspecialchars($action->getUri());
+            } elseif ($action instanceof SetaPDF_Core_Document_Action_GoTo) {
+                $destination = $action->getDestination($document);
+            }
+
+            if ($destination) {
+                echo '     Destination: Page ' . $destination->getPageNo($document);
+            }
+
+            echo  "\n";
             $rect = $linkAnnotation->getRect();
             echo '     llx: ' . $rect->getLlx() . "\n";
             echo '     lly: ' . $rect->getLly() . "\n";
@@ -39,7 +50,6 @@ for ($pageNo = 1, $pageCount = $pages->count(); $pageNo <= $pageCount; $pageNo++
             echo '   width: ' . $rect->getWidth() . "\n";
             echo '  height: ' . $rect->getHeight() . "\n\n";
             $linksFound = true;
-            break;
         }
     }
 }
