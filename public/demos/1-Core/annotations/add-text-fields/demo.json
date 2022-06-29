@@ -1,0 +1,5 @@
+{
+    "name": "Add Text Fields",
+    "teaserText": "This demo adds text fields to a PDF document.",
+    "previewFiles": ["../../../../../classes/Annotation/Widget/TextField.php"]
+}

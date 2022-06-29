@@ -26,15 +26,13 @@
 - [x] ~~Add Push-Button~~
 - [x] ~~Add Stamp Annotation with indiviudal appearance~~
       (Maybe an example on a digital signed document)
-- [ ] Add Text Field
-    (Show handling of rotated pages, too)
+- [x] ~~Add Text Field~~
+  - [ ] Show handling of rotated pages
 - [x] ~~Show creation of annotations on rotated/shifted pages.~~
 
     Choose a file (different variations of rotations and shifted origins)
     Render the file as an image. Click on the image to create an annotation on the given 
     point and download the PDF.
-    
-- [ ] Show calculation of annotations on rotated pages.
     
 
 ## Document:
