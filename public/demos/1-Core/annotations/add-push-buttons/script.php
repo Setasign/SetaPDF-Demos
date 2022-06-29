@@ -23,7 +23,7 @@ if (!isset($_GET['dl'])) {
     die();
 }    
 
-// let's add the buttons
+// require the pushbutton class
 require_once('../../../../../classes/Annotation/Widget/Pushbutton.php');
 
 //$pdfFile = $assetsDirectory . '/pdfs/tektown/Order-Form.pdf';
