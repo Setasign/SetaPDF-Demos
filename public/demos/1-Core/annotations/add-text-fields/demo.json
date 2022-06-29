@@ -1,5 +1,7 @@
 {
     "name": "Add Text Fields",
     "teaserText": "This demo adds text fields to a PDF document.",
+    "faIcon": "&#xf5cb;",
+    "faIcon2": "&#xf031;",
     "previewFiles": ["../../../../../classes/Annotation/Widget/TextField.php"]
 }
