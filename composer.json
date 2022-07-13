@@ -3,12 +3,12 @@
         "php": ">=5.6",
         "ext-json": "*",
 
-        "setasign/setapdf-core": "^2.39",
-        "setasign/setapdf-extractor": "^2.39",
-        "setasign/setapdf-formfiller_full": "^2.39",
-        "setasign/setapdf-merger": "^2.39",
-        "setasign/setapdf-signer": "^2.39",
-        "setasign/setapdf-stamper": "^2.39",
+        "setasign/setapdf-core": "^2.40",
+        "setasign/setapdf-extractor": "^2.40",
+        "setasign/setapdf-formfiller_full": "^2.40",
+        "setasign/setapdf-merger": "^2.40",
+        "setasign/setapdf-signer": "^2.40",
+        "setasign/setapdf-stamper": "^2.40",
         "phpseclib/phpseclib": "^2.0"
     },
     "repositories": [
