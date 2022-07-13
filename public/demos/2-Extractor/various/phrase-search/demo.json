@@ -1,0 +1,8 @@
+{
+    "name": "Phrase Search",
+    "teaserText": "Search and mark words by regular expressions.",
+    "requires": [
+        "SetaPDF-Core", "SetaPDF-Extractor"
+    ],
+    "faIcon": "&#xf002;"
+}

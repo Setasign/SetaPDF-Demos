@@ -24,5 +24,4 @@
 - [x] ~~Create Named Destinations~~
 - [x] ~~Highlight Words~~
 - [x] ~~Highlight Words via HTML~~
-- [ ] Phrase Search
-- [ ] Regex Search for Words
+- [x] ~~Regex Search for Words / Phrase Search~~
