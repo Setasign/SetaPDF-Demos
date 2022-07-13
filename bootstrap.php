@@ -134,3 +134,29 @@ function displaySelect($label, $data, $iframe = true, $displayValueKey = null)
 
     return $_GET['data'];
 }
+
+function displayText($label, $defaultValur = '', $iframe, $iframeUrl = 'about:blank')
+{
+    if (!isset($_GET['data'])) {
+        echo '<html><head>';
+        echo '<link rel="stylesheet" type="text/css" href="' . $GLOBALS['basePath'] . 'layout/demo.css"/></head><body>';
+        echo '<div id="demoInput">';
+
+        echo '<form method="GET"';
+        if ($iframe) {
+            echo ' target="pdfFrame"';
+        }
+        echo '><label for="data">' . htmlspecialchars($label) . '</label>'
+            . '<input id="data" name="data" value="' . htmlspecialchars($defaultValur) . '" />';
+        echo '</select><button type="submit">GO</button></form></div>';
+
+        if ($iframe) {
+            echo '<iframe width="100%" name="pdfFrame" src="' . $iframeUrl . '"/>';
+        }
+
+        echo '</body></html>';
+        die();
+    }
+
+    return $_GET['data'];
+}
