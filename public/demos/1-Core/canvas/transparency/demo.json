@@ -1,0 +1,7 @@
+{
+    "name": "Transparency",
+    "teaserText": "Simple usage of transparency for drawing instructions via external graphic state objects.",
+    "requires": [
+        "SetaPDF-Core"
+    ]
+}
