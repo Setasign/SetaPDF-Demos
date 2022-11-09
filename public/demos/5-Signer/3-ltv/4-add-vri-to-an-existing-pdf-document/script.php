@@ -12,9 +12,9 @@ $document = SetaPDF_Core_Document::loadByFilename(
 
 // define a trust-store
 $trustedCerts = new SetaPDF_Signer_X509_Collection();
-$trustedCerts->addFromFile($assetsDirectory . '/certificates/trusted/entrust_2048_ca.cer');
+$trustedCerts->addFromFile($assetsDirectory . '/certificates/trusted/Intesi Group EU Qualified Electronic Signature CA G2.cer');
 
-$fieldName = 'Signature';
+$fieldName = 'Signature1';
 
 // create a VRI collector instance
 $collector = new SetaPDF_Signer_ValidationRelatedInfo_Collector($trustedCerts);
