@@ -1,0 +1,10 @@
+{
+    "name": "openssl_private_encrypt() (individual module)",
+    "teaserText": "This demo uses the openssl_private_encrypt() function to create the signature value wrapped into an individual signature module.",
+    "requires": [
+        "SetaPDF-Core", "SetaPDF-Signer"
+    ],
+    "previewFiles": [
+        "../../../../../../classes/Signer/Module/Signature/OpenSslPrivateEncryptModule.php"
+    ]
+}

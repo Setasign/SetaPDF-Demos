@@ -3,13 +3,6 @@
 // load and register the autoload function
 require_once __DIR__ . '/../../../../../../bootstrap.php';
 
-// you need to adjust these paths to yours
-if (strtoupper(substr(PHP_OS, 0, 3)) === 'WIN') {
-    $opensslPath = 'C:\\OpenSSL\\Win64-1.1.1i\\bin\\';
-} else {
-    $opensslPath = '/usr/bin/';
-}
-
 // the file to sign
 $fileToSign = $assetsDirectory . '/pdfs/tektown/Laboratory-Report.pdf';
 // create a temporary path

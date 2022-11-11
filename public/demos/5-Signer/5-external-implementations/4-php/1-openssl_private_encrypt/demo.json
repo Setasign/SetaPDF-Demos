@@ -1,6 +1,6 @@
 {
-    "name": "openssl_private_encrypt()",
-    "teaserText": "This demo uses the openssl_private_encrypt() function to create the signature value.",
+    "name": "openssl_private_encrypt() (external)",
+    "teaserText": "This demo uses the openssl_private_encrypt() function to create the signature value external and injecting it back into the used PAdES module.",
     "requires": [
         "SetaPDF-Core", "SetaPDF-Signer"
     ]
