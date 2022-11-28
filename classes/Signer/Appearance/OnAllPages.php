@@ -2,12 +2,16 @@
 
 namespace com\setasign\SetaPDF\Demos\Signer\Appearance;
 
+use SetaPDF_Core_Document;
+use SetaPDF_Signer;
+use SetaPDF_Signer_SignatureField;
+
 class OnAllPages extends \SetaPDF_Signer_Signature_Appearance_AbstractAppearance
 {
     /**
      * @var \SetaPDF_Core_XObject_Form
      */
-    protected $_n2XObject;
+    protected $_formXObject;
 
     /**
      * @var \SetaPDF_Signer_Signature_Appearance_AbstractAppearance
@@ -60,28 +64,47 @@ class OnAllPages extends \SetaPDF_Signer_Signature_Appearance_AbstractAppearance
             ));
             $annotation->setTextLabel($signer->getName());
 
-            $annotation->setAppearance($this->_getN2XObject($field, $document, $signer));
+            $annotation->setAppearance($this->_getFormXObject($field, $document, $signer));
             $page->getAnnotations()->add($annotation);
         }
     }
 
     /**
-     * Proxy method to "cache" the n2XObject instance.
+     * Get a reusable form XObject.
      *
      * @param \SetaPDF_Signer_SignatureField $field
      * @param \SetaPDF_Core_Document $document
      * @param \SetaPDF_Signer $signer
      * @return \SetaPDF_Core_XObject_Form
      */
-    protected function _getN2XObject(
+    protected function _getFormXObject(
         \SetaPDF_Signer_SignatureField $field,
         \SetaPDF_Core_Document $document,
         \SetaPDF_Signer $signer
     ) {
-        if ($this->_n2XObject === null) {
-            $this->_n2XObject = $this->_mainAppearance->_getN2XObject($field, $document, $signer);
+        if ($this->_formXObject === null) {
+            $this->_formXObject = $this->_mainAppearance->_getN2XObject($field, $document, $signer);
+
+            $matrix = $field->getAppearance()->getIndirectObject()->ensure()->getValue()->getValue('Matrix');
+            if ($matrix) {
+                $this->_formXObject->setMatrix($matrix->toPhp(true));
+            }
         }
 
-        return $this->_n2XObject;
+        return $this->_formXObject;
+    }
+
+    /**
+     * @param SetaPDF_Signer_SignatureField $field
+     * @param SetaPDF_Core_Document $document
+     * @param SetaPDF_Signer $signer
+     * @return \SetaPDF_Core_XObject_Form
+     */
+    protected function _getN2XObject(
+        SetaPDF_Signer_SignatureField $field,
+        SetaPDF_Core_Document $document,
+        SetaPDF_Signer $signer
+    ) {
+        return $this->_mainAppearance->_getN2XObject($field, $document, $signer);
     }
 }

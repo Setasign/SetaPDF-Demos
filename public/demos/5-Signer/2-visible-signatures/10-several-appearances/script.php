@@ -10,6 +10,7 @@ require_once __DIR__ . '/../../../../../classes/Signer/Appearance/OnAllPages.php
 $writer = new SetaPDF_Core_Writer_Http('several-appearances.pdf');
 $document = SetaPDF_Core_Document::loadByFilename(
     $assetsDirectory . '/pdfs/Brand-Guide.pdf',
+//    $assetsDirectory . '/pdfs/misc/rotated/all.pdf',
     $writer
 );
 
