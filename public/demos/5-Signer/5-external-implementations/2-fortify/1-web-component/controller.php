@@ -159,6 +159,14 @@ switch ($_GET['action']) {
 
         // get the CMS structur from the signature module
         $cms = (string) $_SESSION['module']->getCms();
+
+        // verify that the received signature matches to the CMS package and document.
+        $signedData = new SetaPDF_Signer_Cms_SignedData($cms);
+        $signedData->setDetachedSignedData($_SESSION['tmpDocument']->getHashFile());
+        if (!$signedData->verify($signedData->getSigningCertificate())) {
+            throw new Exception('Signature cannot be verified!');
+        }
+
         // add the timestamp (if available)
         if (isset($_SESSION['tsUrl'])) {
             $tsModule = new SetaPDF_Signer_Timestamp_Module_Rfc3161_Curl($_SESSION['tsUrl']);
