@@ -145,7 +145,7 @@
                 } catch (error) {
                     hide('loader');
                     console.info(error);
-                    alert('An error occured.');
+                    alert('An error occured: ' + error.responseText);
                 }
             });
 

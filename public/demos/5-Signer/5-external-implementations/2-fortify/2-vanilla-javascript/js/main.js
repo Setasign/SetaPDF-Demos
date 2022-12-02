@@ -261,7 +261,8 @@
                 downloadBtn.disabled = false;
                 window.open('controller.php?action=download&id=' + lastId);
             } catch (error) {
-                alert('An error occured.');
+                console.info(error);
+                alert('An error occured: ' + error.responseText);
             }
         };
 
