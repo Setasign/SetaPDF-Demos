@@ -80,8 +80,9 @@
                 //   subjectDNMatch: new RegExp(/apple/),
                 //   issuerDNMatch: 'demo',
                 //   issuerDNMatch: new RegExp(/demo/),
-                keyUsage: ['digitalSignature'],
-                onlyWithPrivateKey: true
+                // keyUsage: ['digitalSignature'],
+                onlyWithPrivateKey: true,
+                ca: true
             };
 
             fortifyComp.addEventListener('cancel', function () {
