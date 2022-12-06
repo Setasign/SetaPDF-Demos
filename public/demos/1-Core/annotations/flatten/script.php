@@ -98,7 +98,11 @@ for ($pageNo = 1; $pageNo <= $pageCount; $pageNo++) {
             continue;
         }
 
-        flattenAnnotation($page, $annotation);
+        try {
+            flattenAnnotation($page, $annotation);
+        } catch (Exception $e) {
+            // there was a problem flattening this annotation
+        }
         $annotations->remove($annotation);
     }
 }
