@@ -40,16 +40,21 @@ foreach ($files as $path) {
         // simply rotate the page accordingly:
         if ($imgage instanceof SetaPDF_Core_Image_Jpeg && function_exists('exif_read_data')) {
             $exifData = exif_read_data($path);
-            switch ($exifData['Orientation']) {
-                case 3:
-                case 4:
-                    $page->setRotation(180);
-                case 5:
-                case 6:
-                    $page->setRotation(90);
-                case 7:
-                case 8:
-                    $page->setRotation(270);
+            if (isset($exifData['Orientation'])) {
+                switch ($exifData['Orientation']) {
+                    case 3:
+                    case 4:
+                        $page->setRotation(180);
+                        break;
+                    case 5:
+                    case 6:
+                        $page->setRotation(90);
+                        break;
+                    case 7:
+                    case 8:
+                        $page->setRotation(270);
+                        break;
+                }
             }
         }
 
