@@ -31,9 +31,27 @@ foreach ($files as $path) {
             [$width, $height],
             SetaPDF_Core_PageFormats::ORIENTATION_AUTO
         );
+
         // draw the image onto the page
         $canvas = $page->getCanvas();
         $xObject->draw($canvas, 0, 0, $width, $height);
+
+        // JPEG images could be rotated by flags in their EXIF headers. To support these flags,
+        // simply rotate the page accordingly:
+        if ($imgage instanceof SetaPDF_Core_Image_Jpeg && function_exists('exif_read_data')) {
+            $exifData = exif_read_data($path);
+            switch ($exifData['Orientation']) {
+                case 3:
+                case 4:
+                    $page->setRotation(180);
+                case 5:
+                case 6:
+                    $page->setRotation(90);
+                case 7:
+                case 8:
+                    $page->setRotation(270);
+            }
+        }
 
         // add the document instance to the merger instance
         $merger->addDocument($imageDocument);
