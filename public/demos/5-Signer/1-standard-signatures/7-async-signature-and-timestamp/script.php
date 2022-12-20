@@ -36,7 +36,12 @@ if ($state === null) {
     // use an empty module instance to trigger implemented interface methods
     $module = new SetaPDF_Signer_Signature_Module_Pades();
 
-    $workflow['tmpDocument'] = $signer->preSign(new SetaPDF_Core_Writer_File($workflow['tempPath']), $module);
+    $tmpDocument = $signer->preSign(new SetaPDF_Core_Writer_File($workflow['tempPath']), $module);
+    $workflow['tmpDocument'] = $tmpDocument;
+
+    // if you don't want to save the TmpDocument instance in your workflow, you will need at least the ByteRange
+    // value to be able to recreate the TmpDocument instance later:
+//    $workflow['tmpDocumentByteRange'] = $tmpDocument->getByteRange();
 
     $workflow['state'] = 'prepared';
 
@@ -53,8 +58,16 @@ if ($state === 'prepared') {
     $module->setCertificate('file://' . $assetsDirectory . '/certificates/setapdf-no-pw.pem');
     $module->setPrivateKey('file://' . $assetsDirectory . '/certificates/setapdf-no-pw.pem', '');
 
+    $tmpDocument = $workflow['tmpDocument'];
+
+    // If you want to create a TmpDocument instance manually, you need to do this in each step:
+//    $tmpDocument = new SetaPDF_Signer_TmpDocument(new SetaPDF_Core_Writer_File($workflow['tempPath']));
+//    $tmpDocument->setDocumentIdentification($document);
+//    $tmpDocument->updateIdentificationHash();
+//    $tmpDocument->setByteRange($workflow['tmpDocumentByteRange']);
+
     // and create the signature
-    $workflow['signature'] = $signer->createSignature($workflow['tmpDocument'], $module);
+    $workflow['signature'] = $signer->createSignature($tmpDocument, $module);
 
     // if the signature should be created by another service or application you don't need a module instance
     // in this step but you have to build the digest on your own. Please notice that the external service
