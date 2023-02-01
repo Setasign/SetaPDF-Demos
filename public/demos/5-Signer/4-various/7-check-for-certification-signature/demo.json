@@ -1,0 +1,9 @@
+{
+    "name": "Check for Certification Signature",
+    "teaserText": "Check if a PDF has a certification signature and what changes are allowed.",
+    "requires": [
+        "SetaPDF-Core", "SetaPDF-Signer"
+    ],
+    "faIcon": "&#xf15b;",
+    "faIcon2": "&#xf0a3;"
+}
