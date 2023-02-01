@@ -201,7 +201,7 @@ try {
             // check for certification status:
             $references = $dictionary->getValue('Reference');
             if ($references) {
-                echo '<span style="color:#22caff;">Document is a certified by this signature.</span><br />';
+                echo '<span style="color:#22caff;">Document is certified by this signature.</span><br />';
                 // Check references for allowed changes
             }
 
