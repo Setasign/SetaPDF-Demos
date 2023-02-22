@@ -18,64 +18,9 @@ if (is_array($file)) {
     $filename = basename($file);
 }
 
-/**
- * A helper function to get the certification level
- *
- * @param SetaPDF_Core_Document $document
- * @return float|int|void
- * @throws SetaPDF_Core_SecHandler_Exception
- * @throws SetaPDF_Core_Type_Exception
- */
-function getCertificationLevel(SetaPDF_Core_Document $document) {
-    $root = SetaPDF_Core_Type_Dictionary::ensureType($document->getCatalog()->getDictionary());
-    $perms = SetaPDF_Core_Type_Dictionary_Helper::getValue($root, 'Perms');
-    if (!$perms instanceof SetaPDF_Core_Type_Dictionary) {
-        return;
-    }
-
-    $docMdp = SetaPDF_Core_Type_Dictionary_Helper::getValue($perms, 'DocMDP');
-    if (!$docMdp instanceof SetaPDF_Core_Type_Dictionary) {
-        return;
-    }
-
-    // ...check if modifications are allowed
-
-    $referenceArray = SetaPDF_Core_Type_Array::ensureType(
-        SetaPDF_Core_Type_Dictionary_Helper::getValue(
-            $docMdp, 'Reference', new SetaPDF_Core_Type_Array()
-        )
-    );
-
-    if (count($referenceArray) === 0) {
-        return;
-    }
-
-    $reference = SetaPDF_Core_Type_Dictionary::ensureType($referenceArray->offsetGet(0));
-    $transformMethod = SetaPDF_Core_Type_Dictionary_Helper::getValue($reference, 'TransformMethod');
-    if (!$transformMethod instanceof SetaPDF_Core_Type_Name || $transformMethod->getValue() !== 'DocMDP') {
-        return;
-    }
-
-    $transformParams = SetaPDF_Core_Type_Dictionary_Helper::getValue($reference, 'TransformParams');
-    if (!$transformParams instanceof SetaPDF_Core_Type_Dictionary) {
-        return;
-    }
-
-    // if there is one, check if modifications are allowed
-    $p = SetaPDF_Core_Type_Numeric::ensureType(
-        SetaPDF_Core_Type_Dictionary_Helper::getValue(
-            $transformParams,
-            'P',
-            new SetaPDF_Core_Type_Numeric(SetaPDF_Signer::CERTIFICATION_LEVEL_FORM_FILLING)
-        )
-    );
-
-    return $p->getValue();
-}
-
 try {
     $document = SetaPDF_Core_Document::loadByFilename($file);
-    $certficationLevel = getCertificationLevel($document);
+    $certficationLevel = SetaPDF_Signer::getCertificationLevelByDocument($document);
     if ($certficationLevel === null) {
         echo "Document is not certified.";
         die();
