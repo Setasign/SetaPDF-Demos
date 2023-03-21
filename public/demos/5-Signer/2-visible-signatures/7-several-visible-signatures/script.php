@@ -46,7 +46,7 @@ $signer->sign($module);
 
 
 // create the final writer
-$writer = new SetaPDF_Core_Writer_Http('several-signatures.pdf');
+$writer = new SetaPDF_Core_Writer_Http('several-signatures.pdf', true);
 
 // create a new document instance based on the temporary result
 $document = SetaPDF_Core_Document::loadByString($tempWriter, $writer);
