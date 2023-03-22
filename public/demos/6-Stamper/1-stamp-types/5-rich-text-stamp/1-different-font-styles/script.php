@@ -15,7 +15,8 @@ $document = SetaPDF_Core_Document::loadByFilename(
  * benefit from font subsetting, we need to create a callback that will create
  * the right font instances for us. See FontLoader.php for details:
  */
-$fontLoader = require '../FontLoader.php';
+require_once $classesDirectory . '/FontLoader.php';
+$fontLoader = new \com\setasign\SetaPDF\Demos\FontLoader($assetsDirectory);
 
 // now simply create a stam instance
 $stamp = new SetaPDF_Stamper_Stamp_RichText($document, $fontLoader);

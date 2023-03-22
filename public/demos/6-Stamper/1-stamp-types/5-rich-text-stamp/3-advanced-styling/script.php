@@ -17,7 +17,8 @@ $document = SetaPDF_Core_Document::loadByFilename($path, $writer);
 // create a stamper instance
 $stamper = new SetaPDF_Stamper($document);
 
-$fontLoader = require '../FontLoader.php';
+require_once $classesDirectory . '/FontLoader.php';
+$fontLoader = new \com\setasign\SetaPDF\Demos\FontLoader($assetsDirectory);
 
 // create a rich-text stamp instance
 $stamp = new SetaPDF_Stamper_Stamp_RichText($document, $fontLoader);

@@ -22,7 +22,8 @@ $pages->create(SetaPDF_Core_PageFormats::A4);
 // create a stamper instance
 $stamper = new SetaPDF_Stamper($document);
 
-$fontLoader = require '../FontLoader.php';
+require_once $classesDirectory . '/FontLoader.php';
+$fontLoader = new \com\setasign\SetaPDF\Demos\FontLoader($assetsDirectory);
 
 // create a stamp instance left aligned
 $stampLeft = new SetaPDF_Stamper_Stamp_RichText($document, $fontLoader);

@@ -7,6 +7,6 @@
     "faIcon": "&#xf032;",
     "faIcon2": "&#xf033;",
     "previewFiles": [
-        "../FontLoader.php"
+        "../../../../../../classes/FontLoader.php"
     ]
 }
