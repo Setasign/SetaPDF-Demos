@@ -1,0 +1,12 @@
+{
+    "name": "Styles and Text Align",
+    "teaserText": "Shows the behavior of text alignment for rich text content.",
+    "requires": [
+        "SetaPDF-Core", "SetaPDF-Stamper"
+    ],
+    "faIcon": "&#xf037;",
+    "faIcon2": "&#xf121;",
+    "previewFiles": [
+        "../FontLoader.php"
+    ]
+}
