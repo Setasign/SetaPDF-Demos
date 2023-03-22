@@ -1,0 +1,7 @@
+{
+    "name": "Rich-Text Stamp",
+    "teaserText": "Demos of the rich-text stamp class.",
+    "requires": ["SetaPDF-Core", "SetaPDF-Stamper"],
+    "faIcon": "&#xf5bf;",
+    "faIcon2": "&#xf121;"
+}
