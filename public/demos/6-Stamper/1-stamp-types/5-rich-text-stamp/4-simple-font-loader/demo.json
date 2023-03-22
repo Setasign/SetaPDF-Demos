@@ -1,0 +1,9 @@
+{
+    "name": "Simple Font-Loader",
+    "teaserText": "A very simple font-loader implementation.",
+    "requires": [
+        "SetaPDF-Core", "SetaPDF-Stamper"
+    ],
+    "faIcon": "&#xf031;",
+    "faIcon2": "&#xf110;"
+}
