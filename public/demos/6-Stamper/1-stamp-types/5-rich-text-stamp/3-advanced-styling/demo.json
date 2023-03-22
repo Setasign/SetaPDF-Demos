@@ -1,0 +1,12 @@
+{
+    "name": "Advanced Styling",
+    "teaserText": "A rich-text stamp with borders, background and padding.",
+    "requires": [
+        "SetaPDF-Core", "SetaPDF-Stamper"
+    ],
+    "faIcon": "&#xf0c8;",
+    "faIcon2": "&#xf121;",
+    "previewFiles": [
+        "../FontLoader.php"
+    ]
+}
