@@ -1,4 +1,8 @@
 <?php
+/* This file returns a default font loader instance.
+ * The implementation uses the DejaVuSans font-family and also uses its regular version as a fallback if
+ * another font-family is requested.
+ */
 
 $loadedFonts = [];
 
