@@ -1,0 +1,12 @@
+{
+    "name": "Different Font-Styles",
+    "teaserText": "A simple demo showing the usage of different font styles (bold, italic, underline).",
+    "requires": [
+        "SetaPDF-Core", "SetaPDF-Stamper"
+    ],
+    "faIcon": "&#xf032;",
+    "faIcon2": "&#xf033;",
+    "previewFiles": [
+        "../FontLoader.php"
+    ]
+}
