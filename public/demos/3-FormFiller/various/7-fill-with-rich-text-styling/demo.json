@@ -1,0 +1,13 @@
+{
+    "name": "Fill with Rich-Text Styling",
+    "teaserText": "Use a subset of HTML and CSS to style the fields content.",
+    "requires": [
+        "SetaPDF-Core", "SetaPDF-FormFiller"
+    ],
+    "previewFiles": [
+        "../../../../../classes/FontLoader.php",
+        "/assets/pdfs/Fact-Sheet-form.pdf"
+    ],
+    "faIcon": "&#xf032;",
+    "faIcon2": "&#xf033;"
+}
