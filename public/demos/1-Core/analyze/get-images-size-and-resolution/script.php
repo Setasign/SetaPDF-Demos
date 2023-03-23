@@ -70,7 +70,8 @@ if (!isset($_GET['p'])) {
     $page = $pages->getPage($_GET['p']);
 
     // set an open action, so that the page is shown when opened (requires support of the reader application)
-    $document->getCatalog()->setOpenAction(SetaPDF_Core_Document_Destination::createByPage($page));
+    $dest = SetaPDF_Core_Document_Destination::createByPage($page);
+    $document->getCatalog()->setOpenAction(new SetaPDF_Core_Document_Action_GoTo($dest));
 
     // get access to the pages canvas
     $canvas = $page->getCanvas();
