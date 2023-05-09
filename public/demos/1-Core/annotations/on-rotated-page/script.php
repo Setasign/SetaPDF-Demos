@@ -84,7 +84,7 @@ $appearance = SetaPDF_Core_XObject_Form::create($document, [0, 0, $annotation->g
 
 $canvas = $appearance->getCanvas();
 $canvas->saveGraphicState();
-$canvas->normalizeRotation($rotation, $appearance->getBBox());
+$canvas->normalizeRotationAndOrigin($rotation, $appearance->getBBox());
 $stampAppearances->draw($canvas, 0, 0, $width, $height);
 $canvas->restoreGraphicState();
 

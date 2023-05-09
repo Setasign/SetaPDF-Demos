@@ -44,7 +44,7 @@ $pageOne->getContents()->encapsulateExistingContentInGraphicState();
 $canvas = $pageOne->getCanvas();
 
 // normalize the rotation of the page, so that the origin is at the lower left througout
-$canvas->normalizeRotation($pageOne->getRotation(), $pageOne->getBoundary());
+$canvas->normalizeRotationAndOrigin($pageOne->getRotation(), $pageOne->getBoundary());
 
 // create an image instance
 $image = SetaPDF_Core_Image::getByPath($imgPath)->toXObject($document);
