@@ -69,6 +69,8 @@ if (strpos($requestPath, '..') !== false || !is_dir($demosDirectory . '/' . $req
 }
 
 $sorter = static function($a, $b) {
+    $a = str_replace('/demo.json', '', $a);
+    $b = str_replace('/demo.json', '', $b);
     $a = (float)strstr(pathinfo($a, PATHINFO_BASENAME), '-', true);
     $b = (float)strstr(pathinfo($b, PATHINFO_BASENAME), '-', true);
 
