@@ -5,5 +5,9 @@
         "SetaPDF-Core", "SetaPDF-Signer"
     ],
     "faIcon": "&#xf1c5;",
-    "faIcon2": "&#xf029;"
+    "faIcon2": "&#xf029;",
+    "previewFiles": [
+        "/assets/images/seal.png",
+        "/assets/images/qr.png"
+    ]
 }
