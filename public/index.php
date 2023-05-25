@@ -68,6 +68,13 @@ if (strpos($requestPath, '..') !== false || !is_dir($demosDirectory . '/' . $req
     return;
 }
 
+$sorter = static function($a, $b) {
+    $a = (float)strstr(pathinfo($a, PATHINFO_BASENAME), '-', true);
+    $b = (float)strstr(pathinfo($b, PATHINFO_BASENAME), '-', true);
+
+    return $a > $b ? 1 : -1;
+};
+
 ob_start();
 echo <<<HTML
 <!DOCTYPE html>
@@ -186,7 +193,7 @@ if ($isDemo) {
     $nextDemos = [];
     $currentDemoFound = false;
     $demoPaths = glob(dirname($demoDirectory) . '/*/demo.json', GLOB_NOSORT);
-    sort($demoPaths, SORT_NATURAL);
+    usort($demoPaths, $sorter);
     foreach ($demoPaths as $actualDemo) {
         $actualDemoDirectory = dirname($actualDemo);
         $actualDemoData = json_decode(file_get_contents($actualDemo), true);
@@ -385,7 +392,8 @@ if ($isDemo) {
 
     echo '<div class="directoriesWrapper">';
     $demoDirs = glob($demosDirectory . ($requestPath !== '' ? '/' . $requestPath : '') . '/*', GLOB_ONLYDIR | GLOB_NOSORT);
-    sort($demoDirs, SORT_NATURAL);
+    usort($demoDirs, $sorter);
+
     foreach ($demoDirs as $dir) {
         if (file_exists($dir . '/demo.json')) {
             continue;
@@ -440,7 +448,7 @@ if ($isDemo) {
     echo '<div class="demoTeaserWrapper">';
 
     $demoPaths = glob($demosDirectory . ($requestPath !== '' ? '/' . $requestPath : '') . '/*/demo.json', GLOB_NOSORT);
-    sort($demoPaths, SORT_NATURAL);
+    usort($demoPaths, $sorter);
     /** @noinspection LowPerformingFilesystemOperationsInspection */
     foreach ($demoPaths as $demo) {
         $demoDirectory = dirname($demo);
