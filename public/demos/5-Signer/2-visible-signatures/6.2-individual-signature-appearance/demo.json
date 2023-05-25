@@ -1,0 +1,9 @@
+{
+    "name": "Another Individual Signature Appearance",
+    "teaserText": "Combine an image, text and a QR code in an appearance.",
+    "requires": [
+        "SetaPDF-Core", "SetaPDF-Signer"
+    ],
+    "faIcon": "&#xf1c5;",
+    "faIcon2": "&#xf029;"
+}
