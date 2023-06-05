@@ -4,7 +4,7 @@
 require_once __DIR__ . '/../../../../../../bootstrap.php';
 
 // create a writer
-$writer = new SetaPDF_Core_Writer_Http('pdf-form-stamp.pdf', true);
+$writer = new SetaPDF_Core_Writer_Http('pdf-form-stamped.pdf', true);
 // get a document instance
 $document = SetaPDF_Core_Document::loadByFilename(
     $assetsDirectory . '/pdfs/tektown/Order-Form-without-Signaturefield.pdf',
