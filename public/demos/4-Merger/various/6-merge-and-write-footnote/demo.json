@@ -1,0 +1,9 @@
+{
+    "name": "Merge PDFs and Write Footnotes",
+    "teaserText": "This demo adds the filename as a footnote to the merged pages.",
+    "requires": [
+        "SetaPDF-Core", "SetaPDF-Merger"
+    ],
+    "faIcon": "&#xf15b;",
+    "faIcon2": "&#xf031;"
+}
