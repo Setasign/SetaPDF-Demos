@@ -4,5 +4,9 @@
     "requires": [
         "SetaPDF-Core", "SetaPDF-Stamper"
     ],
+    "previewFiles": [
+        "/assets/pdfs/tektown/Order-Form-without-Signaturefield.pdf",
+        "/assets/images/Handwritten-Signature.png"
+    ],
     "faIcon": "&#xf5b7;"
 }
