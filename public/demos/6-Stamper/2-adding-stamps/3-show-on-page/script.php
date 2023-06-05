@@ -33,8 +33,8 @@ $stamp = new SetaPDF_Stamper_Stamp_Text($font, 12);
 $stamp->setBackgroundColor([0.5, 1, 1]);
 $stamp->setBorderWidth(1);
 $stamp->setPadding(2);
-$stamp->setWidth(180);
-$stamp->setText('A simple example text to demonstrate positioning and $translateX and $translateY parameter.');
+$stamp->setTextWidth(180);
+$stamp->setText('A simple example text to demonstrate showOnPage parameter.');
 
 // add the stamp object on all pages on the given position
 $stamper->addStamp(
