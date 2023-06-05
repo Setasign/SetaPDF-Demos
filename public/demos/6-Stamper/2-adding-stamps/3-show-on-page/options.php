@@ -22,6 +22,10 @@ return [
         'showOnPage' => SetaPDF_Stamper::PAGES_LAST
     ],
     [
+        'displayValue' => '4',
+        'showOnPage' => 4
+    ],
+    [
         'displayValue' => "'2-' (2nd page until the last page)",
         'showOnPage' => '2-'
     ],
