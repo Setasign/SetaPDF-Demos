@@ -4,5 +4,8 @@
     "requires": [
         "SetaPDF-Core", "SetaPDF-Stamper"
     ],
+    "previewFiles": [
+        "options.php"
+    ],
     "faIcon": "&#xf547;"
 }
