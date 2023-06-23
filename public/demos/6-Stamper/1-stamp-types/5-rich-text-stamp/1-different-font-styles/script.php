@@ -4,9 +4,9 @@
 require_once __DIR__ . '/../../../../../../bootstrap.php';
 
 // create a writer
-$writer = new SetaPDF_Core_Writer_Http('styled.pdf', true);
+$writer = new \SetaPDF_Core_Writer_Http('styled.pdf', true);
 // get a document instance
-$document = SetaPDF_Core_Document::loadByFilename(
+$document = \SetaPDF_Core_Document::loadByFilename(
     $assetsDirectory . '/pdfs/lenstown/Laboratory-Report.pdf',
     $writer
 );

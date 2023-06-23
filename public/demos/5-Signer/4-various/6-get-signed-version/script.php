@@ -6,8 +6,8 @@ require_once __DIR__ . '/../../../../../bootstrap.php';
 $file = $assetsDirectory . '/pdfs/tektown/Laboratory-Report-signed.pdf';
 
 $fh = fopen($file, 'rb');
-$reader = new SetaPDF_Core_Reader_Stream($fh);
-$document = SetaPDF_Core_Document::load($reader);
+$reader = new \SetaPDF_Core_Reader_Stream($fh);
+$document = \SetaPDF_Core_Document::load($reader);
 
 $fieldNames = SetaPDF_Signer_ValidationRelatedInfo_Collector::getSignatureFieldNames($document);
 // let's filter only used signature fields
@@ -31,7 +31,7 @@ $out = fopen('php://temp', 'r+b');
 stream_copy_to_stream($fh, $out, $length);
 fseek($out, 0);
 
-$writer = new SetaPDF_Core_Writer_Http('result.pdf');
+$writer = new \SetaPDF_Core_Writer_Http('result.pdf');
 $writer->copy($out);
 $writer->finish();
 

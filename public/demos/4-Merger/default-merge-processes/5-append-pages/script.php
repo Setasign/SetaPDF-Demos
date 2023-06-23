@@ -4,10 +4,10 @@
 require_once __DIR__ . '/../../../../../bootstrap.php';
 
 // create a http writer object
-$writer = new SetaPDF_Core_Writer_Http('append.pdf', true);
+$writer = new \SetaPDF_Core_Writer_Http('append.pdf', true);
 
 // load the inital document
-$document = SetaPDF_Core_Document::loadByFilename(
+$document = \SetaPDF_Core_Document::loadByFilename(
     $assetsDirectory . '/pdfs/camtown/Order-Form.pdf', $writer
 );
 

@@ -25,7 +25,7 @@ function drawPropertyTable($caption, $data) {
 }
 
 // create the document instance
-$document = SetaPDF_Core_Document::loadByFilename($path);
+$document = \SetaPDF_Core_Document::loadByFilename($path);
 
 // now get an instance of the form filler
 $formFiller = new SetaPDF_FormFiller($document);

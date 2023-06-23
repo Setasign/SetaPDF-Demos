@@ -5,7 +5,7 @@ require_once __DIR__ . '/../../../../../bootstrap.php';
 
 // Let's load a template in which we'd drawn simple form fields to get the names and
 // coordinates of the areas we want to extract
-$template = SetaPDF_Core_Document::loadByFilename($assetsDirectory . '/pdfs/Subscription-tekMag-form-template.pdf');
+$template = \SetaPDF_Core_Document::loadByFilename($assetsDirectory . '/pdfs/Subscription-tekMag-form-template.pdf');
 $pages = $template->getCatalog()->getPages();
 
 // group the found fields by pages
@@ -17,9 +17,9 @@ for ($pageNo = 1, $pageCount = $pages->count(); $pageNo <= $pageCount; $pageNo++
     $annotations = $page->getAnnotations();
 
     // get all widget annotations
-    $widgetAnnotations = $annotations->getAll(SetaPDF_Core_Document_Page_Annotation::TYPE_WIDGET);
+    $widgetAnnotations = $annotations->getAll(\SetaPDF_Core_Document_Page_Annotation::TYPE_WIDGET);
     foreach ($widgetAnnotations AS $widgetAnnotation) {
-        $fieldName = SetaPDF_Core_Document_Catalog_AcroForm::resolveFieldName($widgetAnnotation->getDictionary());
+        $fieldName = \SetaPDF_Core_Document_Catalog_AcroForm::resolveFieldName($widgetAnnotation->getDictionary());
         $fieldsPerPage[$pageNo][$fieldName] = $widgetAnnotation->getRect()->getRectangle();
     }
 }
@@ -38,7 +38,7 @@ foreach ([
     echo '<h1>' . htmlspecialchars(substr($path, strlen($assetsDirectory . '/pdfs/'))) . '</h1>';
 
     // load the document
-    $document = SetaPDF_Core_Document::loadByFilename($path);
+    $document = \SetaPDF_Core_Document::loadByFilename($path);
 
     // create a plain strategy
     $strategy = new SetaPDF_Extractor_Strategy_Plain();

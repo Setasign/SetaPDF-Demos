@@ -7,8 +7,8 @@ require_once __DIR__ . '/../../../../../bootstrap.php';
 // load the wrapper class
 require_once __DIR__ . '/../../../../../classes/Signer/Appearance/OnAllPages.php';
 
-$writer = new SetaPDF_Core_Writer_Http('several-appearances.pdf', true);
-$document = SetaPDF_Core_Document::loadByFilename(
+$writer = new \SetaPDF_Core_Writer_Http('several-appearances.pdf', true);
+$document = \SetaPDF_Core_Document::loadByFilename(
     $assetsDirectory . '/pdfs/Brand-Guide.pdf',
 //    $assetsDirectory . '/pdfs/misc/rotated/all.pdf',
     $writer
@@ -45,7 +45,7 @@ $module->setPrivateKey('file://' . $certificatePath, '');
 // now create the appearance module and pass the signature module along
 $appearance = new SetaPDF_Signer_Signature_Appearance_Dynamic($module);
 // let's create a font instance to not use standard fonts (not embedded)
-$font = new SetaPDF_Core_Font_Type0_Subset(
+$font = new \SetaPDF_Core_Font_Type0_Subset(
     $document,
     $assetsDirectory . '/fonts/DejaVu/ttf/DejaVuSans.ttf'
 );

@@ -4,17 +4,17 @@
 require_once __DIR__ . '/../../../../../bootstrap.php';
 
 // let's get access to the file
-$reader = new SetaPDF_Core_Reader_File($assetsDirectory . '/pdfs/Brand-Guide.pdf');
+$reader = new \SetaPDF_Core_Reader_File($assetsDirectory . '/pdfs/Brand-Guide.pdf');
 // create a HTTP writer
-$writer = new SetaPDF_Core_Writer_Http('stamped.pdf', true);
+$writer = new \SetaPDF_Core_Writer_Http('stamped.pdf', true);
 // let's get the document
-$document = SetaPDF_Core_Document::load($reader, $writer);
+$document = \SetaPDF_Core_Document::load($reader, $writer);
 
 // initiate a stamper instance
 $stamper = new SetaPDF_Stamper($document);
 
 // let's use a TrueType font for the stamp appearance:
-$font = new SetaPDF_Core_Font_TrueType_Subset(
+$font = new \SetaPDF_Core_Font_TrueType_Subset(
     $document,
     $assetsDirectory . '/fonts/DejaVu/ttf/DejaVuSans-ExtraLight.ttf'
 );

@@ -32,7 +32,7 @@ $merger->merge();
 $document = $merger->getDocument();
 
 // we need a font instance
-$font = new SetaPDF_Core_Font_TrueType_Subset(
+$font = new \SetaPDF_Core_Font_TrueType_Subset(
     $document,
     $assetsDirectory . '/fonts/DejaVu/ttf/DejaVuSans.ttf'
 );
@@ -54,7 +54,7 @@ foreach ($pagesToFiles as $pageNo => list($nextPage, $path)) {
         $canvas->normalizeRotationAndOrigin($page->getRotation(), $page->getBoundary());
 
         // create a text block
-        $textBlock = new SetaPDF_Core_Text_Block($font, 5);
+        $textBlock = new \SetaPDF_Core_Text_Block($font, 5);
         $textBlock->setText(basename($path));
         // and draw it onto the canvas
         $textBlock->draw($canvas, $page->getWidth() - $textBlock->getWidth() - 5, 5);
@@ -64,6 +64,6 @@ foreach ($pagesToFiles as $pageNo => list($nextPage, $path)) {
 }
 
 // set a writer instance
-$document->setWriter(new SetaPDF_Core_Writer_Http('merged-with-footnotes.pdf', true));
+$document->setWriter(new \SetaPDF_Core_Writer_Http('merged-with-footnotes.pdf', true));
 // and save the result to the writer
 $document->save()->finish();

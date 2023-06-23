@@ -12,7 +12,7 @@ $files = [
 $path = displayFiles($files);
 
 // create a document instance
-$document = SetaPDF_Core_Document::loadByFilename($path);
+$document = \SetaPDF_Core_Document::loadByFilename($path);
 
 // get the pages helper
 $pages = $document->getCatalog()->getPages();
@@ -25,7 +25,7 @@ for ($pageNo = 1, $pageCount = $pages->count(); $pageNo <= $pageCount; $pageNo++
     $page = $pages->getPage($pageNo);
 
     // print all page boundaries
-    foreach (SetaPDF_Core_PageBoundaries::$all AS $boxName) {
+    foreach (\SetaPDF_Core_PageBoundaries::$all AS $boxName) {
         $box = $page->getBoundary($boxName);
         echo $boxName;
         vprintf(' = [llx: %.3F, lly: %.3F, urx: %.3F, ury: %.3F]<br />', $box->toPhp());

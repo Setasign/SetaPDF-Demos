@@ -12,9 +12,9 @@ $files = [
 $path = displayFiles($files);
 
 // create a writer instance
-$writer = new SetaPDF_Core_Writer_Http('resize-pages.pdf', true);
+$writer = new \SetaPDF_Core_Writer_Http('resize-pages.pdf', true);
 // create a document instance
-$document = SetaPDF_Core_Document::loadByFilename($path, $writer);
+$document = \SetaPDF_Core_Document::loadByFilename($path, $writer);
 
 // get the pages helper
 $pages = $document->getCatalog()->getPages();
@@ -26,7 +26,7 @@ for ($pageNo = 1, $pageCount = $pages->count(); $pageNo <= $pageCount; $pageNo++
     $page = $pages->getPage($pageNo);
 
     // resize all available page boxes
-    foreach (SetaPDF_Core_PageBoundaries::$all AS $boxName) {
+    foreach (\SetaPDF_Core_PageBoundaries::$all AS $boxName) {
         $box = $page->getBoundary($boxName, false);
         if ($box === false) {
             continue;

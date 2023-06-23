@@ -33,6 +33,6 @@ $merger->merge();
 // get access to the document instance
 $document = $merger->getDocument();
 // set a writer instance
-$document->setWriter(new SetaPDF_Core_Writer_Http('merged.pdf', true));
+$document->setWriter(new \SetaPDF_Core_Writer_Http('merged.pdf', true));
 // and save the result to the writer
 $document->save()->finish();

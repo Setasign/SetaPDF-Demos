@@ -12,12 +12,12 @@ $files = [
 $path = displayFiles($files);
 
 // create a document
-$document = SetaPDF_Core_Document::loadByFilename($path);
+$document = \SetaPDF_Core_Document::loadByFilename($path);
 
 // get names
 $names = $document->getCatalog()->getNames();
 // get the JavaScript name tree
-$javaScriptTree = $names->getTree(SetaPDF_Core_Document_Catalog_Names::JAVA_SCRIPT);
+$javaScriptTree = $names->getTree(\SetaPDF_Core_Document_Catalog_Names::JAVA_SCRIPT);
 
 $out = '';
 
@@ -33,7 +33,7 @@ if ($javaScriptTree) {
     }
 
     if ($shouldSave) {
-        $writer = new SetaPDF_Core_Writer_Http();
+        $writer = new \SetaPDF_Core_Writer_Http();
         $document->setWriter($writer);
         $document->save()->finish();
         die();

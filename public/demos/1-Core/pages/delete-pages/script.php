@@ -12,11 +12,11 @@ $files = [
 $path = displayFiles($files);
 
 // create a reader
-$reader = new SetaPDF_Core_Reader_File($path);
+$reader = new \SetaPDF_Core_Reader_File($path);
 // create a writer
-$writer = new SetaPDF_Core_Writer_Http('delete-pages.pdf', true);
+$writer = new \SetaPDF_Core_Writer_Http('delete-pages.pdf', true);
 // create a document
-$document = SetaPDF_Core_Document::load($reader, $writer);
+$document = \SetaPDF_Core_Document::load($reader, $writer);
 
 // get the pages helper
 $pages = $document->getCatalog()->getPages();

@@ -13,12 +13,12 @@ if (strtoupper(substr(PHP_OS, 0, 3)) === 'WIN') {
 // the file to sign
 $fileToSign = $assetsDirectory . '/pdfs/tektown/Laboratory-Report.pdf';
 // create a temporary path
-$tempFile = SetaPDF_Core_Writer_TempFile::createTempPath();
+$tempFile = \SetaPDF_Core_Writer_TempFile::createTempPath();
 
 // create a writer instance
-$writer = new SetaPDF_Core_Writer_Http('signed-with-rsautl.pdf');
+$writer = new \SetaPDF_Core_Writer_Http('signed-with-rsautl.pdf');
 // create the document instance
-$document = SetaPDF_Core_Document::loadByFilename($fileToSign, $writer);
+$document = \SetaPDF_Core_Document::loadByFilename($fileToSign, $writer);
 
 // create the signer instance
 $signer = new SetaPDF_Signer($document);
@@ -29,7 +29,7 @@ $module->setDigest(SetaPDF_Signer_Digest::SHA_256);
 $module->setCertificate('file://' . $assetsDirectory . '/certificates/setapdf-no-pw.pem');
 
 // create a temporary version which represents the data which should get signed
-$tmpDocument = $signer->preSign(new SetaPDF_Core_Writer_File($tempFile), $module);
+$tmpDocument = $signer->preSign(new \SetaPDF_Core_Writer_File($tempFile), $module);
 
 // get the hash data from the module
 $hashData = $module->getDataToSign($tmpDocument->getHashFile());
@@ -62,9 +62,9 @@ $digestInfo = new SetaPDF_Signer_Asn1_Element(
 );
 
 // and write it to a temporary file
-$tmpFileIn = SetaPDF_Core_Writer_TempFile::createTempFile($digestInfo);
+$tmpFileIn = \SetaPDF_Core_Writer_TempFile::createTempFile($digestInfo);
 // prepare a temporary file for the final signature
-$tmpFileOut = SetaPDF_Core_Writer_TempFile::createTempPath();
+$tmpFileOut = \SetaPDF_Core_Writer_TempFile::createTempPath();
 
 // build the command
 $cmd = $opensslPath . "openssl rsautl -sign -pkcs "

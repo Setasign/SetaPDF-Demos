@@ -4,9 +4,9 @@
 require_once __DIR__ . '/../../../../../../bootstrap.php';
 
 // create a writer
-$writer = new SetaPDF_Core_Writer_Http('styled.pdf', true);
+$writer = new \SetaPDF_Core_Writer_Http('styled.pdf', true);
 // get a document instance
-$document = SetaPDF_Core_Document::loadByFilename(
+$document = \SetaPDF_Core_Document::loadByFilename(
     $assetsDirectory . '/pdfs/lenstown/Laboratory-Report.pdf',
     $writer
 );
@@ -16,17 +16,17 @@ $document = SetaPDF_Core_Document::loadByFilename(
 
 // We need to draw the text style-by-style.
 // First we prepare font instances:
-$font = new SetaPDF_Core_Font_TrueType_Subset(
+$font = new \SetaPDF_Core_Font_TrueType_Subset(
     $document,
     $assetsDirectory . '/fonts/DejaVu/ttf/DejaVuSans.ttf'
 );
 
-$fontB = new SetaPDF_Core_Font_TrueType_Subset(
+$fontB = new \SetaPDF_Core_Font_TrueType_Subset(
     $document,
     $assetsDirectory . '/fonts/DejaVu/ttf/DejaVuSans-Bold.ttf'
 );
 
-$fontI = new SetaPDF_Core_Font_TrueType_Subset(
+$fontI = new \SetaPDF_Core_Font_TrueType_Subset(
     $document,
     $assetsDirectory . '/fonts/DejaVu/ttf/DejaVuSans-Oblique.ttf'
 );
@@ -47,7 +47,7 @@ foreach ($text as $textItem) {
 }
 
 // create a XObject
-$xObject = SetaPDF_Core_XObject_Form::create($document, [0, 0, $width, $height]);
+$xObject = \SetaPDF_Core_XObject_Form::create($document, [0, 0, $width, $height]);
 // get the Canvas
 $canvas = $xObject->getCanvas();
 
@@ -57,7 +57,7 @@ $canvasText = $canvas->text()
     ->moveToNextLine(0, -$text[0][1]->getDescent() / 1000 * $fontSize);
 
 foreach ($text as $textItem) {
-    /** @var SetaPDF_Core_Font_FontInterface $font */
+    /** @var \SetaPDF_Core_Font_FontInterface $font */
     $font = $textItem[1];
 
     $canvasText

@@ -7,10 +7,10 @@ require_once __DIR__ . '/../../../../../bootstrap.php';
 require_once __DIR__ . '/../../../../../classes/Stamper/Stamp/ArtifactTextStamp.php';
 
 // create a HTTP writer
-$writer = new SetaPDF_Core_Writer_Http('artifact.pdf', true);
-//$writer = new SetaPDF_Core_Writer_File('artifact.pdf');
+$writer = new \SetaPDF_Core_Writer_Http('artifact.pdf', true);
+//$writer = new \SetaPDF_Core_Writer_File('artifact.pdf');
 // let's get the document
-$document = SetaPDF_Core_Document::loadByFilename(
+$document = \SetaPDF_Core_Document::loadByFilename(
     $assetsDirectory . '/pdfs/Brand-Guide.pdf',
     $writer
 );
@@ -21,7 +21,7 @@ $stamper = new SetaPDF_Stamper($document);
 //--- Create a text stamp and wrap it in a Tagged stamp instance ---//
 
 // create a font instance which is needed for the text stamp instance
-$font = new SetaPDF_Core_Font_TrueType_Subset(
+$font = new \SetaPDF_Core_Font_TrueType_Subset(
     $document,
     $assetsDirectory . '/fonts/DejaVu/ttf/DejaVuSans.ttf'
 );

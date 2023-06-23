@@ -20,8 +20,8 @@ for ($i = 0; $i < 30; $i++) {
 // not iterate through the data and create PDFs
 foreach ($participants as $participant) {
 
-    $writer = new SetaPDF_Core_Writer_String();
-    $document = SetaPDF_Core_Document::loadByFilename(
+    $writer = new \SetaPDF_Core_Writer_String();
+    $document = \SetaPDF_Core_Document::loadByFilename(
         $assetsDirectory . '/pdfs/Name-Badge.pdf',
         $writer
     );

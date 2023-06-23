@@ -4,15 +4,15 @@
 require_once __DIR__ . '/../../../../../bootstrap.php';
 
 // create a file writer
-$writer = new SetaPDF_Core_Writer_Http('page-numbering-demo.pdf', true);
+$writer = new \SetaPDF_Core_Writer_Http('page-numbering-demo.pdf', true);
 // load document by filename
-$document = SetaPDF_Core_Document::loadByFilename($assetsDirectory . '/pdfs/lenstown/products/All.pdf', $writer);
+$document = \SetaPDF_Core_Document::loadByFilename($assetsDirectory . '/pdfs/lenstown/products/All.pdf', $writer);
 
 // create a stamper instance for the document
 $stamper = new SetaPDF_Stamper($document);
 
 // let's use a TrueType font for the stamp appearance:
-$font = new SetaPDF_Core_Font_TrueType_Subset(
+$font = new \SetaPDF_Core_Font_TrueType_Subset(
     $document,
     $assetsDirectory . '/fonts/DejaVu/ttf/DejaVuSans-ExtraLight.ttf'
 );
@@ -22,8 +22,8 @@ $stamp = new SetaPDF_Stamper_Stamp_Text($font, 10);
 $stamp->setTextColor('#6d6f72');
 
 // let's create links back to page 1
-$dest = SetaPDF_Core_Document_Destination::createByPageNo($document, 1);
-$action = new SetaPDF_Core_Document_Action_GoTo($dest);
+$dest = \SetaPDF_Core_Document_Destination::createByPageNo($document, 1);
+$action = new \SetaPDF_Core_Document_Action_GoTo($dest);
 $stamp->setAction($action);
 
 // a callback to set the pagenumbers for each page
@@ -50,7 +50,7 @@ $stamper->addStamp($stamp, [
 $lineWidth = .7;
 
 // create a XObject
-$xObject = SetaPDF_Core_XObject_Form::create($document, [0, 0, 10, $lineWidth]);
+$xObject = \SetaPDF_Core_XObject_Form::create($document, [0, 0, 10, $lineWidth]);
 // get the Canvas
 $canvas = $xObject->getCanvas();
 // set the collor and draw a line
@@ -73,7 +73,7 @@ $stamper->addStamp($xObjectStamp, [
     'callback' => static function(
         $pageNumber,
         $pageCount,
-        SetaPDF_Core_Document_Page $page,
+        \SetaPDF_Core_Document_Page $page,
         SetaPDF_Stamper_Stamp_XObject $stamp
     ) {
         $stamp->setWidth($page->getWidth() - 29 * 2);

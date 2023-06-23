@@ -10,8 +10,8 @@ $files = [
 
 $file = displayFiles($files);
 
-$writer = new SetaPDF_Core_Writer_Http('with-links.pdf', true);
-$document = SetaPDF_Core_Document::loadByFilename($file, $writer);
+$writer = new \SetaPDF_Core_Writer_Http('with-links.pdf', true);
+$document = \SetaPDF_Core_Document::loadByFilename($file, $writer);
 
 $pages = $document->getCatalog()->getPages();
 
@@ -107,7 +107,7 @@ for ($pageNo = 1; $pageNo <= $pages->count(); $pageNo++) {
                 $ur = $bounds[0]->getUr();
 
                 // ...add a link annotation
-                $annotation = new SetaPDF_Core_Document_Page_Annotation_Link(
+                $annotation = new \SetaPDF_Core_Document_Page_Annotation_Link(
                     [$ll->getX(), $ll->getY(), $ur->getX(), $ur->getY()],
                     $link
                 );
@@ -116,7 +116,7 @@ for ($pageNo = 1; $pageNo <= $pages->count(); $pageNo++) {
                 $annotation->setColor([1, 0, 0]);
                 $annotation->getBorderStyle()
                     ->setWidth(1)
-                    ->setStyle(SetaPDF_Core_Document_Page_Annotation_BorderStyle::DASHED)
+                    ->setStyle(\SetaPDF_Core_Document_Page_Annotation_BorderStyle::DASHED)
                     ->setDashPattern([2, 2]);
 
                 $annotations->add($annotation);
@@ -161,7 +161,7 @@ for ($pageNo = 1; $pageNo <= $pages->count(); $pageNo++) {
                 $ur = $bounds[0]->getUr();
 
                 // ...add a link annotation
-                $annotation = new SetaPDF_Core_Document_Page_Annotation_Link(
+                $annotation = new \SetaPDF_Core_Document_Page_Annotation_Link(
                     [$ll->getX(), $ll->getY(), $ur->getX(), $ur->getY()],
                     'mailto:' . $email
                 );
@@ -170,7 +170,7 @@ for ($pageNo = 1; $pageNo <= $pages->count(); $pageNo++) {
                 $annotation->setColor([0, 1, 0]);
                 $annotation->getBorderStyle()
                     ->setWidth(1)
-                    ->setStyle(SetaPDF_Core_Document_Page_Annotation_BorderStyle::DASHED)
+                    ->setStyle(\SetaPDF_Core_Document_Page_Annotation_BorderStyle::DASHED)
                     ->setDashPattern([2, 2]);
 
                 $annotations->add($annotation);

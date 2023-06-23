@@ -18,11 +18,11 @@ foreach (glob($assetsDirectory . '/images/*/*.{png,jpg,jpeg,gif}', GLOB_BRACE) a
 $imgData = displayFiles($files, true);
 
 // create a writer
-$writer = new SetaPDF_Core_Writer_Http('ImgInSpecificResolution.pdf', true);
+$writer = new \SetaPDF_Core_Writer_Http('ImgInSpecificResolution.pdf', true);
 // create a document
-$document = new SetaPDF_Core_Document($writer);
+$document = new \SetaPDF_Core_Document($writer);
 
-$img = SetaPDF_Core_Image::getByPath($imgData['path']);
+$img = \SetaPDF_Core_Image::getByPath($imgData['path']);
 $xObject = $img->toXObject($document);
 $width = $xObject->getWidth();
 $height = $xObject->getHeight();
@@ -36,7 +36,7 @@ $height = $height * 72 / $dpi;
 $pages = $document->getCatalog()->getPages();
 $page = $pages->create(
     [$width, $height],
-    SetaPDF_Core_PageFormats::ORIENTATION_AUTO
+    \SetaPDF_Core_PageFormats::ORIENTATION_AUTO
 );
 $canvas = $page->getCanvas();
 $xObject->draw($canvas, 0, 0, $width, $height);

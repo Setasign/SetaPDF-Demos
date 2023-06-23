@@ -4,9 +4,9 @@
 require_once __DIR__ . '/../../../../../bootstrap.php';
 
 // create a document as the cover sheet
-$writer = new SetaPDF_Core_Writer_Http('portfolio-with-schema.pdf');
-$document = new SetaPDF_Core_Document($writer);
-$document->getCatalog()->getPages()->create(SetaPDF_Core_PageFormats::A4);
+$writer = new \SetaPDF_Core_Writer_Http('portfolio-with-schema.pdf');
+$document = new \SetaPDF_Core_Document($writer);
+$document->getCatalog()->getPages()->create(\SetaPDF_Core_PageFormats::A4);
 // we leave it empty for demonstration purpose...
 
 // create a collection instance
@@ -61,7 +61,7 @@ $collection->addFile(
     [],
     'application/pdf',
     [
-        'company' => SetaPDF_Core_Encoding::toPdfString('tektown'),
+        'company' => \SetaPDF_Core_Encoding::toPdfString('tektown'),
         'order'   => 3
     ]
 );
@@ -73,7 +73,7 @@ $collection->addFile(
     [],
     'application/pdf',
     [
-        'company' => SetaPDF_Core_Encoding::toPdfString('etown'),
+        'company' => \SetaPDF_Core_Encoding::toPdfString('etown'),
         'order'   => 2
     ]
 );
@@ -85,7 +85,7 @@ $collection->addFile(
     [],
     'application/pdf',
     [
-        'company' => SetaPDF_Core_Encoding::toPdfString('lenstown'),
+        'company' => \SetaPDF_Core_Encoding::toPdfString('lenstown'),
         'order'   => 4
     ]
 );
@@ -109,7 +109,7 @@ $imagesFolder->addFile(
     [],
     'image/png',
     [
-        'company' => SetaPDF_Core_Encoding::toPdfString('tektown'),
+        'company' => \SetaPDF_Core_Encoding::toPdfString('tektown'),
         'order'   => 3
     ]
 );
@@ -121,7 +121,7 @@ $imagesFolder->addFile(
     [],
     'image/png',
     [
-        'company' => SetaPDF_Core_Encoding::toPdfString('etown'),
+        'company' => \SetaPDF_Core_Encoding::toPdfString('etown'),
         'order'   => 2
     ]
 );
@@ -133,7 +133,7 @@ $imagesFolder->addFile(
     [],
     'image/png',
     [
-        'company' => SetaPDF_Core_Encoding::toPdfString('lenstown'),
+        'company' => \SetaPDF_Core_Encoding::toPdfString('lenstown'),
         'order'   => 1
     ]
 );

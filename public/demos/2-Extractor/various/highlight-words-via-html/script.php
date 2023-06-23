@@ -32,7 +32,7 @@ if (!file_exists($imageFile)) {
    }
 }
 
-$document = SetaPDF_Core_Document::loadByFilename($file);
+$document = \SetaPDF_Core_Document::loadByFilename($file);
 $page = $document->getCatalog()->getPages()->getPage($pageNo);
 
 $extractor = new SetaPDF_Extractor($document);
@@ -50,7 +50,7 @@ $pageHeight = $page->getHeight() * $dpiFactor;
 $rotation = $page->getRotation();
 
 // now we create a graphic state instance
-$gs = new SetaPDF_Core_Canvas_GraphicState();
+$gs = new \SetaPDF_Core_Canvas_GraphicState();
 // scale it by the DPI factor
 $gs->scale($dpiFactor, $dpiFactor);
 
@@ -74,8 +74,8 @@ switch ($rotation) {
 }
 
 // this little helper applies the graphic state to a given point
-$f = static function(SetaPDF_Core_Geometry_Point $p) use ($gs) {
-    $v = new SetaPDF_Core_Geometry_Vector($p->getX(), $p->getY(), 0);
+$f = static function(\SetaPDF_Core_Geometry_Point $p) use ($gs) {
+    $v = new \SetaPDF_Core_Geometry_Vector($p->getX(), $p->getY(), 0);
     return $v->multiply($gs->getCurrentTransformationMatrix())->toPoint();
 };
 
@@ -86,7 +86,7 @@ $f = static function(SetaPDF_Core_Geometry_Point $p) use ($gs) {
         foreach ($words as $word) {
             foreach ($word->getBounds() as $bounds) {
                 // create a rectangle with ordered vertices (because e.g. Ll will not be lower left after a rotation)
-                $rect = new SetaPDF_Core_Geometry_Rectangle(
+                $rect = new \SetaPDF_Core_Geometry_Rectangle(
                     $f($bounds->getLl()),
                     $f($bounds->getUr())
                 );

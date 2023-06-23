@@ -12,10 +12,10 @@ $files = [
 
 $path = displayFiles($files);
 
-$document = SetaPDF_Core_Document::loadByFilename($path);
+$document = \SetaPDF_Core_Document::loadByFilename($path);
 $metadata = $document->getInfo()->getMetadata();
 
-$xpath = new DOMXPath($metadata);
+$xpath = new \DOMXPath($metadata);
 $xpath->registerNamespace('x', 'adobe:ns:meta/');
 $xpath->registerNamespace('rdf', 'http://www.w3.org/1999/02/22-rdf-syntax-ns#');
 $xpath->registerNamespace('pdfaid', 'http://www.aiim.org/pdfa/ns/id/');

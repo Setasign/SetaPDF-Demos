@@ -4,9 +4,9 @@
 require_once __DIR__ . '/../../../../../../bootstrap.php';
 
 // create a writer
-$writer = new SetaPDF_Core_Writer_Http('smile.pdf', true);
+$writer = new \SetaPDF_Core_Writer_Http('smile.pdf', true);
 // get a document instance
-$document = SetaPDF_Core_Document::loadByFilename(
+$document = \SetaPDF_Core_Document::loadByFilename(
     $assetsDirectory . '/pdfs/lenstown/Laboratory-Report.pdf',
     $writer
 );
@@ -15,7 +15,7 @@ $document = SetaPDF_Core_Document::loadByFilename(
 $stamper = new SetaPDF_Stamper($document);
 
 // create a XObject
-$xObject = SetaPDF_Core_XObject_Form::create($document, array(0, 0, 205, 205));
+$xObject = \SetaPDF_Core_XObject_Form::create($document, array(0, 0, 205, 205));
 // get the Canvas
 $canvas = $xObject->getCanvas();
 // Let's draw a smilie ;-)
@@ -26,7 +26,7 @@ $canvas
     ->path()
     ->setLineWidth(5)
     ->draw()
-    ->circle(102.5, 102.5, 100, SetaPDF_Core_Canvas_Draw::STYLE_DRAW_AND_FILL) // head
+    ->circle(102.5, 102.5, 100, \SetaPDF_Core_Canvas_Draw::STYLE_DRAW_AND_FILL) // head
     ->circle(60, 120, 15) // left eye
     ->circle(140, 120, 15) // right exe
     ->path()

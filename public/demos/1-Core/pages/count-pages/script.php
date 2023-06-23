@@ -11,7 +11,7 @@ $files = [
 
 $path = displayFiles($files);
 
-$document = SetaPDF_Core_Document::loadByFilename($path);
+$document = \SetaPDF_Core_Document::loadByFilename($path);
 
 $pages = $document->getCatalog()->getPages();
 $pageCount = $pages->count();

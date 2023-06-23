@@ -14,7 +14,7 @@ $files = [
 $path = displayFiles($files);
 
 // create a document instance
-$document = SetaPDF_Core_Document::loadByFilename($path);
+$document = \SetaPDF_Core_Document::loadByFilename($path);
 
 // Get the pages helper
 $pages = $document->getCatalog()->getPages();
@@ -26,12 +26,12 @@ for ($pageNo = 1, $pageCount = $pages->count(); $pageNo <= $pageCount; $pageNo++
 
     // get the annotation helper
     $annotationsHelper = $page->getAnnotations();
-    $widgetAnnotations = $annotationsHelper->getAll(SetaPDF_Core_Document_Page_Annotation::TYPE_WIDGET);
+    $widgetAnnotations = $annotationsHelper->getAll(\SetaPDF_Core_Document_Page_Annotation::TYPE_WIDGET);
     echo '<p>' . count($widgetAnnotations) . ' widget annotations found.</p>';
 
-    /* @var SetaPDF_Core_Document_Page_Annotation_Widget $widgetAnnotation */
+    /* @var \SetaPDF_Core_Document_Page_Annotation_Widget $widgetAnnotation */
     foreach ($widgetAnnotations AS $widgetAnnotation) {
-        $fieldName = SetaPDF_Core_Document_Catalog_AcroForm::resolveFieldName(
+        $fieldName = \SetaPDF_Core_Document_Catalog_AcroForm::resolveFieldName(
             $widgetAnnotation->getIndirectObject()->ensure()
         );
 
@@ -46,11 +46,11 @@ for ($pageNo = 1, $pageCount = $pages->count(); $pageNo <= $pageCount; $pageNo++
         echo '  height: ' . $rect->getHeight() . "\n";
 
         // get the field value
-        $value = SetaPDF_Core_Type_Dictionary_Helper::resolveAttribute($widgetAnnotation->getDictionary(), 'V');
+        $value = \SetaPDF_Core_Type_Dictionary_Helper::resolveAttribute($widgetAnnotation->getDictionary(), 'V');
         // limited to string values for demonstration purpose
-        if ($value instanceof SetaPDF_Core_Type_StringValue) {
+        if ($value instanceof \SetaPDF_Core_Type_StringValue) {
             echo '   value: ';
-            echo SetaPDF_Core_Encoding::convertPdfString($value->getValue());
+            echo \SetaPDF_Core_Encoding::convertPdfString($value->getValue());
         }
 
         echo "</pre></br>";

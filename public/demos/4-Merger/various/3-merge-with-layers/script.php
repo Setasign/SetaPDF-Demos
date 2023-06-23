@@ -19,12 +19,12 @@ $merger->addFile([
 
 // copy the same document a 2nd time but also copy layer information (default behavior)
 $merger->addDocument(
-    SetaPDF_Core_Document::loadByFilename($assetsDirectory . '/pdfs/layers/rect+circle+triangle.pdf')
+    \SetaPDF_Core_Document::loadByFilename($assetsDirectory . '/pdfs/layers/rect+circle+triangle.pdf')
 );
 
 $merger->merge();
 
 $document = $merger->getDocument();
 
-$document->setWriter(new SetaPDF_Core_Writer_Http('layers.pdf', true));
+$document->setWriter(new \SetaPDF_Core_Writer_Http('layers.pdf', true));
 $document->save()->finish();

@@ -12,7 +12,7 @@ $files = [
 
 $path = displayFiles($files);
 
-$document = SetaPDF_Core_Document::loadByFilename($path);
+$document = \SetaPDF_Core_Document::loadByFilename($path);
 
 $signatureFieldNames = SetaPDF_Signer_ValidationRelatedInfo_Collector::getSignatureFieldNames($document);
 foreach ($signatureFieldNames as $signatureFieldName) {

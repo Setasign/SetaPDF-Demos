@@ -11,14 +11,14 @@ $files = [
 
 $path = displayFiles($files);
 
-$writer = new SetaPDF_Core_Writer_Http('stamped.pdf', true);
-$document = SetaPDF_Core_Document::loadByFilename($path, $writer);
+$writer = new \SetaPDF_Core_Writer_Http('stamped.pdf', true);
+$document = \SetaPDF_Core_Document::loadByFilename($path, $writer);
 
 // create a stamper instance
 $stamper = new SetaPDF_Stamper($document);
 
 // create a font instance which is needed for the text stamp instance
-$font = new SetaPDF_Core_Font_TrueType_Subset(
+$font = new \SetaPDF_Core_Font_TrueType_Subset(
     $document,
     $assetsDirectory . '/fonts/DejaVu/ttf/DejaVuSans.ttf'
 );
@@ -35,7 +35,7 @@ $stamp->setBackgroundColor([1, 1, 1]);
 // set padding
 $stamp->setPadding(3);
 // set text color by an explicit color instance
-$stamp->setTextColor(new SetaPDF_Core_DataStructure_Color_Rgb(56/255, 101/255, 174/255));
+$stamp->setTextColor(new \SetaPDF_Core_DataStructure_Color_Rgb(56/255, 101/255, 174/255));
 
 // add the stamp to the stamper instance
 $stamper->addStamp($stamp, [

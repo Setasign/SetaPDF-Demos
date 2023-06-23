@@ -4,9 +4,9 @@
 require_once __DIR__ . '/../../../../../../bootstrap.php';
 
 // create a writer
-$writer = new SetaPDF_Core_Writer_Http('pdf-stamp.pdf', true);
+$writer = new \SetaPDF_Core_Writer_Http('pdf-stamp.pdf', true);
 // get a document instance
-$document = SetaPDF_Core_Document::loadByFilename(
+$document = \SetaPDF_Core_Document::loadByFilename(
     $assetsDirectory . '/pdfs/Fact-Sheet-without-personalization.pdf',
     $writer
 );
@@ -18,7 +18,7 @@ $stamper = new SetaPDF_Stamper($document);
 $stamp = new SetaPDF_Stamper_Stamp_Pdf(
     $assetsDirectory . '/pdfs/lenstown/Logo.pdf',
     1,
-    SetaPDF_Core_PageBoundaries::ART_BOX
+    \SetaPDF_Core_PageBoundaries::ART_BOX
 );
 // set height (and width until no setWidth is set the ratio will retain)
 $stamp->setHeight(23);

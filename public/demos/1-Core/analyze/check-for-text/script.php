@@ -19,7 +19,7 @@ $path = displayFiles($files);
 require_once $classesDirectory . '/ContentStreamProcessor/TextProcessor.php';
 
 // load a document instance
-$document = SetaPDF_Core_Document::loadByFilename($path);
+$document = \SetaPDF_Core_Document::loadByFilename($path);
 // get access to the pages object
 $pages = $document->getCatalog()->getPages();
 

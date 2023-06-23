@@ -24,14 +24,14 @@ $files = [
 
 $path = displayFiles($files)['file'];
 
-$writer = new SetaPDF_Core_Writer_Http('stamped.pdf', true);
-$document = SetaPDF_Core_Document::loadByFilename($path, $writer);
+$writer = new \SetaPDF_Core_Writer_Http('stamped.pdf', true);
+$document = \SetaPDF_Core_Document::loadByFilename($path, $writer);
 
 // create a stamper instance
 $stamper = new SetaPDF_Stamper($document);
 
 // create a font instance which is needed for the text stamp instance
-$font = new SetaPDF_Core_Font_TrueType_Subset(
+$font = new \SetaPDF_Core_Font_TrueType_Subset(
     $document,
     $assetsDirectory . '/fonts/DejaVu/ttf/DejaVuSans.ttf'
 );

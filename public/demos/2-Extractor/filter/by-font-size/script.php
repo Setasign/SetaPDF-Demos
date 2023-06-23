@@ -12,7 +12,7 @@ $data = [
 $fontSize = displaySelect('Filter by:', $data);
 
 // create a document instance
-$document = SetaPDF_Core_Document::loadByFilename($assetsDirectory . '/pdfs/Brand-Guide.pdf');
+$document = \SetaPDF_Core_Document::loadByFilename($assetsDirectory . '/pdfs/Brand-Guide.pdf');
 
 // create an extractor instance
 $extractor = new SetaPDF_Extractor($document);

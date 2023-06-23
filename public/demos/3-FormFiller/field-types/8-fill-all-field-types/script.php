@@ -12,9 +12,9 @@ $files = [
 $dataId = displaySelect('Select file:', $files, true, 'displayValue');
 $data = $files[$dataId];
 
-$document = SetaPDF_Core_Document::loadByFilename(
+$document = \SetaPDF_Core_Document::loadByFilename(
     $data['file'],
-    new SetaPDF_Core_Writer_Http('filled.pdf', true)
+    new \SetaPDF_Core_Writer_Http('filled.pdf', true)
 );
 
 $formFiller = new SetaPDF_FormFiller($document);

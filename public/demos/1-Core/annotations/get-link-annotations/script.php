@@ -14,7 +14,7 @@ $files = [
 $path = displayFiles($files);
 
 // create a document
-$document = SetaPDF_Core_Document::loadByFilename($path);
+$document = \SetaPDF_Core_Document::loadByFilename($path);
 
 // Get the pages helper
 $pages = $document->getCatalog()->getPages();
@@ -23,17 +23,17 @@ echo '<pre>';
 $linksFound = false;
 for ($pageNo = 1, $pageCount = $pages->count(); $pageNo <= $pageCount; $pageNo++) {
     $page = $pages->getPage($pageNo);
-    $linkAnnotations = $page->getAnnotations()->getAll(SetaPDF_Core_Document_Page_Annotation::TYPE_LINK);
+    $linkAnnotations = $page->getAnnotations()->getAll(\SetaPDF_Core_Document_Page_Annotation::TYPE_LINK);
 
-    /** @var SetaPDF_Core_Document_Page_Annotation_Link $linkAnnotation */
+    /** @var \SetaPDF_Core_Document_Page_Annotation_Link $linkAnnotation */
     foreach ($linkAnnotations AS $linkAnnotation) {
         $action = $linkAnnotation->getAction();
         $destination = $linkAnnotation->getDestination();
         if ($action || $destination) {
             echo 'Link Annotation on Page #' . $pageNo . "\n";
-            if ($action instanceof SetaPDF_Core_Document_Action_Uri) {
+            if ($action instanceof \SetaPDF_Core_Document_Action_Uri) {
                 echo '     URI: ' . htmlspecialchars($action->getUri());
-            } elseif ($action instanceof SetaPDF_Core_Document_Action_GoTo) {
+            } elseif ($action instanceof \SetaPDF_Core_Document_Action_GoTo) {
                 $destination = $action->getDestination($document);
             }
 

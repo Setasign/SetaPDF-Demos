@@ -14,7 +14,7 @@ $files = [
 $path = displayFiles($files);
 
 // create a document instance
-$document = SetaPDF_Core_Document::loadByFilename($path);
+$document = \SetaPDF_Core_Document::loadByFilename($path);
 
 // get the documents info dictionary helper
 $info = $document->getInfo();

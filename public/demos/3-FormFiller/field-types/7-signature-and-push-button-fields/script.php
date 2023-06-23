@@ -3,9 +3,9 @@
 // load and register the autoload function
 require_once __DIR__ . '/../../../../../bootstrap.php';
 
-$document = SetaPDF_Core_Document::loadByFilename(
+$document = \SetaPDF_Core_Document::loadByFilename(
     $assetsDirectory . '/pdfs/etown/Order-Form.pdf',
-    new SetaPDF_Core_Writer_Http('flatten.pdf', true)
+    new \SetaPDF_Core_Writer_Http('flatten.pdf', true)
 );
 
 $formFiller = new SetaPDF_FormFiller($document);

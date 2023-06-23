@@ -3,9 +3,9 @@
 // load and register the autoload function
 require_once __DIR__ . '/../../../../../bootstrap.php';
 
-$document = SetaPDF_Core_Document::loadByFilename(
+$document = \SetaPDF_Core_Document::loadByFilename(
     $assetsDirectory . '/pdfs/Brand-Guide-without-links.pdf',
-    new SetaPDF_Core_Writer_Http('document.pdf', true)
+    new \SetaPDF_Core_Writer_Http('document.pdf', true)
 );
 
 $extractor = new SetaPDF_Extractor($document);
@@ -82,13 +82,13 @@ for ($pageNo = $tocStartPage; $pageNo <= $tocEndPage; $pageNo++) {
 
         $linkToPageNo = $m[1];
 
-        $action = new SetaPDF_Core_Document_Action_GoTo(
-            SetaPDF_Core_Document_Destination::createByPage($pages->getPage($linkToPageNo + $offset))
+        $action = new \SetaPDF_Core_Document_Action_GoTo(
+            \SetaPDF_Core_Document_Destination::createByPage($pages->getPage($linkToPageNo + $offset))
         );
         $bounds = $line->getBounds();
         $ll = $bounds[0]->getLl();
         $ur = $bounds[0]->getUr();
-        $annotation = new SetaPDF_Core_Document_Page_Annotation_Link(
+        $annotation = new \SetaPDF_Core_Document_Page_Annotation_Link(
             [$ll->getX(), $ll->getY(), $ur->getX(), $ur->getY()],
             $action
         );

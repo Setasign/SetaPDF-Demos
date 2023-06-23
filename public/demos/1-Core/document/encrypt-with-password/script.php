@@ -13,18 +13,18 @@ $files = [
 $path = displayFiles($files, false);
 
 // create a writer instance
-$writer = new SetaPDF_Core_Writer_Http('encrypted.pdf');
+$writer = new \SetaPDF_Core_Writer_Http('encrypted.pdf');
 
 // create a document instance
-$document = SetaPDF_Core_Document::loadByFilename($path, $writer);
+$document = \SetaPDF_Core_Document::loadByFilename($path, $writer);
 
 // create a security handler instance
-$secHandler = SetaPDF_Core_SecHandler_Standard_Aes256::factory(
+$secHandler = \SetaPDF_Core_SecHandler_Standard_Aes256::factory(
     $document,
     'owner',
     'user',
     // allow the user to print the document in high quality
-    SetaPDF_Core_SecHandler::PERM_PRINT | SetaPDF_Core_SecHandler::PERM_DIGITAL_PRINT
+    \SetaPDF_Core_SecHandler::PERM_PRINT | \SetaPDF_Core_SecHandler::PERM_DIGITAL_PRINT
 );
 
 // pass it to the document instance

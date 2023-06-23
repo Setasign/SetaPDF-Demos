@@ -10,12 +10,12 @@ require_once __DIR__ . '/../../../../../../classes/Signer/Module/Signature/OpenS
 // the file to sign
 $fileToSign = $assetsDirectory . '/pdfs/tektown/Laboratory-Report.pdf';
 // create a temporary path
-$tempFile = SetaPDF_Core_Writer_TempFile::createTempPath();
+$tempFile = \SetaPDF_Core_Writer_TempFile::createTempPath();
 
 // create a writer instance
-$writer = new SetaPDF_Core_Writer_Http('signed-with-php-openssl.pdf');
+$writer = new \SetaPDF_Core_Writer_Http('signed-with-php-openssl.pdf');
 // create the document instance
-$document = SetaPDF_Core_Document::loadByFilename($fileToSign, $writer);
+$document = \SetaPDF_Core_Document::loadByFilename($fileToSign, $writer);
 
 // create the signer instance
 $signer = new SetaPDF_Signer($document);

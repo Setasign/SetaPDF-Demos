@@ -12,22 +12,22 @@ $files = [
 $path = displayFiles($files);
 
 // create a reader
-$reader = new SetaPDF_Core_Reader_File($path);
+$reader = new \SetaPDF_Core_Reader_File($path);
 // create a writer
-$writer = new SetaPDF_Core_Writer_Http('add-pages.pdf', true);
+$writer = new \SetaPDF_Core_Writer_Http('add-pages.pdf', true);
 // create a document
-$document = SetaPDF_Core_Document::load($reader, $writer);
+$document = \SetaPDF_Core_Document::load($reader, $writer);
 
 // Get the pages helper
 $pages = $document->getCatalog()->getPages();
 
 // create a new blank last page and automatically append it
-$newLastPage = $pages->create(SetaPDF_Core_PageFormats::A4);
+$newLastPage = $pages->create(\SetaPDF_Core_PageFormats::A4);
 
 /* create a new blank page in landscape format and pass
  * false to the $append parameter so we can prepend it afterwards.
  */
-$newFirstPage = $pages->create(SetaPDF_Core_PageFormats::A4, SetaPDF_Core_PageFormats::ORIENTATION_LANDSCAPE, false);
+$newFirstPage = $pages->create(\SetaPDF_Core_PageFormats::A4, \SetaPDF_Core_PageFormats::ORIENTATION_LANDSCAPE, false);
 $pages->prepend($newFirstPage);
 
 // remove the OpenAction

@@ -3,14 +3,14 @@
 // load and register the autoload function
 require_once __DIR__ . '/../../../../../bootstrap.php';
 
-$document = new SetaPDF_Core_Document();
-$document->setWriter(new SetaPDF_Core_Writer_Http('structured-bookmark-outline.pdf', true));
+$document = new \SetaPDF_Core_Document();
+$document->setWriter(new \SetaPDF_Core_Writer_Http('structured-bookmark-outline.pdf', true));
 // show outlines when document opens
-$document->getCatalog()->setPageMode(SetaPDF_Core_Document_PageMode::USE_OUTLINES);
+$document->getCatalog()->setPageMode(\SetaPDF_Core_Document_PageMode::USE_OUTLINES);
 
 // create a root outline item
 $outlines = $document->getCatalog()->getOutlines();
-$root = SetaPDF_Core_Document_OutlinesItem::create($document, 'Products');
+$root = \SetaPDF_Core_Document_OutlinesItem::create($document, 'Products');
 $outlines->appendChild($root);
 
 // initiate the merger with the prepared document instance

@@ -13,7 +13,7 @@ $files = [
 $path = displayFiles($files);
 
 // create a document
-$document = SetaPDF_Core_Document::loadByFilename($path);
+$document = \SetaPDF_Core_Document::loadByFilename($path);
 
 $catalog = $document->getCatalog();
 $dictionary = $catalog->getDictionary();

@@ -4,9 +4,9 @@
 require_once __DIR__ . '/../../../../../bootstrap.php';
 
 // create a document as the cover sheet
-$writer = new SetaPDF_Core_Writer_Http('simple-portfolio.pdf');
-$document = new SetaPDF_Core_Document($writer);
-$document->getCatalog()->getPages()->create(SetaPDF_Core_PageFormats::A4);
+$writer = new \SetaPDF_Core_Writer_Http('simple-portfolio.pdf');
+$document = new \SetaPDF_Core_Document($writer);
+$document->getCatalog()->getPages()->create(\SetaPDF_Core_PageFormats::A4);
 // we leave it empty for demonstration purpose...
 
 // create a collection instance
@@ -22,7 +22,7 @@ $collection->addFile(
 // add a dynamically created text file
 $textFile = 'A simple text content';
 $collection->addFile(
-    new SetaPDF_Core_Reader_String($textFile),
+    new \SetaPDF_Core_Reader_String($textFile),
     'text-file.txt',
     'The description of the text file.'
 );

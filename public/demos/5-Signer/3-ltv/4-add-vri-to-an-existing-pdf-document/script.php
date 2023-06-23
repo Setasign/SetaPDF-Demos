@@ -4,9 +4,9 @@
 require_once __DIR__ . '/../../../../../bootstrap.php';
 
 // create a HTTP writer
-$writer = new SetaPDF_Core_Writer_Http('Laboratory-Report-signed-LTV.pdf');
+$writer = new \SetaPDF_Core_Writer_Http('Laboratory-Report-signed-LTV.pdf');
 // let's get the document
-$document = SetaPDF_Core_Document::loadByFilename(
+$document = \SetaPDF_Core_Document::loadByFilename(
     $assetsDirectory . '/pdfs/tektown/Laboratory-Report-signed-no-LTV.pdf', $writer
 );
 

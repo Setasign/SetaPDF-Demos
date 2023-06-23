@@ -3,8 +3,8 @@
 // load and register the autoload function
 require_once __DIR__ . '/../../../../../bootstrap.php';
 
-$writer = new SetaPDF_Core_Writer_Http('visible-signature.pdf', true);
-$document = SetaPDF_Core_Document::loadByFilename(
+$writer = new \SetaPDF_Core_Writer_Http('visible-signature.pdf', true);
+$document = \SetaPDF_Core_Document::loadByFilename(
     $assetsDirectory . '/pdfs/camtown/Laboratory-Report.pdf',
     $writer
 );
@@ -36,7 +36,7 @@ $module->setPrivateKey('file://' . $certificatePath, '');
 // now create the appearance module and pass the signature module along
 $appearance = new SetaPDF_Signer_Signature_Appearance_Dynamic($module);
 // let's create a font instance to not use standard fonts (not embedded)
-$font = new SetaPDF_Core_Font_Type0_Subset(
+$font = new \SetaPDF_Core_Font_Type0_Subset(
     $document,
     $assetsDirectory . '/fonts/DejaVu/ttf/DejaVuSans.ttf'
 );
@@ -56,7 +56,7 @@ $appearance->setShowTpl(SetaPDF_Signer_Signature_Appearance_Dynamic::CONFIG_LOCA
 $appearance->setShowTpl(SetaPDF_Signer_Signature_Appearance_Dynamic::CONFIG_DATE, 'Datum: %s');
 
 // use a photo for the signature
-$appDocument = SetaPDF_Core_Document::loadByFilename($assetsDirectory . '/pdfs/misc/Passport-Photo.pdf');
+$appDocument = \SetaPDF_Core_Document::loadByFilename($assetsDirectory . '/pdfs/misc/Passport-Photo.pdf');
 $pageXObject = $appDocument->getCatalog()->getPages()->getPage(1)->toXObject($document);
 
 // set the photo xObject as graphic

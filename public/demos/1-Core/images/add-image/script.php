@@ -25,8 +25,8 @@ $files = [
 
 $imgPath = displayFiles($files)['path'];
 
-$writer = new SetaPDF_Core_Writer_Http('result.pdf', true);
-$document = SetaPDF_Core_Document::loadByFilename(
+$writer = new \SetaPDF_Core_Writer_Http('result.pdf', true);
+$document = \SetaPDF_Core_Document::loadByFilename(
     $assetsDirectory . '/pdfs/Fact-Sheet-without-personalization.pdf',
     $writer
 );
@@ -47,7 +47,7 @@ $canvas = $pageOne->getCanvas();
 $canvas->normalizeRotationAndOrigin($pageOne->getRotation(), $pageOne->getBoundary());
 
 // create an image instance
-$image = SetaPDF_Core_Image::getByPath($imgPath)->toXObject($document);
+$image = \SetaPDF_Core_Image::getByPath($imgPath)->toXObject($document);
 
 // let's use a fixed height
 $height = 40;

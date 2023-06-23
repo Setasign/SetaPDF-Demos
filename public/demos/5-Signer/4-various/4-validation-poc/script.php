@@ -98,7 +98,7 @@ function verifyAndDumpCertificate(
 echo '<h1>Checking signatures in ' . htmlspecialchars($filename) . '</h1>';
 
 try {
-    $document = SetaPDF_Core_Document::loadByFilename($file);
+    $document = \SetaPDF_Core_Document::loadByFilename($file);
     $signatureFieldNames = SetaPDF_Signer_ValidationRelatedInfo_Collector::getSignatureFieldNames($document);
 
     foreach ($signatureFieldNames AS $fieldName) {
@@ -120,7 +120,7 @@ try {
 
             $signatureData = (string)$signedData->getAsn1();
 
-            echo '<a href="https://lapo.it/asn1js/#' . SetaPDF_Core_Type_HexString::str2hex($signatureData) . '" ' .
+            echo '<a href="https://lapo.it/asn1js/#' . \SetaPDF_Core_Type_HexString::str2hex($signatureData) . '" ' .
                 'target="_blank">asn1js</a> | ';
             echo '<a href="data:application/pkcs7-mime;base64,' . base64_encode($signatureData) . '" ' .
                 'download="signature.pkcs7">download</a><br />';
@@ -173,7 +173,7 @@ try {
             echo '<br/>';
             echo 'Signature properties:<br/>';
 
-            /** @var SetaPDF_Core_Type_Dictionary $dictionary */
+            /** @var \SetaPDF_Core_Type_Dictionary $dictionary */
             $dictionary = $integrityResult->getField()->getValue();
             // get PDF signature properties
             foreach ([
@@ -190,10 +190,10 @@ try {
                 echo $property . ': ';
                 $value = $dictionary->getValue($property)->ensure()->getValue();
                 if ($property == SetaPDF_Signer::PROP_TIME_OF_SIGNING) {
-                    $value = SetaPDF_Core_DataStructure_Date::stringToDateTime($value);
+                    $value = \SetaPDF_Core_DataStructure_Date::stringToDateTime($value);
                     $value = $value->format('Y-m-d H:i:s');
                 } else {
-                    $value = SetaPDF_Core_Encoding::convertPdfString($value);
+                    $value = \SetaPDF_Core_Encoding::convertPdfString($value);
                 }
                 echo $value . '<br />';
             }

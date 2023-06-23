@@ -3,8 +3,8 @@
 // load and register the autoload function
 require_once __DIR__ . '/../../../../../bootstrap.php';
 
-$writer = new SetaPDF_Core_Writer_Http('visible-signature.pdf', true);
-$document = SetaPDF_Core_Document::loadByFilename(
+$writer = new \SetaPDF_Core_Writer_Http('visible-signature.pdf', true);
+$document = \SetaPDF_Core_Document::loadByFilename(
     $assetsDirectory . '/pdfs/camtown/Laboratory-Report.pdf',
     $writer
 );
@@ -34,10 +34,10 @@ $module->setCertificate('file://' . $certificatePath);
 $module->setPrivateKey('file://' . $certificatePath, '');
 
 // load an image and ...
-$graphicImage = SetaPDF_Core_Image::getByPath($assetsDirectory . '/images/Handwritten-Signature.png');
+$graphicImage = \SetaPDF_Core_Image::getByPath($assetsDirectory . '/images/Handwritten-Signature.png');
 // or e.g. through base64 encoded image data:
 //$data = base64_decode('iVBORw0KGgoAAAANSUhEUgAABJYAAAEmCAYAAAAwZRqhAAAgAElEQVR4Xu.../w+l98Lb9eaTFwAAAABJRU5ErkJggg==');
-//$graphicImage = SetaPDF_Core_Image::get(new SetaPDF_Core_Reader_String($data));
+//$graphicImage = \SetaPDF_Core_Image::get(new \SetaPDF_Core_Reader_String($data));
 
 // convert it to an XObject
 $xObject = $graphicImage->toXObject($document);

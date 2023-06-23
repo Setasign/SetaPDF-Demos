@@ -14,9 +14,9 @@ $word = displaySelect('Highlight:', [
 ]);
 
 // load the document
-$document = SetaPDF_Core_Document::loadByFilename(
+$document = \SetaPDF_Core_Document::loadByFilename(
     $assetsDirectory . '/pdfs/tektown/Terms-and-Conditions.pdf',
-    new SetaPDF_Core_Writer_Http('document.pdf', true)
+    new \SetaPDF_Core_Writer_Http('document.pdf', true)
 );
 
 // initate an extractor instance
@@ -71,10 +71,10 @@ for ($pageNo = 1; $pageNo <= $pages->count(); $pageNo++) {
         // if a match occurs, create a highlight annotation and add it to the pages annotations instance
         $bounds = $_word['bounds'];
         foreach ($bounds AS $bound) {
-            $rect = new SetaPDF_Core_Geometry_Rectangle($bound->getLl(), $bound->getUr());
-            $rect = SetaPDF_Core_DataStructure_Rectangle::byRectangle($rect);
+            $rect = new \SetaPDF_Core_Geometry_Rectangle($bound->getLl(), $bound->getUr());
+            $rect = \SetaPDF_Core_DataStructure_Rectangle::byRectangle($rect);
 
-            $annotation = new SetaPDF_Core_Document_Page_Annotation_Highlight($rect);
+            $annotation = new \SetaPDF_Core_Document_Page_Annotation_Highlight($rect);
             $annotation->setColor([1, 1, 0]);
             $annotation->setContents('Match #' . (++$found));
             $annotation->setPrintFlag();

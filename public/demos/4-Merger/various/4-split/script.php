@@ -11,7 +11,7 @@ $zipName = tempnam(sys_get_temp_dir(), 'zip');
 $zip->open($zipName, ZipArchive::CREATE);
 
 // load the "in"-document
-$inDocument = SetaPDF_Core_Document::loadByFilename($pdfPath);
+$inDocument = \SetaPDF_Core_Document::loadByFilename($pdfPath);
 // to prevent multiple object resolving set this to true
 $inDocument->setCacheReferencedObjects(true);
 // keep read objects for reusage for other pages
@@ -32,7 +32,7 @@ for ($pageNumber = 1, $pageCount = $pages->count(); $pageNumber <= $pageCount; $
     $merger->merge();
 
     // create a writer which we can pass to the ZipArchive instance
-    $writer = new SetaPDF_Core_Writer_String();
+    $writer = new \SetaPDF_Core_Writer_String();
 
     // get the resulting document instance
     $resDocument = $merger->getDocument();
@@ -60,7 +60,7 @@ header('Content-Type: application/zip');
 header('Content-Length: ' . filesize($zipName));
 
 header('Content-Disposition: attachment; ' .
-    SetaPDF_Core_Writer_Http::encodeFilenameForHttpHeader(basename($pdfPath, '.pdf') . '.zip')
+    \SetaPDF_Core_Writer_Http::encodeFilenameForHttpHeader(basename($pdfPath, '.pdf') . '.zip')
 );
 readfile($zipName);
 

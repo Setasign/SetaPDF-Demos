@@ -32,21 +32,21 @@ for ($a = $tileCount; $a > 1; $a /= 2) {
 
 // determine the orientation of the new document
 if ($gridSizeX === $gridSizeY) {
-    $orientation = SetaPDF_Core_PageFormats::ORIENTATION_PORTRAIT;
+    $orientation = \SetaPDF_Core_PageFormats::ORIENTATION_PORTRAIT;
 } else {
-    $orientation = SetaPDF_Core_PageFormats::ORIENTATION_LANDSCAPE;
+    $orientation = \SetaPDF_Core_PageFormats::ORIENTATION_LANDSCAPE;
 }
 
 // load the original document
-$originalDocument = SetaPDF_Core_Document::loadByFilename($path);
+$originalDocument = \SetaPDF_Core_Document::loadByFilename($path);
 // get the pages instance of the original document
 $originalPages = $originalDocument->getCatalog()->getPages();
 
 // create a new writer for the new document
-$writer = new SetaPDF_Core_Writer_Http(basename($path), true);
+$writer = new \SetaPDF_Core_Writer_Http(basename($path), true);
 
 // create a new document
-$newDocument = new SetaPDF_Core_Document($writer);
+$newDocument = new \SetaPDF_Core_Document($writer);
 
 // get the pages instance of the new document
 $newPages = $newDocument->getCatalog()->getPages();
@@ -59,7 +59,7 @@ $originalPage = $originalPages->getPage($pageNumber);
 $pageXObject = $originalPage->toXObject($newDocument);
 
 // get the width and height in the correct orientation
-$pageFormat = SetaPDF_Core_PageFormats::getFormat($originalPage->getWidthAndHeight(), $orientation);
+$pageFormat = \SetaPDF_Core_PageFormats::getFormat($originalPage->getWidthAndHeight(), $orientation);
 
 // calculate the new width and height for the XObject.
 $objectWidth  = $pageFormat['width'] * $gridSizeX;
@@ -93,5 +93,5 @@ for ($newPageNumber = 1; $newPageNumber <= $tileCount; $newPageNumber++) {
     }
 }
 
-$newDocument->getCatalog()->setPageLayout(SetaPDF_Core_Document_PageLayout::TWO_COLUMN_LEFT);
+$newDocument->getCatalog()->setPageLayout(\SetaPDF_Core_Document_PageLayout::TWO_COLUMN_LEFT);
 $newDocument->save()->finish();

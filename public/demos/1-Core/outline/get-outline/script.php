@@ -12,9 +12,9 @@ $files = [
 $path = displayFiles($files);
 
 // create a reader
-$reader = new SetaPDF_Core_Reader_File($path);
+$reader = new \SetaPDF_Core_Reader_File($path);
 // create a document
-$document = SetaPDF_Core_Document::load($reader);
+$document = \SetaPDF_Core_Document::load($reader);
 
 // get the outlines helper
 $outlines = $document->getCatalog()->getOutlines();
@@ -49,23 +49,23 @@ foreach ($iterator AS $outlineItem) {
         $destionationOrAction = $action->getType() . ' Action';
         switch (true) {
             // handle GoTo Actions
-            case $action instanceof SetaPDF_Core_Document_Action_GoTo:
+            case $action instanceof \SetaPDF_Core_Document_Action_GoTo:
                 $destination = $action->getDestination($document);
                 $destionationOrAction .= ': Destination on Page ' . $destination->getPageNo($document);
                 break;
 
             // handle Named Actions
-            case $action instanceof SetaPDF_Core_Document_Action_Named:
+            case $action instanceof \SetaPDF_Core_Document_Action_Named:
                 $destionationOrAction .= ': ' . $action->getName();
                 break;
 
             // handle JavaScript actions
-            case $action instanceof SetaPDF_Core_Document_Action_JavaScript:
+            case $action instanceof \SetaPDF_Core_Document_Action_JavaScript:
                 $destionationOrAction .= ': ' . substr($action->getJavaScript(), 0, 100);
                 break;
 
             // handle URI actions
-            case $action instanceof SetaPDF_Core_Document_Action_Uri:
+            case $action instanceof \SetaPDF_Core_Document_Action_Uri:
                 $destionationOrAction .= ': ' . $action->getUri();
                 break;
         }

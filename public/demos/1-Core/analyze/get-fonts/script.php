@@ -20,7 +20,7 @@ $fontObjects = $fontInspector->resolveFonts();
 
 foreach ($fontObjects AS $fontObject) {
     try {
-        $font = SetaPDF_Core_Font::get($fontObject);
+        $font = \SetaPDF_Core_Font::get($fontObject);
     } catch (Exception $e) {
         echo $e->getMessage();
         continue;

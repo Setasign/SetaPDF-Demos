@@ -17,13 +17,13 @@ if (class_exists(SetaPDF_FormFiller::class)) {
 
 $path = displayFiles($files);
 
-$writer = new SetaPDF_Core_Writer_Http('flatten-annotations.pdf', true);
-$document = SetaPDF_Core_Document::loadByFilename($path, $writer);
+$writer = new \SetaPDF_Core_Writer_Http('flatten-annotations.pdf', true);
+$document = \SetaPDF_Core_Document::loadByFilename($path, $writer);
 
 $pages = $document->getCatalog()->getPages();
 $pageCount = $pages->count();
 
-function flattenAnnotation(SetaPDF_Core_Document_Page $page, SetaPDF_Core_Document_Page_Annotation $annotation)
+function flattenAnnotation(\SetaPDF_Core_Document_Page $page, \SetaPDF_Core_Document_Page_Annotation $annotation)
 {
     $appearance = $annotation->getAppearance();
     if (
@@ -46,12 +46,12 @@ function flattenAnnotation(SetaPDF_Core_Document_Page $page, SetaPDF_Core_Docume
 
     $matrix = $appearance->getMatrix();
     if ($matrix === false) {
-        $matrix = new SetaPDF_Core_Geometry_Matrix();
+        $matrix = new \SetaPDF_Core_Geometry_Matrix();
     }
 
-    $t = new SetaPDF_Core_Geometry_Rectangle(
-        SetaPDF_Core_Geometry_Vector::byPoint($bbox->getLl())->multiply($matrix)->toPoint(),
-        SetaPDF_Core_Geometry_Vector::byPoint($bbox->getUr())->multiply($matrix)->toPoint()
+    $t = new \SetaPDF_Core_Geometry_Rectangle(
+        \SetaPDF_Core_Geometry_Vector::byPoint($bbox->getLl())->multiply($matrix)->toPoint(),
+        \SetaPDF_Core_Geometry_Vector::byPoint($bbox->getUr())->multiply($matrix)->toPoint()
     );
 
     if (empty($t->getHeight()) || empty($t->getWidth())) {
@@ -60,8 +60,8 @@ function flattenAnnotation(SetaPDF_Core_Document_Page $page, SetaPDF_Core_Docume
 
     $ll = $rect->getLl();
 
-    $m = new SetaPDF_Core_Geometry_Matrix(1, 0, 0, 1, $ll->getX(), $ll->getY());
-    $scaleMatrix = new SetaPDF_Core_Geometry_Matrix(
+    $m = new \SetaPDF_Core_Geometry_Matrix(1, 0, 0, 1, $ll->getX(), $ll->getY());
+    $scaleMatrix = new \SetaPDF_Core_Geometry_Matrix(
         ($rect->getWidth()) / ($t->getWidth()),
         0,
         0,
@@ -70,7 +70,7 @@ function flattenAnnotation(SetaPDF_Core_Document_Page $page, SetaPDF_Core_Docume
         0
     );
     $m = $scaleMatrix->multiply($m);
-    $translateMatrix2 = new SetaPDF_Core_Geometry_Matrix(1, 0, 0, 1, -$t->getLl()->getX(), -$t->getLl()->getY());
+    $translateMatrix2 = new \SetaPDF_Core_Geometry_Matrix(1, 0, 0, 1, -$t->getLl()->getX(), -$t->getLl()->getY());
     $m = $translateMatrix2->multiply($m);
 
     $canvas->addCurrentTransformationMatrix(
@@ -94,7 +94,7 @@ for ($pageNo = 1; $pageNo <= $pageCount; $pageNo++) {
     $allAnnotations = $annotations->getAll();
 
     foreach ($allAnnotations as $k => $annotation) {
-        if ($annotation instanceof SetaPDF_Core_Document_Page_Annotation_Widget) {
+        if ($annotation instanceof \SetaPDF_Core_Document_Page_Annotation_Widget) {
             continue;
         }
 

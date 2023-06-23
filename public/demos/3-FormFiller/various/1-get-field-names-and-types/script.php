@@ -12,7 +12,7 @@ $files = [
 
 $path = displayFiles($files);
 
-$document = SetaPDF_Core_Document::loadByFilename($path);
+$document = \SetaPDF_Core_Document::loadByFilename($path);
 
 $formFiller = new SetaPDF_FormFiller($document);
 

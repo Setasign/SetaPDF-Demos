@@ -13,12 +13,12 @@ if (strtoupper(substr(PHP_OS, 0, 3)) === 'WIN') {
 // the file to sign
 $fileToSign = $assetsDirectory . '/pdfs/tektown/Laboratory-Report.pdf';
 // create a temporary path
-$tempFile = SetaPDF_Core_Writer_TempFile::createTempPath();
+$tempFile = \SetaPDF_Core_Writer_TempFile::createTempPath();
 
 // create a writer instance
-$writer = new SetaPDF_Core_Writer_Http('signed-with-dgst.pdf');
+$writer = new \SetaPDF_Core_Writer_Http('signed-with-dgst.pdf');
 // create the document instance
-$document = SetaPDF_Core_Document::loadByFilename($fileToSign, $writer);
+$document = \SetaPDF_Core_Document::loadByFilename($fileToSign, $writer);
 
 // create the signer instance
 $signer = new SetaPDF_Signer($document);
@@ -29,7 +29,7 @@ $module->setDigest(SetaPDF_Signer_Digest::SHA_256);
 $module->setCertificate('file://' . $assetsDirectory . '/certificates/setapdf-no-pw.pem');
 
 // create a temporary version which represents the data which should get signed
-$tmpDocument = $signer->preSign(new SetaPDF_Core_Writer_File($tempFile), $module);
+$tmpDocument = $signer->preSign(new \SetaPDF_Core_Writer_File($tempFile), $module);
 
 // for PSS we need to update the SignatureAlgorithmIdentifier as defined here:
 // https://tools.ietf.org/html/rfc4055#section-3.1
@@ -108,9 +108,9 @@ $privateKey = realpath($assetsDirectory . '/certificates/setapdf-no-pw.pem');
 $privateKeyPass = '';
 
 // create a temporary file with the data to sign
-$tmpFileIn = SetaPDF_Core_Writer_TempFile::createTempFile($hashData);
+$tmpFileIn = \SetaPDF_Core_Writer_TempFile::createTempFile($hashData);
 // prepare a temporary file for the final signature
-$tmpFileOut = SetaPDF_Core_Writer_TempFile::createTempPath();
+$tmpFileOut = \SetaPDF_Core_Writer_TempFile::createTempPath();
 
 // build the command
 $cmd = $opensslPath . 'openssl dgst '

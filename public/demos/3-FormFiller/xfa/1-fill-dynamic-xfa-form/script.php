@@ -4,9 +4,9 @@
 require_once __DIR__ . '/../../../../../bootstrap.php';
 
 // get the document isntance
-$document = SetaPDF_Core_Document::loadByFilename(
+$document = \SetaPDF_Core_Document::loadByFilename(
     $assetsDirectory . '/pdfs/forms/xfa/Badge.pdf',
-    new SetaPDF_Core_Writer_Http('dynamic-xfa-form.pdf')
+    new \SetaPDF_Core_Writer_Http('dynamic-xfa-form.pdf')
 );
 
 // now get an instance of the form filler

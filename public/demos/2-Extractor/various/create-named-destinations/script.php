@@ -3,9 +3,9 @@
 // load and register the autoload function
 require_once __DIR__ . '/../../../../../bootstrap.php';
 
-$document = SetaPDF_Core_Document::loadByFilename(
+$document = \SetaPDF_Core_Document::loadByFilename(
     $assetsDirectory . '/pdfs/misc/Chapters.pdf',
-    new SetaPDF_Core_Writer_Http('result.pdf', true)
+    new \SetaPDF_Core_Writer_Http('result.pdf', true)
 );
 
 $extractor = new SetaPDF_Extractor($document);
@@ -25,7 +25,7 @@ $pages = $document->getCatalog()->getPages();
 
 // get access to the named destination tree
 $names = $document->getCatalog()->getNames()->getTree(
-    SetaPDF_Core_Document_Catalog_Names::DESTS, true
+    \SetaPDF_Core_Document_Catalog_Names::DESTS, true
 );
 
 for ($pageNo = 1; $pageNo <= $pages->count(); $pageNo++) {
@@ -52,10 +52,10 @@ for ($pageNo = 1; $pageNo <= $pages->count(); $pageNo++) {
             // get the coordinates of the word
             $bounds = $word->getBounds()[0];
             // create a destination
-            $destination = SetaPDF_Core_Document_Destination::createByPageNo(
+            $destination = \SetaPDF_Core_Document_Destination::createByPageNo(
                 $document,
                 $pageNo,
-                SetaPDF_Core_Document_Destination::FIT_MODE_FIT_BH,
+                \SetaPDF_Core_Document_Destination::FIT_MODE_FIT_BH,
                 $bounds->getUl()->getY()
             );
 
@@ -68,7 +68,7 @@ for ($pageNo = 1; $pageNo <= $pages->count(); $pageNo++) {
             try {
                 // add the named destination to the name tree
                 $names->add($name, $destination->getPdfValue());
-            } catch (SetaPDF_Core_DataStructure_Tree_KeyAlreadyExistsException $e) {
+            } catch (\SetaPDF_Core_DataStructure_Tree_KeyAlreadyExistsException $e) {
                 echo 'The destination name "' . $name . "\" is not unique.<br />";
                 die();
             }

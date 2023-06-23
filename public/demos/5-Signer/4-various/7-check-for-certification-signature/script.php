@@ -19,7 +19,7 @@ if (is_array($file)) {
 }
 
 try {
-    $document = SetaPDF_Core_Document::loadByFilename($file);
+    $document = \SetaPDF_Core_Document::loadByFilename($file);
     $certficationLevel = SetaPDF_Signer::getCertificationLevelByDocument($document);
     if ($certficationLevel === null) {
         echo "Document is not certified.";

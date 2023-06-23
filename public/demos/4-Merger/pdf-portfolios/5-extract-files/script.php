@@ -4,7 +4,7 @@
 require_once __DIR__ . '/../../../../../bootstrap.php';
 
 // create a document
-$document = SetaPDF_Core_Document::loadByFilename(
+$document = \SetaPDF_Core_Document::loadByFilename(
     $assetsDirectory . '/pdfs/tektown/products/All-Portfolio.pdf'
 );
 
@@ -42,7 +42,7 @@ if ($contentType === null) {
 $stream = $embeddedFileStream->getStream();
 header('Content-Type: ' . $contentType);
 header('Content-Disposition: attachment; ' .
-    SetaPDF_Core_Writer_Http::encodeFilenameForHttpHeader($filename)
+    \SetaPDF_Core_Writer_Http::encodeFilenameForHttpHeader($filename)
 );
 header('Content-Transfer-Encoding: binary');
 header('Content-Length: ' . strlen($stream));

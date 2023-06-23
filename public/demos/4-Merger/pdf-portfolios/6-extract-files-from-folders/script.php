@@ -4,7 +4,7 @@
 require_once __DIR__ . '/../../../../../bootstrap.php';
 
 // create a document
-$document = SetaPDF_Core_Document::loadByFilename(
+$document = \SetaPDF_Core_Document::loadByFilename(
     $assetsDirectory . '/pdfs/Logos-Portfolio.pdf'
 );
 
@@ -13,7 +13,7 @@ $collection = new SetaPDF_Merger_Collection($document);
 
 if (isset($_GET['name'])) {
     $file = $collection->getFile($_GET['name']);
-    if ($file instanceof SetaPDF_Core_FileSpecification) {
+    if ($file instanceof \SetaPDF_Core_FileSpecification) {
         // resolve the filename
         $filename = $file->getFileSpecification();
         // resolve the file stream
@@ -27,7 +27,7 @@ if (isset($_GET['name'])) {
         $stream = $embeddedFileStream->getStream();
         header('Content-Type: ' . $contentType);
         header('Content-Disposition: attachment; ' .
-            SetaPDF_Core_Writer_Http::encodeFilenameForHttpHeader($filename)
+            \SetaPDF_Core_Writer_Http::encodeFilenameForHttpHeader($filename)
         );
         header('Content-Transfer-Encoding: binary');
         header('Content-Length: ' . strlen($stream));

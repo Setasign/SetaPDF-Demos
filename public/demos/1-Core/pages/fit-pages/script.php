@@ -4,9 +4,9 @@
 require_once __DIR__ . '/../../../../../bootstrap.php';
 
 // create a string writer for a temporary result
-$writer = new SetaPDF_Core_Writer_String();
+$writer = new \SetaPDF_Core_Writer_String();
 // create a document
-$document = new SetaPDF_Core_Document($writer);
+$document = new \SetaPDF_Core_Document($writer);
 
 // the wanted format
 $wantedFormat = [200, 100];
@@ -15,13 +15,13 @@ $wantedFormat = [200, 100];
 $pages = $document->getCatalog()->getPages();
 
 // create a new font
-$font = SetaPDF_Core_Font_Standard_Courier::create($document);
+$font = \SetaPDF_Core_Font_Standard_Courier::create($document);
 
 // create an array with different formats
 $formats = [
     [ // 1
-        SetaPDF_Core_PageFormats::A4,
-        "A4\n" . SetaPDF_Core_PageFormats::A4,
+        \SetaPDF_Core_PageFormats::A4,
+        "A4\n" . \SetaPDF_Core_PageFormats::A4,
         0,
         70,
     ],
@@ -112,10 +112,10 @@ foreach ($formats as $formatArray) {
     );
 
     // create a new text block
-    $text = new SetaPDF_Core_Text_Block($font, $fontSize);
+    $text = new \SetaPDF_Core_Text_Block($font, $fontSize);
 
     // set the align
-    $text->setAlign(SetaPDF_Core_Text::ALIGN_CENTER);
+    $text->setAlign(\SetaPDF_Core_Text::ALIGN_CENTER);
 
     // set the text of the text block
     $text->setText($formatName);
@@ -126,7 +126,7 @@ foreach ($formats as $formatArray) {
     $text->draw($canvas, $x, $y);
 
     // create an annotation for demonstration purpose
-    $annotation = new SetaPDF_Core_Document_Page_Annotation_Square(
+    $annotation = new \SetaPDF_Core_Document_Page_Annotation_Square(
         [$x, $y, $x + $text->getWidth(), $y + $text->getHeight()]
     );
 
@@ -141,9 +141,9 @@ foreach ($formats as $formatArray) {
 $document->save()->finish();
 
 // transfer the document into a new instance
-$fittedDocument = SetaPDF_Core_Document::load(
-    new SetaPDF_Core_Reader_String($writer),
-    new SetaPDF_Core_Writer_Http('fit.pdf', true)
+$fittedDocument = \SetaPDF_Core_Document::load(
+    new \SetaPDF_Core_Reader_String($writer),
+    new \SetaPDF_Core_Writer_Http('fit.pdf', true)
 );
 
 // get the pages object
@@ -158,10 +158,10 @@ for ($pageNumber = 1; $pageNumber <= $pageCount; $pageNumber++) {
     $page = $pages->getPage($pageNumber);
 
     // sanitize the current page format
-    $format = SetaPDF_Core_PageFormats::getFormat($page->getWidthAndHeight(), SetaPDF_Core_PageFormats::ORIENTATION_AUTO);
+    $format = \SetaPDF_Core_PageFormats::getFormat($page->getWidthAndHeight(), \SetaPDF_Core_PageFormats::ORIENTATION_AUTO);
 
     // check if the format of the current page is the desired format
-    if (SetaPDF_Core_PageFormats::is($wantedFormat, $format)) {
+    if (\SetaPDF_Core_PageFormats::is($wantedFormat, $format)) {
         continue;
     }
 
@@ -169,7 +169,7 @@ for ($pageNumber = 1; $pageNumber <= $pageCount; $pageNumber++) {
     $orientation = $page->getOrientation();
 
     // align the wanted format to the page orientation
-    $wantedFormatArray = SetaPDF_Core_PageFormats::getFormat($wantedFormat, $orientation);
+    $wantedFormatArray = \SetaPDF_Core_PageFormats::getFormat($wantedFormat, $orientation);
 
     // check if the page is rotated
     $rotated = ($page->getRotation() / 90) % 2;
@@ -199,7 +199,7 @@ for ($pageNumber = 1; $pageNumber <= $pageCount; $pageNumber++) {
     $cropBox = $page->getBoundary();
 
     // calculate the scaling
-    $rect = new SetaPDF_Core_Geometry_Rectangle(
+    $rect = new \SetaPDF_Core_Geometry_Rectangle(
         $cropBox->getLlx() * $scale,
         $cropBox->getLly() * $scale,
         $cropBox->getUrx() * $scale,
@@ -231,7 +231,7 @@ for ($pageNumber = 1; $pageNumber <= $pageCount; $pageNumber++) {
     $canvas->restoreGraphicState();
 
     // let's adjust the boundary boxes
-    $boxes = SetaPDF_Core_PageBoundaries::$all;
+    $boxes = \SetaPDF_Core_PageBoundaries::$all;
     // reverse the boxes order to pass valid boxes to the page
     if ($scale < 1) {
         $boxes = array_reverse($boxes);
@@ -245,7 +245,7 @@ for ($pageNumber = 1; $pageNumber <= $pageCount; $pageNumber++) {
         }
 
         // create a new boundary box
-        $box = SetaPDF_Core_DataStructure_Rectangle::byArray(
+        $box = \SetaPDF_Core_DataStructure_Rectangle::byArray(
             [
                 $_box->getLlx(),
                 $_box->getLly(),
@@ -266,10 +266,10 @@ for ($pageNumber = 1; $pageNumber <= $pageCount; $pageNumber++) {
 
         // the size of a popup annotation has to be handled individually
         // we just use the scale and translate values which were calculated before
-        if ($annotation instanceof SetaPDF_Core_Document_Page_Annotation_Popup) {
+        if ($annotation instanceof \SetaPDF_Core_Document_Page_Annotation_Popup) {
             $_rect = $annotation->getRect();
 
-            $rect = SetaPDF_Core_DataStructure_Rectangle::byArray([
+            $rect = \SetaPDF_Core_DataStructure_Rectangle::byArray([
                 $_rect->getLlx() * $scale + $translateX,
                 $_rect->getLly() * $scale + $translateY + $_rect->getHeight(),
                 $_rect->getLlx() * $scale + $translateX + $_rect->getWidth(),
@@ -280,7 +280,7 @@ for ($pageNumber = 1; $pageNumber <= $pageCount; $pageNumber++) {
         }
 
         $_rect = $annotation->getRect();
-        $rect = SetaPDF_Core_DataStructure_Rectangle::byArray([
+        $rect = \SetaPDF_Core_DataStructure_Rectangle::byArray([
             $_rect->getLlx() * $scale + $translateX,
             $_rect->getLly() * $scale + $translateY,
             $_rect->getUrx() * $scale + $translateX,

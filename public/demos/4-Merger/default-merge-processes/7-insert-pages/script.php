@@ -42,5 +42,5 @@ $document = $merger->getDocument();
 $documentA = $merger->getDocumentByFileName($main);
 $document->getInfo()->setAll($documentA->getInfo()->getAll());
 
-$document->setWriter(new SetaPDF_Core_Writer_Http('insert-pages.pdf', true));
+$document->setWriter(new \SetaPDF_Core_Writer_Http('insert-pages.pdf', true));
 $document->save()->finish();

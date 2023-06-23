@@ -10,7 +10,7 @@ $invoicesByCustomerName = [];
 
 foreach ($files AS $file) {
     // initiate a document instance
-    $document = SetaPDF_Core_Document::loadByFilename($file);
+    $document = \SetaPDF_Core_Document::loadByFilename($file);
 
     // initiate an extractor instance
     $extractor = new SetaPDF_Extractor($document);
@@ -20,14 +20,14 @@ foreach ($files AS $file) {
 
     // define a rectangle filter for the invoice recipient name
     $recipientNameFilter = new SetaPDF_Extractor_Filter_Rectangle(
-        new SetaPDF_Core_Geometry_Rectangle(40, 665, 260, 700),
+        new \SetaPDF_Core_Geometry_Rectangle(40, 665, 260, 700),
         SetaPDF_Extractor_Filter_Rectangle::MODE_CONTACT,
         'recipient'
     );
 
     // define another rectangle filter for the invoice number
     $invoiceNofilter = new SetaPDF_Extractor_Filter_Rectangle(
-        new SetaPDF_Core_Geometry_Rectangle(512, 520, 580, 540),
+        new \SetaPDF_Core_Geometry_Rectangle(512, 520, 580, 540),
         SetaPDF_Extractor_Filter_Rectangle::MODE_CONTACT,
         'invoiceNo'
     );

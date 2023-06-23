@@ -4,9 +4,9 @@
 require_once __DIR__ . '/../../../../../../bootstrap.php';
 
 // create a writer
-$writer = new SetaPDF_Core_Writer_Http('pdf-form-stamped.pdf', true);
+$writer = new \SetaPDF_Core_Writer_Http('pdf-form-stamped.pdf', true);
 // get a document instance
-$document = SetaPDF_Core_Document::loadByFilename(
+$document = \SetaPDF_Core_Document::loadByFilename(
     $assetsDirectory . '/pdfs/tektown/Order-Form-without-Signaturefield.pdf',
     $writer
 );
@@ -15,7 +15,7 @@ $document = SetaPDF_Core_Document::loadByFilename(
 $stamper = new SetaPDF_Stamper($document);
 
 // get an image instance
-$image = SetaPDF_Core_Image::getByPath($assetsDirectory . '/images/Handwritten-Signature.png');
+$image = \SetaPDF_Core_Image::getByPath($assetsDirectory . '/images/Handwritten-Signature.png');
 // initiate the stamp
 $stamp = new SetaPDF_Stamper_Stamp_Image($image);
 // set height (and width until no setWidth is set the ratio will retain)

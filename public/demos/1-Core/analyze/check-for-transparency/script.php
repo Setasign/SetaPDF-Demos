@@ -14,7 +14,7 @@ $path = displayFiles($files);
 // require the text processor class
 require_once $classesDirectory . '/Inspector/TransparencyInspector.php';
 
-$document = SetaPDF_Core_Document::loadByFilename($path);
+$document = \SetaPDF_Core_Document::loadByFilename($path);
 
 $inspector = new TransparencyInspector($document);
 $transparencyElements = $inspector->process();

@@ -3,8 +3,8 @@
 // load and register the autoload function
 require_once __DIR__ . '/../../../../../bootstrap.php';
 
-$writer = new SetaPDF_Core_Writer_Http('encrypted-and-signed.pdf');
-$document = SetaPDF_Core_Document::loadByFilename(
+$writer = new \SetaPDF_Core_Writer_Http('encrypted-and-signed.pdf');
+$document = \SetaPDF_Core_Document::loadByFilename(
     $assetsDirectory . '/pdfs/lenstown/Laboratory-Report.pdf',
     $writer
 );
@@ -13,23 +13,23 @@ $ownerPassword = 'AVerySecretOwnerPassword';
 $userPassword = 'ANotherVerySecretUserPassword';
 
 // all permissions but printing
-$permissions = SetaPDF_Core_SecHandler::PERM_ACCESSIBILITY
-    | SetaPDF_Core_SecHandler::PERM_ANNOT
-    | SetaPDF_Core_SecHandler::PERM_ASSEMBLE
-    | SetaPDF_Core_SecHandler::PERM_COPY
-    | SetaPDF_Core_SecHandler::PERM_MODIFY
-    | SetaPDF_Core_SecHandler::PERM_FILL_FORM
+$permissions = \SetaPDF_Core_SecHandler::PERM_ACCESSIBILITY
+    | \SetaPDF_Core_SecHandler::PERM_ANNOT
+    | \SetaPDF_Core_SecHandler::PERM_ASSEMBLE
+    | \SetaPDF_Core_SecHandler::PERM_COPY
+    | \SetaPDF_Core_SecHandler::PERM_MODIFY
+    | \SetaPDF_Core_SecHandler::PERM_FILL_FORM
 ;
 
 // create a security handler
-$secHandler = SetaPDF_Core_SecHandler_Standard_Aes256::factory(
+$secHandler = \SetaPDF_Core_SecHandler_Standard_Aes256::factory(
     $document, $ownerPassword, $userPassword, $permissions
 );
 // and pass it to the document instance
 $document->setSecHandler($secHandler);
 
 // let's create an authentication callback
-$authCallback = static function(SetaPDF_Core_SecHandler_SecHandlerInterface $secHandler) use ($ownerPassword) {
+$authCallback = static function(\SetaPDF_Core_SecHandler_SecHandlerInterface $secHandler) use ($ownerPassword) {
     $secHandler->auth($ownerPassword);
 };
 

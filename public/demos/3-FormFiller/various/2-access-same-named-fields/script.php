@@ -3,8 +3,8 @@
 // load and register the autoload function
 require_once __DIR__ . '/../../../../../bootstrap.php';
 
-$writer = new SetaPDF_Core_Writer_Http('filled.pdf', true);
-$document = SetaPDF_Core_Document::loadByFilename(
+$writer = new \SetaPDF_Core_Writer_Http('filled.pdf', true);
+$document = \SetaPDF_Core_Document::loadByFilename(
     $assetsDirectory . '/pdfs/etown/Terms-and-Conditions.pdf',
     $writer
 );

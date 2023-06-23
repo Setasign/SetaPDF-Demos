@@ -12,9 +12,9 @@ $files = [
 $path = displayFiles($files);
 
 // create a file writer
-$writer = new SetaPDF_Core_Writer_Http('rotated.pdf', true);
+$writer = new \SetaPDF_Core_Writer_Http('rotated.pdf', true);
 // load document by filename
-$document = SetaPDF_Core_Document::loadByFilename($path, $writer);
+$document = \SetaPDF_Core_Document::loadByFilename($path, $writer);
 
 // get pages object
 $pages = $document->getCatalog()->getPages();

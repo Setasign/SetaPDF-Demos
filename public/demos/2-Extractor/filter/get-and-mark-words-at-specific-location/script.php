@@ -7,7 +7,7 @@ $files = glob($assetsDirectory . '/pdfs/*/eBook-Invoice.pdf');
 
 $path = displayFiles($files);
 
-$document = SetaPDF_Core_Document::loadByFilename($path);
+$document = \SetaPDF_Core_Document::loadByFilename($path);
 
 // initiate an extractor instance
 $extractor = new SetaPDF_Extractor($document);
@@ -17,14 +17,14 @@ $strategy = new SetaPDF_Extractor_Strategy_Word();
 
 // define filter areas
 $invoicingPartyFilter = new SetaPDF_Extractor_Filter_Rectangle(
-    new SetaPDF_Core_Geometry_Rectangle(40, 705, 220, 720),
+    new \SetaPDF_Core_Geometry_Rectangle(40, 705, 220, 720),
     SetaPDF_Extractor_Filter_Rectangle::MODE_CONTACT,
     'invoicingParty'
 );
 
 // define filter areas
 $invoiceNoFilter = new SetaPDF_Extractor_Filter_Rectangle(
-    new SetaPDF_Core_Geometry_Rectangle(512, 520, 580, 540),
+    new \SetaPDF_Core_Geometry_Rectangle(512, 520, 580, 540),
     SetaPDF_Extractor_Filter_Rectangle::MODE_CONTACT,
     'invoiceNo'
 );
@@ -70,5 +70,5 @@ foreach ($words AS $word) {
     }
 }
 
-$document->setWriter(new SetaPDF_Core_Writer_Http('document.pdf', true));
+$document->setWriter(new \SetaPDF_Core_Writer_Http('document.pdf', true));
 $document->save()->finish();

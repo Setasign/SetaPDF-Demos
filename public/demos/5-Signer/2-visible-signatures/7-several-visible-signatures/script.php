@@ -4,9 +4,9 @@
 require_once __DIR__ . '/../../../../../bootstrap.php';
 
 // create a temporary writer
-$tempWriter = new SetaPDF_Core_Writer_String();
+$tempWriter = new \SetaPDF_Core_Writer_String();
 
-$document = SetaPDF_Core_Document::loadByFilename(
+$document = \SetaPDF_Core_Document::loadByFilename(
     $assetsDirectory . '/pdfs/camtown/Laboratory-Report.pdf',
     $tempWriter
 );
@@ -46,10 +46,10 @@ $signer->sign($module);
 
 
 // create the final writer
-$writer = new SetaPDF_Core_Writer_Http('several-signatures.pdf', true);
+$writer = new \SetaPDF_Core_Writer_Http('several-signatures.pdf', true);
 
 // create a new document instance based on the temporary result
-$document = SetaPDF_Core_Document::loadByString($tempWriter, $writer);
+$document = \SetaPDF_Core_Document::loadByString($tempWriter, $writer);
 
 // create a signer instance
 $signer = new SetaPDF_Signer($document);

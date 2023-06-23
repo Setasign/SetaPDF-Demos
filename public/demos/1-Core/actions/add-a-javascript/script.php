@@ -12,20 +12,20 @@ $files = [
 $path = displayFiles($files, false);
 
 // create a writer instance
-$writer = new SetaPDF_Core_Writer_Http('AddJavaScript.pdf', false);
+$writer = new \SetaPDF_Core_Writer_Http('AddJavaScript.pdf', false);
 // create a document instance
-$document = SetaPDF_Core_Document::loadByFilename($path, $writer);
+$document = \SetaPDF_Core_Document::loadByFilename($path, $writer);
 
 // this is our JavaScript we want to inject - we check for an
 // existing JavaScript variable in the document to show some logic.
 $js = 'var msg = typeof(SetaPDF) != "undefined" ? SetaPDF : "Hello from SetaPDF!"; app.alert(msg);';
 // create an action
-$jsAction = new SetaPDF_Core_Document_Action_JavaScript($js);
+$jsAction = new \SetaPDF_Core_Document_Action_JavaScript($js);
 
 // get names
 $names = $document->getCatalog()->getNames();
 // get the JavaScript name tree
-$javaScriptTree = $names->getTree(SetaPDF_Core_Document_Catalog_Names::JAVA_SCRIPT, true);
+$javaScriptTree = $names->getTree(\SetaPDF_Core_Document_Catalog_Names::JAVA_SCRIPT, true);
 
 // make sure we've an unique name
 $name = 'SetaPDF';

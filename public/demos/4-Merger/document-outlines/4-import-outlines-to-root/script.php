@@ -26,7 +26,7 @@ $merger->merge();
 $document = $merger->getDocument();
 
 // show outlines when document opens
-$document->getCatalog()->setPageMode(SetaPDF_Core_Document_PageMode::USE_OUTLINES);
+$document->getCatalog()->setPageMode(\SetaPDF_Core_Document_PageMode::USE_OUTLINES);
 
-$document->setWriter(new SetaPDF_Core_Writer_Http('outlines-in-root.pdf', true));
+$document->setWriter(new \SetaPDF_Core_Writer_Http('outlines-in-root.pdf', true));
 $document->save()->finish();

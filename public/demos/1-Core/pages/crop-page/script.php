@@ -13,10 +13,10 @@ $rectColors = [
 $rectColor = displaySelect('Crop to:', $rectColors);
 
 // create a writer instance
-$writer = new SetaPDF_Core_Writer_Http('cropped.pdf', true);
+$writer = new \SetaPDF_Core_Writer_Http('cropped.pdf', true);
 
 // create a document instance
-$document = SetaPDF_Core_Document::loadByFilename($assetsDirectory . '/pdfs/misc/4-rects.pdf', $writer);
+$document = \SetaPDF_Core_Document::loadByFilename($assetsDirectory . '/pdfs/misc/4-rects.pdf', $writer);
 
 // get the pages helper
 $pages = $document->getCatalog()->getPages();
@@ -35,7 +35,7 @@ $position = [
 ];
 
 // resize all available page boxes
-foreach (SetaPDF_Core_PageBoundaries::$all AS $boxName) {
+foreach (\SetaPDF_Core_PageBoundaries::$all AS $boxName) {
     $box = $page->getBoundary($boxName, false);
     if ($box === false) {
         continue;

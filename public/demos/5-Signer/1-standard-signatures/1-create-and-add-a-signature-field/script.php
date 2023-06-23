@@ -3,13 +3,13 @@
 // load and register the autoload function
 require_once __DIR__ . '/../../../../../bootstrap.php';
 
-$writer = new SetaPDF_Core_Writer_Http('signature-fields.pdf');
-$document = new SetaPDF_Core_Document($writer);
+$writer = new \SetaPDF_Core_Writer_Http('signature-fields.pdf');
+$document = new \SetaPDF_Core_Document($writer);
 
 // create an empty document with some pages
 $pages = $document->getCatalog()->getPages();
-$pages->create(SetaPDF_Core_PageFormats::A4);
-$pages->create(SetaPDF_Core_PageFormats::A4, SetaPDF_Core_PageFormats::ORIENTATION_LANDSCAPE);
+$pages->create(\SetaPDF_Core_PageFormats::A4);
+$pages->create(\SetaPDF_Core_PageFormats::A4, \SetaPDF_Core_PageFormats::ORIENTATION_LANDSCAPE);
 
 // by default the signer component will add an invisible field. You can do this manually, this way:
 $fieldA = SetaPDF_Signer_SignatureField::add($document, 'MyInvisibleSignature');

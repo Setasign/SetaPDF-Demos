@@ -11,8 +11,8 @@ $files = [
 
 $path = displayFiles($files);
 
-$writer = new SetaPDF_Core_Writer_Http('stamped.pdf', true);
-$document = SetaPDF_Core_Document::loadByFilename($path, $writer);
+$writer = new \SetaPDF_Core_Writer_Http('stamped.pdf', true);
+$document = \SetaPDF_Core_Document::loadByFilename($path, $writer);
 
 // create a stamper instance
 $stamper = new SetaPDF_Stamper($document);
@@ -33,7 +33,7 @@ $stamp->setBackgroundColor([.95, .95, .95]);
 // set padding
 $stamp->setPadding(3);
 // set default text color by an explicit color instance
-$stamp->setDefaultTextColor(new SetaPDF_Core_DataStructure_Color_Rgb(56/255, 101/255, 174/255));
+$stamp->setDefaultTextColor(new \SetaPDF_Core_DataStructure_Color_Rgb(56/255, 101/255, 174/255));
 
 // add the stamp to the stamper instance
 $stamper->addStamp($stamp, [

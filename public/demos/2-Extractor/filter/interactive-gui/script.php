@@ -71,7 +71,7 @@ if (isset($_GET['action']) && $_GET['action'] === 'preview') {
     }
     $file = $files[$_GET['file']];
 
-    $document = SetaPDF_Core_Document::loadByFilename($file);
+    $document = \SetaPDF_Core_Document::loadByFilename($file);
     $pages = $document->getCatalog()->getPages();
     $pageCount = $pages->count();
     $pageFormats = [];
@@ -113,7 +113,7 @@ if (isset($_GET['action']) && $_GET['action'] === 'preview') {
     $y2 = $_GET['data']['y2'];
 
     // load the document
-    $document = SetaPDF_Core_Document::loadByFilename($file);
+    $document = \SetaPDF_Core_Document::loadByFilename($file);
 
     // get access to its pages
     $pages = $document->getCatalog()->getPages();
@@ -125,7 +125,7 @@ if (isset($_GET['action']) && $_GET['action'] === 'preview') {
     $strategy = new SetaPDF_Extractor_Strategy_ExactPlain();
     // pass a rectangle filter to the strategy
     $strategy->setFilter(new SetaPDF_Extractor_Filter_Rectangle(
-        new SetaPDF_Core_Geometry_Rectangle($x1, $y1, $x2, $y2),
+        new \SetaPDF_Core_Geometry_Rectangle($x1, $y1, $x2, $y2),
         SetaPDF_Extractor_Filter_Rectangle::MODE_CONTACT
     ));
     $extractor->setStrategy($strategy);

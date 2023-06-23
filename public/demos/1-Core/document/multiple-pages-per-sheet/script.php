@@ -30,7 +30,7 @@ for ($a = $perSheet; $a > 1; $a /= 2) {
 }
 
 // load the original document
-$originalDocument = SetaPDF_Core_Document::loadByFilename($path);
+$originalDocument = \SetaPDF_Core_Document::loadByFilename($path);
 // get the pages instance of the original document
 $originalPages = $originalDocument->getCatalog()->getPages();
 
@@ -43,10 +43,10 @@ $longSide = array_keys($pageSize, max($pageSize))[0];
 $shortSide = array_keys($pageSize, min($pageSize))[0];
 
 // create a new writer for the new document
-$writer = new SetaPDF_Core_Writer_Http(basename($path), true);
+$writer = new \SetaPDF_Core_Writer_Http(basename($path), true);
 
 // create a new document
-$newDocument = new SetaPDF_Core_Document($writer);
+$newDocument = new \SetaPDF_Core_Document($writer);
 
 // get the pages instance of the new document
 $newPages = $newDocument->getCatalog()->getPages();
@@ -66,7 +66,7 @@ $newPageSize = [
 // create the new pages
 for ($newPageNumber = 1; $newPageNumber <= $finalPageCount; $newPageNumber++) {
     // create a new page
-    $newPage = $newPages->create($newPageSize, SetaPDF_Core_PageFormats::ORIENTATION_AUTO);
+    $newPage = $newPages->create($newPageSize, \SetaPDF_Core_PageFormats::ORIENTATION_AUTO);
 
     // prepare an offset to access the pages of the original document
     $pageOffset = ($newPageNumber - 1) * $perSheet;
@@ -95,7 +95,7 @@ for ($newPageNumber = 1; $newPageNumber <= $finalPageCount; $newPageNumber++) {
         );
 
         $pos[0] -= $pageSize[0];
-        if ($pos[0] < SetaPDF_Core::FLOAT_COMPARISON_PRECISION) {
+        if ($pos[0] < \SetaPDF_Core::FLOAT_COMPARISON_PRECISION) {
             $pos[1] += $pageSize[1];
             $pos[0] = $newPageSize[0];
         }

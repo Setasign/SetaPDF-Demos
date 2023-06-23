@@ -11,7 +11,7 @@ $files = [
 $path = displayFiles($files);
 
 // create a document instance
-$document = SetaPDF_Core_Document::loadByFilename($path);
+$document = \SetaPDF_Core_Document::loadByFilename($path);
 // initate an extractor instance
 $extractor = new SetaPDF_Extractor($document);
 
@@ -30,12 +30,12 @@ for ($pageNo = 1, $pageCount = $pages->count(); $pageNo <= $pageCount; $pageNo++
     // get the annotations
     $annotations = array_filter(
         $page->getAnnotations()->getAll(),
-        static function (SetaPDF_Core_Document_Page_Annotation $annotation) {
+        static function (\SetaPDF_Core_Document_Page_Annotation $annotation) {
             switch ($annotation->getType()) {
-                case SetaPDF_Core_Document_Page_Annotation::TYPE_HIGHLIGHT:
-                case SetaPDF_Core_Document_Page_Annotation::TYPE_STRIKE_OUT:
-                case SetaPDF_Core_Document_Page_Annotation::TYPE_CARET:
-                case SetaPDF_Core_Document_Page_Annotation::TYPE_UNDERLINE:
+                case \SetaPDF_Core_Document_Page_Annotation::TYPE_HIGHLIGHT:
+                case \SetaPDF_Core_Document_Page_Annotation::TYPE_STRIKE_OUT:
+                case \SetaPDF_Core_Document_Page_Annotation::TYPE_CARET:
+                case \SetaPDF_Core_Document_Page_Annotation::TYPE_UNDERLINE:
                     return true;
             }
 
@@ -53,14 +53,14 @@ for ($pageNo = 1, $pageCount = $pages->count(); $pageNo <= $pageCount; $pageNo++
     // iterate over all highlight annotations
     foreach ($annotations AS $tmpId => $annotation) {
         /**
-         * @var SetaPDF_Core_Document_Page_Annotation_TextMarkup $annotation
+         * @var \SetaPDF_Core_Document_Page_Annotation_TextMarkup $annotation
          */
         $name = 'P#' . $pageNo . '/TMA#' . $tmpId;
         if ($annotation->getName()) {
             $name .= ' (' . $annotation->getName() . ')';
         }
 
-        if ($annotation instanceof SetaPDF_Core_Document_Page_Annotation_TextMarkup) {
+        if ($annotation instanceof \SetaPDF_Core_Document_Page_Annotation_TextMarkup) {
             // iterate over the quad points to setup our filter instances
             $quadpoints = $annotation->getQuadPoints();
             for ($pos = 0, $c = count($quadpoints); $pos < $c; $pos += 8) {
@@ -77,7 +77,7 @@ for ($pageNo = 1, $pageCount = $pages->count(); $pageNo <= $pageCount; $pageNo++
                 // Add a new rectangle filter to the multi filter instance
                 $filter->addFilter(
                     new SetaPDF_Extractor_Filter_Rectangle(
-                        new SetaPDF_Core_Geometry_Rectangle($llx, $lly, $urx, $ury),
+                        new \SetaPDF_Core_Geometry_Rectangle($llx, $lly, $urx, $ury),
                         SetaPDF_Extractor_Filter_Rectangle::MODE_CONTACT,
                         $name
                     )

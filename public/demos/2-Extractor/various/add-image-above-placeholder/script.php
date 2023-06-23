@@ -3,7 +3,7 @@
 // load and register the autoload function
 require_once __DIR__ . '/../../../../../bootstrap.php';
 
-$document = SetaPDF_Core_Document::loadByFilename(
+$document = \SetaPDF_Core_Document::loadByFilename(
     $assetsDirectory . '/pdfs/tektown/Laboratory-Report - with-sig-placeholders.pdf'
 );
 
@@ -19,7 +19,7 @@ $pages = $document->getCatalog()->getPages();
 
 // define a mapping of placeholders to images
 $images = [
-    'SIGNATURE' => SetaPDF_Core_Image::getByPath(
+    'SIGNATURE' => \SetaPDF_Core_Image::getByPath(
         $assetsDirectory . '/images/Handwritten-Signature.png'
     )->toXObject($document)
 ];
@@ -89,10 +89,10 @@ foreach ($matches AS $match) {
     // draw a white rectangle
     $canvas->draw()
         ->setNonStrokingColor(1)
-        ->rect($x, $y, $width, $height, SetaPDF_Core_Canvas_Draw::STYLE_FILL);
+        ->rect($x, $y, $width, $height, \SetaPDF_Core_Canvas_Draw::STYLE_FILL);
 
     /**
-     * @var SetaPDF_Core_XObject_Image $image
+     * @var \SetaPDF_Core_XObject_Image $image
      */
     $image = $images[$name];
     // draw the image onto the canvas
@@ -100,5 +100,5 @@ foreach ($matches AS $match) {
 }
 
 // save and finish the document
-$document->setWriter(new SetaPDF_Core_Writer_Http('document.pdf', true));
+$document->setWriter(new \SetaPDF_Core_Writer_Http('document.pdf', true));
 $document->save()->finish();

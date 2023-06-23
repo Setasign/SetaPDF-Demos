@@ -46,7 +46,7 @@ try {
             }
 
             // load the PDF document
-            $document = SetaPDF_Core_Document::loadByFilename($fileToSign);
+            $document = \SetaPDF_Core_Document::loadByFilename($fileToSign);
             // create a signer instance
             $signer = new SetaPDF_Signer($document);
             // create a module instance
@@ -114,11 +114,11 @@ try {
             //        $signer->setAppearance($appearance);
 
             // you may use an own temporary file handler
-            $tempPath = SetaPDF_Core_Writer_TempFile::createTempPath();
+            $tempPath = \SetaPDF_Core_Writer_TempFile::createTempPath();
 
             // prepare the PDF
             $_SESSION['tmpDocument'] = $signer->preSign(
-                new SetaPDF_Core_Writer_File($tempPath),
+                new \SetaPDF_Core_Writer_File($tempPath),
                 $module
             );
 
@@ -126,7 +126,7 @@ try {
 
             // prepare the response
             $response = [
-                'dataToSign' => SetaPDF_Core_Type_HexString::str2hex(
+                'dataToSign' => \SetaPDF_Core_Type_HexString::str2hex(
                     $module->getDataToSign($_SESSION['tmpDocument']->getHashFile())
                 ),
                 'extraCerts' => array_map(function (SetaPDF_Signer_X509_Certificate $cert) {
@@ -148,11 +148,11 @@ try {
                 die();
             }
 
-            $data->signature = SetaPDF_Core_Type_HexString::hex2str($data->signature);
+            $data->signature = \SetaPDF_Core_Type_HexString::hex2str($data->signature);
 
             // create the document instance
-            $writer = new SetaPDF_Core_Writer_String();
-            $document = SetaPDF_Core_Document::loadByFilename($fileToSign, $writer);
+            $writer = new \SetaPDF_Core_Writer_String();
+            $document = \SetaPDF_Core_Document::loadByFilename($fileToSign, $writer);
             $signer = new SetaPDF_Signer($document);
 
             // pass the signature to the signature modul

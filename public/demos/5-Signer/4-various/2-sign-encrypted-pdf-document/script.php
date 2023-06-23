@@ -3,14 +3,14 @@
 // load and register the autoload function
 require_once __DIR__ . '/../../../../../bootstrap.php';
 
-$writer = new SetaPDF_Core_Writer_Http('topsecret.pdf');
-$document = SetaPDF_Core_Document::loadByFilename(
+$writer = new \SetaPDF_Core_Writer_Http('topsecret.pdf');
+$document = \SetaPDF_Core_Document::loadByFilename(
     $assetsDirectory . '/pdfs/tektown/Laboratory-Report-up=topsecret,op=owner.pdf',
     $writer
 );
 
 // let's create an authentication callback
-$authCallback = static function(SetaPDF_Core_SecHandler_SecHandlerInterface $secHandler) {
+$authCallback = static function(\SetaPDF_Core_SecHandler_SecHandlerInterface $secHandler) {
     $secHandler->auth('owner');
 };
 

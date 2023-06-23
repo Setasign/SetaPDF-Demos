@@ -9,8 +9,8 @@ $pdfOrPng = displaySelect(
     false
 );
 
-$writer = new SetaPDF_Core_Writer_Http('visible-signature.pdf', true);
-$document = SetaPDF_Core_Document::loadByFilename(
+$writer = new \SetaPDF_Core_Writer_Http('visible-signature.pdf', true);
+$document = \SetaPDF_Core_Document::loadByFilename(
     $assetsDirectory . '/pdfs/camtown/Laboratory-Report.pdf',
     $writer
 );
@@ -42,7 +42,7 @@ $module->setPrivateKey('file://' . $certificatePath, '');
 // now create the appearance module and pass the signature module along
 $appearance = new SetaPDF_Signer_Signature_Appearance_Dynamic($module);
 // let's create a font instance to not use standard fonts (not embedded)
-$font = new SetaPDF_Core_Font_Type0_Subset(
+$font = new \SetaPDF_Core_Font_Type0_Subset(
     $document,
     $assetsDirectory . '/fonts/DejaVu/ttf/DejaVuSans.ttf'
 );
@@ -51,36 +51,36 @@ $appearance->setFont($font);
 
 if ($pdfOrPng === 'pdf') {
     // load a PDF for the background appearance
-    $bgDocument = SetaPDF_Core_Document::loadByFilename($assetsDirectory . '/pdfs/camtown/Logo.pdf');
+    $bgDocument = \SetaPDF_Core_Document::loadByFilename($assetsDirectory . '/pdfs/camtown/Logo.pdf');
     // convert the first page to a XObject
     $xObject = $bgDocument
         ->getCatalog()
         ->getPages()
         ->getPage(1)
-        ->toXObject($document, SetaPDF_Core_PageBoundaries::ART_BOX);
+        ->toXObject($document, \SetaPDF_Core_PageBoundaries::ART_BOX);
     // add it to the appearance
     $appearance->setBackgroundLogo($xObject, .3);
 
     // load a PDF for the graphic appearance
-    $graphicDocument = SetaPDF_Core_Document::loadByFilename($assetsDirectory . '/pdfs/misc/Handwritten-Signature.pdf');
+    $graphicDocument = \SetaPDF_Core_Document::loadByFilename($assetsDirectory . '/pdfs/misc/Handwritten-Signature.pdf');
     // convert the first page to a XObject
     $xObject = $graphicDocument
         ->getCatalog()
         ->getPages()
         ->getPage(1)
-        ->toXObject($document, SetaPDF_Core_PageBoundaries::ART_BOX);
+        ->toXObject($document, \SetaPDF_Core_PageBoundaries::ART_BOX);
     // add it to the appearance
     $appearance->setGraphic($xObject);
 
 } elseif ($pdfOrPng === 'png') {
     // load a PNG image for the background appearance
-    $bgImage = SetaPDF_Core_Image::getByPath($assetsDirectory . '/pdfs/camtown/Logo.png');
+    $bgImage = \SetaPDF_Core_Image::getByPath($assetsDirectory . '/pdfs/camtown/Logo.png');
     $xObject = $bgImage->toXObject($document);
     // add it to the appearance
     $appearance->setBackgroundLogo($xObject, .3);
 
     // load a PNG image for the graphic appearance
-    $graphicImage = SetaPDF_Core_Image::getByPath($assetsDirectory . '/images/Handwritten-Signature.png');
+    $graphicImage = \SetaPDF_Core_Image::getByPath($assetsDirectory . '/images/Handwritten-Signature.png');
     $xObject = $graphicImage->toXObject($document);
     // add it to the appearance
     $appearance->setGraphic($xObject);

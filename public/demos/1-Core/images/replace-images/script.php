@@ -13,14 +13,14 @@ $path = displayFiles($files);
 require_once $classesDirectory . '/ContentStreamProcessor/ImageProcessor.php';
 
 // load a document instance
-$document = SetaPDF_Core_Document::loadByFilename($path);
+$document = \SetaPDF_Core_Document::loadByFilename($path);
 // get access to the pages object
 $pages = $document->getCatalog()->getPages();
 
 // define the replacement images
-$portraitImage = SetaPDF_Core_Image::getByPath($assetsDirectory . '/images/portrait.jpg');
+$portraitImage = \SetaPDF_Core_Image::getByPath($assetsDirectory . '/images/portrait.jpg');
 $portraitXObject = $portraitImage->toXObject($document);
-$landscapeImage = SetaPDF_Core_Image::getByPath($assetsDirectory . '/images/landscape.jpg');
+$landscapeImage = \SetaPDF_Core_Image::getByPath($assetsDirectory . '/images/landscape.jpg');
 $landscapeXObject = $landscapeImage->toXObject($document);
 
 // walk through the pages
@@ -44,6 +44,6 @@ for ($pageNo = 1; $pageNo <= $pages->count(); $pageNo++) {
 }
 
 // save and finish
-$document->setWriter(new SetaPDF_Core_Writer_Http('replaced-images.pdf', true));
+$document->setWriter(new \SetaPDF_Core_Writer_Http('replaced-images.pdf', true));
 $document->save()->finish();
 

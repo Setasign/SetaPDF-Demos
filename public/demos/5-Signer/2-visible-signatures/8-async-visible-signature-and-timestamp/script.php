@@ -29,7 +29,7 @@ if ($state === null) {
         'signature' => null
     ];
 
-    $document = SetaPDF_Core_Document::loadByFilename($workflow['fileToSign']);
+    $document = \SetaPDF_Core_Document::loadByFilename($workflow['fileToSign']);
     $signer = new SetaPDF_Signer($document);
     $signer->setSignatureContentLength(20000);
 
@@ -58,7 +58,7 @@ if ($state === null) {
     // pass it to the signer instance
     $signer->setAppearance($appearance);
 
-    $workflow['tmpDocument'] = $signer->preSign(new SetaPDF_Core_Writer_File($workflow['tempPath']), $module);
+    $workflow['tmpDocument'] = $signer->preSign(new \SetaPDF_Core_Writer_File($workflow['tempPath']), $module);
 
     $workflow['state'] = 'prepared';
 
@@ -67,7 +67,7 @@ if ($state === null) {
 
 if ($state === 'prepared') {
     $workflow = $_SESSION['workflow'];
-    $document = SetaPDF_Core_Document::loadByFilename($workflow['fileToSign']);
+    $document = \SetaPDF_Core_Document::loadByFilename($workflow['fileToSign']);
     $signer = new SetaPDF_Signer($document);
 
     // now create a complete module instance
@@ -93,7 +93,7 @@ if ($state === 'signatureCreated' && isset($_GET['timestamp'])) {
     if (isset($workflow['timestamped'])) {
         echo 'Signature already timestamped. Next step: ';
     } else {
-        $document = SetaPDF_Core_Document::loadByFilename($workflow['fileToSign']);
+        $document = \SetaPDF_Core_Document::loadByFilename($workflow['fileToSign']);
         $signer = new SetaPDF_Signer($document);
 
         $url = 'https://freetsa.org/tsr';
@@ -115,8 +115,8 @@ if ($state === 'signatureCreated' && isset($_GET['timestamp'])) {
 } elseif ($state === 'signatureCreated') {
     $workflow = $_SESSION['workflow'];
 
-    $writer   = new SetaPDF_Core_Writer_Http('async-signature.pdf');
-    $document = SetaPDF_Core_Document::loadByFilename($workflow['fileToSign'], $writer);
+    $writer   = new \SetaPDF_Core_Writer_Http('async-signature.pdf');
+    $document = \SetaPDF_Core_Document::loadByFilename($workflow['fileToSign'], $writer);
     $signer   = new SetaPDF_Signer($document);
 
     $signer->saveSignature($workflow['tmpDocument'], $workflow['signature']);

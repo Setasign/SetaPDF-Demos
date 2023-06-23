@@ -4,7 +4,7 @@
 require_once __DIR__ . '/../../../../../bootstrap.php';
 
 // create a document instance
-$document = SetaPDF_Core_Document::loadByFilename($assetsDirectory . '/pdfs/Fuchslocher-Example.pdf');
+$document = \SetaPDF_Core_Document::loadByFilename($assetsDirectory . '/pdfs/Fuchslocher-Example.pdf');
 
 // create an extractor instance
 $extractor = new SetaPDF_Extractor($document);

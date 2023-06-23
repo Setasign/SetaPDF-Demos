@@ -9,9 +9,9 @@ $imageOrPdf = displaySelect('Fill with Image or PDF page?', [
 ]);
 
 // get the main document isntance
-$document = SetaPDF_Core_Document::loadByFilename(
+$document = \SetaPDF_Core_Document::loadByFilename(
     $assetsDirectory . '/pdfs/Fact-Sheet-form.pdf',
-    new SetaPDF_Core_Writer_Http('Fact-Sheet.pdf', true)
+    new \SetaPDF_Core_Writer_Http('Fact-Sheet.pdf', true)
 );
 
 // get an instance of the form filler
@@ -42,27 +42,27 @@ $height = $annotation->getHeight();
 
 // create a form xobject to which we are going to write the image
 // this form xobject will be the resulting appearance of our form field
-$xobject = SetaPDF_Core_XObject_Form::create($document, [0, 0, $width, $height]);
+$xobject = \SetaPDF_Core_XObject_Form::create($document, [0, 0, $width, $height]);
 // get the canvas for this xobject
 $canvas = $xobject->getCanvas();
 
 if ($imageOrPdf === 'image') {
     // let's create an image xobject
-    $image = SetaPDF_Core_Image::getByPath(
+    $image = \SetaPDF_Core_Image::getByPath(
         $assetsDirectory . '/pdfs/tektown/Logo.png'
     )->toXObject($document);
 
     // or e.g. through base64 encoded image data:
     //$data = base64_decode('iVBORw0KGgoAAAANSUhEUgAABJYAAAEmCAYAAAAwZRqhAAAgAElEQVR4Xu.../w+l98Lb9eaTFwAAAABJRU5ErkJggg==');
-    //$image = SetaPDF_Core_Image::get(new SetaPDF_Core_Reader_String($data))->toXObject($document);
+    //$image = \SetaPDF_Core_Image::get(new \SetaPDF_Core_Reader_String($data))->toXObject($document);
 
 } else {
     // let's use an existing PDF page as the logo appearance
-    $logoDoc = SetaPDF_Core_Document::loadByFilename(
+    $logoDoc = \SetaPDF_Core_Document::loadByFilename(
         $assetsDirectory . '/pdfs/tektown/Logo.pdf'
     );
     $image = $logoDoc->getCatalog()->getPages()->getPage(1)->toXObject(
-        $document, SetaPDF_Core_PageBoundaries::ART_BOX
+        $document, \SetaPDF_Core_PageBoundaries::ART_BOX
     );
 }
 

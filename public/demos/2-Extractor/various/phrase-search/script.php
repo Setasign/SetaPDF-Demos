@@ -10,9 +10,9 @@ $regex = '/' . implode('\s', array_map(static function($part) {
     return preg_quote($part, '/');
 }, preg_split('/\s/', trim($text)))) . '/ui';
 
-$document = SetaPDF_Core_Document::loadByFilename(
+$document = \SetaPDF_Core_Document::loadByFilename(
     $assetsDirectory . '/pdfs/Brand-Guide.pdf',
-    new SetaPDF_Core_Writer_Http('search.pdf', true)
+    new \SetaPDF_Core_Writer_Http('search.pdf', true)
 );
 
 if ($regex !== '//ui') {

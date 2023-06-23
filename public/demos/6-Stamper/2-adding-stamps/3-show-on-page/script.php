@@ -8,14 +8,14 @@ $showOnPageOptions = require 'options.php';
 $value = displaySelect('Show on page:', $showOnPageOptions);
 $data = $showOnPageOptions[$value];
 
-$writer = new SetaPDF_Core_Writer_Http('positioning-and-translate.pdf', true);
-$document = new SetaPDF_Core_Document($writer);
+$writer = new \SetaPDF_Core_Writer_Http('positioning-and-translate.pdf', true);
+$document = new \SetaPDF_Core_Document($writer);
 // let's add some pages for demonstration purpose
 $pages = $document->getCatalog()->getPages();
 for ($i = 100; $i > 0; $i--) {
     $pages->create(
-        SetaPDF_Core_PageFormats::A4,
-        ($i & 1) ? SetaPDF_Core_PageFormats::ORIENTATION_PORTRAIT : SetaPDF_Core_PageFormats::ORIENTATION_LANDSCAPE
+        \SetaPDF_Core_PageFormats::A4,
+        ($i & 1) ? \SetaPDF_Core_PageFormats::ORIENTATION_PORTRAIT : \SetaPDF_Core_PageFormats::ORIENTATION_LANDSCAPE
     );
 }
 
@@ -23,7 +23,7 @@ for ($i = 100; $i > 0; $i--) {
 $stamper = new SetaPDF_Stamper($document);
 
 // create a font instance which is needed for the text stamp instance
-$font = new SetaPDF_Core_Font_TrueType_Subset(
+$font = new \SetaPDF_Core_Font_TrueType_Subset(
     $document,
     $assetsDirectory . '/fonts/DejaVu/ttf/DejaVuSans.ttf'
 );

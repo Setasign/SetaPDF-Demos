@@ -4,9 +4,9 @@
 require_once __DIR__ . '/../../../../../../bootstrap.php';
 
 // create a writer
-$writer = new SetaPDF_Core_Writer_Http('font-loader.pdf', true);
+$writer = new \SetaPDF_Core_Writer_Http('font-loader.pdf', true);
 // get a document instance
-$document = SetaPDF_Core_Document::loadByFilename(
+$document = \SetaPDF_Core_Document::loadByFilename(
     $assetsDirectory . '/pdfs/lenstown/Laboratory-Report.pdf',
     $writer
 );
@@ -17,22 +17,22 @@ $loadedFonts = [];
  * It is an urgent requirement to cache the instances for a document instance. Otherwise, you will create
  * and embed several minimal font subsets.
  */
-$fontLoader = static function(SetaPDF_Core_Document $document, $fontFamily, $fontStyle) use (&$loadedFonts, $assetsDirectory) {
+$fontLoader = static function(\SetaPDF_Core_Document $document, $fontFamily, $fontStyle) use (&$loadedFonts, $assetsDirectory) {
     $cacheKey = $document->getInstanceIdent() . '_' . $fontStyle;
     if (!array_key_exists($cacheKey, $loadedFonts)) {
         $fontPath = $assetsDirectory . '/fonts/DejaVu/ttf/DejaVuSans';
         switch ($fontStyle) {
             case 'B':
-                $font = new SetaPDF_Core_Font_Type0_Subset($document, $fontPath . '-Bold.ttf');
+                $font = new \SetaPDF_Core_Font_Type0_Subset($document, $fontPath . '-Bold.ttf');
                 break;
             case 'I':
-                $font = new SetaPDF_Core_Font_Type0_Subset($document, $fontPath . '-Oblique.ttf');
+                $font = new \SetaPDF_Core_Font_Type0_Subset($document, $fontPath . '-Oblique.ttf');
                 break;
             case 'BI':
-                $font = new SetaPDF_Core_Font_Type0_Subset($document, $fontPath . '-BoldOblique.ttf');
+                $font = new \SetaPDF_Core_Font_Type0_Subset($document, $fontPath . '-BoldOblique.ttf');
                 break;
             default:
-                $font = new SetaPDF_Core_Font_Type0_Subset($document, $fontPath . '.ttf');
+                $font = new \SetaPDF_Core_Font_Type0_Subset($document, $fontPath . '.ttf');
         }
         $loadedFonts[$cacheKey] = $font;
     }
