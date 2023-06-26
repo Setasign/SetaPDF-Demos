@@ -13,10 +13,10 @@ $files = [
 $path = displayFiles($files);
 
 $document = \SetaPDF_Core_Document::loadByFilename($path);
-$extractor = new SetaPDF_Extractor($document);
+$extractor = new \SetaPDF_Extractor($document);
 
 // The plain text strategy is the default strategy, so we don't need to do this:
-//$strategy = new SetaPDF_Extractor_Strategy_Plain();
+//$strategy = new \SetaPDF_Extractor_Strategy_Plain();
 //$extractor->setStrategy($strategy);
 
 $pageCount = $document->getCatalog()->getPages()->count();

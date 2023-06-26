@@ -25,7 +25,7 @@ $pages->ensureAllPageObjects();
 for ($pageNumber = 1, $pageCount = $pages->count(); $pageNumber <= $pageCount; $pageNumber++) {
 
     // we create a new merger instance
-    $merger = new SetaPDF_Merger();
+    $merger = new \SetaPDF_Merger();
     // add the individual page of the "in"-document to the merger
     $merger->addDocument($inDocument, $pageNumber);
     // ...and merge

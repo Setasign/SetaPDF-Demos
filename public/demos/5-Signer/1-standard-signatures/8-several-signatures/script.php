@@ -12,7 +12,7 @@ $document = \SetaPDF_Core_Document::loadByFilename(
 );
 
 // create a signer instance
-$signer = new SetaPDF_Signer($document);
+$signer = new \SetaPDF_Signer($document);
 // add a signature field
 $field = $signer->addSignatureField();
 // and define that you want to use this field
@@ -21,7 +21,7 @@ $signer->setSignatureFieldName($field->getQualifiedName());
 $certificatePath = $assetsDirectory . '/certificates/setapdf-no-pw.pem';
 
 // now create a signature module
-$module = new SetaPDF_Signer_Signature_Module_Pades();
+$module = new \SetaPDF_Signer_Signature_Module_Pades();
 // pass the path to the certificate
 $module->setCertificate('file://' . $certificatePath);
 $module->setPrivateKey('file://' . $certificatePath, '');
@@ -40,7 +40,7 @@ $writer = new \SetaPDF_Core_Writer_Http('several-signatures.pdf');
 $document = \SetaPDF_Core_Document::loadByString($tempWriter, $writer);
 
 // create a signer instance
-$signer = new SetaPDF_Signer($document);
+$signer = new \SetaPDF_Signer($document);
 // add a signature field
 $field = $signer->addSignatureField();
 // and define that you want to use this field
@@ -49,7 +49,7 @@ $signer->setSignatureFieldName($field->getQualifiedName());
 $certificatePath = $assetsDirectory . '/certificates/setapdf-no-pw.pem';
 
 // now create a signature module
-$module = new SetaPDF_Signer_Signature_Module_Pades();
+$module = new \SetaPDF_Signer_Signature_Module_Pades();
 // pass the path to the certificate
 $module->setCertificate('file://' . $certificatePath);
 $module->setPrivateKey('file://' . $certificatePath, '');

@@ -40,7 +40,7 @@ $fontLoader = static function(\SetaPDF_Core_Document $document, $fontFamily, $fo
 };
 
 // now simply create a stam instance
-$stamp = new SetaPDF_Stamper_Stamp_RichText($document, $fontLoader);
+$stamp = new \SetaPDF_Stamper_Stamp_RichText($document, $fontLoader);
 // pass an HTML like text to format the output
 $stamp->setText(<<<HTML
     This <b>stamp</b> uses <span style="font-family: Anything;"><i>DejaVuSans</i></span> <b><i>throughout</i></b>!
@@ -48,7 +48,7 @@ HTML
 );
 
 // create a stamper instance
-$stamper = new SetaPDF_Stamper($document);
+$stamper = new \SetaPDF_Stamper($document);
 // pass the stamp instance
 $stamper->addStamp($stamp);
 

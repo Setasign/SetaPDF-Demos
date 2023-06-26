@@ -8,10 +8,10 @@ $document = \SetaPDF_Core_Document::loadByFilename(
     new \SetaPDF_Core_Writer_Http('filled.pdf', true)
 );
 
-$formFiller = new SetaPDF_FormFiller($document);
+$formFiller = new \SetaPDF_FormFiller($document);
 $fields = $formFiller->getFields();
 
-/** @var SetaPDF_FormFiller_Field_Text $feedbackField */
+/** @var \SetaPDF_FormFiller_Field_Text $feedbackField */
 $feedbackField = $fields->get('Feedback');
 
 // you can check for a multiline field that way:

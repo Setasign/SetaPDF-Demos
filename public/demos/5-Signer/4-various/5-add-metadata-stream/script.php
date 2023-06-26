@@ -4,7 +4,7 @@
 require_once __DIR__ . '/../../../../../bootstrap.php';
 
 // to get access to the signature dictionary, we extend the PAdES module
-class MySignatureModule extends SetaPDF_Signer_Signature_Module_Pades
+class MySignatureModule extends \SetaPDF_Signer_Signature_Module_Pades
 {
     /**
      * @var \SetaPDF_Core_Type_IndirectObjectInterface
@@ -21,7 +21,7 @@ class MySignatureModule extends SetaPDF_Signer_Signature_Module_Pades
 
     /**
      * @param \SetaPDF_Core_Type_Dictionary $dictionary
-     * @throws SetaPDF_Signer_Exception
+     * @throws \SetaPDF_Signer_Exception
      */
     public function updateSignatureDictionary(\SetaPDF_Core_Type_Dictionary $dictionary)
     {
@@ -37,7 +37,7 @@ $document = \SetaPDF_Core_Document::loadByFilename(
 );
 
 // create a signer instance
-$signer = new SetaPDF_Signer($document);
+$signer = new \SetaPDF_Signer($document);
 // add a signature field
 $field = $signer->addSignatureField();
 // and define that you want to use this field

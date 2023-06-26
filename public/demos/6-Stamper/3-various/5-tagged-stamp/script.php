@@ -16,7 +16,7 @@ $document = \SetaPDF_Core_Document::loadByFilename(
 );
 
 // create a stamper instance
-$stamper = new SetaPDF_Stamper($document);
+$stamper = new \SetaPDF_Stamper($document);
 
 //--- Create a text stamp and wrap it in a Tagged stamp instance ---//
 
@@ -27,7 +27,7 @@ $font = new \SetaPDF_Core_Font_TrueType_Subset(
 );
 
 // create a stamp instance
-$textStamp = new SetaPDF_Stamper_Stamp_Text($font, 10);
+$textStamp = new \SetaPDF_Stamper_Stamp_Text($font, 10);
 // set a text
 $textStamp->setText('Personalized for John Dow (jon.dow@example.com)');
 
@@ -38,7 +38,7 @@ $stamp->setTitle('Personalization information of user');
 
 // add the stamp to the stamper instance
 $stamper->addStamp($stamp, [
-    'position' => SetaPDF_Stamper::POSITION_CENTER_TOP,
+    'position' => \SetaPDF_Stamper::POSITION_CENTER_TOP,
     'translateX' => 2,
     'translateY' => -2
 ]);
@@ -49,7 +49,7 @@ $stamper->addStamp($stamp, [
 // get an image instance
 $image = \SetaPDF_Core_Image::getByPath($assetsDirectory . '/pdfs/tektown/Logo.png');
 // initiate the image stamp
-$imageStamp = new SetaPDF_Stamper_Stamp_Image($image);
+$imageStamp = new \SetaPDF_Stamper_Stamp_Image($image);
 // set height (and width until no setWidth is set the ratio will retain)
 $imageStamp->setHeight(23);
 
@@ -62,7 +62,7 @@ $stamp->setTitle('tektown');
 // add the stamp to the stamper instance
 $stamper->addStamp($stamp, [
     'showOnPage' => '2-21',
-    'position' => SetaPDF_Stamper::POSITION_CENTER_BOTTOM,
+    'position' => \SetaPDF_Stamper::POSITION_CENTER_BOTTOM,
     'translateY' => 10
 ]);
 

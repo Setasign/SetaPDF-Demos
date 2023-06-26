@@ -12,7 +12,7 @@ $document = \SetaPDF_Core_Document::loadByFilename(
 );
 
 // create a stamper instance
-$stamper = new SetaPDF_Stamper($document);
+$stamper = new \SetaPDF_Stamper($document);
 
 // create a XObject
 $xObject = \SetaPDF_Core_XObject_Form::create($document, array(0, 0, 205, 205));
@@ -35,10 +35,10 @@ $canvas
     ->stroke();
 
 // create the stamp object for the XObject
-$xObjectStamp = new SetaPDF_Stamper_Stamp_XObject($xObject);
+$xObjectStamp = new \SetaPDF_Stamper_Stamp_XObject($xObject);
 $xObjectStamp->setOpacity(.5);
 
-$stamper->addStamp($xObjectStamp, SetaPDF_Stamper::POSITION_CENTER_MIDDLE);
+$stamper->addStamp($xObjectStamp, \SetaPDF_Stamper::POSITION_CENTER_MIDDLE);
 
 // stamp the document
 $stamper->stamp();

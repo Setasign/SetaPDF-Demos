@@ -13,9 +13,9 @@ $files = [
 $path = displayFiles($files);
 
 $document = \SetaPDF_Core_Document::loadByFilename($path);
-$extractor = new SetaPDF_Extractor($document);
+$extractor = new \SetaPDF_Extractor($document);
 
-$strategy = new SetaPDF_Extractor_Strategy_WordGroup();
+$strategy = new \SetaPDF_Extractor_Strategy_WordGroup();
 $extractor->setStrategy($strategy);
 
 $pageCount = $document->getCatalog()->getPages()->count();
@@ -28,7 +28,7 @@ for ($pageNo = 1; $pageNo <= $pageCount; $pageNo++) {
     foreach ($wordGroups as $i => $words) {
         echo '<p>';
 
-        /** @var SetaPDF_Extractor_Result_Word $word */
+        /** @var \SetaPDF_Extractor_Result_Word $word */
         foreach ($words as $word) {
             echo $word->getString() . ' ';
         }

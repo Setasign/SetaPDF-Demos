@@ -68,13 +68,13 @@ foreach ($text as $textItem) {
 $canvasText->end();
 
 // create the stamp object for the XObject
-$xObjectStamp = new SetaPDF_Stamper_Stamp_XObject($xObject);
+$xObjectStamp = new \SetaPDF_Stamper_Stamp_XObject($xObject);
 
 // create a stamper instance
-$stamper = new SetaPDF_Stamper($document);
+$stamper = new \SetaPDF_Stamper($document);
 // pass the stamp instance
 $stamper->addStamp($xObjectStamp, [
-    'position' => SetaPDF_Stamper::POSITION_CENTER_TOP,
+    'position' => \SetaPDF_Stamper::POSITION_CENTER_TOP,
     'translateY' => -5
 ]);
 

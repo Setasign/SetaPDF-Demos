@@ -30,14 +30,14 @@ if ($state === null) {
     ];
 
     $document = \SetaPDF_Core_Document::loadByFilename($workflow['fileToSign']);
-    $signer = new SetaPDF_Signer($document);
+    $signer = new \SetaPDF_Signer($document);
     $signer->setSignatureContentLength(20000);
 
     // add a visible signature field
     $field = $signer->addSignatureField(
-        SetaPDF_Signer_SignatureField::DEFAULT_FIELD_NAME,
+        \SetaPDF_Signer_SignatureField::DEFAULT_FIELD_NAME,
         1,
-        SetaPDF_Signer_SignatureField::POSITION_RIGHT_TOP,
+        \SetaPDF_Signer_SignatureField::POSITION_RIGHT_TOP,
         ['x' => -160, 'y' => -100],
         180,
         60
@@ -47,14 +47,14 @@ if ($state === null) {
     $signer->setSignatureFieldName($field->getQualifiedName());
 
     // use an empty module instance to trigger implemented interface methods
-    $module = new SetaPDF_Signer_Signature_Module_Pades();
+    $module = new \SetaPDF_Signer_Signature_Module_Pades();
     // we alredy need to pass the certificate in this state because of the dynamic appearance
     $module->setCertificate('file://' . $assetsDirectory . '/certificates/setapdf-no-pw.pem');
 
     // create an appearance instance
-    $appearance = new SetaPDF_Signer_Signature_Appearance_Dynamic($module);
+    $appearance = new \SetaPDF_Signer_Signature_Appearance_Dynamic($module);
     // disable this, because the time would differ from the final one because it is done async
-    $appearance->setShow(SetaPDF_Signer_Signature_Appearance_Dynamic::CONFIG_DATE, false);
+    $appearance->setShow(\SetaPDF_Signer_Signature_Appearance_Dynamic::CONFIG_DATE, false);
     // pass it to the signer instance
     $signer->setAppearance($appearance);
 
@@ -68,10 +68,10 @@ if ($state === null) {
 if ($state === 'prepared') {
     $workflow = $_SESSION['workflow'];
     $document = \SetaPDF_Core_Document::loadByFilename($workflow['fileToSign']);
-    $signer = new SetaPDF_Signer($document);
+    $signer = new \SetaPDF_Signer($document);
 
     // now create a complete module instance
-    $module = new SetaPDF_Signer_Signature_Module_Pades();
+    $module = new \SetaPDF_Signer_Signature_Module_Pades();
     $module->setCertificate('file://' . $assetsDirectory . '/certificates/setapdf-no-pw.pem');
     $module->setPrivateKey('file://' . $assetsDirectory . '/certificates/setapdf-no-pw.pem', '');
 
@@ -94,12 +94,12 @@ if ($state === 'signatureCreated' && isset($_GET['timestamp'])) {
         echo 'Signature already timestamped. Next step: ';
     } else {
         $document = \SetaPDF_Core_Document::loadByFilename($workflow['fileToSign']);
-        $signer = new SetaPDF_Signer($document);
+        $signer = new \SetaPDF_Signer($document);
 
         $url = 'https://freetsa.org/tsr';
 
-        $tsModule = new SetaPDF_Signer_Timestamp_Module_Rfc3161_Curl($url);
-        $tsModule->setDigest(SetaPDF_Signer_Digest::SHA_256);
+        $tsModule = new \SetaPDF_Signer_Timestamp_Module_Rfc3161_Curl($url);
+        $tsModule->setDigest(\SetaPDF_Signer_Digest::SHA_256);
 
         $signer->setTimestampModule($tsModule);
 
@@ -117,7 +117,7 @@ if ($state === 'signatureCreated' && isset($_GET['timestamp'])) {
 
     $writer   = new \SetaPDF_Core_Writer_Http('async-signature.pdf');
     $document = \SetaPDF_Core_Document::loadByFilename($workflow['fileToSign'], $writer);
-    $signer   = new SetaPDF_Signer($document);
+    $signer   = new \SetaPDF_Signer($document);
 
     $signer->saveSignature($workflow['tmpDocument'], $workflow['signature']);
 }

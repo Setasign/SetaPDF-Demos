@@ -16,7 +16,7 @@ $document = \SetaPDF_Core_Document::loadByFilename(
 );
 
 // create a stamper instance
-$stamper = new SetaPDF_Stamper($document);
+$stamper = new \SetaPDF_Stamper($document);
 
 //--- Create a text stamp and wrap it in a Tagged stamp instance ---//
 
@@ -33,7 +33,7 @@ $textStamp->setText('Personalized for John Dow (jon.dow@example.com)');
 
 // add the stamp to the stamper instance
 $stamper->addStamp($textStamp, [
-    'position' => SetaPDF_Stamper::POSITION_CENTER_TOP,
+    'position' => \SetaPDF_Stamper::POSITION_CENTER_TOP,
     'translateX' => 2,
     'translateY' => -2
 ]);

@@ -10,7 +10,7 @@ $document = \SetaPDF_Core_Document::loadByFilename(
 );
 
 // now get an instance of the form filler
-$formFiller = new SetaPDF_FormFiller($document);
+$formFiller = new \SetaPDF_FormFiller($document);
 
 // get the XFA helper
 $xfa = $formFiller->getXfa();

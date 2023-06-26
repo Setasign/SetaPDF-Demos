@@ -3,7 +3,7 @@
 // load and register the autoload function
 require_once __DIR__ . '/../../../../../bootstrap.php';
 
-$merger = new SetaPDF_Merger();
+$merger = new \SetaPDF_Merger();
 
 $merger->addFile([
     'filename' => $assetsDirectory . '/pdfs/etown/products/Boombastic-Box.pdf',
@@ -19,7 +19,7 @@ $merger->addFile([
     'filename' => $assetsDirectory . '/pdfs/etown/products/Noisy-Tube.pdf',
     // or through a config array
     'outlinesConfig' => [
-        SetaPDF_Merger::OUTLINES_TITLE => 'Noisy Tube'
+        \SetaPDF_Merger::OUTLINES_TITLE => 'Noisy Tube'
     ]
 ]);
 

@@ -21,11 +21,11 @@ $writer = new \SetaPDF_Core_Writer_Http('signed-with-dgst.pdf');
 $document = \SetaPDF_Core_Document::loadByFilename($fileToSign, $writer);
 
 // create the signer instance
-$signer = new SetaPDF_Signer($document);
+$signer = new \SetaPDF_Signer($document);
 
 // let's use the PAdES modul and configure it
-$module = new SetaPDF_Signer_Signature_Module_Pades();
-$module->setDigest(SetaPDF_Signer_Digest::SHA_256);
+$module = new \SetaPDF_Signer_Signature_Module_Pades();
+$module->setDigest(\SetaPDF_Signer_Digest::SHA_256);
 $module->setCertificate('file://' . $assetsDirectory . '/certificates/setapdf-no-pw.pem');
 
 // create a temporary version which represents the data which should get signed
@@ -37,64 +37,64 @@ $cms = $module->getCms();
 
 $saltLength = 256 / 8;
 switch ($module->getDigest()) {
-    case SetaPDF_Signer_Digest::SHA_384:
+    case \SetaPDF_Signer_Digest::SHA_384:
         $saltLength = 384 / 8;
         break;
-    case SetaPDF_Signer_Digest::SHA_512:
+    case \SetaPDF_Signer_Digest::SHA_512:
         $saltLength = 512 / 8;
         break;
 }
 
-$signatureAlgorithmIdentifier = SetaPDF_Signer_Asn1_Element::findByPath('1/0/4/0/4', $cms);
-$signatureAlgorithmIdentifier->getChild(0)->setValue(SetaPDF_Signer_Asn1_Oid::encode("1.2.840.113549.1.1.10"));
+$signatureAlgorithmIdentifier = \SetaPDF_Signer_Asn1_Element::findByPath('1/0/4/0/4', $cms);
+$signatureAlgorithmIdentifier->getChild(0)->setValue(\SetaPDF_Signer_Asn1_Oid::encode("1.2.840.113549.1.1.10"));
 $signatureAlgorithmIdentifier->removeChild($signatureAlgorithmIdentifier->getChild(1));
-$signatureAlgorithmIdentifier->addChild(new SetaPDF_Signer_Asn1_Element(
-    SetaPDF_Signer_Asn1_Element::SEQUENCE | SetaPDF_Signer_Asn1_Element::IS_CONSTRUCTED, '',
+$signatureAlgorithmIdentifier->addChild(new \SetaPDF_Signer_Asn1_Element(
+    \SetaPDF_Signer_Asn1_Element::SEQUENCE | \SetaPDF_Signer_Asn1_Element::IS_CONSTRUCTED, '',
     [
-        new SetaPDF_Signer_Asn1_Element(
-            SetaPDF_Signer_Asn1_Element::TAG_CLASS_CONTEXT_SPECIFIC | SetaPDF_Signer_Asn1_Element::IS_CONSTRUCTED, '',
+        new \SetaPDF_Signer_Asn1_Element(
+            \SetaPDF_Signer_Asn1_Element::TAG_CLASS_CONTEXT_SPECIFIC | \SetaPDF_Signer_Asn1_Element::IS_CONSTRUCTED, '',
             [
-                new SetaPDF_Signer_Asn1_Element(
-                    SetaPDF_Signer_Asn1_Element::SEQUENCE | SetaPDF_Signer_Asn1_Element::IS_CONSTRUCTED, '',
+                new \SetaPDF_Signer_Asn1_Element(
+                    \SetaPDF_Signer_Asn1_Element::SEQUENCE | \SetaPDF_Signer_Asn1_Element::IS_CONSTRUCTED, '',
                     [
-                        new SetaPDF_Signer_Asn1_Element(
-                            SetaPDF_Signer_Asn1_Element::OBJECT_IDENTIFIER,
-                            SetaPDF_Signer_Asn1_Oid::encode(SetaPDF_Signer_Digest::getOid($module->getDigest()))
+                        new \SetaPDF_Signer_Asn1_Element(
+                            \SetaPDF_Signer_Asn1_Element::OBJECT_IDENTIFIER,
+                            \SetaPDF_Signer_Asn1_Oid::encode(\SetaPDF_Signer_Digest::getOid($module->getDigest()))
                         ),
-                        new SetaPDF_Signer_Asn1_Element(SetaPDF_Signer_Asn1_Element::NULL)
+                        new \SetaPDF_Signer_Asn1_Element(\SetaPDF_Signer_Asn1_Element::NULL)
                     ]
                 )
             ]
         ),
-        new SetaPDF_Signer_Asn1_Element(
-            SetaPDF_Signer_Asn1_Element::TAG_CLASS_CONTEXT_SPECIFIC | SetaPDF_Signer_Asn1_Element::IS_CONSTRUCTED | "\x01", '',
+        new \SetaPDF_Signer_Asn1_Element(
+            \SetaPDF_Signer_Asn1_Element::TAG_CLASS_CONTEXT_SPECIFIC | \SetaPDF_Signer_Asn1_Element::IS_CONSTRUCTED | "\x01", '',
             [
-                new SetaPDF_Signer_Asn1_Element(
-                    SetaPDF_Signer_Asn1_Element::SEQUENCE | SetaPDF_Signer_Asn1_Element::IS_CONSTRUCTED, '',
+                new \SetaPDF_Signer_Asn1_Element(
+                    \SetaPDF_Signer_Asn1_Element::SEQUENCE | \SetaPDF_Signer_Asn1_Element::IS_CONSTRUCTED, '',
                     [
-                        new SetaPDF_Signer_Asn1_Element(
-                            SetaPDF_Signer_Asn1_Element::OBJECT_IDENTIFIER,
-                            SetaPDF_Signer_Asn1_Oid::encode('1.2.840.113549.1.1.8')
+                        new \SetaPDF_Signer_Asn1_Element(
+                            \SetaPDF_Signer_Asn1_Element::OBJECT_IDENTIFIER,
+                            \SetaPDF_Signer_Asn1_Oid::encode('1.2.840.113549.1.1.8')
                         ),
-                        new SetaPDF_Signer_Asn1_Element(
-                            SetaPDF_Signer_Asn1_Element::SEQUENCE | SetaPDF_Signer_Asn1_Element::IS_CONSTRUCTED, '',
+                        new \SetaPDF_Signer_Asn1_Element(
+                            \SetaPDF_Signer_Asn1_Element::SEQUENCE | \SetaPDF_Signer_Asn1_Element::IS_CONSTRUCTED, '',
                             [
-                                new SetaPDF_Signer_Asn1_Element(
-                                    SetaPDF_Signer_Asn1_Element::OBJECT_IDENTIFIER,
-                                    SetaPDF_Signer_Asn1_Oid::encode(SetaPDF_Signer_Digest::getOid($module->getDigest()))
+                                new \SetaPDF_Signer_Asn1_Element(
+                                    \SetaPDF_Signer_Asn1_Element::OBJECT_IDENTIFIER,
+                                    \SetaPDF_Signer_Asn1_Oid::encode(\SetaPDF_Signer_Digest::getOid($module->getDigest()))
                                 ),
-                                new SetaPDF_Signer_Asn1_Element(SetaPDF_Signer_Asn1_Element::NULL)
+                                new \SetaPDF_Signer_Asn1_Element(\SetaPDF_Signer_Asn1_Element::NULL)
                             ]
                         )
                     ]
                 )
             ]
         ),
-        new SetaPDF_Signer_Asn1_Element(
-            SetaPDF_Signer_Asn1_Element::TAG_CLASS_CONTEXT_SPECIFIC | SetaPDF_Signer_Asn1_Element::IS_CONSTRUCTED | "\x02",
+        new \SetaPDF_Signer_Asn1_Element(
+            \SetaPDF_Signer_Asn1_Element::TAG_CLASS_CONTEXT_SPECIFIC | \SetaPDF_Signer_Asn1_Element::IS_CONSTRUCTED | "\x02",
             '',
             [
-                new SetaPDF_Signer_Asn1_Element(SetaPDF_Signer_Asn1_Element::INTEGER, \chr($saltLength))
+                new \SetaPDF_Signer_Asn1_Element(\SetaPDF_Signer_Asn1_Element::INTEGER, \chr($saltLength))
             ]
         )
     ]
@@ -126,7 +126,7 @@ $cmd = $opensslPath . 'openssl dgst '
 exec($cmd, $out, $retValue);
 
 if ($retValue !== 0) {
-    throw new SetaPDF_Signer_Exception(
+    throw new \SetaPDF_Signer_Exception(
         sprintf('An error occurs while calling OpenSSL through CLI (exit code %s).', $retValue)
     );
 }

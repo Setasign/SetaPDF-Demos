@@ -26,7 +26,7 @@ foreach ($participants as $participant) {
         $writer
     );
 
-    $formFiller = new SetaPDF_FormFiller($document);
+    $formFiller = new \SetaPDF_FormFiller($document);
     $fields = $formFiller->getFields();
     $fields->get('Name')->setValue($participant['Name']);
     $fields->get('Company Name')->setValue($participant['Company Name']);

@@ -10,7 +10,7 @@ $document->getCatalog()->getPages()->create(\SetaPDF_Core_PageFormats::A4);
 // we leave it empty for demonstration purpose...
 
 // create a collection instance
-$collection = new SetaPDF_Merger_Collection($document);
+$collection = new \SetaPDF_Merger_Collection($document);
 
 // thorugh the proxy method
 $folderA = $collection->addFolder('Folder (A)');

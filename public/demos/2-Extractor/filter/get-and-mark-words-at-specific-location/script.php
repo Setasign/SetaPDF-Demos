@@ -10,33 +10,33 @@ $path = displayFiles($files);
 $document = \SetaPDF_Core_Document::loadByFilename($path);
 
 // initiate an extractor instance
-$extractor = new SetaPDF_Extractor($document);
+$extractor = new \SetaPDF_Extractor($document);
 
 // create a word strategy
-$strategy = new SetaPDF_Extractor_Strategy_Word();
+$strategy = new \SetaPDF_Extractor_Strategy_Word();
 
 // define filter areas
-$invoicingPartyFilter = new SetaPDF_Extractor_Filter_Rectangle(
+$invoicingPartyFilter = new \SetaPDF_Extractor_Filter_Rectangle(
     new \SetaPDF_Core_Geometry_Rectangle(40, 705, 220, 720),
-    SetaPDF_Extractor_Filter_Rectangle::MODE_CONTACT,
+    \SetaPDF_Extractor_Filter_Rectangle::MODE_CONTACT,
     'invoicingParty'
 );
 
 // define filter areas
-$invoiceNoFilter = new SetaPDF_Extractor_Filter_Rectangle(
+$invoiceNoFilter = new \SetaPDF_Extractor_Filter_Rectangle(
     new \SetaPDF_Core_Geometry_Rectangle(512, 520, 580, 540),
-    SetaPDF_Extractor_Filter_Rectangle::MODE_CONTACT,
+    \SetaPDF_Extractor_Filter_Rectangle::MODE_CONTACT,
     'invoiceNo'
 );
 
 // pass them to the strategy
-$strategy->setFilter(new SetaPDF_Extractor_Filter_Multi([$invoicingPartyFilter, $invoiceNoFilter]));
+$strategy->setFilter(new \SetaPDF_Extractor_Filter_Multi([$invoicingPartyFilter, $invoiceNoFilter]));
 
 // set the strategy
 $extractor->setStrategy($strategy);
 
 // get the result
-/** @var SetaPDF_Extractor_Result_Words $words */
+/** @var \SetaPDF_Extractor_Result_Words $words */
 $words = $extractor->getResultByPageNumber(1);
 
 // mark the filter areas and words on the pages canvas
@@ -53,7 +53,7 @@ $canvas
     ->draw()->rect($rect->getLl()->getX(), $rect->getLl()->getY(), $rect->getWidth(), $rect->getHeight());
 
 // draw the word boundaries
-/** @var SetaPDF_Extractor_Result_Word $word */
+/** @var \SetaPDF_Extractor_Result_Word $word */
 foreach ($words AS $word) {
     // to get access to the filter id which was used to resolve this word, just use:
     // $filterId = $word->getFilterId();

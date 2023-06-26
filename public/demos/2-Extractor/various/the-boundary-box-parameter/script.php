@@ -17,7 +17,7 @@ $path = $assetsDirectory . '/pdfs/misc/Page-Boundaries.pdf';
 
 $document = \SetaPDF_Core_Document::loadByFilename($path);
 
-$extractor = new SetaPDF_Extractor($document);
+$extractor = new \SetaPDF_Extractor($document);
 
 $result = $extractor->getResultByPageNumber(1, $boxes[$boundaryBox]);
 

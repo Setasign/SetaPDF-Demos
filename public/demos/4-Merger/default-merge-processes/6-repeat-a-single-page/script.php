@@ -6,7 +6,7 @@ require_once __DIR__ . '/../../../../../bootstrap.php';
 $shareObjects = displaySelect('Share objects:', [1 => 'yes', 0 => 'no']);
 
 // initiate a merger instance with an initial document
-$merger = new SetaPDF_Merger();
+$merger = new \SetaPDF_Merger();
 
 $path = $assetsDirectory . '/pdfs/camtown/Letterhead.pdf';
 for ($i = 100; $i > 0; $i--) {

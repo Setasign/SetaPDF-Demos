@@ -10,7 +10,7 @@ $document = \SetaPDF_Core_Document::loadByFilename(
 );
 
 // create a signer instance
-$signer = new SetaPDF_Signer($document);
+$signer = new \SetaPDF_Signer($document);
 // add a signature field
 $field = $signer->addSignatureField();
 // and define that you want to use this field
@@ -19,7 +19,7 @@ $signer->setSignatureFieldName($field->getQualifiedName());
 $certificatePath = $assetsDirectory . '/certificates/setapdf-no-pw.pem';
 
 // now create a signature module
-$module = new SetaPDF_Signer_Signature_Module_Pades();
+$module = new \SetaPDF_Signer_Signature_Module_Pades();
 // pass the path to the certificate
 $module->setCertificate('file://' . $certificatePath);
 $module->setPrivateKey('file://' . $certificatePath, '');
@@ -28,7 +28,7 @@ $module->setPrivateKey('file://' . $certificatePath, '');
 $url = 'https://freetsa.org/tsr';
 
 // create a timestamp module instance
-$tsModule = new SetaPDF_Signer_Timestamp_Module_Rfc3161_Curl($url);
+$tsModule = new \SetaPDF_Signer_Timestamp_Module_Rfc3161_Curl($url);
 // pass the timestamp module instance to the signer
 $signer->setTimestampModule($tsModule);
 

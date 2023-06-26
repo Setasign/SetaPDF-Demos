@@ -21,11 +21,11 @@ $writer = new \SetaPDF_Core_Writer_Http('signed-with-dgst.pdf');
 $document = \SetaPDF_Core_Document::loadByFilename($fileToSign, $writer);
 
 // create the signer instance
-$signer = new SetaPDF_Signer($document);
+$signer = new \SetaPDF_Signer($document);
 
 // let's use the PAdES modul and configure it
-$module = new SetaPDF_Signer_Signature_Module_Pades();
-$module->setDigest(SetaPDF_Signer_Digest::SHA_256);
+$module = new \SetaPDF_Signer_Signature_Module_Pades();
+$module->setDigest(\SetaPDF_Signer_Digest::SHA_256);
 $module->setCertificate('file://' . $assetsDirectory . '/certificates/setapdf-no-pw.pem');
 
 // create a temporary version which represents the data which should get signed
@@ -56,7 +56,7 @@ $cmd = $opensslPath . 'openssl dgst '
 exec($cmd, $out, $retValue);
 
 if ($retValue !== 0) {
-    throw new SetaPDF_Signer_Exception(
+    throw new \SetaPDF_Signer_Exception(
         sprintf('An error occurs while calling OpenSSL through CLI (exit code %s).', $retValue)
     );
 }

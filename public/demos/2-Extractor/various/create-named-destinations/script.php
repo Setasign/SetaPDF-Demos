@@ -8,14 +8,14 @@ $document = \SetaPDF_Core_Document::loadByFilename(
     new \SetaPDF_Core_Writer_Http('result.pdf', true)
 );
 
-$extractor = new SetaPDF_Extractor($document);
+$extractor = new \SetaPDF_Extractor($document);
 
 // define the word strategy
-$strategy = new SetaPDF_Extractor_Strategy_Word();
+$strategy = new \SetaPDF_Extractor_Strategy_Word();
 // let's limit the result by a font size filter to speed things up
-$filter = new SetaPDF_Extractor_Filter_FontSize(
+$filter = new \SetaPDF_Extractor_Filter_FontSize(
     14,
-    SetaPDF_Extractor_Filter_FontSize::MODE_LARGER_OR_EQUALS
+    \SetaPDF_Extractor_Filter_FontSize::MODE_LARGER_OR_EQUALS
 );
 $strategy->setFilter($filter);
 $extractor->setStrategy($strategy);
@@ -30,7 +30,7 @@ $names = $document->getCatalog()->getNames()->getTree(
 
 for ($pageNo = 1; $pageNo <= $pages->count(); $pageNo++) {
     /**
-     * @var SetaPDF_Extractor_Result_Word[] $words
+     * @var \SetaPDF_Extractor_Result_Word[] $words
      */
     $words = $extractor->getResultByPageNumber($pageNo);
     $chapter = null;

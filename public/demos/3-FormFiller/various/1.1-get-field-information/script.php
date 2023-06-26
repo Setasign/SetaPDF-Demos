@@ -28,7 +28,7 @@ function drawPropertyTable($caption, $data) {
 $document = \SetaPDF_Core_Document::loadByFilename($path);
 
 // now get an instance of the form filler
-$formFiller = new SetaPDF_FormFiller($document);
+$formFiller = new \SetaPDF_FormFiller($document);
 
 // Get the form fields of the document
 $fields = $formFiller->getFields();
@@ -79,16 +79,16 @@ foreach ($fields AS $name => $field) {
 
     switch ($type) {
         // Button / Checkbox
-        case SetaPDF_FormFiller_Field_Button::class:
-            /** @var SetaPDF_FormFiller_Field_Button $field */
+        case \SetaPDF_FormFiller_Field_Button::class:
+            /** @var \SetaPDF_FormFiller_Field_Button $field */
             $typeProps['Rect'] = $field->getAnnotation()->getRect()->toPhp();
             $typeProps['Default Value'] = $field->getDefaultValue();
             $typeProps['Checked'] = ($field->isChecked() ? 'Yes' : 'No');
             $typeProps['Export Value'] = $field->getExportValue();
             break;
         // Radio buttons
-        case SetaPDF_FormFiller_Field_ButtonGroup::class:
-            /** @var SetaPDF_FormFiller_Field_ButtonGroup $field */
+        case \SetaPDF_FormFiller_Field_ButtonGroup::class:
+            /** @var \SetaPDF_FormFiller_Field_ButtonGroup $field */
             $typeProps['Value'] = $field->getValue();
             $typeProps['Default Value'] = $field->getDefaultValue();
 
@@ -96,7 +96,7 @@ foreach ($fields AS $name => $field) {
             $buttons = $field->getButtons();
             $propValue = [];
             foreach ($buttons AS $button) {
-                /** @var SetaPDF_FormFiller_Field_Button $button */
+                /** @var \SetaPDF_FormFiller_Field_Button $button */
                 $propValue[$button->getQualifiedName()] = [
                     'Checked' => $button->isChecked() ? 'Yes' : 'No',
                     'Export Value' => $button->getExportValue(),
@@ -108,8 +108,8 @@ foreach ($fields AS $name => $field) {
             break;
 
         // List field
-        case SetaPDF_FormFiller_Field_List::class:
-            /** @var SetaPDF_FormFiller_Field_List $field */
+        case \SetaPDF_FormFiller_Field_List::class:
+            /** @var \SetaPDF_FormFiller_Field_List $field */
             $typeProps['Rect'] = $field->getAnnotation()->getRect()->toPhp();
             $typeProps['Is multi-select'] = ($field->isMultiSelect() ? 'Yes' : 'No');
             $typeProps['Default Value'] = print_r($field->getDefaultValue(), true);
@@ -119,8 +119,8 @@ foreach ($fields AS $name => $field) {
             break;
 
         // Combo Box / Select field
-        case SetaPDF_FormFiller_Field_Combo::class:
-            /** @var SetaPDF_FormFiller_Field_Combo $field */
+        case \SetaPDF_FormFiller_Field_Combo::class:
+            /** @var \SetaPDF_FormFiller_Field_Combo $field */
             $typeProps['Rect'] = $field->getAnnotation()->getRect()->toPhp();
             $typeProps['Is editable'] = ($field->isEditable() ? 'Yes' : 'No');
             $typeProps['Default Value'] = $field->getDefaultValue();
@@ -130,8 +130,8 @@ foreach ($fields AS $name => $field) {
             break;
 
         // Text field
-        case SetaPDF_FormFiller_Field_Text::class:
-            /** @var SetaPDF_FormFiller_Field_Text $field */
+        case \SetaPDF_FormFiller_Field_Text::class:
+            /** @var \SetaPDF_FormFiller_Field_Text $field */
             $typeProps['Rect'] = $field->getAnnotation()->getRect()->toPhp();
             $typeProps['Max Length'] = $field->getMaxLength();
             $typeProps['Multiline'] = ($field->isMultiline() ? 'Yes' : 'No');

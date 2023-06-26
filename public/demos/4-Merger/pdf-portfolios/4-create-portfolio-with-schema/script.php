@@ -10,15 +10,15 @@ $document->getCatalog()->getPages()->create(\SetaPDF_Core_PageFormats::A4);
 // we leave it empty for demonstration purpose...
 
 // create a collection instance
-$collection = new SetaPDF_Merger_Collection($document);
+$collection = new \SetaPDF_Merger_Collection($document);
 
 // get the schema instance
 $schema = $collection->getSchema();
 
 // create a field instance manually
-$filenameField = SetaPDF_Merger_Collection_Schema_Field::create(
+$filenameField = \SetaPDF_Merger_Collection_Schema_Field::create(
     'Filename', // the visible field name
-    SetaPDF_Merger_Collection_Schema::DATA_FILE_NAME // refer to the file name
+    \SetaPDF_Merger_Collection_Schema::DATA_FILE_NAME // refer to the file name
 );
 $filenameField->setOrder(1);
 // add it to the schema
@@ -28,7 +28,7 @@ $schema->addField('filename', $filenameField);
 $schema->addField(
     'description',
     'Description',
-    SetaPDF_Merger_Collection_Schema::DATA_DESCRIPTION,
+    \SetaPDF_Merger_Collection_Schema::DATA_DESCRIPTION,
     2
 );
 
@@ -36,7 +36,7 @@ $schema->addField(
 $schema->addField(
     'company',
     'Company Name',
-    SetaPDF_Merger_Collection_Schema::TYPE_STRING,
+    \SetaPDF_Merger_Collection_Schema::TYPE_STRING,
     3
 );
 
@@ -44,14 +44,14 @@ $schema->addField(
 $orderField = $schema->addField(
     'order',
     'Order',
-    SetaPDF_Merger_Collection_Schema::TYPE_NUMBER,
+    \SetaPDF_Merger_Collection_Schema::TYPE_NUMBER,
     4
 );
 // but hide it
 $orderField->setVisibility(false);
 
 // set default sorting
-$collection->setSort(['order' => SetaPDF_Merger_Collection::SORT_ASC]);
+$collection->setSort(['order' => \SetaPDF_Merger_Collection::SORT_ASC]);
 
 // for demonstration purpose, we add some files now...
 $collection->addFile(

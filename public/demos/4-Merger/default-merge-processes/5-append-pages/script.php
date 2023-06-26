@@ -12,7 +12,7 @@ $document = \SetaPDF_Core_Document::loadByFilename(
 );
 
 // initiate a merger instance with an initial document
-$merger = new SetaPDF_Merger($document);
+$merger = new \SetaPDF_Merger($document);
 
 // append another complete document
 $merger->addFile($assetsDirectory . '/pdfs/camtown/Terms-and-Conditions.pdf');

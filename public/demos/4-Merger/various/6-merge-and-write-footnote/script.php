@@ -10,7 +10,7 @@ $files = array_merge($files, glob($assetsDirectory . '/pdfs/misc/boxes/*.pdf'));
 $paths = displayFiles($files, true, true);
 
 // create a merger instance
-$merger = new SetaPDF_Merger();
+$merger = new \SetaPDF_Merger();
 
 // we need some variable to record page numbers and the added file path
 $currentPage = 1;

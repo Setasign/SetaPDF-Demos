@@ -19,7 +19,7 @@ require_once $classesDirectory . '/FontLoader.php';
 $fontLoader = new \com\setasign\SetaPDF\Demos\FontLoader($assetsDirectory);
 
 // now simply create a stam instance
-$stamp = new SetaPDF_Stamper_Stamp_RichText($document, $fontLoader);
+$stamp = new \SetaPDF_Stamper_Stamp_RichText($document, $fontLoader);
 $stamp->setDefaultFontFamily('DejaVuSans');
 $stamp->setDefaultFontSize(10);
 // pass an HTML like text to format the output
@@ -29,10 +29,10 @@ HTML
 );
 
 // create a stamper instance
-$stamper = new SetaPDF_Stamper($document);
+$stamper = new \SetaPDF_Stamper($document);
 // pass the stamp instance
 $stamper->addStamp($stamp, [
-    'position' => SetaPDF_Stamper::POSITION_CENTER_TOP,
+    'position' => \SetaPDF_Stamper::POSITION_CENTER_TOP,
     'translateY' => -5
 ]);
 

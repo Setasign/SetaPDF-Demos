@@ -58,7 +58,7 @@ foreach ($terminalFields as $fieldData) {
         }
 
         $propertyValue = $value->getValue($property)->ensure()->getValue();
-        if ($property === SetaPDF_Signer::PROP_TIME_OF_SIGNING) {
+        if ($property === \SetaPDF_Signer::PROP_TIME_OF_SIGNING) {
             $propertyValue = \SetaPDF_Core_DataStructure_Date::stringToDateTime($propertyValue);
         } else {
             $propertyValue = \SetaPDF_Core_Encoding::convertPdfString($propertyValue);

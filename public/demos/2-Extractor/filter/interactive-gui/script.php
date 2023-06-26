@@ -119,14 +119,14 @@ if (isset($_GET['action']) && $_GET['action'] === 'preview') {
     $pages = $document->getCatalog()->getPages();
 
     // the interresting part: initiate an extractor instance
-    $extractor = new SetaPDF_Extractor($document);
+    $extractor = new \SetaPDF_Extractor($document);
 
     // create a word strategy instance
-    $strategy = new SetaPDF_Extractor_Strategy_ExactPlain();
+    $strategy = new \SetaPDF_Extractor_Strategy_ExactPlain();
     // pass a rectangle filter to the strategy
-    $strategy->setFilter(new SetaPDF_Extractor_Filter_Rectangle(
+    $strategy->setFilter(new \SetaPDF_Extractor_Filter_Rectangle(
         new \SetaPDF_Core_Geometry_Rectangle($x1, $y1, $x2, $y2),
-        SetaPDF_Extractor_Filter_Rectangle::MODE_CONTACT
+        \SetaPDF_Extractor_Filter_Rectangle::MODE_CONTACT
     ));
     $extractor->setStrategy($strategy);
 

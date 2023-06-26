@@ -8,7 +8,7 @@ $files = glob($assetsDirectory . '/pdfs/tektown/invoices/1*.pdf');
 $paths = displayFiles($files, true, true);
 
 // create a merger instance
-$merger = new SetaPDF_Merger();
+$merger = new \SetaPDF_Merger();
 
 // iterate through paths...
 foreach ($paths as $path) {

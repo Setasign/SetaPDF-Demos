@@ -16,12 +16,12 @@ $document = \SetaPDF_Core_Document::loadByFilename($file, $writer);
 $pages = $document->getCatalog()->getPages();
 
 // initiate an extractor instance
-$extractor = new SetaPDF_Extractor($document);
+$extractor = new \SetaPDF_Extractor($document);
 
 // define the word strategy and
-$strategy = new SetaPDF_Extractor_Strategy_Word();
+$strategy = new \SetaPDF_Extractor_Strategy_Word();
 // set the detail level
-$strategy->setDetailLevel(SetaPDF_Extractor_Strategy_Word::DETAIL_LEVEL_GLYPHS);
+$strategy->setDetailLevel(\SetaPDF_Extractor_Strategy_Word::DETAIL_LEVEL_GLYPHS);
 // ...pass it to the extractor instance
 $extractor->setStrategy($strategy);
 
@@ -31,12 +31,12 @@ $sorter = $strategy->getSorter();
 /**
  * Proxy method to itemsJoining() method of the sorter class.
  *
- * @param SetaPDF_Extractor_Result_WordWithGlyphs $left
- * @param SetaPDF_Extractor_Result_WordWithGlyphs $right
+ * @param \SetaPDF_Extractor_Result_WordWithGlyphs $left
+ * @param \SetaPDF_Extractor_Result_WordWithGlyphs $right
  * @return bool
  */
 $wordsJoining = function(
-    SetaPDF_Extractor_Result_WordWithGlyphs $left, SetaPDF_Extractor_Result_WordWithGlyphs $right
+    \SetaPDF_Extractor_Result_WordWithGlyphs $left, \SetaPDF_Extractor_Result_WordWithGlyphs $right
 ) use ($sorter)
 {
     return $sorter->itemsJoining(
@@ -47,7 +47,7 @@ $wordsJoining = function(
 
 for ($pageNo = 1; $pageNo <= $pages->count(); $pageNo++) {
     /**
-     * @var SetaPDF_Extractor_Result_Word $words[]
+     * @var \SetaPDF_Extractor_Result_Word $words[]
      */
     $words = $extractor->getResultByPageNumber($pageNo);
 
@@ -56,7 +56,7 @@ for ($pageNo = 1; $pageNo <= $pages->count(); $pageNo++) {
 
     // let's try to find the links
     /**
-     * @var SetaPDF_Extractor_Result_WordWithGlyphs[] $words
+     * @var \SetaPDF_Extractor_Result_WordWithGlyphs[] $words
      */
     for ($i = 0, $wordCount = count($words); $i < $wordCount; $i++) {
         $word = $words[$i];
@@ -101,7 +101,7 @@ for ($pageNo = 1; $pageNo <= $pages->count(); $pageNo++) {
                 }
 
                 // we have a link, now get the bounds of it and...
-                $linkItems = new SetaPDF_Extractor_Result_Collection($linkItems);
+                $linkItems = new \SetaPDF_Extractor_Result_Collection($linkItems);
                 $bounds = $linkItems->getBounds();
                 $ll = $bounds[0]->getLl();
                 $ur = $bounds[0]->getUr();
@@ -155,7 +155,7 @@ for ($pageNo = 1; $pageNo <= $pages->count(); $pageNo++) {
                 }
 
                 // we have a valid email address, so get the bounds and...
-                $emailItems = new SetaPDF_Extractor_Result_Collection($emailItems);
+                $emailItems = new \SetaPDF_Extractor_Result_Collection($emailItems);
                 $bounds = $emailItems->getBounds();
                 $ll = $bounds[0]->getLl();
                 $ur = $bounds[0]->getUr();

@@ -8,9 +8,9 @@ $document = \SetaPDF_Core_Document::loadByFilename(
     new \SetaPDF_Core_Writer_Http('document.pdf', true)
 );
 
-$extractor = new SetaPDF_Extractor($document);
+$extractor = new \SetaPDF_Extractor($document);
 
-$strategy = new SetaPDF_Extractor_Strategy_Word();
+$strategy = new \SetaPDF_Extractor_Strategy_Word();
 $extractor->setStrategy($strategy);
 
 $lines = [];
@@ -23,18 +23,18 @@ $pages = $document->getCatalog()->getPages();
 
 for ($pageNo = $tocStartPage; $pageNo <= $tocEndPage; $pageNo++) {
     /**
-     * @var SetaPDF_Extractor_Result_Word[] $words
+     * @var \SetaPDF_Extractor_Result_Word[] $words
      */
     $words = $extractor->getResultByPageNumber($pageNo);
 
     /**
-     * @var $lines SetaPDF_Extractor_Result_Collection[][]
+     * @var $lines \SetaPDF_Extractor_Result_Collection[][]
      */
     $lines[$pageNo] = [];
-    $line = new SetaPDF_Extractor_Result_Collection();
+    $line = new \SetaPDF_Extractor_Result_Collection();
 
     /**
-     * @var SetaPDF_Extractor_Result_Word $prevWord
+     * @var \SetaPDF_Extractor_Result_Word $prevWord
      */
     $prevWord = null;
 
@@ -49,7 +49,7 @@ for ($pageNo = $tocStartPage; $pageNo <= $tocEndPage; $pageNo++) {
             // group by lines
             if (abs($prevY - $y) > 4) {
                 $lines[$pageNo][] = $line;
-                $line = new SetaPDF_Extractor_Result_Collection();
+                $line = new \SetaPDF_Extractor_Result_Collection();
             }
         }
 
@@ -59,7 +59,7 @@ for ($pageNo = $tocStartPage; $pageNo <= $tocEndPage; $pageNo++) {
 
     if (count($line) > 0) {
         $lines[$pageNo][] = $line;
-        $line = new SetaPDF_Extractor_Result_Collection();
+        $line = new \SetaPDF_Extractor_Result_Collection();
     }
 
     $annotations = $pages->getPage($pageNo)->getAnnotations();

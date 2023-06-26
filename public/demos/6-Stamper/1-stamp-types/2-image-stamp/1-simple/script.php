@@ -12,12 +12,12 @@ $document = \SetaPDF_Core_Document::loadByFilename(
 );
 
 // create a stamper instance
-$stamper = new SetaPDF_Stamper($document);
+$stamper = new \SetaPDF_Stamper($document);
 
 // get an image instance
 $image = \SetaPDF_Core_Image::getByPath($assetsDirectory . '/pdfs/camtown/Logo.png');
 // initiate the stamp
-$stamp = new SetaPDF_Stamper_Stamp_Image($image);
+$stamp = new \SetaPDF_Stamper_Stamp_Image($image);
 // set height (and width until no setWidth is set the ratio will retain)
 $stamp->setHeight(23);
 

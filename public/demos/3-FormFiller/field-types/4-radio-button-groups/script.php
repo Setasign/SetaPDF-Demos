@@ -8,19 +8,19 @@ $document = \SetaPDF_Core_Document::loadByFilename(
     new \SetaPDF_Core_Writer_Http('filled.pdf', true)
 );
 
-$formFiller = new SetaPDF_FormFiller($document);
+$formFiller = new \SetaPDF_FormFiller($document);
 $fields = $formFiller->getFields();
 
-/** @var SetaPDF_FormFiller_Field_ButtonGroup $corePower */
+/** @var \SetaPDF_FormFiller_Field_ButtonGroup $corePower */
 $corePower = $fields->get('Core-Power');
 
 // that's how you can check for a radio button group (just for demonstration here)
-if ($corePower instanceof SetaPDF_FormFiller_Field_ButtonGroup) {
+if ($corePower instanceof \SetaPDF_FormFiller_Field_ButtonGroup) {
     // simply check the correct radio button by passing its export value to the group
     $corePower->setValue('2 x 2,8 Ghz');
 }
 
-/** @var SetaPDF_FormFiller_Field_ButtonGroup $corePower */
+/** @var \SetaPDF_FormFiller_Field_ButtonGroup $corePower */
 $ram = $fields->get('RAM');
 // it is also possible to check the desired button by interacting with its instance directly:
 $ramButtons = $ram->getButtons();

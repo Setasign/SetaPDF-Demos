@@ -15,13 +15,13 @@ $writer = new \SetaPDF_Core_Writer_Http('stamped.pdf', true);
 $document = \SetaPDF_Core_Document::loadByFilename($path, $writer);
 
 // create a stamper instance
-$stamper = new SetaPDF_Stamper($document);
+$stamper = new \SetaPDF_Stamper($document);
 
 require_once $classesDirectory . '/FontLoader.php';
 $fontLoader = new \com\setasign\SetaPDF\Demos\FontLoader($assetsDirectory);
 
 // create a rich-text stamp instance
-$stamp = new SetaPDF_Stamper_Stamp_RichText($document, $fontLoader);
+$stamp = new \SetaPDF_Stamper_Stamp_RichText($document, $fontLoader);
 $stamp->setDefaultFontFamily('DejaVuSans');
 $stamp->setText('Personalized for <b style="color:#0f0f0f;">john@example.com</b>');
 // set the border color to gray (e.g. as a hex value)
@@ -37,7 +37,7 @@ $stamp->setDefaultTextColor(new \SetaPDF_Core_DataStructure_Color_Rgb(56/255, 10
 
 // add the stamp to the stamper instance
 $stamper->addStamp($stamp, [
-    'position' => SetaPDF_Stamper::POSITION_CENTER_BOTTOM,
+    'position' => \SetaPDF_Stamper::POSITION_CENTER_BOTTOM,
     'translateY' => 15
 ]);
 

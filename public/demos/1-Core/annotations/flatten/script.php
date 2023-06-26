@@ -11,7 +11,7 @@ $files = [
 ];
 
 // if the SetaPDF-FormFiller component is installed add a demo document with a signature field
-if (class_exists(SetaPDF_FormFiller::class)) {
+if (class_exists(\SetaPDF_FormFiller::class)) {
     $files[] = $assetsDirectory . '/pdfs/tektown/Laboratory-Report - commented-and-signed.pdf';
 }
 
@@ -108,8 +108,8 @@ for ($pageNo = 1; $pageNo <= $pageCount; $pageNo++) {
 }
 
 // if the SetaPDF-FormFiller component is installed we are going to flatten form fields, too:
-if (class_exists(SetaPDF_FormFiller::class)) {
-    $formFiller = new SetaPDF_FormFiller($document);
+if (class_exists(\SetaPDF_FormFiller::class)) {
+    $formFiller = new \SetaPDF_FormFiller($document);
     $formFiller->getFields()->flatten();
 }
 

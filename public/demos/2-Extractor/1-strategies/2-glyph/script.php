@@ -13,9 +13,9 @@ $files = [
 $path = displayFiles($files);
 
 $document = \SetaPDF_Core_Document::loadByFilename($path);
-$extractor = new SetaPDF_Extractor($document);
+$extractor = new \SetaPDF_Extractor($document);
 
-$strategy = new SetaPDF_Extractor_Strategy_Glyph();
+$strategy = new \SetaPDF_Extractor_Strategy_Glyph();
 $extractor->setStrategy($strategy);
 
 $pageCount = $document->getCatalog()->getPages()->count();
@@ -27,7 +27,7 @@ for ($pageNo = 1; $pageNo <= $pageCount; $pageNo++) {
     echo '<table border="1" width="100%">';
     echo '<tr><th>Glyph</th><th>llx</th><th>lly</th><th>urx</th><th>ury</th><th>Font Name</th></tr>';
 
-    /** @var SetaPDF_Extractor_Result_Glyph $glyph */
+    /** @var \SetaPDF_Extractor_Result_Glyph $glyph */
     foreach ($glyphs as $glyph) {
         $bounds = $glyph->getBounds()[0];
         printf(

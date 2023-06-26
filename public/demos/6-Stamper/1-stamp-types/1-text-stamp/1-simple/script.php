@@ -15,7 +15,7 @@ $writer = new \SetaPDF_Core_Writer_Http('stamped.pdf', true);
 $document = \SetaPDF_Core_Document::loadByFilename($path, $writer);
 
 // create a stamper instance
-$stamper = new SetaPDF_Stamper($document);
+$stamper = new \SetaPDF_Stamper($document);
 
 // create a font instance which is needed for the text stamp instance
 $font = new \SetaPDF_Core_Font_TrueType_Subset(
@@ -26,7 +26,7 @@ $font = new \SetaPDF_Core_Font_TrueType_Subset(
 $fontSize = 12;
 
 // create a stamp instance
-$stamp = new SetaPDF_Stamper_Stamp_Text($font, $fontSize);
+$stamp = new \SetaPDF_Stamper_Stamp_Text($font, $fontSize);
 // set a text
 $stamp->setText('A simple example text.');
 

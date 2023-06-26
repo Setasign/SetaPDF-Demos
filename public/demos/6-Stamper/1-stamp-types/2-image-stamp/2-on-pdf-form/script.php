@@ -12,18 +12,18 @@ $document = \SetaPDF_Core_Document::loadByFilename(
 );
 
 // create a stamper instance
-$stamper = new SetaPDF_Stamper($document);
+$stamper = new \SetaPDF_Stamper($document);
 
 // get an image instance
 $image = \SetaPDF_Core_Image::getByPath($assetsDirectory . '/images/Handwritten-Signature.png');
 // initiate the stamp
-$stamp = new SetaPDF_Stamper_Stamp_Image($image);
+$stamp = new \SetaPDF_Stamper_Stamp_Image($image);
 // set height (and width until no setWidth is set the ratio will retain)
 $stamp->setHeight(40);
 
 // add stamp to stamper on position right bottom for page 1 with a specific translation
 $stamper->addStamp($stamp, [
-    'position' => SetaPDF_Stamper::POSITION_RIGHT_BOTTOM,
+    'position' => \SetaPDF_Stamper::POSITION_RIGHT_BOTTOM,
     'showOnPage' => 1,
     'translateX' => -130,
     'translateY' => 60

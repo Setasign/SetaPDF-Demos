@@ -8,14 +8,14 @@ $document = \SetaPDF_Core_Document::loadByFilename(
     new \SetaPDF_Core_Writer_Http('filled.pdf', true)
 );
 
-$formFiller = new SetaPDF_FormFiller($document);
+$formFiller = new \SetaPDF_FormFiller($document);
 $fields = $formFiller->getFields();
 
-/** @var SetaPDF_FormFiller_Field_List $balloonColor */
+/** @var \SetaPDF_FormFiller_Field_List $balloonColor */
 $balloonColor = $fields->get('Balloon color');
 
 // that's how you can check for a list field (just for demonstration here)
-if ($balloonColor instanceof  SetaPDF_FormFiller_Field_List) {
+if ($balloonColor instanceof  \SetaPDF_FormFiller_Field_List) {
     // set by export value
     $balloonColor->setValue('black');
 }

@@ -13,11 +13,11 @@ $files = [
 $path = displayFiles($files);
 
 $document = \SetaPDF_Core_Document::loadByFilename($path);
-$extractor = new SetaPDF_Extractor($document);
+$extractor = new \SetaPDF_Extractor($document);
 
-$strategy = new SetaPDF_Extractor_Strategy_Word();
+$strategy = new \SetaPDF_Extractor_Strategy_Word();
 // change the detail level
-$strategy->setDetailLevel(SetaPDF_Extractor_Strategy_Word::DETAIL_LEVEL_GLYPHS);
+$strategy->setDetailLevel(\SetaPDF_Extractor_Strategy_Word::DETAIL_LEVEL_GLYPHS);
 $extractor->setStrategy($strategy);
 
 $pageCount = $document->getCatalog()->getPages()->count();
@@ -29,7 +29,7 @@ for ($pageNo = 1; $pageNo <= $pageCount; $pageNo++) {
     echo '<table border="1" width="100%">';
     echo '<tr><th>Word</th><th>llx</th><th>lly</th><th>urx</th><th>ury</th><th>Font Name</th></tr>';
 
-    /** @var SetaPDF_Extractor_Result_WordWithGlyphs $word */
+    /** @var \SetaPDF_Extractor_Result_WordWithGlyphs $word */
     foreach ($words as $word) {
         // access the glyphs of the word
         $firstGlyph = $word->getGlyphs()[0];

@@ -16,12 +16,12 @@ if (!isset($_GET['e'])) {
 }
 
 // create a merger instance
-$merger = new SetaPDF_Merger();
+$merger = new \SetaPDF_Merger();
 
 // add the first file and add a named destination named "product-1"
 $merger->addFile(
     $assetsDirectory . '/pdfs/tektown/products/Boombastic-Box.pdf',
-    SetaPDF_Merger::PAGES_ALL,
+    \SetaPDF_Merger::PAGES_ALL,
     'product-1'
 );
 

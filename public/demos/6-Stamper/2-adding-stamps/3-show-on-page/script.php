@@ -20,7 +20,7 @@ for ($i = 100; $i > 0; $i--) {
 }
 
 // create a stamper instance
-$stamper = new SetaPDF_Stamper($document);
+$stamper = new \SetaPDF_Stamper($document);
 
 // create a font instance which is needed for the text stamp instance
 $font = new \SetaPDF_Core_Font_TrueType_Subset(
@@ -29,7 +29,7 @@ $font = new \SetaPDF_Core_Font_TrueType_Subset(
 );
 
 // create a stamp instance
-$stamp = new SetaPDF_Stamper_Stamp_Text($font, 12);
+$stamp = new \SetaPDF_Stamper_Stamp_Text($font, 12);
 $stamp->setBackgroundColor([0.5, 1, 1]);
 $stamp->setBorderWidth(1);
 $stamp->setPadding(2);
@@ -39,7 +39,7 @@ $stamp->setText('A simple example text to demonstrate showOnPage parameter.');
 // add the stamp object on all pages on the given position
 $stamper->addStamp(
     $stamp,
-    SetaPDF_Stamper::POSITION_LEFT_TOP,
+    \SetaPDF_Stamper::POSITION_LEFT_TOP,
     $data['showOnPage']
 );
 

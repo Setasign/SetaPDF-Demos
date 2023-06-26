@@ -29,7 +29,7 @@ $document = \SetaPDF_Core_Document::loadByFilename(
     new \SetaPDF_Core_Writer_Http('flatten.pdf', true)
 );
 
-$formFiller = new SetaPDF_FormFiller($document);
+$formFiller = new \SetaPDF_FormFiller($document);
 
 // access the fields instance
 $fields = $formFiller->getFields();

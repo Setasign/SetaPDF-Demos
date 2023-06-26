@@ -3,7 +3,7 @@
 // load and register the autoload function
 require_once __DIR__ . '/../../../../../bootstrap.php';
 
-$merger = new SetaPDF_Merger();
+$merger = new \SetaPDF_Merger();
 
 $filename = $assetsDirectory . '/pdfs/Brand-Guide-Encrypted (owner-pw setasign).pdf';
 // use the helper method to register the document instance internally:

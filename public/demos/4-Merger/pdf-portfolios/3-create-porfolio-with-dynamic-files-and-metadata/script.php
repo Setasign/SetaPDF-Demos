@@ -10,7 +10,7 @@ $document->getCatalog()->getPages()->create(\SetaPDF_Core_PageFormats::A4);
 // we leave it empty for demonstration purpose...
 
 // create a collection instance
-$collection = new SetaPDF_Merger_Collection($document);
+$collection = new \SetaPDF_Merger_Collection($document);
 
 // add a dynamically created text file
 $textFile = 'A simple text content';

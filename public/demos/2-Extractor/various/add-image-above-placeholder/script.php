@@ -8,10 +8,10 @@ $document = \SetaPDF_Core_Document::loadByFilename(
 );
 
 // initate an extractor instance
-$extractor = new SetaPDF_Extractor($document);
+$extractor = new \SetaPDF_Extractor($document);
 
 // define the word strategy
-$strategy = new SetaPDF_Extractor_Strategy_Word();
+$strategy = new \SetaPDF_Extractor_Strategy_Word();
 $extractor->setStrategy($strategy);
 
 // get the pages helper
@@ -28,7 +28,7 @@ $images = [
 $matches = [];
 for ($pageNo = 1; $pageNo <= $pages->count(); $pageNo++) {
     /**
-     * @var SetaPDF_Extractor_Result_Word[] $words
+     * @var \SetaPDF_Extractor_Result_Word[] $words
      */
     $words = $extractor->getResultByPageNumber($pageNo);
 
@@ -37,7 +37,7 @@ for ($pageNo = 1; $pageNo <= $pages->count(); $pageNo++) {
     foreach ($words AS $word) {
         $string = $word->getString();
         if ($string === '{{') {
-            $segments = new SetaPDF_Extractor_Result_Collection([$word]);
+            $segments = new \SetaPDF_Extractor_Result_Collection([$word]);
             continue;
         }
 
@@ -55,7 +55,7 @@ for ($pageNo = 1; $pageNo <= $pages->count(); $pageNo++) {
 
 // iterate over the matches
 foreach ($matches AS $match) {
-    /** @var SetaPDF_Extractor_Result_Collection $segments */
+    /** @var \SetaPDF_Extractor_Result_Collection $segments */
     $segments = $match[1];
 
     $name = '';

@@ -9,7 +9,7 @@ $writer = new \SetaPDF_Core_Writer_Http('page-numbering-demo.pdf', true);
 $document = \SetaPDF_Core_Document::loadByFilename($assetsDirectory . '/pdfs/lenstown/products/All.pdf', $writer);
 
 // create a stamper instance for the document
-$stamper = new SetaPDF_Stamper($document);
+$stamper = new \SetaPDF_Stamper($document);
 
 // let's use a TrueType font for the stamp appearance:
 $font = new \SetaPDF_Core_Font_TrueType_Subset(
@@ -18,7 +18,7 @@ $font = new \SetaPDF_Core_Font_TrueType_Subset(
 );
 
 // create a stamp with the created font and fontsize of 10 points
-$stamp = new SetaPDF_Stamper_Stamp_Text($font, 10);
+$stamp = new \SetaPDF_Stamper_Stamp_Text($font, 10);
 $stamp->setTextColor('#6d6f72');
 
 // let's create links back to page 1
@@ -27,7 +27,7 @@ $action = new \SetaPDF_Core_Document_Action_GoTo($dest);
 $stamp->setAction($action);
 
 // a callback to set the pagenumbers for each page
-function callbackForPageNumbering($pageNumber, $pageCount, $page, SetaPDF_Stamper_Stamp_Text $stamp) {
+function callbackForPageNumbering($pageNumber, $pageCount, $page, \SetaPDF_Stamper_Stamp_Text $stamp) {
     // set the text for the stamp object before stamping
     $stamp->setText("Page $pageNumber of $pageCount");
 
@@ -37,7 +37,7 @@ function callbackForPageNumbering($pageNumber, $pageCount, $page, SetaPDF_Stampe
 
 // add the stamp and assign the callback function
 $stamper->addStamp($stamp, [
-    'position' => SetaPDF_Stamper::POSITION_RIGHT_BOTTOM,
+    'position' => \SetaPDF_Stamper::POSITION_RIGHT_BOTTOM,
     'translateX' => -29,
     'translateY' => 30,
     'callback' => 'callbackForPageNumbering'
@@ -62,19 +62,19 @@ $canvas
     ->line(0, $lineWidth / 2, 10, $lineWidth / 2);
 
 // create the stamp object for the XObject
-$xObjectStamp = new SetaPDF_Stamper_Stamp_XObject($xObject);
+$xObjectStamp = new \SetaPDF_Stamper_Stamp_XObject($xObject);
 $xObjectStamp->setHeight($lineWidth);
 
 // add the line 4 points above the page numbering text and ensure the correct width through a callback
 $stamper->addStamp($xObjectStamp, [
-    'position' => SetaPDF_Stamper::POSITION_RIGHT_BOTTOM,
+    'position' => \SetaPDF_Stamper::POSITION_RIGHT_BOTTOM,
     'translateX' => -29, // relative to right bottom
     'translateY' => 30 + $stamp->getHeight() + 4,
     'callback' => static function(
         $pageNumber,
         $pageCount,
         \SetaPDF_Core_Document_Page $page,
-        SetaPDF_Stamper_Stamp_XObject $stamp
+        \SetaPDF_Stamper_Stamp_XObject $stamp
     ) {
         $stamp->setWidth($page->getWidth() - 29 * 2);
         return true;

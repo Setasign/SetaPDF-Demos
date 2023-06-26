@@ -17,10 +17,10 @@ $document = \SetaPDF_Core_Document::loadByFilename(
     new \SetaPDF_Core_Writer_Http('filled.pdf', true)
 );
 
-$formFiller = new SetaPDF_FormFiller($document);
+$formFiller = new \SetaPDF_FormFiller($document);
 $fields = $formFiller->getFields();
 
-/** @var SetaPDF_FormFiller_Field_AbstractField $field */
+/** @var \SetaPDF_FormFiller_Field_AbstractField $field */
 foreach ($fields as $field) {
     $fieldName = $field->getQualifiedName();
     if (!isset($data['values'][$fieldName])) {

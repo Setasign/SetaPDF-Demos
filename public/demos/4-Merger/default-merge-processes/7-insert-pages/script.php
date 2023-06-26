@@ -9,7 +9,7 @@ $ad = $assetsDirectory . '/pdfs/Setasign-Ebook-Ad.pdf';
 $showAdAfterPages = 4;
 
 // create a merger instance
-$merger = new SetaPDF_Merger();
+$merger = new \SetaPDF_Merger();
 
 // let's count the pages of the main document
 // (document instance will be cached internally already then)
@@ -22,7 +22,7 @@ for ($start = 1; $start < $pageCount; $start += $showAdAfterPages) {
         'pages' => $start . '-' . ($start + $showAdAfterPages - 1),
         // we only want to copy the outlines ones
         'outlinesConfig' => ($start === 1) ? [
-            SetaPDF_Merger::OUTLINES_COPY => SetaPDF_Merger::COPY_OUTLINES_TO_ROOT
+            \SetaPDF_Merger::OUTLINES_COPY => \SetaPDF_Merger::COPY_OUTLINES_TO_ROOT
         ] : null
     ]);
 

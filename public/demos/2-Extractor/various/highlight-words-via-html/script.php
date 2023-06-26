@@ -35,10 +35,10 @@ if (!file_exists($imageFile)) {
 $document = \SetaPDF_Core_Document::loadByFilename($file);
 $page = $document->getCatalog()->getPages()->getPage($pageNo);
 
-$extractor = new SetaPDF_Extractor($document);
-$extractor->setStrategy(new SetaPDF_Extractor_Strategy_Word());
+$extractor = new \SetaPDF_Extractor($document);
+$extractor->setStrategy(new \SetaPDF_Extractor_Strategy_Word());
 
-/** @var SetaPDF_Extractor_Result_Words $words */
+/** @var \SetaPDF_Extractor_Result_Words $words */
 $words = $extractor->getResultByPageNumber(1);
 
 // this is the factor between points and px

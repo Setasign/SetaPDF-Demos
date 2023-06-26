@@ -14,7 +14,7 @@ $path = displayFiles($files);
 
 $document = \SetaPDF_Core_Document::loadByFilename($path);
 
-$formFiller = new SetaPDF_FormFiller($document);
+$formFiller = new \SetaPDF_FormFiller($document);
 
 // access the fields instance
 $fields = $formFiller->getFields();

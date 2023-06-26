@@ -9,7 +9,7 @@ $document = \SetaPDF_Core_Document::loadByFilename(
 );
 
 // get the collection instance
-$collection = new SetaPDF_Merger_Collection($document);
+$collection = new \SetaPDF_Merger_Collection($document);
 
 // get all files
 $files = [];

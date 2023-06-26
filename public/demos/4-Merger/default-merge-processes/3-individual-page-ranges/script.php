@@ -4,7 +4,7 @@
 require_once __DIR__ . '/../../../../../bootstrap.php';
 
 // create a merger instance
-$merger = new SetaPDF_Merger();
+$merger = new \SetaPDF_Merger();
 
 $file = $assetsDirectory . '/pdfs/misc/large/1000-red.pdf';
 
@@ -26,7 +26,7 @@ $merger->addFile($file, function($pageNo) {
 $merger->addFile($file, '950-');
 
 // add the last page again
-$merger->addFile($file, SetaPDF_Merger::PAGES_LAST);
+$merger->addFile($file, \SetaPDF_Merger::PAGES_LAST);
 
 $merger->merge();
 

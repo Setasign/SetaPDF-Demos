@@ -14,11 +14,11 @@ $path = displayFiles($files);
 
 $document = \SetaPDF_Core_Document::loadByFilename($path);
 
-$signatureFieldNames = SetaPDF_Signer_ValidationRelatedInfo_Collector::getSignatureFieldNames($document);
+$signatureFieldNames = \SetaPDF_Signer_ValidationRelatedInfo_Collector::getSignatureFieldNames($document);
 foreach ($signatureFieldNames as $signatureFieldName) {
     echo htmlspecialchars(sprintf('Signature Field "%s" is ', $signatureFieldName));
 
-    $field = SetaPDF_Signer_SignatureField::get($document, $signatureFieldName);
+    $field = \SetaPDF_Signer_SignatureField::get($document, $signatureFieldName);
     if ($field->getValue() === null) {
         echo '<b>NOT</b>';
     }

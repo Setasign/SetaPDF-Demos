@@ -17,10 +17,10 @@ $document = \SetaPDF_Core_Document::loadByFilename(
 
 if ($regex !== '//ui') {
     // initate an extractor instance
-    $extractor = new SetaPDF_Extractor($document);
+    $extractor = new \SetaPDF_Extractor($document);
 
     // define the word group strategy
-    $strategy = new SetaPDF_Extractor_Strategy_WordGroup();
+    $strategy = new \SetaPDF_Extractor_Strategy_WordGroup();
     $extractor->setStrategy($strategy);
 
     $pages = $document->getCatalog()->getPages();

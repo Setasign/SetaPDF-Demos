@@ -41,20 +41,20 @@ foreach ([
     $document = \SetaPDF_Core_Document::loadByFilename($path);
 
     // create a plain strategy
-    $strategy = new SetaPDF_Extractor_Strategy_Plain();
+    $strategy = new \SetaPDF_Extractor_Strategy_Plain();
 
     // create an extractor instance
-    $extractor = new SetaPDF_Extractor($document, $strategy);
+    $extractor = new \SetaPDF_Extractor($document, $strategy);
 
     // iterate through the pages we want to extract data from.
     foreach ($fieldsPerPage AS $pageNo => $fields) {
 
         // define a multi filter
-        $filter = new SetaPDF_Extractor_Filter_Multi();
+        $filter = new \SetaPDF_Extractor_Filter_Multi();
         // create additional rectangle filters named by the found fields and ...
         foreach ($fields AS $name => $rect) {
-            $fieldFilter = new SetaPDF_Extractor_Filter_Rectangle(
-                $rect, SetaPDF_Extractor_Filter_Rectangle::MODE_CONTACT, $name
+            $fieldFilter = new \SetaPDF_Extractor_Filter_Rectangle(
+                $rect, \SetaPDF_Extractor_Filter_Rectangle::MODE_CONTACT, $name
             );
 
             // ...pass them to the multi filter

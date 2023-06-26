@@ -7,20 +7,20 @@ require_once __DIR__ . '/../../../../../bootstrap.php';
 $document = \SetaPDF_Core_Document::loadByFilename($assetsDirectory . '/pdfs/Fuchslocher-Example.pdf');
 
 // create an extractor instance
-$extractor = new SetaPDF_Extractor($document);
+$extractor = new \SetaPDF_Extractor($document);
 
 // create the word strategy...
-$strategy = new SetaPDF_Extractor_Strategy_Word();
+$strategy = new \SetaPDF_Extractor_Strategy_Word();
 // ...and pass it to the extractor
 $extractor->setStrategy($strategy);
 
-class BoldTextFilter implements SetaPDF_Extractor_Filter_FilterInterface
+class BoldTextFilter implements \SetaPDF_Extractor_Filter_FilterInterface
 {
     /**
-     * @param SetaPDF_Extractor_TextItem $textItem
+     * @param \SetaPDF_Extractor_TextItem $textItem
      * @return bool|string
      */
-    public function accept(SetaPDF_Extractor_TextItem $textItem)
+    public function accept(\SetaPDF_Extractor_TextItem $textItem)
     {
         $font = $textItem->getFont();
         return $font->isBold() || stripos($font->getFontName(), 'bold') !== false;

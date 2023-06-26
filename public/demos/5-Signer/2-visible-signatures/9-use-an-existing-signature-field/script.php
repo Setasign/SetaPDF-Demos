@@ -10,7 +10,7 @@ $document = \SetaPDF_Core_Document::loadByFilename(
 );
 
 // create a signer instance
-$signer = new SetaPDF_Signer($document);
+$signer = new \SetaPDF_Signer($document);
 
 // fixate the signature field and name
 $field = $signer->getSignatureField('Signature', false);
@@ -25,7 +25,7 @@ $signer->setSignatureFieldName($field->getQualifiedName());
 $certificatePath = $assetsDirectory . '/certificates/setapdf-no-pw.pem';
 
 // now create a signature module
-$module = new SetaPDF_Signer_Signature_Module_Pades();
+$module = new \SetaPDF_Signer_Signature_Module_Pades();
 // pass the path to the certificate
 $module->setCertificate('file://' . $certificatePath);
 // set the path to the private key (in this demo the key is also saved in the certificate file)
@@ -40,7 +40,7 @@ $image = \SetaPDF_Core_Image::getByPath($assetsDirectory . '/images/Handwritten-
 $xObject = $image->toXObject($document);
 
 // create a static visible appearance from the xObject
-$appearance = new SetaPDF_Signer_Signature_Appearance_XObject($xObject);
+$appearance = new \SetaPDF_Signer_Signature_Appearance_XObject($xObject);
 
 // pass the appearance module to the signer instance
 $signer->setAppearance($appearance);

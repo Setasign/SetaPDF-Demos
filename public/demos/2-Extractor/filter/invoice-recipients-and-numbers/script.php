@@ -13,27 +13,27 @@ foreach ($files AS $file) {
     $document = \SetaPDF_Core_Document::loadByFilename($file);
 
     // initiate an extractor instance
-    $extractor = new SetaPDF_Extractor($document);
+    $extractor = new \SetaPDF_Extractor($document);
 
     // get the plain strategy shich is the default strategy
     $strategy = $extractor->getStrategy();
 
     // define a rectangle filter for the invoice recipient name
-    $recipientNameFilter = new SetaPDF_Extractor_Filter_Rectangle(
+    $recipientNameFilter = new \SetaPDF_Extractor_Filter_Rectangle(
         new \SetaPDF_Core_Geometry_Rectangle(40, 665, 260, 700),
-        SetaPDF_Extractor_Filter_Rectangle::MODE_CONTACT,
+        \SetaPDF_Extractor_Filter_Rectangle::MODE_CONTACT,
         'recipient'
     );
 
     // define another rectangle filter for the invoice number
-    $invoiceNofilter = new SetaPDF_Extractor_Filter_Rectangle(
+    $invoiceNofilter = new \SetaPDF_Extractor_Filter_Rectangle(
         new \SetaPDF_Core_Geometry_Rectangle(512, 520, 580, 540),
-        SetaPDF_Extractor_Filter_Rectangle::MODE_CONTACT,
+        \SetaPDF_Extractor_Filter_Rectangle::MODE_CONTACT,
         'invoiceNo'
     );
 
     // pass the filters to the strategy by using a filter chain
-    $strategy->setFilter(new SetaPDF_Extractor_Filter_Multi([$recipientNameFilter, $invoiceNofilter]));
+    $strategy->setFilter(new \SetaPDF_Extractor_Filter_Multi([$recipientNameFilter, $invoiceNofilter]));
 
     // now walk through the pages and ...
     $pages = $document->getCatalog()->getPages();

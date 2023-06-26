@@ -10,7 +10,7 @@ $document = \SetaPDF_Core_Document::loadByFilename(
 );
 
 // create a signer instance
-$signer = new SetaPDF_Signer($document);
+$signer = new \SetaPDF_Signer($document);
 // add a signature field
 $field = $signer->addSignatureField();
 // and define that you want to use this field
@@ -30,7 +30,7 @@ if ($pfxRead === false) {
 
 
 // now create a signature module
-$module = new SetaPDF_Signer_Signature_Module_Pades();
+$module = new \SetaPDF_Signer_Signature_Module_Pades();
 // pass the certificate ...
 $module->setCertificate($pkcs12['cert']);
 // ...and private key to the module

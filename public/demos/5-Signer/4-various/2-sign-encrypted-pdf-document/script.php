@@ -15,7 +15,7 @@ $authCallback = static function(\SetaPDF_Core_SecHandler_SecHandlerInterface $se
 };
 
 // create a signer instance and pass the callback
-$signer = new SetaPDF_Signer($document, $authCallback);
+$signer = new \SetaPDF_Signer($document, $authCallback);
 
 // add a signature field
 $field = $signer->addSignatureField();
@@ -25,7 +25,7 @@ $signer->setSignatureFieldName($field->getQualifiedName());
 $certificatePath = $assetsDirectory . '/certificates/setapdf-no-pw.pem';
 
 // now create a signature module
-$module = new SetaPDF_Signer_Signature_Module_Pades();
+$module = new \SetaPDF_Signer_Signature_Module_Pades();
 // pass the path to the certificate
 $module->setCertificate('file://' . $certificatePath);
 // set the path to the private key (in this demo the key is also saved in the certificate file)

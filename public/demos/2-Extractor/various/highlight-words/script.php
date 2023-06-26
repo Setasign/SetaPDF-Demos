@@ -20,10 +20,10 @@ $document = \SetaPDF_Core_Document::loadByFilename(
 );
 
 // initate an extractor instance
-$extractor = new SetaPDF_Extractor($document);
+$extractor = new \SetaPDF_Extractor($document);
 
 // create the word extraction strategy and pass it to the extractor instance
-$strategy = new SetaPDF_Extractor_Strategy_Word();
+$strategy = new \SetaPDF_Extractor_Strategy_Word();
 $extractor->setStrategy($strategy);
 
 // get access to the documents pages instance

@@ -29,7 +29,7 @@ $firstPage->setBoundary($newBoundary, \SetaPDF_Core_PageBoundaries::CROP_BOX);
 
 
 // initiate a stamper instance
-$stamper = new SetaPDF_Stamper($document);
+$stamper = new \SetaPDF_Stamper($document);
 // initiate an custom font
 $font = new \SetaPDF_Core_Font_TrueType_Subset(
     $document,
@@ -37,7 +37,7 @@ $font = new \SetaPDF_Core_Font_TrueType_Subset(
 );
 
 // initialize a text stamp
-$stamp = new SetaPDF_Stamper_Stamp_Text($font, 10);
+$stamp = new \SetaPDF_Stamper_Stamp_Text($font, 10);
 $stamp->setText(
     "This file is downloaded at " . date("Y-m-d H:i") . " from \"" . $_SERVER['REMOTE_ADDR']
     . "\" by user \"Tester\" (e-mail: \"test@example.com\").\n"
@@ -51,7 +51,7 @@ $stamp->setAlign(\SetaPDF_Core_Text::ALIGN_CENTER);
 $stamp->setPadding(10);
 
 // add stamp on first page on position center-bottom
-$stamper->addStamp($stamp, SetaPDF_Stamper::POSITION_CENTER_BOTTOM, SetaPDF_Stamper::PAGES_FIRST);
+$stamper->addStamp($stamp, \SetaPDF_Stamper::POSITION_CENTER_BOTTOM, \SetaPDF_Stamper::PAGES_FIRST);
 
 // stamp the document with all previously added stamps
 $stamper->stamp();

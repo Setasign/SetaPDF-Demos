@@ -12,10 +12,10 @@ $document = \SetaPDF_Core_Document::loadByFilename(
 );
 
 // create a stamper instance
-$stamper = new SetaPDF_Stamper($document);
+$stamper = new \SetaPDF_Stamper($document);
 
 // initiate the stamp
-$stamp = new SetaPDF_Stamper_Stamp_Pdf(
+$stamp = new \SetaPDF_Stamper_Stamp_Pdf(
     $assetsDirectory . '/pdfs/lenstown/Logo.pdf',
     1,
     \SetaPDF_Core_PageBoundaries::ART_BOX

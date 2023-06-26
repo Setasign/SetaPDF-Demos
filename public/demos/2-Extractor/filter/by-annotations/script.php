@@ -13,7 +13,7 @@ $path = displayFiles($files);
 // create a document instance
 $document = \SetaPDF_Core_Document::loadByFilename($path);
 // initate an extractor instance
-$extractor = new SetaPDF_Extractor($document);
+$extractor = new \SetaPDF_Extractor($document);
 
 // get page documents pages object
 $pages = $document->getCatalog()->getPages();
@@ -44,9 +44,9 @@ for ($pageNo = 1, $pageCount = $pages->count(); $pageNo <= $pageCount; $pageNo++
     );
 
     // create a strategy instance
-    $strategy = new SetaPDF_Extractor_Strategy_ExactPlain();
+    $strategy = new \SetaPDF_Extractor_Strategy_ExactPlain();
     // create a multi filter instance
-    $filter = new SetaPDF_Extractor_Filter_Multi();
+    $filter = new \SetaPDF_Extractor_Filter_Multi();
     // and pass it to the strategy
     $strategy->setFilter($filter);
 
@@ -76,9 +76,9 @@ for ($pageNo = 1, $pageCount = $pages->count(); $pageNo <= $pageCount; $pageNo++
 
                 // Add a new rectangle filter to the multi filter instance
                 $filter->addFilter(
-                    new SetaPDF_Extractor_Filter_Rectangle(
+                    new \SetaPDF_Extractor_Filter_Rectangle(
                         new \SetaPDF_Core_Geometry_Rectangle($llx, $lly, $urx, $ury),
-                        SetaPDF_Extractor_Filter_Rectangle::MODE_CONTACT,
+                        \SetaPDF_Extractor_Filter_Rectangle::MODE_CONTACT,
                         $name
                     )
                 );

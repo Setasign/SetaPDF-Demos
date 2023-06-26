@@ -4,7 +4,7 @@
 require_once __DIR__ . '/../../../../../bootstrap.php';
 
 // simple merge process
-$merger = new SetaPDF_Merger();
+$merger = new \SetaPDF_Merger();
 $merger->addFile($assetsDirectory . '/pdfs/tektown/eBook-Invoice.pdf');
 $merger->addFile($assetsDirectory . '/pdfs/tektown/Terms-and-Conditions.pdf');
 $merger->merge();

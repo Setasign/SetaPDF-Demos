@@ -3,7 +3,7 @@
 // load and register the autoload function
 require_once __DIR__ . '/../../../../../bootstrap.php';
 
-$merger = new SetaPDF_Merger();
+$merger = new \SetaPDF_Merger();
 
 // copy layer information from this document
 $merger->addFile([

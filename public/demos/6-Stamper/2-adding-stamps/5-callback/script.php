@@ -19,13 +19,13 @@ for ($i = 0; $i < 20; $i++) {
 }
 
 // create a stamper instance
-$stamper = new SetaPDF_Stamper($document);
+$stamper = new \SetaPDF_Stamper($document);
 
 // create a font object
 $font = \SetaPDF_Core_Font_Standard_Helvetica::create($document);
 
 // create simple text stamp
-$stamp = new SetaPDF_Stamper_Stamp_Text($font, 16);
+$stamp = new \SetaPDF_Stamper_Stamp_Text($font, 16);
 $stamp->setPadding(4);
 $stamp->setAlign(\SetaPDF_Core_Text::ALIGN_RIGHT);
 
@@ -33,7 +33,7 @@ $stamp->setAlign(\SetaPDF_Core_Text::ALIGN_RIGHT);
  * @param $pageNumber The current page number that should be stamped
  * @param $pageCount The page count of the document
  * @param \SetaPDF_Core_Document_Page $page The page instance of the current page
- * @param SetaPDF_Stamper_Stamp_Text $stamp The stamp object
+ * @param \SetaPDF_Stamper_Stamp_Text $stamp The stamp object
  * @param array $currentStampData The data that were passed to the addStamp() method.
  *
  * @return bool
@@ -42,7 +42,7 @@ $callback = function(
     $pageNumber,
     $pageCount,
     \SetaPDF_Core_Document_Page $page,
-    SetaPDF_Stamper_Stamp_Text $stamp,
+    \SetaPDF_Stamper_Stamp_Text $stamp,
     array &$currentStampData
 ) {
     // if you return false the stamp will not get drawn
@@ -57,11 +57,11 @@ $callback = function(
 
     // if the page is landscape we want to position the stamp on the lower left with a rotation of 45 degrees
     if ($page->getWidth() > $page->getHeight()) {
-        $currentStampData['position'] = SetaPDF_Stamper::POSITION_LEFT_BOTTOM;
+        $currentStampData['position'] = \SetaPDF_Stamper::POSITION_LEFT_BOTTOM;
         $currentStampData['rotation'] = 45;
     // otherwise lower right and a -45 degree rotation
     } else {
-        $currentStampData['position'] = SetaPDF_Stamper::POSITION_RIGHT_BOTTOM;
+        $currentStampData['position'] = \SetaPDF_Stamper::POSITION_RIGHT_BOTTOM;
         $currentStampData['rotation'] = -45;
     }
 
@@ -70,7 +70,7 @@ $callback = function(
 
 // right bottom and callback
 $stamper->addStamp($stamp, [
-    'position' => SetaPDF_Stamper::POSITION_RIGHT_BOTTOM,
+    'position' => \SetaPDF_Stamper::POSITION_RIGHT_BOTTOM,
     'callback' => $callback
 ]);
 

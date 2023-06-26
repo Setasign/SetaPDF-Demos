@@ -2,24 +2,24 @@
 
 return [
     [
-        'displayValue' => 'SetaPDF_Stamper::PAGES_ALL',
-        'showOnPage' => SetaPDF_Stamper::PAGES_ALL
+        'displayValue' => '\SetaPDF_Stamper::PAGES_ALL',
+        'showOnPage' => \SetaPDF_Stamper::PAGES_ALL
     ],
     [
-        'displayValue' => 'SetaPDF_Stamper::PAGES_EVEN',
-        'showOnPage' => SetaPDF_Stamper::PAGES_EVEN
+        'displayValue' => '\SetaPDF_Stamper::PAGES_EVEN',
+        'showOnPage' => \SetaPDF_Stamper::PAGES_EVEN
     ],
     [
-        'displayValue' => 'SetaPDF_Stamper::PAGES_ODD',
-        'showOnPage' => SetaPDF_Stamper::PAGES_ODD
+        'displayValue' => '\SetaPDF_Stamper::PAGES_ODD',
+        'showOnPage' => \SetaPDF_Stamper::PAGES_ODD
     ],
     [
-        'displayValue' => 'SetaPDF_Stamper::PAGES_FIRST',
-        'showOnPage' => SetaPDF_Stamper::PAGES_FIRST
+        'displayValue' => '\SetaPDF_Stamper::PAGES_FIRST',
+        'showOnPage' => \SetaPDF_Stamper::PAGES_FIRST
     ],
     [
-        'displayValue' => 'SetaPDF_Stamper::PAGES_LAST',
-        'showOnPage' => SetaPDF_Stamper::PAGES_LAST
+        'displayValue' => '\SetaPDF_Stamper::PAGES_LAST',
+        'showOnPage' => \SetaPDF_Stamper::PAGES_LAST
     ],
     [
         'displayValue' => '4',

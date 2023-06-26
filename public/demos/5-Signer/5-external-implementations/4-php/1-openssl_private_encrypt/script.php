@@ -14,11 +14,11 @@ $writer = new \SetaPDF_Core_Writer_Http('signed-with-php-openssl.pdf');
 $document = \SetaPDF_Core_Document::loadByFilename($fileToSign, $writer);
 
 // create the signer instance
-$signer = new SetaPDF_Signer($document);
+$signer = new \SetaPDF_Signer($document);
 
 // let's use the PAdES modul and configure it
-$module = new SetaPDF_Signer_Signature_Module_Pades();
-$module->setDigest(SetaPDF_Signer_Digest::SHA_256);
+$module = new \SetaPDF_Signer_Signature_Module_Pades();
+$module->setDigest(\SetaPDF_Signer_Digest::SHA_256);
 $module->setCertificate('file://' . $assetsDirectory . '/certificates/setapdf-no-pw.pem');
 
 // create a temporary version which represents the data which should get signed
@@ -30,23 +30,23 @@ $hashData = $module->getDataToSign($tmpDocument->getHashFile());
 $hash = hash($module->getDigest(), $hashData, true);
 
 // let's sign only the hash, so we create the ASN.1 container manually
-$digestInfo = new SetaPDF_Signer_Asn1_Element(
-    SetaPDF_Signer_Asn1_Element::SEQUENCE | SetaPDF_Signer_Asn1_Element::IS_CONSTRUCTED, '',
+$digestInfo = new \SetaPDF_Signer_Asn1_Element(
+    \SetaPDF_Signer_Asn1_Element::SEQUENCE | \SetaPDF_Signer_Asn1_Element::IS_CONSTRUCTED, '',
     [
-        new SetaPDF_Signer_Asn1_Element(
-            SetaPDF_Signer_Asn1_Element::SEQUENCE | SetaPDF_Signer_Asn1_Element::IS_CONSTRUCTED, '',
+        new \SetaPDF_Signer_Asn1_Element(
+            \SetaPDF_Signer_Asn1_Element::SEQUENCE | \SetaPDF_Signer_Asn1_Element::IS_CONSTRUCTED, '',
             [
-                new SetaPDF_Signer_Asn1_Element(
-                    SetaPDF_Signer_Asn1_Element::OBJECT_IDENTIFIER,
-                    SetaPDF_Signer_Asn1_Oid::encode(
-                        SetaPDF_Signer_Digest::getOid($module->getDigest())
+                new \SetaPDF_Signer_Asn1_Element(
+                    \SetaPDF_Signer_Asn1_Element::OBJECT_IDENTIFIER,
+                    \SetaPDF_Signer_Asn1_Oid::encode(
+                        \SetaPDF_Signer_Digest::getOid($module->getDigest())
                     )
                 ),
-                new SetaPDF_Signer_Asn1_Element(SetaPDF_Signer_Asn1_Element::NULL)
+                new \SetaPDF_Signer_Asn1_Element(\SetaPDF_Signer_Asn1_Element::NULL)
             ]
         ),
-        new SetaPDF_Signer_Asn1_Element(
-            SetaPDF_Signer_Asn1_Element::OCTET_STRING,
+        new \SetaPDF_Signer_Asn1_Element(
+            \SetaPDF_Signer_Asn1_Element::OCTET_STRING,
             $hash
         )
     ]
@@ -60,7 +60,7 @@ $pkey = openssl_pkey_get_private(file_get_contents($privateKey), $privateKeyPass
 
 if (false === @openssl_private_encrypt($digestInfo, $signatureValue, $pkey)) {
     $lastError = error_get_last();
-    throw new SetaPDF_Signer_Exception(
+    throw new \SetaPDF_Signer_Exception(
         'An OpenSSL error occured during signature process' .
         (isset($lastError['message']) ? ': ' . $lastError['message'] : '') . '.'
     );

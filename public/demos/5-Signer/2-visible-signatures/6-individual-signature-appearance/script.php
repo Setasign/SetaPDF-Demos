@@ -10,7 +10,7 @@ $document = \SetaPDF_Core_Document::loadByFilename(
 );
 
 // create a signer instance
-$signer = new SetaPDF_Signer($document);
+$signer = new \SetaPDF_Signer($document);
 $signer->setName('SetaPDF-Demo');
 $signer->setReason('Testing');
 $signer->setLocation('SetaPDF-Demo Environment');
@@ -18,7 +18,7 @@ $signer->setLocation('SetaPDF-Demo Environment');
 $certificatePath = $assetsDirectory . '/certificates/setapdf-no-pw.pem';
 
 // now create a signature module
-$module = new SetaPDF_Signer_Signature_Module_Pades();
+$module = new \SetaPDF_Signer_Signature_Module_Pades();
 
 // pass the certificate path
 $module->setCertificate('file://' . $certificatePath);
@@ -45,9 +45,9 @@ $textBlock->setText($text);
 
 // add a signature field with the doubled height of the text block
 $field = $signer->addSignatureField(
-    SetaPDF_Signer_SignatureField::DEFAULT_FIELD_NAME,
+    \SetaPDF_Signer_SignatureField::DEFAULT_FIELD_NAME,
     1,
-    SetaPDF_Signer_SignatureField::POSITION_RIGHT_BOTTOM,
+    \SetaPDF_Signer_SignatureField::POSITION_RIGHT_BOTTOM,
     ['x' => -40, 'y' => 50],
     $textBlock->getWidth(),
     $textBlock->getHeight() * 2
@@ -82,7 +82,7 @@ $imageWidth = $imageXObject->getWidth($imageHeight);
 $imageXObject->draw($canvas, ($width - $imageWidth) / 2, $imageHeight, null, $imageHeight);
 
 // create a XObject appearance instance
-$appearance = new SetaPDF_Signer_Signature_Appearance_XObject($xObject);
+$appearance = new \SetaPDF_Signer_Signature_Appearance_XObject($xObject);
 
 // and pass it to the signer instance
 $signer->setAppearance($appearance);

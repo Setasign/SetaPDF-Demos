@@ -10,7 +10,7 @@ $document = \SetaPDF_Core_Document::loadByFilename(
 );
 
 // create a signer instance
-$signer = new SetaPDF_Signer($document);
+$signer = new \SetaPDF_Signer($document);
 // add a signature field
 $field = $signer->addSignatureField('Timestamp');
 // and define that you want to use this field
@@ -19,7 +19,7 @@ $signer->setSignatureFieldName($field->getQualifiedName());
 // use the timestamp authority you like
 $url = 'https://freetsa.org/tsr';
 
-$tsModule = new SetaPDF_Signer_Timestamp_Module_Rfc3161_Curl($url);
+$tsModule = new \SetaPDF_Signer_Timestamp_Module_Rfc3161_Curl($url);
 
 // if you need to authenticate with a password:
 //$username = 'yourUserName';

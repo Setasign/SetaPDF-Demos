@@ -15,7 +15,7 @@ $writer = new \SetaPDF_Core_Writer_Http('stamped.pdf', true);
 $document = \SetaPDF_Core_Document::loadByFilename($path, $writer);
 
 // create a stamper instance
-$stamper = new SetaPDF_Stamper($document);
+$stamper = new \SetaPDF_Stamper($document);
 
 // create a font instance which is needed for the text stamp instance
 $font = new \SetaPDF_Core_Font_TrueType_Subset(
@@ -24,7 +24,7 @@ $font = new \SetaPDF_Core_Font_TrueType_Subset(
 );
 
 // create a text stamp instance
-$stamp = new SetaPDF_Stamper_Stamp_Text($font, 10);
+$stamp = new \SetaPDF_Stamper_Stamp_Text($font, 10);
 $stamp->setText("Personalized for john@example.com");
 // set the border color to gray (e.g. as a hex value)
 $stamp->setBorderColor('#c7c7c7');
@@ -39,7 +39,7 @@ $stamp->setTextColor(new \SetaPDF_Core_DataStructure_Color_Rgb(56/255, 101/255, 
 
 // add the stamp to the stamper instance
 $stamper->addStamp($stamp, [
-    'position' => SetaPDF_Stamper::POSITION_CENTER_BOTTOM,
+    'position' => \SetaPDF_Stamper::POSITION_CENTER_BOTTOM,
     'translateY' => 15
 ]);
 

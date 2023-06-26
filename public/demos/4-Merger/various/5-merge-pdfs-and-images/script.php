@@ -8,7 +8,7 @@ $files = glob($assetsDirectory . '/pdfs/*/Logo.*');
 // let's define a DPI value for the images
 $dpi = 150;
 
-$merger = new SetaPDF_Merger();
+$merger = new \SetaPDF_Merger();
 
 foreach ($files as $path) {
     // simple check for an image file

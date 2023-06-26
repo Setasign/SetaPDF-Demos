@@ -28,7 +28,7 @@ $writer = new \SetaPDF_Core_Writer_Http('stamped.pdf', true);
 $document = \SetaPDF_Core_Document::loadByFilename($path, $writer);
 
 // create a stamper instance
-$stamper = new SetaPDF_Stamper($document);
+$stamper = new \SetaPDF_Stamper($document);
 
 // create a font instance which is needed for the text stamp instance
 $font = new \SetaPDF_Core_Font_TrueType_Subset(
@@ -38,7 +38,7 @@ $font = new \SetaPDF_Core_Font_TrueType_Subset(
 
 // an other stamp will printed on every page centered with the text "TOP SECRET" rotated
 // by 50 degrees as a filled stroke text with transparency
-$stamp = new SetaPDF_Stamper_Stamp_Text($font, 100);
+$stamp = new \SetaPDF_Stamper_Stamp_Text($font, 100);
 $stamp->setText("TOP SECRET");
 
 // set text color to red
@@ -52,7 +52,7 @@ $stamp->setRenderingMode(2);
 $stamp->setOpacity(0.1);
 
 // add stamp on all pages on position center_top rotated by 50 degress
-$stamper->addStamp($stamp, SetaPDF_Stamper::POSITION_CENTER_MIDDLE, SetaPDF_Stamper::PAGES_ALL, 0, 0, 50);
+$stamper->addStamp($stamp, \SetaPDF_Stamper::POSITION_CENTER_MIDDLE, \SetaPDF_Stamper::PAGES_ALL, 0, 0, 50);
 
 // stamp the document with all previously added stamps
 $stamper->stamp();

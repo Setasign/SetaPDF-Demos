@@ -15,7 +15,7 @@ $pages = $document->getCatalog()->getPages();
 $pages->create(\SetaPDF_Core_PageFormats::A4);
 
 // create a stamper instance
-$stamper = new SetaPDF_Stamper($document);
+$stamper = new \SetaPDF_Stamper($document);
 
 // create a font instance which is needed for the text stamp instance
 $font = new \SetaPDF_Core_Font_TrueType_Subset(
@@ -24,17 +24,17 @@ $font = new \SetaPDF_Core_Font_TrueType_Subset(
 );
 
 // create a stamp instance WITHOUT width
-$stampA = new SetaPDF_Stamper_Stamp_Text($font, 12);
+$stampA = new \SetaPDF_Stamper_Stamp_Text($font, 12);
 $stampA->setText('No width given: ' . $text);
 $stampA->setAlign(\SetaPDF_Core_Text::ALIGN_JUSTIFY);
 $stamper->addStamp($stampA);
 
 // create a stamp instance WITH width
-$stampB = new SetaPDF_Stamper_Stamp_Text($font, 12);
+$stampB = new \SetaPDF_Stamper_Stamp_Text($font, 12);
 $stampB->setText('Width given: ' . $text);
 $stampB->setWidth(220);
 $stampB->setAlign(\SetaPDF_Core_Text::ALIGN_JUSTIFY);
-$stamper->addStamp($stampB, SetaPDF_Stamper::POSITION_LEFT_MIDDLE);
+$stamper->addStamp($stampB, \SetaPDF_Stamper::POSITION_LEFT_MIDDLE);
 
 // execute the stamp process
 $stamper->stamp();

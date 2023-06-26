@@ -9,7 +9,7 @@ $document = \SetaPDF_Core_Document::loadByFilename(
 );
 
 // get the collection instance
-$collection = new SetaPDF_Merger_Collection($document);
+$collection = new \SetaPDF_Merger_Collection($document);
 
 if (isset($_GET['name'])) {
     $file = $collection->getFile($_GET['name']);
@@ -37,7 +37,7 @@ if (isset($_GET['name'])) {
 }
 
 // a simple function which is called recursively to print out all folders and files
-function printFolder(SetaPDF_Merger_Collection_Folder $folder, $level = 0) {
+function printFolder(\SetaPDF_Merger_Collection_Folder $folder, $level = 0) {
     $files = $folder->getFiles();
 
     echo str_repeat('&nbsp', $level++ * 4);

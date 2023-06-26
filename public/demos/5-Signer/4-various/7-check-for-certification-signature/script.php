@@ -20,7 +20,7 @@ if (is_array($file)) {
 
 try {
     $document = \SetaPDF_Core_Document::loadByFilename($file);
-    $certficationLevel = SetaPDF_Signer::getCertificationLevelByDocument($document);
+    $certficationLevel = \SetaPDF_Signer::getCertificationLevelByDocument($document);
     if ($certficationLevel === null) {
         echo "Document is not certified.";
         die();
@@ -28,11 +28,11 @@ try {
 
     echo '<span style="color:#22caff;">Document has a certification signature!</span><br />';
 
-    if ($certficationLevel === SetaPDF_Signer::CERTIFICATION_LEVEL_NO_CHANGES_ALLOWED) {
+    if ($certficationLevel === \SetaPDF_Signer::CERTIFICATION_LEVEL_NO_CHANGES_ALLOWED) {
         echo '<span style="color:red">No changes allowed.</span>';
-    } elseif ($certficationLevel === SetaPDF_Signer::CERTIFICATION_LEVEL_FORM_FILLING) {
+    } elseif ($certficationLevel === \SetaPDF_Signer::CERTIFICATION_LEVEL_FORM_FILLING) {
         echo '<span style="color:green">Form filling and signing is allowed.</span>';
-    } elseif ($certficationLevel === SetaPDF_Signer::CERTIFICATION_LEVEL_FORM_FILLING_AND_ANNOTATIONS) {
+    } elseif ($certficationLevel === \SetaPDF_Signer::CERTIFICATION_LEVEL_FORM_FILLING_AND_ANNOTATIONS) {
         echo '<span style="color:green">Annotating, form filling and signing is allowed.</span>';
     }
 } catch (Exception $e) {
