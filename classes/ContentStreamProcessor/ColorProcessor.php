@@ -261,7 +261,14 @@ class ColorProcessor
      */
     public function process()
     {
-        $this->_parser = new \SetaPDF_Core_Parser_Content($this->_canvas->getStream());
+        try {
+            $stream = $this->_canvas->getStream();
+        } catch (\SetaPDF_Core_Filter_Exception $e) {
+            // if a stream cannot be unfiltered, we ignore it
+            return;
+        }
+
+        $this->_parser = new \SetaPDF_Core_Parser_Content($stream);
 
         /* Register colorspace operators
          * f.g. -> /DeviceRGB CS   % Set DeviceRGB colour space

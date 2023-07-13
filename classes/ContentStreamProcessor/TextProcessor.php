@@ -22,7 +22,7 @@ class TextProcessor
     /**
      * The constructor
      *
-     * The parameter are the content stream and its resources dictionary.
+     * The parameter is the canvas instance.
      *
      * @param \SetaPDF_Core_Canvas $canvas
      */
@@ -62,7 +62,14 @@ class TextProcessor
      */
     protected function _createContentParser()
     {
-        $contentParser = new \SetaPDF_Core_Parser_Content($this->_canvas->getStream());
+        try {
+            $stream = $this->_canvas->getStream();
+        } catch (\SetaPDF_Core_Filter_Exception $e) {
+            // if a stream cannot be unfiltered, we ignore it
+            $stream = '';
+        }
+
+        $contentParser = new \SetaPDF_Core_Parser_Content($stream);
 
         // register a callback for text output operators
         $contentParser->registerOperator(

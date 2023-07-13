@@ -93,7 +93,14 @@ class ImageProcessor
     protected function _getContentParser()
     {
         if ($this->_contentParser === null) {
-            $this->_contentParser = new \SetaPDF_Core_Parser_Content($this->_canvas->getStream());
+            try {
+                $stream = $this->_canvas->getStream();
+            } catch (\SetaPDF_Core_Filter_Exception $e) {
+                // if a stream cannot be unfiltered, we ignore it
+                $stream = '';
+            }
+
+            $this->_contentParser = new \SetaPDF_Core_Parser_Content($stream);
             $this->_contentParser->registerOperator(['q', 'Q'], [$this, '_onGraphicStateChange']);
             $this->_contentParser->registerOperator('cm', [$this, '_onCurrentTransformationMatrix']);
             $this->_contentParser->registerOperator('Do', [$this, '_onFormXObject']);
