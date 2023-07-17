@@ -135,7 +135,7 @@ function displaySelect($label, $data, $iframe = true, $displayValueKey = null)
     return $_GET['data'];
 }
 
-function displayText($label, $defaultValur = '', $iframe, $iframeUrl = 'about:blank')
+function displayText($label, $defaultValue = '', $iframe = false, $iframeUrl = 'about:blank')
 {
     if (!isset($_GET['data'])) {
         echo '<html><head>';
@@ -147,7 +147,7 @@ function displayText($label, $defaultValur = '', $iframe, $iframeUrl = 'about:bl
             echo ' target="pdfFrame"';
         }
         echo '><label for="data">' . htmlspecialchars($label) . '</label>'
-            . '<input id="data" name="data" value="' . htmlspecialchars($defaultValur) . '" />';
+            . '<input id="data" name="data" value="' . htmlspecialchars($defaultValue) . '" />';
         echo '</select><button type="submit">GO</button></form></div>';
 
         if ($iframe) {
