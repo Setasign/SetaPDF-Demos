@@ -1,6 +1,6 @@
 {
     "name": "Fortify Web-component",
-    "teaserText": "Use the web-component of Foritfy.",
+    "teaserText": "Use the web-component of Fortify.",
     "requires": [
         "SetaPDF-Core", "SetaPDF-Signer"
     ],
