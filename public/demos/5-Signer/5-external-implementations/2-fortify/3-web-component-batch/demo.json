@@ -1,0 +1,13 @@
+{
+    "name": "Fortify Web-component Batch Signatures",
+    "teaserText": "Use the web-component of Fortify for signing multiple documents at once.",
+    "requires": [
+        "SetaPDF-Core", "SetaPDF-Signer"
+    ],
+    "iframePlaceholder": "Loading...",
+    "faIcon": "&#xf466;",
+    "previewFiles": [
+        "controller.php",
+        "js/main.js"
+    ]
+}
