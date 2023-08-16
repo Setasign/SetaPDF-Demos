@@ -21,6 +21,7 @@
 - [x] ~~Async Visible Signature With Timestamp~~
 - [x] ~~Use an Existing Signature Field~~
 - [x] ~~Stamp annotation on all pages + closing signature (emulation of several appearances)~~
+- [ ] Capture signature appearance by JavaScript library (e.g. https://github.com/szimek/signature_pad)
 
 ## Validation Related Information / Long Term Validation
 - [ ] In CMS Container
