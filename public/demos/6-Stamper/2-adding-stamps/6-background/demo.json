@@ -1,0 +1,9 @@
+{
+    "name": "Background / Underlay",
+    "teaserText": "Place a stamp as a background to all PDF pages.",
+    "requires": [
+        "SetaPDF-Core", "SetaPDF-Stamper"
+    ],
+    "faIcon": "&#xf03e;",
+    "faIcon2": "&#xf0c8;"
+}
