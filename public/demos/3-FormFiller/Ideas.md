@@ -23,6 +23,7 @@
 - [ ] Field appearance with external PDF generation library
 - [ ] Parsing and forwarding of FDF data.
 - [ ] Parsing and forwarding of XFDF data.
+- [ ] Replace placeholders and flatten fields to simulate personalization.
 
 ## XFA
 - [x] ~~Fill dynamic XFA form~~
