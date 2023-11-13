@@ -71,8 +71,17 @@ if (strpos($requestPath, '..') !== false || !is_dir($demosDirectory . '/' . $req
 $sorter = static function($a, $b) {
     $a = str_replace('/demo.json', '', $a);
     $b = str_replace('/demo.json', '', $b);
-    $a = (float)strstr(pathinfo($a, PATHINFO_BASENAME), '-', true);
-    $b = (float)strstr(pathinfo($b, PATHINFO_BASENAME), '-', true);
+
+    $a = pathinfo($a, PATHINFO_BASENAME);
+    $b = pathinfo($b, PATHINFO_BASENAME);
+
+    if (is_numeric($a[0])) {
+        $a = (float)strstr($a, '-', true);
+    }
+
+    if (is_numeric($b[0])) {
+        $b = (float)strstr($b, '-', true);
+    }
 
     return $a > $b ? 1 : -1;
 };
