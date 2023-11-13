@@ -38,13 +38,7 @@ for ($pageNo = 1; $pageNo <= $pages->count(); $pageNo++) {
 foreach ($matches AS list($pageNo, $results)) {
     /** @var \SetaPDF_Extractor_Result_Words $segments */
     foreach ($results as $segments) {
-        $name = '';
-        foreach ($segments AS $segment) {
-            $name .= $segment->getString();
-        }
-
-        $name = trim($name, '{}');
-
+        $name = trim($segments->getString(), "{} \n");
         if (!isset($images[$name])) {
             continue;
         }
