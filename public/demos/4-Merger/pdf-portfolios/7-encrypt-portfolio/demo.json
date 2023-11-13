@@ -1,0 +1,9 @@
+{
+    "name": "Encrypt Portfolio",
+    "teaserText": "To use it as an encrypted wrapper for e.g. digital signed documents.",
+    "requires": [
+        "SetaPDF-Core", "SetaPDF-Merger"
+    ],
+    "faIcon": "&#xf187;",
+    "faIcon2": "&#xf023;"
+}

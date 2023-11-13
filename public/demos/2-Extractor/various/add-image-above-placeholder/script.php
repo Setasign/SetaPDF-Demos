@@ -24,79 +24,70 @@ $images = [
     )->toXObject($document)
 ];
 
-// let's find all place holders
+// let's find all placeholders
 $matches = [];
 for ($pageNo = 1; $pageNo <= $pages->count(); $pageNo++) {
     /**
-     * @var \SetaPDF_Extractor_Result_Word[] $words
+     * @var \SetaPDF_Extractor_Result_Words $words
      */
     $words = $extractor->getResultByPageNumber($pageNo);
-
-    // let's iterate over all words and search for '{{', followed by a anything and followed by '}}'
-    $segments = null;
-    foreach ($words AS $word) {
-        $string = $word->getString();
-        if ($string === '{{') {
-            $segments = new \SetaPDF_Extractor_Result_Collection([$word]);
-            continue;
-        }
-
-        if ($segments === null)
-            continue;
-
-        $segments[] = $word;
-
-        if ($string === '}}') {
-            $matches[] = [$pageNo, $segments];
-            $segments = null;
-        }
-    }
+    $matches[] = [$pageNo, $words->search('/{{.*?}}/')];
 }
 
 // iterate over the matches
-foreach ($matches AS $match) {
-    /** @var \SetaPDF_Extractor_Result_Collection $segments */
-    $segments = $match[1];
+foreach ($matches AS list($pageNo, $results)) {
+    /** @var \SetaPDF_Extractor_Result_Words $segments */
+    foreach ($results as $segments) {
+        $name = '';
+        foreach ($segments AS $segment) {
+            $name .= $segment->getString();
+        }
 
-    $name = '';
-    foreach ($segments AS $segment) {
-        $name .= $segment->getString();
+        $name = trim($name, '{}');
+
+        if (!isset($images[$name])) {
+            continue;
+        }
+
+        // get the bounds of the found phrase
+        $bounds = $segments->getBounds();
+        $rect = $bounds[0]->getRectangle();
+
+        // get the page object
+        $page = $pages->getPage($pageNo);
+        // make sure that the new content is encapsulated in a seperate content stream
+        $page->getContents()->encapsulateExistingContentInGraphicState();
+        // get the canvas object
+        $canvas = $page->getCanvas();
+
+        // get some rect data
+        $x = $rect->getLl()->getX();
+        $y = $rect->getLl()->getY();
+        $width = $rect->getWidth();
+        $height = $rect->getHeight();
+
+        // draw a white rectangle
+        $canvas->draw()
+            ->setNonStrokingColor(1)
+            ->rect($x, $y, $width, $height, \SetaPDF_Core_Canvas_Draw::STYLE_FILL);
+
+        /**
+         * @var \SetaPDF_Core_XObject_Image $image
+         */
+        $image = $images[$name];
+
+        // draw the image fitted and centered to the placeholder area
+        $maxWidth = $image->getWidth($height);
+        $maxHeight = $image->getHeight($width);
+
+        if ($maxHeight > $height) {
+            $x += $width / 2 - $maxWidth / 2;
+            $image->draw($canvas, $x, $y, null, $height);
+        } else {
+            $y += $height / 2 - $maxHeight / 2;
+            $image->draw($canvas, $x, $y, $width, null);
+        }
     }
-
-    $name = trim($name, '{}');
-
-    if (!isset($images[$name])) {
-        continue;
-    }
-
-    // get the bounds of all 3 words
-    $bounds = $segments->getBounds();
-    $rect = $bounds[0]->getRectangle();
-
-    // get the page object
-    $page = $pages->getPage($match[0]);
-    // make sure that the new content is encapsulated in a seperate content stream
-    $page->getContents()->encapsulateExistingContentInGraphicState();
-    // get the canvas object
-    $canvas = $page->getCanvas();
-
-    // get some rect data
-    $x = $rect->getLl()->getX();
-    $y = $rect->getLl()->getY();
-    $width = $rect->getWidth();
-    $height = $rect->getHeight();
-
-    // draw a white rectangle
-    $canvas->draw()
-        ->setNonStrokingColor(1)
-        ->rect($x, $y, $width, $height, \SetaPDF_Core_Canvas_Draw::STYLE_FILL);
-
-    /**
-     * @var \SetaPDF_Core_XObject_Image $image
-     */
-    $image = $images[$name];
-    // draw the image onto the canvas
-    $image->draw($canvas, $x, $y, $width, $height);
 }
 
 // save and finish the document
