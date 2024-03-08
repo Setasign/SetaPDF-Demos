@@ -1,0 +1,8 @@
+{
+    "name": "Show Field Positions in HTML",
+    "teaserText": "This demo translates the rectangle values of form field annotations to values you can use in HTML.",
+    "requires": [
+        "SetaPDF-Core", "SetaPDF-FormFiller"
+    ],
+    "faIcon2": "&#xf5cb;"
+}

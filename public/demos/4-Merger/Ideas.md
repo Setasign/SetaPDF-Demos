@@ -36,3 +36,4 @@
 - [x] ~~Extract Files~~
 - [x] ~~Extract Files From Folder~~
 - [ ] Convert to ZIP (including folder structure)
+- [ ] Encrypt a signed PDF in a package
