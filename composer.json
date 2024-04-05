@@ -9,7 +9,7 @@
         "setasign/setapdf-merger": "^2.40",
         "setasign/setapdf-signer": "^2.40",
         "setasign/setapdf-stamper": "^2.40",
-        "phpseclib/phpseclib": "^2.0"
+        "phpseclib/phpseclib": "^2.0 || ^3.0"
     },
     "repositories": [
         {
