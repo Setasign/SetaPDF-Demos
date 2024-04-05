@@ -71,8 +71,17 @@ if (strpos($requestPath, '..') !== false || !is_dir($demosDirectory . '/' . $req
 $sorter = static function($a, $b) {
     $a = str_replace('/demo.json', '', $a);
     $b = str_replace('/demo.json', '', $b);
-    $a = (float)strstr(pathinfo($a, PATHINFO_BASENAME), '-', true);
-    $b = (float)strstr(pathinfo($b, PATHINFO_BASENAME), '-', true);
+
+    $a = pathinfo($a, PATHINFO_BASENAME);
+    $b = pathinfo($b, PATHINFO_BASENAME);
+
+    if (is_numeric($a[0])) {
+        $a = (float)strstr($a, '-', true);
+    }
+
+    if (is_numeric($b[0])) {
+        $b = (float)strstr($b, '-', true);
+    }
 
     return $a > $b ? 1 : -1;
 };
@@ -100,6 +109,13 @@ echo <<<HTML
         <a href="http://www.setasign.com"><img src="./layout/img/small-logo.png" class="companyLogo" alt="Logo"/></a>
     </div>
 </header>
+<div id="loading-error">
+    <div class="wrapper">
+        <p>There seems to be a problem loading the components. Please check your PHP error logs for details!</p>
+        <p>
+            Common issues could be that you missed to install the trial license or that you are using a trial version
+            on an unsupported PHP version.
+        </p>
 HTML;
 
 $availablePackages = [];
@@ -125,7 +141,7 @@ if (class_exists(SetaPDF_Stamper::class)) {
     $availablePackages[] = 'SetaPDF-Stamper';
 }
 
-
+echo '</div></div><style>#loading-error { display:none; }</style>';
 echo '<div id="breadcrumb"><div class="wrapper">'
     . '<nav><ul>';
 
@@ -344,7 +360,7 @@ if ($isDemo) {
     if (count($nextDemos) > 0) {
         $nextDemo = array_shift($nextDemos);
         echo '<span>'
-           . '<a href="?p=' . urlencode($nextDemo['path']) . '" class="next" title="' . $nextDemo['name'] . '">'
+            . '<a href="?p=' . urlencode($nextDemo['path']) . '" class="next" title="' . $nextDemo['name'] . '">'
             . $nextDemo['name']
             . '</a>';
 
@@ -425,7 +441,7 @@ if ($isDemo) {
         if ($hasIcon) {
             echo '<a href="?p=' . urlencode($path) . '" title="' . htmlspecialchars($name, ENT_QUOTES | ENT_HTML5) . '">'
                 . '<img alt="Demo Icon" src="data:image/png;base64,'
-                    . base64_encode(file_get_contents($dir . '/icon.png')) . '"/>'
+                . base64_encode(file_get_contents($dir . '/icon.png')) . '"/>'
                 . '</a>';
         } else {
             echo '<a href="?p=' . urlencode($path) . '" title="' . htmlspecialchars($name, ENT_QUOTES | ENT_HTML5)

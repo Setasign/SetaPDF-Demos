@@ -4,7 +4,7 @@
 require_once __DIR__ . '/../../../../../bootstrap.php';
 
 $document = \SetaPDF_Core_Document::loadByFilename(
-    $assetsDirectory . '/pdfs/tektown/Laboratory-Report - with-sig-placeholders.pdf'
+    $assetsDirectory . '/pdfs/tektown/Laboratory-Report.pdf'
 );
 
 // initate an extractor instance
@@ -17,13 +17,6 @@ $extractor->setStrategy($strategy);
 // get the pages helper
 $pages = $document->getCatalog()->getPages();
 
-// define a mapping of placeholders to images
-$images = [
-    'SIGNATURE' => \SetaPDF_Core_Image::getByPath(
-        $assetsDirectory . '/images/Handwritten-Signature.png'
-    )->toXObject($document)
-];
-
 // let's find all placeholders
 $matches = [];
 for ($pageNo = 1; $pageNo <= $pages->count(); $pageNo++) {
@@ -31,18 +24,21 @@ for ($pageNo = 1; $pageNo <= $pages->count(); $pageNo++) {
      * @var \SetaPDF_Extractor_Result_Words $words
      */
     $words = $extractor->getResultByPageNumber($pageNo);
-    $matches[] = [$pageNo, $words->search('/{{.*?}}/')];
+    // we search for the number "11563"
+    $matches[] = [$pageNo, $words->search('/11563/')];
+}
+
+if (count($matches)) {
+    $font = new \SetaPDF_Core_Font_TrueType_Subset(
+        $document,
+        $assetsDirectory . '/fonts/DejaVu/ttf/DejaVuSans.ttf'
+    );
 }
 
 // iterate over the matches
 foreach ($matches AS list($pageNo, $results)) {
     /** @var \SetaPDF_Extractor_Result_Words $segments */
     foreach ($results as $segments) {
-        $name = trim($segments->getString(), "{} \n");
-        if (!isset($images[$name])) {
-            continue;
-        }
-
         // get the bounds of the found phrase
         $bounds = $segments->getBounds();
         $rect = $bounds[0]->getRectangle();
@@ -65,22 +61,12 @@ foreach ($matches AS list($pageNo, $results)) {
             ->setNonStrokingColor(1)
             ->rect($x, $y, $width, $height, \SetaPDF_Core_Canvas_Draw::STYLE_FILL);
 
-        /**
-         * @var \SetaPDF_Core_XObject_Image $image
-         */
-        $image = $images[$name];
-
-        // draw the image fitted and centered to the placeholder area
-        $maxWidth = $image->getWidth($height);
-        $maxHeight = $image->getHeight($width);
-
-        if ($maxHeight > $height) {
-            $x += $width / 2 - $maxWidth / 2;
-            $image->draw($canvas, $x, $y, null, $height);
-        } else {
-            $y += $height / 2 - $maxHeight / 2;
-            $image->draw($canvas, $x, $y, $width, null);
-        }
+        $textBlock = new SetaPDF_Core_Text_Block($font, $height * .7);
+        $textBlock->setText('875631');
+        $textBlock->setAlign(SetaPDF_Core_Text::ALIGN_CENTER);
+        $textBlock->setBorderColor([1, 0, 0]);
+        $textBlock->setBorderWidth(1);
+        $textBlock->draw($canvas, $x, $y);
     }
 }
 
