@@ -117,23 +117,24 @@ try {
             $tempPath = \SetaPDF_Core_Writer_TempFile::createTempPath();
 
             // prepare the PDF
-            $_SESSION['tmpDocument'] = $signer->preSign(
+            $tmpDocument = $signer->preSign(
                 new \SetaPDF_Core_Writer_File($tempPath),
                 $module
             );
-
-            $_SESSION['module'] = $module;
-
+            
             // prepare the response
             $response = [
                 'dataToSign' => \SetaPDF_Core_Type_HexString::str2hex(
-                    $module->getDataToSign($_SESSION['tmpDocument']->getHashFile())
+                    $module->getDataToSign($tmpDocument->getHashFile())
                 ),
                 'extraCerts' => array_map(function (\SetaPDF_Signer_X509_Certificate $cert) {
                     return $cert->get(\SetaPDF_Signer_X509_Format::PEM);
                 }, $extraCerts->getAll()),
                 'tsUrl' => isset($_SESSION['tsUrl']) ? $_SESSION['tsUrl'] : false
             ];
+
+            $_SESSION['tmpDocument'] = $tmpDocument;
+            $_SESSION['module'] = $module;
 
             // send it
             header('Content-Type: application/json; charset=utf-8');

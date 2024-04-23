@@ -137,9 +137,6 @@ try {
                 ];
             }
 
-            $_SESSION['tmpDocuments'] = $tmpDocuments;
-
-
             // prepare the response
             $response = [
                 'dataToSign' => array_map(function ($tmpDocument) {
@@ -152,6 +149,8 @@ try {
                 }, $extraCerts->getAll()),
                 'tsUrl' => isset($_SESSION['tsUrl']) ? $_SESSION['tsUrl'] : false
             ];
+
+            $_SESSION['tmpDocuments'] = $tmpDocuments;
 
             // send it
             header('Content-Type: application/json; charset=utf-8');
