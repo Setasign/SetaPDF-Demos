@@ -99,7 +99,7 @@ echo '<h1>Checking signatures in ' . htmlspecialchars($filename) . '</h1>';
 
 try {
     $document = \SetaPDF_Core_Document::loadByFilename($file);
-    $signatureFieldNames = \SetaPDF_Signer_ValidationRelatedInfo_Collector::getSignatureFieldNames($document);
+    $signatureFieldNames = \SetaPDF_Signer::getSignatureFieldNames($document);
 
     foreach ($signatureFieldNames AS $fieldName) {
         try {

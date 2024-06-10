@@ -15,7 +15,7 @@ $path = displayFiles($files);
 
 $document = \SetaPDF_Core_Document::loadByFilename($path);
 
-$signatureFieldNames = \SetaPDF_Signer_ValidationRelatedInfo_Collector::getSignatureFieldNames($document);
+$signatureFieldNames = \SetaPDF_Signer::getSignatureFieldNames($document);
 foreach ($signatureFieldNames as $signatureFieldName) {
     echo htmlspecialchars(sprintf('Signature Field "%s" is ', $signatureFieldName));
 

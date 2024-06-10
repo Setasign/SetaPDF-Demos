@@ -9,7 +9,7 @@ $fh = fopen($file, 'rb');
 $reader = new \SetaPDF_Core_Reader_Stream($fh);
 $document = \SetaPDF_Core_Document::load($reader);
 
-$fieldNames = \SetaPDF_Signer_ValidationRelatedInfo_Collector::getSignatureFieldNames($document);
+$fieldNames = \SetaPDF_Signer::getSignatureFieldNames($document);
 // let's filter only used signature fields
 $fieldNames = array_filter($fieldNames, static function($fieldName) use ($document) {
     $integrityResult = \SetaPDF_Signer_ValidationRelatedInfo_IntegrityResult::create($document, $fieldName);
