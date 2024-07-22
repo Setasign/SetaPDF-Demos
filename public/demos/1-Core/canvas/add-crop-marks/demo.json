@@ -1,0 +1,8 @@
+{
+    "name": "Add Crop Marks",
+    "teaserText": "Update the page boundaries and add some crop marks to an existing PDF page.",
+    "requires": [
+        "SetaPDF-Core"
+    ],
+    "faIcon": "&#xf0c4;"
+}
