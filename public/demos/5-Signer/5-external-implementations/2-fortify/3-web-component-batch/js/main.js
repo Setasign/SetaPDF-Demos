@@ -105,15 +105,16 @@
                 ca: true
             };
 
-            fortifyComp.addEventListener('cancel', function () {
+            fortifyComp.addEventListener('selectionCancel', function () {
                 hide('fortifyContainer');
                 show('signButtonContainer');
             });
-            fortifyComp.addEventListener('continue', async function (event) {
+            fortifyComp.addEventListener('selectionSuccess', async function (event) {
+                let signatures = {};
                 try {
                     show('loader');
                     document.getElementById('loader').setAttribute('data-text', 'Signing document');
-                    let provider = await event.detail.server.getCrypto(event.detail.providerId);
+                    let provider = await event.detail.socketProvider.getCrypto(event.detail.providerId);
 
                     let cert = await provider.certStorage.getItem(event.detail.certificateId);
                     let certPem = await provider.certStorage.exportCert('pem', cert);
@@ -144,7 +145,6 @@
                         document.getElementById('tsUrl').innerHTML = 'No timestamp server found.';
                     }
 
-                    let signatures = {};
                     for (const key in startJson.dataToSign) {
                         if (!startJson.dataToSign.hasOwnProperty(key)) {
                             continue;
@@ -159,7 +159,14 @@
                         let signature = await provider.subtle.sign(alg, privateKey, message);
                         signatures[key] = toHex(signature);
                     }
+                } catch (error) {
+                    hide('loader');
+                    console.info(error);
+                    alert('An error occured: ' + error);
+                    return;
+                }
 
+                try {
                     let completeResponseText = await postRequest(
                         controllerPath + '?action=complete',
                         JSON.stringify({signatures})
