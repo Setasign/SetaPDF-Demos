@@ -13,6 +13,8 @@ $files = [
 // if the SetaPDF-FormFiller component is installed add a demo document with a signature field
 if (class_exists(\SetaPDF_FormFiller::class)) {
     $files[] = $assetsDirectory . '/pdfs/tektown/Laboratory-Report - commented-and-signed.pdf';
+    $files[] = $assetsDirectory . '/pdfs/tektown/Order-Form-filled.pdf';
+    $files[] = $assetsDirectory . '/pdfs/tektown/Subscription-tekMag-filled.pdf';
 }
 
 $path = displayFiles($files);
