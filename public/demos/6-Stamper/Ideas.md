@@ -10,6 +10,7 @@
 - [ ] PDF Stamp
   - [x] ~~Simple Demo (Manual)~~
   - [ ] Dynamic PDF Page (Created with e.g. FPDF)
+  - [ ] Stamp page-by-page (a pre-created watermark document which matches the page sizes of the stamped document)
 - [ ] XObject Stamp
   - [x] ~~Simple Demo (Manual)~~
   - [x] ~~Style Text~~
