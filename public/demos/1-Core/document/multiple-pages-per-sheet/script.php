@@ -39,8 +39,8 @@ $page = $originalPages->getPage(1);
 /** @var array $pageSize */
 $pageSize = $page->getWidthAndHeight();
 
-$longSide = array_keys($pageSize, max($pageSize))[0];
-$shortSide = array_keys($pageSize, min($pageSize))[0];
+$longSide = $pageSize[0] > $pageSize[1] ? 0 : 1;
+$shortSide = $longSide === 1 ? 0 : 1;
 
 // create a new writer for the new document
 $writer = new \SetaPDF_Core_Writer_Http(basename($path), true);
