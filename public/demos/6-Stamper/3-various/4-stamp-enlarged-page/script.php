@@ -3,8 +3,19 @@
 // load and register the autoload function
 require_once __DIR__ . '/../../../../../bootstrap.php';
 
+$files = [
+    $assetsDirectory . '/pdfs/Brand-Guide.pdf',
+    $assetsDirectory . '/pdfs/camtown/Terms-and-Conditions.pdf',
+    $assetsDirectory . '/pdfs/etown/Laboratory-Report.pdf',
+    $assetsDirectory . '/pdfs/misc/boxes/[1000 500 -1000 -500]-R90.pdf',
+    $assetsDirectory . '/pdfs/misc/boxes/[1000 500 -1000 -500]-R-90.pdf',
+    $assetsDirectory . '/pdfs/misc/rotated/180.pdf'
+];
+
+$path = displayFiles($files);
+
 // let's get access to the file
-$reader = new \SetaPDF_Core_Reader_File($assetsDirectory . '/pdfs/Brand-Guide.pdf');
+$reader = new \SetaPDF_Core_Reader_File($path);
 // create a HTTP writer
 $writer = new \SetaPDF_Core_Writer_Http('stamped.pdf', true);
 //$writer = new \SetaPDF_Core_Writer_File('stamped.pdf');
@@ -15,10 +26,31 @@ $document = \SetaPDF_Core_Document::load($reader, $writer);
 $firstPage = $document->getCatalog()->getPages()->getPage(1);
 // get actually boundary of the first page
 $boundary = $firstPage->getBoundary();
-// define the new boundary which is increased on the bottom by 50
-$newBoundary = \SetaPDF_Core_DataStructure_Rectangle::byArray(
-    [$boundary->getLlx(), $boundary->getLly() - 55, $boundary->getUrx(), $boundary->getUry()]
-);
+$rotation = $firstPage->getRotation();
+
+// define the new boundary which is increased on the bottom by 55
+switch ($rotation) {
+    case 0:
+        $newBoundary = \SetaPDF_Core_DataStructure_Rectangle::byArray(
+            [$boundary->getLlx(), $boundary->getLly() - 55, $boundary->getUrx(), $boundary->getUry()]
+        );
+        break;
+    case 90:
+        $newBoundary = \SetaPDF_Core_DataStructure_Rectangle::byArray(
+            [$boundary->getLlx(), $boundary->getLly(), $boundary->getUrx() + 55, $boundary->getUry()]
+        );
+        break;
+    case 180:
+        $newBoundary = \SetaPDF_Core_DataStructure_Rectangle::byArray(
+            [$boundary->getLlx(), $boundary->getLly(), $boundary->getUrx(), $boundary->getUry() + 55]
+        );
+        break;
+    case 270:
+        $newBoundary = \SetaPDF_Core_DataStructure_Rectangle::byArray(
+            [$boundary->getLlx() - 55, $boundary->getLly(), $boundary->getUrx(), $boundary->getUry()]
+        );
+        break;
+}
 
 // we will first need to enlarge the media box to resize the crop box(visible area)
 // because in this document the crop box has the same size like the media box
