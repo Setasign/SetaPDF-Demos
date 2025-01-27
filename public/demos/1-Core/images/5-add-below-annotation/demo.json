@@ -1,0 +1,9 @@
+{
+    "name": "Add Image Below Link Annotation",
+    "teaserText": "Add an image at the position of a link annotation.",
+    "requires": [
+        "SetaPDF-Core"
+    ],
+    "faIcon": "&#xf03e;",
+    "faIcon2": "&#xf0c1;"
+}
