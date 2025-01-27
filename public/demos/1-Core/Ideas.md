@@ -53,7 +53,7 @@
 - [x] ~~Replace Images~~
 - [x] ~~Image To PDF~~
 - [x] ~~Image in specific Resolution~~
-- [ ] Add image on position of a link annotation and remove it
+- [x] ~~Add image on position of a link annotation and remove it~~
 
 ## Outlines:
 - [x] ~~Get Outlines~~
