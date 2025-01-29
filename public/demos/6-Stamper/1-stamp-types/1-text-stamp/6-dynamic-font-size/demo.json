@@ -1,0 +1,9 @@
+{
+    "name": "Dynamic Font Size",
+    "teaserText": "Let's fit the text to a given width.",
+    "requires": [
+        "SetaPDF-Core", "SetaPDF-Stamper"
+    ],
+    "faIcon": "&#xf031;",
+    "faIcon2": "&#xf338;"
+}
