@@ -40,8 +40,8 @@ $wordsJoining = function(
 ) use ($sorter)
 {
     return $sorter->itemsJoining(
-        $left->getGlyphs()[count($left->getGlyphs()) - 1],
-        $right->getGlyphs()[0]
+        $left->getGlyphs()[count($left->getGlyphs()) - 1]->getTextItem(),
+        $right->getGlyphs()[0]->getTextItem()
     );
 };
 
