@@ -52,7 +52,7 @@ function verifyAndDumpCertificate(
 
     $b64 = base64_encode($certificate->get(\SetaPDF_Signer_X509_Format::DER));
     echo '<a href="data:application/x-pem-file;base64,' . $b64 . '" download="certificate.crt">download</a> | ' .
-        '<a href="https://understandingwebpki.com/?cert=' . urlencode($b64) . '" target="_blank">show details</a><br/>';
+        '<a href="https://x509.io/?cert=' . urlencode($b64) . '" target="_blank">show details</a><br/>';
     echo 'Simple certificate dump:<br/>';
     echo '<div style="white-space: pre; height: 250px; overflow: auto;">' .
         print_r(openssl_x509_parse($certificate->get()), true) . '</div>';
