@@ -1,25 +1,31 @@
 <?php
 
+use setasign\SetaPDF2\Core\Document;
+use setasign\SetaPDF2\Core\PageFormats;
+use setasign\SetaPDF2\Core\Writer\HttpWriter;
+use setasign\SetaPDF2\Signer\SignatureField;
+use setasign\SetaPDF2\Signer\Signer;
+
 // load and register the autoload function
 require_once __DIR__ . '/../../../../../bootstrap.php';
 
-$writer = new \SetaPDF_Core_Writer_Http('signature-fields.pdf');
-$document = new \SetaPDF_Core_Document($writer);
+$writer = new HttpWriter('signature-fields.pdf');
+$document = new Document($writer);
 
 // create an empty document with some pages
 $pages = $document->getCatalog()->getPages();
-$pages->create(\SetaPDF_Core_PageFormats::A4);
-$pages->create(\SetaPDF_Core_PageFormats::A4, \SetaPDF_Core_PageFormats::ORIENTATION_LANDSCAPE);
+$pages->create(PageFormats::A4);
+$pages->create(PageFormats::A4, PageFormats::ORIENTATION_LANDSCAPE);
 
 // by default the signer component will add an invisible field. You can do this manually, this way:
-$fieldA = \SetaPDF_Signer_SignatureField::add($document, 'MyInvisibleSignature');
+$fieldA = SignatureField::add($document, 'MyInvisibleSignature');
 
 // let's create a visible signature field through the field class
-$fieldB = \SetaPDF_Signer_SignatureField::add(
+$fieldB = SignatureField::add(
     $document,
     'Signature',
     1,
-    \SetaPDF_Signer_SignatureField::POSITION_LEFT_TOP,
+    SignatureField::POSITION_LEFT_TOP,
     [
         'x' => 20,
         'y' => -20
@@ -29,7 +35,7 @@ $fieldB = \SetaPDF_Signer_SignatureField::add(
 );
 
 // now create one with the same name and a fixed position
-$fieldC = \SetaPDF_Signer_SignatureField::add(
+$fieldC = SignatureField::add(
     $document,
     'Signature',
     1,
@@ -45,7 +51,7 @@ $fieldC = \SetaPDF_Signer_SignatureField::add(
 // the Signer instance itself comes with a proxy method with nearly the same method signature:
 
 // create a signer instance
-$signer = new \SetaPDF_Signer($document);
+$signer = new Signer($document);
 
 // adds a hidden field
 $fieldD = $signer->addSignatureField('Signature');
@@ -56,7 +62,7 @@ $signer->setSignatureFieldName($fieldD->getQualifiedName());
 $fieldE = $signer->addSignatureField(
     'Signature',
     2,
-    \SetaPDF_Signer_SignatureField::POSITION_LEFT_TOP,
+    SignatureField::POSITION_LEFT_TOP,
     [
         'x' => 20,
         'y' => -20

@@ -1,16 +1,20 @@
 <?php
 
+use setasign\SetaPDF2\Core\Document;
+use setasign\SetaPDF2\Core\Writer\HttpWriter;
+use setasign\SetaPDF2\FormFiller\FormFiller;
+
 // load and register the autoload function
 require_once __DIR__ . '/../../../../../bootstrap.php';
 
-// get the document isntance
-$document = \SetaPDF_Core_Document::loadByFilename(
+// get the document instance
+$document = Document::loadByFilename(
     $assetsDirectory . '/pdfs/forms/xfa/Badge.pdf',
-    new \SetaPDF_Core_Writer_Http('dynamic-xfa-form.pdf')
+    new HttpWriter('dynamic-xfa-form.pdf')
 );
 
 // now get an instance of the form filler
-$formFiller = new \SetaPDF_FormFiller($document);
+$formFiller = new FormFiller($document);
 
 // generate some dummy data:
 $firstNames = ['Peter', 'Carl', 'Dan', 'Stan', 'Roger', 'Martin', 'Paul', 'Rick', 'Chris', 'Burton'];

@@ -1,5 +1,10 @@
 <?php
 
+use setasign\SetaPDF2\Core\Document;
+use setasign\SetaPDF2\Extractor\Extractor;
+use setasign\SetaPDF2\Extractor\Result\Word;
+use setasign\SetaPDF2\Extractor\Strategy\WordGroup as WordGroupStrategy;
+
 // load and register the autoload function
 require_once __DIR__ . '/../../../../../bootstrap.php';
 
@@ -12,10 +17,10 @@ $files = [
 
 $path = displayFiles($files);
 
-$document = \SetaPDF_Core_Document::loadByFilename($path);
-$extractor = new \SetaPDF_Extractor($document);
+$document = Document::loadByFilename($path);
+$extractor = new Extractor($document);
 
-$strategy = new \SetaPDF_Extractor_Strategy_WordGroup();
+$strategy = new WordGroupStrategy();
 $extractor->setStrategy($strategy);
 
 $pageCount = $document->getCatalog()->getPages()->count();
@@ -28,7 +33,7 @@ for ($pageNo = 1; $pageNo <= $pageCount; $pageNo++) {
     foreach ($wordGroups as $i => $words) {
         echo '<p>';
 
-        /** @var \SetaPDF_Extractor_Result_Word $word */
+        /** @var Word $word */
         foreach ($words as $word) {
             echo $word->getString() . ' ';
         }

@@ -1,6 +1,7 @@
 <?php
 
 use com\setasign\SetaPDF\Demos\Inspector\FontInspector;
+use setasign\SetaPDF2\Core\Font;
 
 // load and register the autoload function
 require_once '../../../../../bootstrap.php';
@@ -20,7 +21,7 @@ $fontObjects = $fontInspector->resolveFonts();
 
 foreach ($fontObjects AS $fontObject) {
     try {
-        $font = \SetaPDF_Core_Font::get($fontObject);
+        $font = Font::get($fontObject);
     } catch (Exception $e) {
         echo $e->getMessage();
         continue;

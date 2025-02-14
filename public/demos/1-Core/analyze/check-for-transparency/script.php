@@ -1,6 +1,7 @@
 <?php
 
 use com\setasign\SetaPDF\Demos\Inspector\TransparencyInspector;
+use setasign\SetaPDF2\Core\Document;
 
 // load and register the autoload function
 require_once '../../../../../bootstrap.php';
@@ -14,7 +15,7 @@ $path = displayFiles($files);
 // require the text processor class
 require_once $classesDirectory . '/Inspector/TransparencyInspector.php';
 
-$document = \SetaPDF_Core_Document::loadByFilename($path);
+$document = Document::loadByFilename($path);
 
 $inspector = new TransparencyInspector($document);
 $transparencyElements = $inspector->process();

@@ -1,5 +1,12 @@
 <?php
 
+use com\setasign\SetaPDF\Demos\FontLoader;
+use setasign\SetaPDF2\Core\DataStructure\Color\Rgb;
+use setasign\SetaPDF2\Core\Document;
+use setasign\SetaPDF2\Core\Writer\HttpWriter;
+use setasign\SetaPDF2\Stamper\Stamp\RichText as RichTextStamp;
+use setasign\SetaPDF2\Stamper\Stamper;
+
 // load and register the autoload function
 require_once __DIR__ . '/../../../../../../bootstrap.php';
 
@@ -11,17 +18,17 @@ $files = [
 
 $path = displayFiles($files);
 
-$writer = new \SetaPDF_Core_Writer_Http('stamped.pdf', true);
-$document = \SetaPDF_Core_Document::loadByFilename($path, $writer);
+$writer = new HttpWriter('stamped.pdf', true);
+$document = Document::loadByFilename($path, $writer);
 
 // create a stamper instance
-$stamper = new \SetaPDF_Stamper($document);
+$stamper = new Stamper($document);
 
 require_once $classesDirectory . '/FontLoader.php';
-$fontLoader = new \com\setasign\SetaPDF\Demos\FontLoader($assetsDirectory);
+$fontLoader = new FontLoader($assetsDirectory);
 
 // create a rich-text stamp instance
-$stamp = new \SetaPDF_Stamper_Stamp_RichText($document, $fontLoader);
+$stamp = new RichTextStamp($document, $fontLoader);
 $stamp->setDefaultFontFamily('DejaVuSans');
 $stamp->setText('Personalized for <b style="color:#0f0f0f;">john@example.com</b>');
 // set the border color to gray (e.g. as a hex value)
@@ -33,11 +40,11 @@ $stamp->setBackgroundColor([.95, .95, .95]);
 // set padding
 $stamp->setPadding(3);
 // set default text color by an explicit color instance
-$stamp->setDefaultTextColor(new \SetaPDF_Core_DataStructure_Color_Rgb(56/255, 101/255, 174/255));
+$stamp->setDefaultTextColor(new Rgb(56/255, 101/255, 174/255));
 
 // add the stamp to the stamper instance
 $stamper->addStamp($stamp, [
-    'position' => \SetaPDF_Stamper::POSITION_CENTER_BOTTOM,
+    'position' => Stamper::POSITION_CENTER_BOTTOM,
     'translateY' => 15
 ]);
 

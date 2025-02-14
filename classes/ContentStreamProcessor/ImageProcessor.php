@@ -2,6 +2,17 @@
 
 namespace com\setasign\SetaPDF\Demos\ContentStreamProcessor;
 
+use setasign\SetaPDF2\Core\Canvas;
+use setasign\SetaPDF2\Core\Canvas\GraphicState;
+use setasign\SetaPDF2\Core\Filter\Exception as FilterException;
+use setasign\SetaPDF2\Core\Geometry\Vector;
+use setasign\SetaPDF2\Core\Parser\Content;
+use setasign\SetaPDF2\Core\Resource;
+use setasign\SetaPDF2\Core\Type\PdfIndirectReference;
+use setasign\SetaPDF2\Core\XObject;
+use setasign\SetaPDF2\Core\XObject\Form;
+use setasign\SetaPDF2\Exception\NotImplemented;
+
 /**
  * Class ImageProcessor
  */
@@ -17,14 +28,14 @@ class ImageProcessor
     /**
      * The graphic state.
      *
-     * @var \SetaPDF_Core_Canvas_GraphicState
+     * @var GraphicState
      */
     protected $_graphicState;
 
     /**
      * The content parser instance.
      *
-     * @var \SetaPDF_Core_Parser_Content
+     * @var Content
      */
     protected $_contentParser;
 
@@ -45,29 +56,28 @@ class ImageProcessor
     /**
      * The constructor.
      *
-     * The parameter are the content stream and its resources dictionary.
+     * The parameters are the content stream and its resource dictionary.
      *
-     * @param \SetaPDF_Core_Canvas $canvas
-     * @param boolean $switchWidthAndHeight
-     * @param \SetaPDF_Core_Canvas_GraphicState|null $graphicState
+     * @param Canvas $canvas
+     * @param bool $switchWidthAndHeight
+     * @param GraphicState|null $graphicState
      */
     public function __construct(
-        \SetaPDF_Core_Canvas $canvas,
-        $switchWidthAndHeight,
-        \SetaPDF_Core_Canvas_GraphicState $graphicState = null
-    )
-    {
+        Canvas $canvas,
+        bool $switchWidthAndHeight,
+        ?GraphicState $graphicState = null
+    ) {
         $this->_canvas = $canvas;
         $this->_switchWidthAndHeight = $switchWidthAndHeight;
-        $this->_graphicState = $graphicState === null ? new \SetaPDF_Core_Canvas_GraphicState() : $graphicState;
+        $this->_graphicState = $graphicState === null ? new GraphicState() : $graphicState;
     }
 
     /**
      * Get the graphic state.
      *
-     * @return \SetaPDF_Core_Canvas_GraphicState
+     * @return GraphicState
      */
-    public function getGraphicState()
+    public function getGraphicState(): GraphicState
     {
         return $this->_graphicState;
     }
@@ -77,7 +87,7 @@ class ImageProcessor
      *
      * @return array
      */
-    public function process()
+    public function process(): array
     {
         $parser = $this->_getContentParser();
         $parser->process();
@@ -88,19 +98,19 @@ class ImageProcessor
     /**
      * A method to receive the content parser instance.
      *
-     * @return \SetaPDF_Core_Parser_Content
+     * @return Content
      */
     protected function _getContentParser()
     {
         if ($this->_contentParser === null) {
             try {
                 $stream = $this->_canvas->getStream();
-            } catch (\SetaPDF_Core_Filter_Exception $e) {
+            } catch (FilterException $e) {
                 // if a stream cannot be unfiltered, we ignore it
                 $stream = '';
             }
 
-            $this->_contentParser = new \SetaPDF_Core_Parser_Content($stream);
+            $this->_contentParser = new Content($stream);
             $this->_contentParser->registerOperator(['q', 'Q'], [$this, '_onGraphicStateChange']);
             $this->_contentParser->registerOperator('cm', [$this, '_onCurrentTransformationMatrix']);
             $this->_contentParser->registerOperator('Do', [$this, '_onFormXObject']);
@@ -114,9 +124,9 @@ class ImageProcessor
      * Callback for inline image data operator
      *
      * @param array $arguments
-     * @param string $operator
+     * @return bool
      */
-    public function _onInlineImageData($arguments, $operator)
+    public function _onInlineImageData(array $arguments): bool
     {
         $data = [];
         for ($i = 0, $c = count($arguments); $i < $c; $i += 2) {
@@ -151,7 +161,8 @@ class ImageProcessor
             }
         }
 
-        $parser->reset($pos + $offset + $m[0][1] + strlen($m[0][0]));
+        $parser->reset($pos + $offset + ((int) $m[0][1]) + strlen($m[0][0]));
+        return true;
     }
 
     /**
@@ -160,7 +171,7 @@ class ImageProcessor
      * @param array $arguments
      * @param string $operator
      */
-    public function _onGraphicStateChange($arguments, $operator)
+    public function _onGraphicStateChange(array $arguments, string $operator)
     {
         if ($operator === 'q') {
             $this->getGraphicState()->save();
@@ -173,9 +184,8 @@ class ImageProcessor
      * Callback for the content parser which is called if a "cm" token is found.
      *
      * @param array $arguments
-     * @param string $operator
      */
-    public function _onCurrentTransformationMatrix($arguments, $operator)
+    public function _onCurrentTransformationMatrix(array $arguments)
     {
         $this->getGraphicState()->addCurrentTransformationMatrix(
             $arguments[0]->getValue(), $arguments[1]->getValue(),
@@ -188,12 +198,11 @@ class ImageProcessor
      * Callback for the content parser which is called if a "Do" operator/token is found.
      *
      * @param array $arguments
-     *
-     * @throws \SetaPDF_Exception_NotImplemented
+     * @throws NotImplemented
      */
-    public function _onFormXObject($arguments)
+    public function _onFormXObject(array $arguments)
     {
-        $xObjects = $this->_canvas->getResources(true, false, \SetaPDF_Core_Resource::TYPE_X_OBJECT);
+        $xObjects = $this->_canvas->getResources(true, false, Resource::TYPE_X_OBJECT);
         if ($xObjects === null) {
             return;
         }
@@ -201,14 +210,14 @@ class ImageProcessor
         $xObjects = $xObjects->ensure();
         $xObject = $xObjects->getValue($arguments[0]->getValue());
 
-        if (!($xObject instanceof \SetaPDF_Core_Type_IndirectReference)) {
+        if (!($xObject instanceof PdfIndirectReference)) {
             return;
         }
 
         $xObjectReference = $xObject;
-        $xObject = \SetaPDF_Core_XObject::get($xObject);
+        $xObject = XObject::get($xObject);
 
-        if ($xObject instanceof \SetaPDF_Core_XObject_Form) {
+        if ($xObject instanceof Form) {
             /* In that case we need to create a new instance of the processor and process
              * the form xobjects stream.
              */
@@ -251,10 +260,10 @@ class ImageProcessor
     {
         // we have an image object, calculate it's outer points in user space
         $gs = $this->getGraphicState();
-        $ll = $gs->toUserSpace(new \SetaPDF_Core_Geometry_Vector(0, 0, 1));
-        $ul = $gs->toUserSpace(new \SetaPDF_Core_Geometry_Vector(0, 1, 1));
-        $ur = $gs->toUserSpace(new \SetaPDF_Core_Geometry_Vector(1, 1, 1));
-        $lr = $gs->toUserSpace(new \SetaPDF_Core_Geometry_Vector(1, 0, 1));
+        $ll = $gs->toUserSpace(new Vector(0, 0, 1));
+        $ul = $gs->toUserSpace(new Vector(0, 1, 1));
+        $ur = $gs->toUserSpace(new Vector(1, 1, 1));
+        $lr = $gs->toUserSpace(new Vector(1, 0, 1));
 
         // ...and match some further information
         $width  = \abs($this->_switchWidthAndHeight ? $ur->subtract($ll)->getY() : $ur->subtract($ll)->getX());

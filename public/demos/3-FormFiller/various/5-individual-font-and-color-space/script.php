@@ -1,42 +1,49 @@
 <?php
 
+use setasign\SetaPDF2\Core\ColorSpace\Separation;
+use setasign\SetaPDF2\Core\DataStructure\Color\Special;
+use setasign\SetaPDF2\Core\Document;
+use setasign\SetaPDF2\Core\Font\TrueType\Subset;
+use setasign\SetaPDF2\Core\Writer\HttpWriter;
+use setasign\SetaPDF2\FormFiller\FormFiller;
+
 // load and register the autoload function
 require_once __DIR__ . '/../../../../../bootstrap.php';
 
 // get the main document instance
-$document = \SetaPDF_Core_Document::loadByFilename(
+$document = Document::loadByFilename(
     $assetsDirectory . '/pdfs/tektown/Order-Form-without-Signaturefield.pdf',
-    new \SetaPDF_Core_Writer_Http('OwnFontAndTextColor.pdf', true)
+    new HttpWriter('OwnFontAndTextColor.pdf', true)
 );
 
 // now get an instance of the form filler
-$formFiller = new \SetaPDF_FormFiller($document);
+$formFiller = new FormFiller($document);
 
 // get the form fields of the document
 $fields = $formFiller->getFields();
 
 // create a spot color/space
-$colorSpace = \SetaPDF_Core_ColorSpace_Separation::createSpotColor($document, 'HKS 27 N', .3, 1, 0, 0);
-$color = new \SetaPDF_Core_DataStructure_Color_Special(1);
+$colorSpace = Separation::createSpotColor($document, 'HKS 27 N', .3, 1, 0, 0);
+$color = new Special(1);
 
 // let's create a font instance DejaVu Sans Condensed as a TrueType font subset
-$font = new \SetaPDF_Core_Font_TrueType_Subset(
+$font = new Subset(
     $document,
     $assetsDirectory . '/fonts/DejaVu/ttf/DejaVuSansCondensed-Oblique.ttf'
 );
 
 // Or as a CID font with true type outlines which allows you to use more than 255 characters
 /*
-$font = new \SetaPDF_Core_Font_Type0_Subset(
+$font = new \setasign\SetaPDF2\Core\Font\Type0\Subset(
     $document,
     $assetsDirectory . '/fonts/dDejaVu/ttf/DejaVuSansCondensed-Oblique.ttf'
 );*/
 
 /* NOT RECOMMENDED: alternatively you can create an instance with a font which will not be embedded.*/
-/* $font = \SetaPDF_Core_Font_TrueType::create(
+/* $font = \setasign\SetaPDF2\Core\Font\TrueType::create(
     $document,
     $assetsDirectory . '/fonts/DejaVu/ttf/DejaVuSansCondensed-Oblique.ttf',
-    \SetaPDF_Core_Encoding::WIN_ANSI,
+    \setasign\SetaPDF2\Core\Encoding::WIN_ANSI,
     'auto',
     false // <-- don't embedded
 );*/

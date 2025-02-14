@@ -1,5 +1,10 @@
 <?php
 
+use setasign\SetaPDF2\Core\Document;
+use setasign\SetaPDF2\Core\Encoding;
+use setasign\SetaPDF2\Signer\SignatureField;
+use setasign\SetaPDF2\Signer\Signer;
+
 // load and register the autoload function
 require_once __DIR__ . '/../../../../../bootstrap.php';
 
@@ -13,13 +18,13 @@ $files = [
 
 $path = displayFiles($files);
 
-$document = \SetaPDF_Core_Document::loadByFilename($path);
+$document = Document::loadByFilename($path);
 
-$signatureFieldNames = \SetaPDF_Signer::getSignatureFieldNames($document);
+$signatureFieldNames = Signer::getSignatureFieldNames($document);
 foreach ($signatureFieldNames as $signatureFieldName) {
     echo htmlspecialchars(sprintf('Signature Field "%s" is ', $signatureFieldName));
 
-    $field = \SetaPDF_Signer_SignatureField::get($document, $signatureFieldName);
+    $field = SignatureField::get($document, $signatureFieldName);
     if ($field->getValue() === null) {
         echo '<b>NOT</b>';
     }
@@ -27,17 +32,17 @@ foreach ($signatureFieldNames as $signatureFieldName) {
     echo ' used/signed.<br/>';
     $lock = $field->getLock();
     if (is_array($lock)) {
-        if ($lock['action'] === SetaPDF_Signer_SignatureField::LOCK_DOCUMENT_ALL) {
+        if ($lock['action'] === SignatureField::LOCK_DOCUMENT_ALL) {
             echo '&nbsp;&nbsp;The document is locked by "' . htmlspecialchars($signatureFieldName) . '"<br/>';
-        } elseif ($lock['action'] === SetaPDF_Signer_SignatureField::LOCK_DOCUMENT_INCLUDE) {
+        } elseif ($lock['action'] === SignatureField::LOCK_DOCUMENT_INCLUDE) {
             echo '&nbsp;&nbsp;Fields are locked by "' . htmlspecialchars($signatureFieldName) . '"<br/>';
             echo '<pre>';
-            var_dump(array_map(['SetaPDF_Core_Encoding', 'convertPdfString'], $lock['fields']));
+            var_dump(array_map([Encoding::class, 'convertPdfString'], $lock['fields']));
             echo '</pre>';
-        } elseif ($lock['action'] === SetaPDF_Signer_SignatureField::LOCK_DOCUMENT_EXCLUDE) {
+        } elseif ($lock['action'] === SignatureField::LOCK_DOCUMENT_EXCLUDE) {
             echo '&nbsp;&nbsp;Fields are not locked by "' . htmlspecialchars($signatureFieldName) . '"<br/>';
             echo '<pre>';
-            var_dump(array_map(['SetaPDF_Core_Encoding', 'convertPdfString'], $lock['fields']));
+            var_dump(array_map([Encoding::class, 'convertPdfString'], $lock['fields']));
             echo '</pre>';
         }
     }

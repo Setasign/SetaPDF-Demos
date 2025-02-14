@@ -1,5 +1,16 @@
 <?php
 
+use setasign\SetaPDF2\Core\Document;
+use setasign\SetaPDF2\Core\Writer\FileWriter;
+use setasign\SetaPDF2\Core\Writer\HttpWriter;
+use setasign\SetaPDF2\Core\Writer\TempFileWriter;
+use setasign\SetaPDF2\Signer\Asn1\Element as Asn1Element;
+use setasign\SetaPDF2\Signer\Asn1\Oid as Asn1Oid;
+use setasign\SetaPDF2\Signer\Digest;
+use setasign\SetaPDF2\Signer\Exception as SignerException;
+use setasign\SetaPDF2\Signer\Signature\Module\Pades as PadesModule;
+use setasign\SetaPDF2\Signer\Signer;
+
 // load and register the autoload function
 require_once __DIR__ . '/../../../../../../bootstrap.php';
 
@@ -13,23 +24,23 @@ if (strtoupper(substr(PHP_OS, 0, 3)) === 'WIN') {
 // the file to sign
 $fileToSign = $assetsDirectory . '/pdfs/tektown/Laboratory-Report.pdf';
 // create a temporary path
-$tempFile = \SetaPDF_Core_Writer_TempFile::createTempPath();
+$tempFile = TempFileWriter::createTempPath();
 
 // create a writer instance
-$writer = new \SetaPDF_Core_Writer_Http('signed-with-rsautl.pdf');
+$writer = new HttpWriter('signed-with-rsautl.pdf');
 // create the document instance
-$document = \SetaPDF_Core_Document::loadByFilename($fileToSign, $writer);
+$document = Document::loadByFilename($fileToSign, $writer);
 
 // create the signer instance
-$signer = new \SetaPDF_Signer($document);
+$signer = new Signer($document);
 
 // let's use the PAdES modul and configure it
-$module = new \SetaPDF_Signer_Signature_Module_Pades();
-$module->setDigest(\SetaPDF_Signer_Digest::SHA_256);
+$module = new PadesModule();
+$module->setDigest(Digest::SHA_256);
 $module->setCertificate('file://' . $assetsDirectory . '/certificates/setapdf-no-pw.pem');
 
 // create a temporary version which represents the data which should get signed
-$tmpDocument = $signer->preSign(new \SetaPDF_Core_Writer_File($tempFile), $module);
+$tmpDocument = $signer->preSign(new FileWriter($tempFile), $module);
 
 // get the hash data from the module
 $hashData = $module->getDataToSign($tmpDocument->getHashFile());
@@ -39,32 +50,32 @@ $privateKey = realpath($assetsDirectory . '/certificates/setapdf-no-pw.pem');
 $privateKeyPass = '';
 
 // encode the hash in an ASN.1 structure
-$digestInfo = new \SetaPDF_Signer_Asn1_Element(
-    \SetaPDF_Signer_Asn1_Element::SEQUENCE | \SetaPDF_Signer_Asn1_Element::IS_CONSTRUCTED, '',
+$digestInfo = new Asn1Element(
+    Asn1Element::SEQUENCE | Asn1Element::IS_CONSTRUCTED, '',
     [
-        new \SetaPDF_Signer_Asn1_Element(
-            \SetaPDF_Signer_Asn1_Element::SEQUENCE | \SetaPDF_Signer_Asn1_Element::IS_CONSTRUCTED, '',
+        new Asn1Element(
+            Asn1Element::SEQUENCE | Asn1Element::IS_CONSTRUCTED, '',
             [
-                new \SetaPDF_Signer_Asn1_Element(
-                    \SetaPDF_Signer_Asn1_Element::OBJECT_IDENTIFIER,
-                    \SetaPDF_Signer_Asn1_Oid::encode(
-                        \SetaPDF_Signer_Digest::getOid($module->getDigest())
+                new Asn1Element(
+                    Asn1Element::OBJECT_IDENTIFIER,
+                    Asn1Oid::encode(
+                        Digest::getOid($module->getDigest())
                     )
                 ),
-                new \SetaPDF_Signer_Asn1_Element(\SetaPDF_Signer_Asn1_Element::NULL)
+                new Asn1Element(Asn1Element::NULL)
             ]
         ),
-        new \SetaPDF_Signer_Asn1_Element(
-            \SetaPDF_Signer_Asn1_Element::OCTET_STRING,
+        new Asn1Element(
+            Asn1Element::OCTET_STRING,
             hash($module->getDigest(), $hashData, true)
         )
     ]
 );
 
 // and write it to a temporary file
-$tmpFileIn = \SetaPDF_Core_Writer_TempFile::createTempFile($digestInfo);
+$tmpFileIn = TempFileWriter::createTempFile($digestInfo);
 // prepare a temporary file for the final signature
-$tmpFileOut = \SetaPDF_Core_Writer_TempFile::createTempPath();
+$tmpFileOut = TempFileWriter::createTempPath();
 
 // build the command
 $cmd = $opensslPath . "openssl rsautl -sign -pkcs "
@@ -77,7 +88,7 @@ $cmd = $opensslPath . "openssl rsautl -sign -pkcs "
 exec($cmd, $out, $retValue);
 
 if ($retValue !== 0) {
-    throw new \SetaPDF_Signer_Exception(
+    throw new SignerException(
         sprintf('An error occurs while calling OpenSSL through CLI (exit code %s).', $retValue)
     );
 }

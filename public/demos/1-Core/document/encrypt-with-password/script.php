@@ -1,5 +1,10 @@
 <?php
 
+use setasign\SetaPDF2\Core\Document;
+use setasign\SetaPDF2\Core\SecHandler;
+use setasign\SetaPDF2\Core\SecHandler\Standard\Aes256;
+use setasign\SetaPDF2\Core\Writer\HttpWriter;
+
 // load and register the autoload function
 require_once '../../../../../bootstrap.php';
 
@@ -13,18 +18,18 @@ $files = [
 $path = displayFiles($files, false);
 
 // create a writer instance
-$writer = new \SetaPDF_Core_Writer_Http('encrypted.pdf');
+$writer = new HttpWriter('encrypted.pdf');
 
 // create a document instance
-$document = \SetaPDF_Core_Document::loadByFilename($path, $writer);
+$document = Document::loadByFilename($path, $writer);
 
 // create a security handler instance
-$secHandler = \SetaPDF_Core_SecHandler_Standard_Aes256::factory(
+$secHandler = Aes256::create(
     $document,
     'owner',
     'user',
     // allow the user to print the document in high quality
-    \SetaPDF_Core_SecHandler::PERM_PRINT | \SetaPDF_Core_SecHandler::PERM_DIGITAL_PRINT
+    SecHandler::PERM_PRINT | SecHandler::PERM_DIGITAL_PRINT
 );
 
 // pass it to the document instance

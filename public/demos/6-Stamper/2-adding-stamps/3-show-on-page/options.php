@@ -1,25 +1,27 @@
 <?php
 
+use setasign\SetaPDF2\Stamper\Stamper;
+
 return [
     [
-        'displayValue' => '\SetaPDF_Stamper::PAGES_ALL',
-        'showOnPage' => \SetaPDF_Stamper::PAGES_ALL
+        'displayValue' => '\setasign\SetaPDF2\Stamper\Stamper::PAGES_ALL',
+        'showOnPage' => Stamper::PAGES_ALL
     ],
     [
-        'displayValue' => '\SetaPDF_Stamper::PAGES_EVEN',
-        'showOnPage' => \SetaPDF_Stamper::PAGES_EVEN
+        'displayValue' => '\setasign\SetaPDF2\Stamper\Stamper::PAGES_EVEN',
+        'showOnPage' => Stamper::PAGES_EVEN
     ],
     [
-        'displayValue' => '\SetaPDF_Stamper::PAGES_ODD',
-        'showOnPage' => \SetaPDF_Stamper::PAGES_ODD
+        'displayValue' => '\setasign\SetaPDF2\Stamper\Stamper::PAGES_ODD',
+        'showOnPage' => Stamper::PAGES_ODD
     ],
     [
-        'displayValue' => '\SetaPDF_Stamper::PAGES_FIRST',
-        'showOnPage' => \SetaPDF_Stamper::PAGES_FIRST
+        'displayValue' => '\setasign\SetaPDF2\Stamper\Stamper::PAGES_FIRST',
+        'showOnPage' => Stamper::PAGES_FIRST
     ],
     [
-        'displayValue' => '\SetaPDF_Stamper::PAGES_LAST',
-        'showOnPage' => \SetaPDF_Stamper::PAGES_LAST
+        'displayValue' => '\setasign\SetaPDF2\Stamper\Stamper::PAGES_LAST',
+        'showOnPage' => Stamper::PAGES_LAST
     ],
     [
         'displayValue' => '4',

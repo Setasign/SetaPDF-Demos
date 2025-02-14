@@ -1,26 +1,31 @@
 <?php
 
+use setasign\SetaPDF2\Core\Document;
+use setasign\SetaPDF2\Core\Writer\HttpWriter;
+use setasign\SetaPDF2\Extractor\Extractor;
+use setasign\SetaPDF2\Extractor\Strategy\WordGroup;
+
 // load and register the autoload function
 require_once __DIR__ . '/../../../../../bootstrap.php';
 
 session_start();
 
-$text = displayText('Search for:', (isset($_GET['data']) ? $_GET['data'] : ''), true, 'script.php?data=');
+$text = displayText('Search for:', ($_GET['data'] ?? ''), true, 'script.php?data=');
 $regex = '/' . implode('\s', array_map(static function($part) {
     return preg_quote($part, '/');
 }, preg_split('/\s/', trim($text)))) . '/ui';
 
-$document = \SetaPDF_Core_Document::loadByFilename(
+$document = Document::loadByFilename(
     $assetsDirectory . '/pdfs/Brand-Guide.pdf',
-    new \SetaPDF_Core_Writer_Http('search.pdf', true)
+    new HttpWriter('search.pdf', true)
 );
 
 if ($regex !== '//ui') {
-    // initate an extractor instance
-    $extractor = new \SetaPDF_Extractor($document);
+    // initiate an extractor instance
+    $extractor = new Extractor($document);
 
     // define the word group strategy
-    $strategy = new \SetaPDF_Extractor_Strategy_WordGroup();
+    $strategy = new WordGroup();
     $extractor->setStrategy($strategy);
 
     $pages = $document->getCatalog()->getPages();

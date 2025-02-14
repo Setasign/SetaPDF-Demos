@@ -1,16 +1,26 @@
 <?php
 
+use setasign\SetaPDF2\Core\Document;
+use setasign\SetaPDF2\Core\Document\Action\GoToAction;
+use setasign\SetaPDF2\Core\Document\Destination;
+use setasign\SetaPDF2\Core\Document\Page\Annotation\Link;
+use setasign\SetaPDF2\Core\Writer\HttpWriter;
+use setasign\SetaPDF2\Extractor\Extractor;
+use setasign\SetaPDF2\Extractor\Result\Collection;
+use setasign\SetaPDF2\Extractor\Result\Word;
+use setasign\SetaPDF2\Extractor\Strategy\Word as WordStrategy;
+
 // load and register the autoload function
 require_once __DIR__ . '/../../../../../bootstrap.php';
 
-$document = \SetaPDF_Core_Document::loadByFilename(
+$document = Document::loadByFilename(
     $assetsDirectory . '/pdfs/Brand-Guide-without-links.pdf',
-    new \SetaPDF_Core_Writer_Http('document.pdf', true)
+    new HttpWriter('document.pdf', true)
 );
 
-$extractor = new \SetaPDF_Extractor($document);
+$extractor = new Extractor($document);
 
-$strategy = new \SetaPDF_Extractor_Strategy_Word();
+$strategy = new WordStrategy();
 $extractor->setStrategy($strategy);
 
 $lines = [];
@@ -23,18 +33,18 @@ $pages = $document->getCatalog()->getPages();
 
 for ($pageNo = $tocStartPage; $pageNo <= $tocEndPage; $pageNo++) {
     /**
-     * @var \SetaPDF_Extractor_Result_Word[] $words
+     * @var Word[] $words
      */
     $words = $extractor->getResultByPageNumber($pageNo);
 
     /**
-     * @var $lines \SetaPDF_Extractor_Result_Collection[][]
+     * @var $lines Collection[][]
      */
     $lines[$pageNo] = [];
-    $line = new \SetaPDF_Extractor_Result_Collection();
+    $line = new Collection();
 
     /**
-     * @var \SetaPDF_Extractor_Result_Word $prevWord
+     * @var Word $prevWord
      */
     $prevWord = null;
 
@@ -49,7 +59,7 @@ for ($pageNo = $tocStartPage; $pageNo <= $tocEndPage; $pageNo++) {
             // group by lines
             if (abs($prevY - $y) > 4) {
                 $lines[$pageNo][] = $line;
-                $line = new \SetaPDF_Extractor_Result_Collection();
+                $line = new Collection();
             }
         }
 
@@ -59,7 +69,7 @@ for ($pageNo = $tocStartPage; $pageNo <= $tocEndPage; $pageNo++) {
 
     if (count($line) > 0) {
         $lines[$pageNo][] = $line;
-        $line = new \SetaPDF_Extractor_Result_Collection();
+        $line = new Collection();
     }
 
     $annotations = $pages->getPage($pageNo)->getAnnotations();
@@ -82,13 +92,11 @@ for ($pageNo = $tocStartPage; $pageNo <= $tocEndPage; $pageNo++) {
 
         $linkToPageNo = $m[1];
 
-        $action = new \SetaPDF_Core_Document_Action_GoTo(
-            \SetaPDF_Core_Document_Destination::createByPage($pages->getPage($linkToPageNo + $offset))
-        );
+        $action = new GoToAction(Destination::createByPage($pages->getPage($linkToPageNo + $offset)));
         $bounds = $line->getBounds();
         $ll = $bounds[0]->getLl();
         $ur = $bounds[0]->getUr();
-        $annotation = new \SetaPDF_Core_Document_Page_Annotation_Link(
+        $annotation = new Link(
             [$ll->getX(), $ll->getY(), $ur->getX(), $ur->getY()],
             $action
         );

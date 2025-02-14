@@ -1,6 +1,9 @@
 <?php
 
-use \SetaPDF_Core_Document_Page_Annotation_Stamp as StampAnnotation;
+use setasign\SetaPDF2\Core\Document;
+use setasign\SetaPDF2\Core\Document\Page\Annotation\Stamp as StampAnnotation;
+use setasign\SetaPDF2\Core\PageFormats;
+use setasign\SetaPDF2\Core\Writer\HttpWriter;
 
 // load and register the autoload function
 require_once '../../../../../bootstrap.php';
@@ -36,12 +39,12 @@ $x = 50;
 $y = 700;
 $width = 180;
 
-$writer = new \SetaPDF_Core_Writer_Http('stamped.pdf', true);
-$document = new \SetaPDF_Core_Document($writer);
+$writer = new HttpWriter('stamped.pdf', true);
+$document = new Document($writer);
 
-$page = $document->getCatalog()->getPages()->create(\SetaPDF_Core_PageFormats::A4);
+$page = $document->getCatalog()->getPages()->create(PageFormats::A4);
 
-$stampAppearances = \SetaPDF_Core_Document::loadByFilename($assetsDirectory . '/pdfs/stamps.pdf');
+$stampAppearances = Document::loadByFilename($assetsDirectory . '/pdfs/stamps.pdf');
 $appearancePageNo = $iconNameToPageNo[$iconName];
 if (isset($appearancePageNo)) {
     $appearance = $stampAppearances->getCatalog()->getPages()->getPage($appearancePageNo)->toXObject($document);

@@ -1,5 +1,8 @@
 <?php
 
+use setasign\SetaPDF2\Core\Document;
+use setasign\SetaPDF2\Core\Writer\HttpWriter;
+
 // load and register the autoload function
 require_once '../../../../../bootstrap.php';
 
@@ -13,9 +16,9 @@ $files = [
 $path = displayFiles($files);
 
 // create a writer instance
-$writer = new \SetaPDF_Core_Writer_Http('updated-metadata.pdf', true);
+$writer = new HttpWriter('updated-metadata.pdf', true);
 // create a document instance
-$document = \SetaPDF_Core_Document::loadByFilename($path, $writer);
+$document = Document::loadByFilename($path, $writer);
 
 // get the info helper object
 $info = $document->getInfo();

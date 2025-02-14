@@ -1,26 +1,32 @@
 <?php
 
+use setasign\SetaPDF2\Core\Document;
+use setasign\SetaPDF2\Extractor\Extractor;
+use setasign\SetaPDF2\Extractor\Filter\FilterInterface;
+use setasign\SetaPDF2\Extractor\Strategy\Word as WordStrategy;
+use setasign\SetaPDF2\Extractor\TextItem;
+
 // load and register the autoload function
 require_once __DIR__ . '/../../../../../bootstrap.php';
 
 // create a document instance
-$document = \SetaPDF_Core_Document::loadByFilename($assetsDirectory . '/pdfs/Fuchslocher-Example.pdf');
+$document = Document::loadByFilename($assetsDirectory . '/pdfs/Fuchslocher-Example.pdf');
 
 // create an extractor instance
-$extractor = new \SetaPDF_Extractor($document);
+$extractor = new Extractor($document);
 
 // create the word strategy...
-$strategy = new \SetaPDF_Extractor_Strategy_Word();
+$strategy = new WordStrategy();
 // ...and pass it to the extractor
 $extractor->setStrategy($strategy);
 
-class BoldTextFilter implements \SetaPDF_Extractor_Filter_FilterInterface
+class BoldTextFilter implements FilterInterface
 {
     /**
-     * @param \SetaPDF_Extractor_TextItem $textItem
-     * @return bool|string
+     * @param TextItem $textItem
+     * @return bool
      */
-    public function accept(\SetaPDF_Extractor_TextItem $textItem)
+    public function accept(TextItem $textItem)
     {
         $font = $textItem->getFont();
         return $font->isBold() || stripos($font->getFontName(), 'bold') !== false;

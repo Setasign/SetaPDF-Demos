@@ -1,5 +1,13 @@
 <?php
 
+use setasign\SetaPDF2\Core\Document;
+use setasign\SetaPDF2\Core\Writer\FileWriter;
+use setasign\SetaPDF2\Core\Writer\HttpWriter;
+use setasign\SetaPDF2\Signer\Digest;
+use setasign\SetaPDF2\Signer\Signature\Module\Pades as PadesModule;
+use setasign\SetaPDF2\Signer\Signer;
+use setasign\SetaPDF2\Signer\Timestamp\Module\Rfc3161\Curl as CurlTimestampModule;
+
 // load and register the autoload function
 require_once __DIR__ . '/../../../../../bootstrap.php';
 
@@ -29,14 +37,14 @@ if ($state === null) {
         'signature' => null
     ];
 
-    $document = \SetaPDF_Core_Document::loadByFilename($workflow['fileToSign']);
-    $signer = new \SetaPDF_Signer($document);
+    $document = Document::loadByFilename($workflow['fileToSign']);
+    $signer = new Signer($document);
     $signer->setSignatureContentLength(20000);
 
     // use an empty module instance to trigger implemented interface methods
-    $module = new \SetaPDF_Signer_Signature_Module_Pades();
+    $module = new PadesModule();
 
-    $tmpDocument = $signer->preSign(new \SetaPDF_Core_Writer_File($workflow['tempPath']), $module);
+    $tmpDocument = $signer->preSign(new FileWriter($workflow['tempPath']), $module);
     $workflow['tmpDocument'] = $tmpDocument;
 
     // if you don't want to save the TmpDocument instance in your workflow, you will need at least the ByteRange
@@ -50,18 +58,18 @@ if ($state === null) {
 
 if ($state === 'prepared') {
     $workflow = $_SESSION['workflow'];
-    $document = \SetaPDF_Core_Document::loadByFilename($workflow['fileToSign']);
-    $signer = new \SetaPDF_Signer($document);
+    $document = Document::loadByFilename($workflow['fileToSign']);
+    $signer = new Signer($document);
 
     // now create a complete module instance
-    $module = new \SetaPDF_Signer_Signature_Module_Pades();
+    $module = new PadesModule();
     $module->setCertificate('file://' . $assetsDirectory . '/certificates/setapdf-no-pw.pem');
     $module->setPrivateKey('file://' . $assetsDirectory . '/certificates/setapdf-no-pw.pem', '');
 
     $tmpDocument = $workflow['tmpDocument'];
 
     // If you want to create a TmpDocument instance manually, you need to do this in each step:
-//    $tmpDocument = new \SetaPDF_Signer_TmpDocument(new \SetaPDF_Core_Writer_File($workflow['tempPath']));
+//    $tmpDocument = new \setasign\SetaPDF2\Signer\TmpDocument(new \setasign\SetaPDF2\Core\Writer\FileWriter($workflow['tempPath']));
 //    $tmpDocument->setDocumentIdentification($document);
 //    $tmpDocument->updateIdentificationHash();
 //    $tmpDocument->setByteRange($workflow['tmpDocumentByteRange']);
@@ -92,13 +100,13 @@ if ($state === 'signatureCreated' && isset($_GET['timestamp'])) {
     if (isset($workflow['timestamped'])) {
         echo 'Signature already timestamped. Next step: ';
     } else {
-        $document = \SetaPDF_Core_Document::loadByFilename($workflow['fileToSign']);
-        $signer = new \SetaPDF_Signer($document);
+        $document = Document::loadByFilename($workflow['fileToSign']);
+        $signer = new Signer($document);
 
         $url = 'https://freetsa.org/tsr';
 
-        $tsModule = new \SetaPDF_Signer_Timestamp_Module_Rfc3161_Curl($url);
-        $tsModule->setDigest(\SetaPDF_Signer_Digest::SHA_256);
+        $tsModule = new CurlTimestampModule($url);
+        $tsModule->setDigest(Digest::SHA_256);
 
         $signer->setTimestampModule($tsModule);
 
@@ -114,9 +122,9 @@ if ($state === 'signatureCreated' && isset($_GET['timestamp'])) {
 } elseif ($state === 'signatureCreated') {
     $workflow = $_SESSION['workflow'];
 
-    $writer   = new \SetaPDF_Core_Writer_Http('async-signature.pdf');
-    $document = \SetaPDF_Core_Document::loadByFilename($workflow['fileToSign'], $writer);
-    $signer   = new \SetaPDF_Signer($document);
+    $writer   = new HttpWriter('async-signature.pdf');
+    $document = Document::loadByFilename($workflow['fileToSign'], $writer);
+    $signer   = new Signer($document);
 
     $signer->saveSignature($workflow['tmpDocument'], $workflow['signature']);
 }

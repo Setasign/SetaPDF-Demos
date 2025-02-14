@@ -1,5 +1,9 @@
 <?php
 
+use setasign\SetaPDF2\Core\Document;
+use setasign\SetaPDF2\Core\Reader\FileReader;
+use setasign\SetaPDF2\Core\Writer\HttpWriter;
+
 // load and register the autoload function
 require_once __DIR__ . '/../../../../../bootstrap.php';
 
@@ -12,11 +16,11 @@ $files = [
 $path = displayFiles($files);
 
 // create a reader
-$reader = new \SetaPDF_Core_Reader_File($path);
+$reader = new FileReader($path);
 // create a writer
-$writer = new \SetaPDF_Core_Writer_Http('delete-pages.pdf', true);
+$writer = new HttpWriter('delete-pages.pdf', true);
 // create a document
-$document = \SetaPDF_Core_Document::load($reader, $writer);
+$document = Document::load($reader, $writer);
 
 // get the pages helper
 $pages = $document->getCatalog()->getPages();

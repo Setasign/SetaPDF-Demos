@@ -1,5 +1,14 @@
 <?php
 
+use setasign\SetaPDF2\Core\Canvas\GraphicState;
+use setasign\SetaPDF2\Core\Document;
+use setasign\SetaPDF2\Core\Geometry\Point;
+use setasign\SetaPDF2\Core\Geometry\Rectangle;
+use setasign\SetaPDF2\Core\Geometry\Vector;
+use setasign\SetaPDF2\Extractor\Extractor;
+use setasign\SetaPDF2\Extractor\Result\Words;
+use setasign\SetaPDF2\Extractor\Strategy\Word as WordStrategy;
+
 // load and register the autoload function
 require_once __DIR__ . '/../../../../../bootstrap.php';
 
@@ -22,7 +31,7 @@ if (!file_exists($imageFile)) {
     $cmd = 'mutool draw -F png -r ' . escapeshellarg($dpi) . ' -o ' . escapeshellarg($imageFile)
          . ' ' . escapeshellarg($file) . ' ' . escapeshellarg($pageNo);
 
-    exec($cmd, $ouput, $resultCode);
+    exec($cmd, $output, $resultCode);
 
    if ($resultCode !== 0) {
        echo 'Thumbnail could not be generated. Please make sure that ' .
@@ -32,13 +41,13 @@ if (!file_exists($imageFile)) {
    }
 }
 
-$document = \SetaPDF_Core_Document::loadByFilename($file);
+$document = Document::loadByFilename($file);
 $page = $document->getCatalog()->getPages()->getPage($pageNo);
 
-$extractor = new \SetaPDF_Extractor($document);
-$extractor->setStrategy(new \SetaPDF_Extractor_Strategy_Word());
+$extractor = new Extractor($document);
+$extractor->setStrategy(new WordStrategy());
 
-/** @var \SetaPDF_Extractor_Result_Words $words */
+/** @var Words $words */
 $words = $extractor->getResultByPageNumber(1);
 
 // this is the factor between points and px
@@ -50,7 +59,7 @@ $pageHeight = $page->getHeight() * $dpiFactor;
 $rotation = $page->getRotation();
 
 // now we create a graphic state instance
-$gs = new \SetaPDF_Core_Canvas_GraphicState();
+$gs = new GraphicState();
 // scale it by the DPI factor
 $gs->scale($dpiFactor, $dpiFactor);
 
@@ -74,29 +83,30 @@ switch ($rotation) {
 }
 
 // this little helper applies the graphic state to a given point
-$f = static function(\SetaPDF_Core_Geometry_Point $p) use ($gs) {
-    $v = new \SetaPDF_Core_Geometry_Vector($p->getX(), $p->getY(), 0);
+$f = static function(Point $p) use ($gs) {
+    $v = new Vector($p->getX(), $p->getY(), 0);
     return $v->multiply($gs->getCurrentTransformationMatrix())->toPoint();
 };
 
-?>
-<div style="position: relative; width: <?=$pageWidth?>px; height: <?=$pageHeight?>;border: 1px solid lightgrey;">
-    <img src="<?=$imageFile?>" style="position: absolute; width: <?=$pageWidth?>px; height: <?=$pageHeight?>;"/>
-        <?php
-        foreach ($words as $word) {
-            foreach ($word->getBounds() as $bounds) {
-                // create a rectangle with ordered vertices (because e.g. Ll will not be lower left after a rotation)
-                $rect = new \SetaPDF_Core_Geometry_Rectangle(
-                    $f($bounds->getLl()),
-                    $f($bounds->getUr())
-                );
+echo <<< HTML
+<div style="position: relative; width: {$pageWidth}px; height: {$pageHeight}px;border: 1px solid lightgrey;">
+    <img src="$imageFile" style="position: absolute; width: {$pageWidth}px; height: {$pageHeight}px;"/>
+HTML;
 
-                echo '<div style="position:absolute;border:1px solid #ff00ff;background-color:#ff00ff3C;' .
-                    'left:' . $rect->getLl()->getX() . 'px;' .
-                    'bottom:' . $rect->getLl()->getY() . 'px;' .
-                    'width:' . ($rect->getWidth()) . 'px;height: ' . ($rect->getHeight()) . 'px;' .
-                    '" title="' . htmlspecialchars($word->getString()). '"></div>';
-            }
-        }
-        ?>
-</div>
+foreach ($words as $word) {
+    foreach ($word->getBounds() as $bounds) {
+        // create a rectangle with ordered vertices (because e.g. Ll will not be lower left after a rotation)
+        $rect = new Rectangle(
+            $f($bounds->getLl()),
+            $f($bounds->getUr())
+        );
+
+        echo '<div style="position:absolute;border:1px solid #ff00ff;background-color:#ff00ff3C;' .
+            'left:' . $rect->getLl()->getX() . 'px;' .
+            'bottom:' . $rect->getLl()->getY() . 'px;' .
+            'width:' . ($rect->getWidth()) . 'px;height: ' . ($rect->getHeight()) . 'px;' .
+            '" title="' . htmlspecialchars($word->getString()). '"></div>';
+    }
+}
+
+echo '</div>';

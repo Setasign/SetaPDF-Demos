@@ -1,5 +1,14 @@
 <?php
 
+use setasign\SetaPDF2\Core\Document;
+use setasign\SetaPDF2\Core\Writer\FileWriter;
+use setasign\SetaPDF2\Core\Writer\HttpWriter;
+use setasign\SetaPDF2\Core\Writer\TempFileWriter;
+use setasign\SetaPDF2\Signer\Digest;
+use setasign\SetaPDF2\Signer\Exception as SignerException;
+use setasign\SetaPDF2\Signer\Signature\Module\Pades as PadesModule;
+use setasign\SetaPDF2\Signer\Signer;
+
 // load and register the autoload function
 require_once __DIR__ . '/../../../../../../bootstrap.php';
 
@@ -13,23 +22,23 @@ if (strtoupper(substr(PHP_OS, 0, 3)) === 'WIN') {
 // the file to sign
 $fileToSign = $assetsDirectory . '/pdfs/tektown/Laboratory-Report.pdf';
 // create a temporary path
-$tempFile = \SetaPDF_Core_Writer_TempFile::createTempPath();
+$tempFile = TempFileWriter::createTempPath();
 
 // create a writer instance
-$writer = new \SetaPDF_Core_Writer_Http('signed-with-dgst.pdf');
+$writer = new HttpWriter('signed-with-dgst.pdf');
 // create the document instance
-$document = \SetaPDF_Core_Document::loadByFilename($fileToSign, $writer);
+$document = Document::loadByFilename($fileToSign, $writer);
 
 // create the signer instance
-$signer = new \SetaPDF_Signer($document);
+$signer = new Signer($document);
 
 // let's use the PAdES modul and configure it
-$module = new \SetaPDF_Signer_Signature_Module_Pades();
-$module->setDigest(\SetaPDF_Signer_Digest::SHA_256);
+$module = new PadesModule();
+$module->setDigest(Digest::SHA_256);
 $module->setCertificate('file://' . $assetsDirectory . '/certificates/setapdf-no-pw.pem');
 
 // create a temporary version which represents the data which should get signed
-$tmpDocument = $signer->preSign(new \SetaPDF_Core_Writer_File($tempFile), $module);
+$tmpDocument = $signer->preSign(new FileWriter($tempFile), $module);
 
 // get the hash data from the module
 $hashData = $module->getDataToSign($tmpDocument->getHashFile());
@@ -39,9 +48,9 @@ $privateKey = realpath($assetsDirectory . '/certificates/setapdf-no-pw.pem');
 $privateKeyPass = '';
 
 // create a temporary file with the data to sign
-$tmpFileIn = \SetaPDF_Core_Writer_TempFile::createTempFile($hashData);
+$tmpFileIn = TempFileWriter::createTempFile($hashData);
 // prepare a temporary file for the final signature
-$tmpFileOut = \SetaPDF_Core_Writer_TempFile::createTempPath();
+$tmpFileOut = TempFileWriter::createTempPath();
 
 // build the command
 $cmd = $opensslPath . 'openssl dgst '
@@ -56,7 +65,7 @@ $cmd = $opensslPath . 'openssl dgst '
 exec($cmd, $out, $retValue);
 
 if ($retValue !== 0) {
-    throw new \SetaPDF_Signer_Exception(
+    throw new SignerException(
         sprintf('An error occurs while calling OpenSSL through CLI (exit code %s).', $retValue)
     );
 }

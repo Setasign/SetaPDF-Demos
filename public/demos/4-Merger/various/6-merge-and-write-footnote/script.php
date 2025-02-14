@@ -1,5 +1,10 @@
 <?php
 
+use setasign\SetaPDF2\Core\Font\TrueType\Subset;
+use setasign\SetaPDF2\Core\Text\Block;
+use setasign\SetaPDF2\Core\Writer\HttpWriter;
+use setasign\SetaPDF2\Merger\Merger;
+
 // load and register the autoload function
 require_once __DIR__ . '/../../../../../bootstrap.php';
 
@@ -10,7 +15,7 @@ $files = array_merge($files, glob($assetsDirectory . '/pdfs/misc/boxes/*.pdf'));
 $paths = displayFiles($files, true, true);
 
 // create a merger instance
-$merger = new \SetaPDF_Merger();
+$merger = new Merger();
 
 // we need some variable to record page numbers and the added file path
 $currentPage = 1;
@@ -32,7 +37,7 @@ $merger->merge();
 $document = $merger->getDocument();
 
 // we need a font instance
-$font = new \SetaPDF_Core_Font_TrueType_Subset(
+$font = new Subset(
     $document,
     $assetsDirectory . '/fonts/DejaVu/ttf/DejaVuSans.ttf'
 );
@@ -54,7 +59,7 @@ foreach ($pagesToFiles as $pageNo => list($nextPage, $path)) {
         $canvas->normalizeRotationAndOrigin($page->getRotation(), $page->getBoundary());
 
         // create a text block
-        $textBlock = new \SetaPDF_Core_Text_Block($font, 5);
+        $textBlock = new Block($font, 5);
         $textBlock->setText(basename($path));
         // and draw it onto the canvas
         $textBlock->draw($canvas, $page->getWidth() - $textBlock->getWidth() - 5, 5);
@@ -64,6 +69,6 @@ foreach ($pagesToFiles as $pageNo => list($nextPage, $path)) {
 }
 
 // set a writer instance
-$document->setWriter(new \SetaPDF_Core_Writer_Http('merged-with-footnotes.pdf', true));
+$document->setWriter(new HttpWriter('merged-with-footnotes.pdf', true));
 // and save the result to the writer
 $document->save()->finish();

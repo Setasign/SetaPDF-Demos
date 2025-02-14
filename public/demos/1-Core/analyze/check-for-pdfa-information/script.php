@@ -1,5 +1,7 @@
 <?php
 
+use setasign\SetaPDF2\Core\Document;
+
 // load and register the autoload function
 require_once '../../../../../bootstrap.php';
 
@@ -12,7 +14,7 @@ $files = [
 
 $path = displayFiles($files);
 
-$document = \SetaPDF_Core_Document::loadByFilename($path);
+$document = Document::loadByFilename($path);
 $metadata = $document->getInfo()->getMetadata();
 
 $xpath = new \DOMXPath($metadata);

@@ -1,5 +1,8 @@
 <?php
 
+use setasign\SetaPDF2\Core\Writer\HttpWriter;
+use setasign\SetaPDF2\Merger\Merger;
+
 // load and register the autoload function
 require_once __DIR__ . '/../../../../../bootstrap.php';
 
@@ -16,12 +19,12 @@ if (!isset($_GET['e'])) {
 }
 
 // create a merger instance
-$merger = new \SetaPDF_Merger();
+$merger = new Merger();
 
 // add the first file and add a named destination named "product-1"
 $merger->addFile(
     $assetsDirectory . '/pdfs/tektown/products/Boombastic-Box.pdf',
-    \SetaPDF_Merger::PAGES_ALL,
+    Merger::PAGES_ALL,
     'product-1'
 );
 
@@ -47,6 +50,6 @@ $merger->merge();
 // get access to the document instance
 $document = $merger->getDocument();
 // set a writer instance
-$document->setWriter(new \SetaPDF_Core_Writer_Http('merged-with-named-destinations.pdf', true));
+$document->setWriter(new HttpWriter('merged-with-named-destinations.pdf', true));
 // and save the result to the writer
 $document->save()->finish();

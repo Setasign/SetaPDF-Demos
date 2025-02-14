@@ -1,5 +1,8 @@
 <?php
 
+use setasign\SetaPDF2\Core\Document;
+use setasign\SetaPDF2\Signer\Signer;
+
 // load and register the autoload function
 require_once __DIR__ . '/../../../../../bootstrap.php';
 
@@ -19,22 +22,22 @@ if (is_array($file)) {
 }
 
 try {
-    $document = \SetaPDF_Core_Document::loadByFilename($file);
-    $certficationLevel = \SetaPDF_Signer::getCertificationLevelByDocument($document);
-    if ($certficationLevel === null) {
+    $document = Document::loadByFilename($file);
+    $certificationLevel = Signer::getCertificationLevelByDocument($document);
+    if ($certificationLevel === null) {
         echo "Document is not certified.";
         die();
     }
 
     echo '<span style="color:#22caff;">Document has a certification signature!</span><br />';
 
-    if ($certficationLevel === \SetaPDF_Signer::CERTIFICATION_LEVEL_NO_CHANGES_ALLOWED) {
+    if ($certificationLevel === Signer::CERTIFICATION_LEVEL_NO_CHANGES_ALLOWED) {
         echo '<span style="color:red">No changes allowed.</span>';
-    } elseif ($certficationLevel === \SetaPDF_Signer::CERTIFICATION_LEVEL_FORM_FILLING) {
+    } elseif ($certificationLevel === Signer::CERTIFICATION_LEVEL_FORM_FILLING) {
         echo '<span style="color:green">Form filling and signing is allowed.</span>';
-    } elseif ($certficationLevel === \SetaPDF_Signer::CERTIFICATION_LEVEL_FORM_FILLING_AND_ANNOTATIONS) {
+    } elseif ($certificationLevel === Signer::CERTIFICATION_LEVEL_FORM_FILLING_AND_ANNOTATIONS) {
         echo '<span style="color:green">Annotating, form filling and signing is allowed.</span>';
     }
-} catch (Exception $e) {
+} catch (Throwable $e) {
     echo 'Error: ' . $e->getMessage();
 }

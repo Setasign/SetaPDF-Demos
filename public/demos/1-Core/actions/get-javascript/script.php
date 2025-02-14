@@ -1,5 +1,9 @@
 <?php
 
+use setasign\SetaPDF2\Core\Document;
+use setasign\SetaPDF2\Core\Document\Action\JavaScriptAction;
+use setasign\SetaPDF2\Core\Document\Catalog\Names;
+
 // load and register the autoload function
 require_once '../../../../../bootstrap.php';
 
@@ -12,15 +16,15 @@ $files = [
 $path = displayFiles($files);
 
 // create a document
-$document = \SetaPDF_Core_Document::loadByFilename($path);
+$document = Document::loadByFilename($path);
 
 // get names
 $names = $document->getCatalog()->getNames();
 // get the JavaScript name tree
-$javaScriptTree = $names->getTree(\SetaPDF_Core_Document_Catalog_Names::JAVA_SCRIPT);
+$javaScriptTree = $names->getTree(Names::JAVA_SCRIPT);
 
 if ($javaScriptTree) {
-    $allJavaScripts = $javaScriptTree->getAll(false, \SetaPDF_Core_Document_Action_JavaScript::class);
+    $allJavaScripts = $javaScriptTree->getAll(false, JavaScriptAction::class);
 
     foreach ($allJavaScripts as $name => $jsAction) {
         echo $name . '<br />------------------';

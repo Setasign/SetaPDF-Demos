@@ -1,10 +1,13 @@
 <?php
 
+use setasign\SetaPDF2\Core\Writer\HttpWriter;
+use setasign\SetaPDF2\Merger\Merger;
+
 // load and register the autoload function
 require_once __DIR__ . '/../../../../../bootstrap.php';
 
 // create a merger instance
-$merger = new \SetaPDF_Merger();
+$merger = new Merger();
 
 $file = $assetsDirectory . '/pdfs/misc/large/1000-red.pdf';
 
@@ -26,13 +29,13 @@ $merger->addFile($file, function($pageNo) {
 $merger->addFile($file, '950-');
 
 // add the last page again
-$merger->addFile($file, \SetaPDF_Merger::PAGES_LAST);
+$merger->addFile($file, Merger::PAGES_LAST);
 
 $merger->merge();
 
 // get access to the document instance
 $document = $merger->getDocument();
 // set a writer instance
-$document->setWriter(new \SetaPDF_Core_Writer_Http('merged.pdf', true));
+$document->setWriter(new HttpWriter('merged.pdf', true));
 // and save the result to the writer
 $document->save()->finish();

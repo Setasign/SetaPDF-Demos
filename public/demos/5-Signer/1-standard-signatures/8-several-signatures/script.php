@@ -1,18 +1,24 @@
 <?php
 
+use setasign\SetaPDF2\Core\Document;
+use setasign\SetaPDF2\Core\Writer\HttpWriter;
+use setasign\SetaPDF2\Core\Writer\StringWriter;
+use setasign\SetaPDF2\Signer\Signature\Module\Pades as PadesModule;
+use setasign\SetaPDF2\Signer\Signer;
+
 // load and register the autoload function
 require_once __DIR__ . '/../../../../../bootstrap.php';
 
 // create a temporary writer
-$tempWriter = new \SetaPDF_Core_Writer_String();
+$tempWriter = new StringWriter();
 
-$document = \SetaPDF_Core_Document::loadByFilename(
+$document = Document::loadByFilename(
     $assetsDirectory . '/pdfs/camtown/Laboratory-Report.pdf',
     $tempWriter
 );
 
 // create a signer instance
-$signer = new \SetaPDF_Signer($document);
+$signer = new Signer($document);
 // add a signature field
 $field = $signer->addSignatureField();
 // and define that you want to use this field
@@ -21,7 +27,7 @@ $signer->setSignatureFieldName($field->getQualifiedName());
 $certificatePath = $assetsDirectory . '/certificates/setapdf-no-pw.pem';
 
 // now create a signature module
-$module = new \SetaPDF_Signer_Signature_Module_Pades();
+$module = new PadesModule();
 // pass the path to the certificate
 $module->setCertificate('file://' . $certificatePath);
 $module->setPrivateKey('file://' . $certificatePath, '');
@@ -34,13 +40,13 @@ $signer->sign($module);
 
 
 // create the final writer
-$writer = new \SetaPDF_Core_Writer_Http('several-signatures.pdf');
+$writer = new HttpWriter('several-signatures.pdf');
 
 // create a new document instance based on the temporary result
-$document = \SetaPDF_Core_Document::loadByString($tempWriter, $writer);
+$document = Document::loadByString($tempWriter, $writer);
 
 // create a signer instance
-$signer = new \SetaPDF_Signer($document);
+$signer = new Signer($document);
 // add a signature field
 $field = $signer->addSignatureField();
 // and define that you want to use this field
@@ -49,7 +55,7 @@ $signer->setSignatureFieldName($field->getQualifiedName());
 $certificatePath = $assetsDirectory . '/certificates/setapdf-no-pw.pem';
 
 // now create a signature module
-$module = new \SetaPDF_Signer_Signature_Module_Pades();
+$module = new PadesModule();
 // pass the path to the certificate
 $module->setCertificate('file://' . $certificatePath);
 $module->setPrivateKey('file://' . $certificatePath, '');

@@ -1,27 +1,33 @@
 <?php
 
+use setasign\SetaPDF2\Core\Document;
+use setasign\SetaPDF2\Core\Writer\HttpWriter;
+use setasign\SetaPDF2\Signer\DocumentSecurityStore;
+use setasign\SetaPDF2\Signer\ValidationRelatedInfo\Collector;
+use setasign\SetaPDF2\Signer\ValidationRelatedInfo\Exception as ValidationRelatedInfoException;
+
 // load and register the autoload function
 require_once __DIR__ . '/../../../../../bootstrap.php';
 
-// create a HTTP writer
-$writer = new \SetaPDF_Core_Writer_Http('Laboratory-Report-signed-LTV.pdf');
+// create an HTTP writer
+$writer = new HttpWriter('Laboratory-Report-signed-LTV.pdf');
 // let's get the document
-$document = \SetaPDF_Core_Document::loadByFilename(
+$document = Document::loadByFilename(
     $assetsDirectory . '/pdfs/tektown/Laboratory-Report-signed-no-LTV.pdf', $writer
 );
 
 // define a trust-store
-$trustedCerts = new \SetaPDF_Signer_X509_Collection();
+$trustedCerts = new \setasign\SetaPDF2\Signer\X509\Collection();
 $trustedCerts->addFromFile($assetsDirectory . '/certificates/trusted/Intesi Group EU Qualified Electronic Signature CA G2.cer');
 
 $fieldName = 'Signature1';
 
 // create a VRI collector instance
-$collector = new \SetaPDF_Signer_ValidationRelatedInfo_Collector($trustedCerts);
+$collector = new Collector($trustedCerts);
 // get VRI for the signature
 try {
     $vri = $collector->getByFieldName($document, $fieldName);
-} catch (\SetaPDF_Signer_ValidationRelatedInfo_Exception $e) {
+} catch (ValidationRelatedInfoException $e) {
     echo 'Unable to create VRI data: ' . $e->getMessage();
     die();
 }
@@ -33,7 +39,7 @@ try {
 //}
 
 // and add it to the document.
-$dss = new \SetaPDF_Signer_DocumentSecurityStore($document);
+$dss = new DocumentSecurityStore($document);
 $dss->addValidationRelatedInfoByFieldName(
     $fieldName,
     $vri->getCrls(),

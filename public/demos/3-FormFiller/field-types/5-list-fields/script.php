@@ -1,21 +1,26 @@
 <?php
 
+use setasign\SetaPDF2\Core\Document;
+use setasign\SetaPDF2\Core\Writer\HttpWriter;
+use setasign\SetaPDF2\FormFiller\Field\ListField;
+use setasign\SetaPDF2\FormFiller\FormFiller;
+
 // load and register the autoload function
 require_once __DIR__ . '/../../../../../bootstrap.php';
 
-$document = \SetaPDF_Core_Document::loadByFilename(
+$document = Document::loadByFilename(
     $assetsDirectory . '/pdfs/forms/Sunnysunday-Example.pdf',
-    new \SetaPDF_Core_Writer_Http('filled.pdf', true)
+    new HttpWriter('filled.pdf', true)
 );
 
-$formFiller = new \SetaPDF_FormFiller($document);
+$formFiller = new FormFiller($document);
 $fields = $formFiller->getFields();
 
-/** @var \SetaPDF_FormFiller_Field_List $balloonColor */
+/** @var ListField $balloonColor */
 $balloonColor = $fields->get('Balloon color');
 
 // that's how you can check for a list field (just for demonstration here)
-if ($balloonColor instanceof  \SetaPDF_FormFiller_Field_List) {
+if ($balloonColor instanceof ListField) {
     // set by export value
     $balloonColor->setValue('black');
 }

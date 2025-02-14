@@ -1,5 +1,9 @@
 <?php
 
+use setasign\SetaPDF2\Core\Document;
+use setasign\SetaPDF2\Core\Writer\StringWriter;
+use setasign\SetaPDF2\FormFiller\FormFiller;
+
 // load and register the autoload function
 require_once __DIR__ . '/../../../../../bootstrap.php';
 
@@ -19,14 +23,13 @@ for ($i = 0; $i < 30; $i++) {
 
 // not iterate through the data and create PDFs
 foreach ($participants as $participant) {
-
-    $writer = new \SetaPDF_Core_Writer_String();
-    $document = \SetaPDF_Core_Document::loadByFilename(
+    $writer = new StringWriter();
+    $document = Document::loadByFilename(
         $assetsDirectory . '/pdfs/Name-Badge.pdf',
         $writer
     );
 
-    $formFiller = new \SetaPDF_FormFiller($document);
+    $formFiller = new FormFiller($document);
     $fields = $formFiller->getFields();
     $fields->get('Name')->setValue($participant['Name']);
     $fields->get('Company Name')->setValue($participant['Company Name']);
@@ -39,5 +42,4 @@ foreach ($participants as $participant) {
 
     echo '<a href="data:application/pdf;base64,' . base64_encode($writer) . '" download="' .
         $participant['id'] . '.pdf">Participant ' . $participant['id'] . '</a><br/>';
-
 }

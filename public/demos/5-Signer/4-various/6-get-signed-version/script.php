@@ -1,25 +1,31 @@
 <?php
 
+use setasign\SetaPDF2\Core\Document;
+use setasign\SetaPDF2\Core\Reader\StreamReader;
+use setasign\SetaPDF2\Core\Writer\HttpWriter;
+use setasign\SetaPDF2\Signer\Signer;
+use setasign\SetaPDF2\Signer\ValidationRelatedInfo\IntegrityResult;
+
 // load and register the autoload function
 require_once __DIR__ . '/../../../../../bootstrap.php';
 
 $file = $assetsDirectory . '/pdfs/tektown/Laboratory-Report-signed.pdf';
 
 $fh = fopen($file, 'rb');
-$reader = new \SetaPDF_Core_Reader_Stream($fh);
-$document = \SetaPDF_Core_Document::load($reader);
+$reader = new StreamReader($fh);
+$document = Document::load($reader);
 
-$fieldNames = \SetaPDF_Signer::getSignatureFieldNames($document);
+$fieldNames = Signer::getSignatureFieldNames($document);
 // let's filter only used signature fields
 $fieldNames = array_filter($fieldNames, static function($fieldName) use ($document) {
-    $integrityResult = \SetaPDF_Signer_ValidationRelatedInfo_IntegrityResult::create($document, $fieldName);
-    return $integrityResult !== \SetaPDF_Signer_ValidationRelatedInfo_IntegrityResult::STATUS_NOT_SIGNED;
+    $integrityResult = IntegrityResult::create($document, $fieldName);
+    return $integrityResult !== IntegrityResult::STATUS_NOT_SIGNED;
 });
 
 $fieldNameId = displaySelect('Signature field name:', $fieldNames);
 $fieldName = $fieldNames[$fieldNameId];
 
-$integrityResult = \SetaPDF_Signer_ValidationRelatedInfo_IntegrityResult::create($document, $fieldName);
+$integrityResult = IntegrityResult::create($document, $fieldName);
 $field = $integrityResult->getField();
 $value = $field->getValue();
 
@@ -31,8 +37,8 @@ $out = fopen('php://temp', 'r+b');
 stream_copy_to_stream($fh, $out, $length);
 fseek($out, 0);
 
-$writer = new \SetaPDF_Core_Writer_Http('result.pdf');
-$writer->copy($out);
+$writer = new HttpWriter('result.pdf');
+$writer->copyStream($out);
 $writer->finish();
 
 fclose($fh);

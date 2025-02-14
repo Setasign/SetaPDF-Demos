@@ -1,5 +1,9 @@
 <?php
 
+use setasign\SetaPDF2\Core\Document;
+use setasign\SetaPDF2\Core\Writer\HttpWriter;
+use setasign\SetaPDF2\FormFiller\FormFiller;
+
 // load and register the autoload function
 require_once __DIR__ . '/../../../../../bootstrap.php';
 
@@ -24,12 +28,12 @@ foreach (array_keys($fieldData) as $fieldName) {
 
 $fieldToFlatten = displaySelect('Flatten:', $options);
 
-$document = \SetaPDF_Core_Document::loadByFilename(
+$document = Document::loadByFilename(
     $assetsDirectory . '/pdfs/forms/Sunnysunday-Example.pdf',
-    new \SetaPDF_Core_Writer_Http('flatten.pdf', true)
+    new HttpWriter('flatten.pdf', true)
 );
 
-$formFiller = new \SetaPDF_FormFiller($document);
+$formFiller = new FormFiller($document);
 
 // access the fields instance
 $fields = $formFiller->getFields();

@@ -2,18 +2,47 @@
 
 namespace com\setasign\SetaPDF\Demos\Annotation\Widget;
 
+use setasign\SetaPDF2\Core\Canvas\Draw;
+use setasign\SetaPDF2\Core\DataStructure\Color;
+use setasign\SetaPDF2\Core\DataStructure\Color\Gray;
+use setasign\SetaPDF2\Core\Document;
+use setasign\SetaPDF2\Core\Document\Catalog\AcroForm;
+use setasign\SetaPDF2\Core\Document\Page\Annotation\BorderStyle;
+use setasign\SetaPDF2\Core\Document\Page\Annotation\Widget;
+use setasign\SetaPDF2\Core\Encoding;
+use setasign\SetaPDF2\Core\Exception;
+use setasign\SetaPDF2\Core\Font;
+use setasign\SetaPDF2\Core\Font\FontInterface;
+use setasign\SetaPDF2\Core\Font\Simple;
+use setasign\SetaPDF2\Core\Parser\Content;
+use setasign\SetaPDF2\Core\Resource;
+use setasign\SetaPDF2\Core\Text;
+use setasign\SetaPDF2\Core\Text\Block;
+use setasign\SetaPDF2\Core\Type\AbstractType;
+use setasign\SetaPDF2\Core\Type\Dictionary\Helper as DictionaryHelper;
+use setasign\SetaPDF2\Core\Type\IndirectObjectInterface;
+use setasign\SetaPDF2\Core\Type\PdfArray;
+use setasign\SetaPDF2\Core\Type\PdfDictionary;
+use setasign\SetaPDF2\Core\Type\PdfIndirectReference;
+use setasign\SetaPDF2\Core\Type\PdfName;
+use setasign\SetaPDF2\Core\Type\PdfNumeric;
+use setasign\SetaPDF2\Core\Type\PdfString;
+use setasign\SetaPDF2\Core\Writer;
+use setasign\SetaPDF2\Core\XObject\Form;
+use setasign\SetaPDF2\Exception\NotImplemented;
+
 /**
  * Example class representing a text field.
  */
-class TextField extends \SetaPDF_Core_Document_Page_Annotation_Widget
+class TextField extends Widget
 {
     /**
-     * @var \SetaPDF_Core_Document
+     * @var Document
      */
     protected $_document;
 
     /**
-     * @var \SetaPDF_Core_Font
+     * @var Font
      */
     protected $_appearanceFont;
 
@@ -25,20 +54,20 @@ class TextField extends \SetaPDF_Core_Document_Page_Annotation_Widget
     /**
      * Creates a new text field in a specific document
      *
-     * @param array|\SetaPDF_Core_Type_AbstractType|\SetaPDF_Core_Type_Dictionary|\SetaPDF_Core_Type_IndirectObjectInterface $objectOrDictionary
+     * @param array|AbstractType|PdfDictionary|IndirectObjectInterface $objectOrDictionary
      * @param string $fieldName
-     * @param \SetaPDF_Core_Document $document
-     * @throws \SetaPDF_Core_SecHandler_Exception
-     * @throws \SetaPDF_Core_Type_Exception
-     * @throws \SetaPDF_Core_Type_IndirectReference_Exception
+     * @param Document $document
+     * @throws \setasign\SetaPDF2\Core\SecHandler\Exception
+     * @throws \setasign\SetaPDF2\Core\Type\Exception
+     * @throws \setasign\SetaPDF2\Core\Type\IndirectReference\Exception
      */
-    public function __construct($objectOrDictionary, $fieldName, \SetaPDF_Core_Document $document)
+    public function __construct($objectOrDictionary, $fieldName, Document $document)
     {
         $this->_document = $document;
 
         parent::__construct($objectOrDictionary);
         $dict = $this->getDictionary();
-        $dict->offsetSet('FT', new \SetaPDF_Core_Type_Name('Tx'));
+        $dict->offsetSet('FT', new PdfName('Tx'));
         $this->setPrintFlag();
 
         $acroForm = $document->getCatalog()->getAcroForm();
@@ -47,7 +76,7 @@ class TextField extends \SetaPDF_Core_Document_Page_Annotation_Widget
         // Ensure unique field name
         $fieldNames = [];
         foreach ($acroForm->getTerminalFieldsObjects() as $terminalObject) {
-            $name = \SetaPDF_Core_Document_Catalog_AcroForm::resolveFieldName($terminalObject->ensure());
+            $name = AcroForm::resolveFieldName($terminalObject->ensure());
             $fieldNames[$name] = $name;
         }
 
@@ -59,7 +88,7 @@ class TextField extends \SetaPDF_Core_Document_Page_Annotation_Widget
         }
 
         $this->_qualifiedName = $fieldName;
-        $dict->offsetSet('T', new \SetaPDF_Core_Type_String(\SetaPDF_Core_Encoding::toPdfString($fieldName)));
+        $dict->offsetSet('T', new PdfString(Encoding::toPdfString($fieldName)));
     }
 
     /**
@@ -78,10 +107,10 @@ class TextField extends \SetaPDF_Core_Document_Page_Annotation_Widget
      * @param string $value
      * @param string $encoding
      */
-    public function setValue($value, $encoding = 'UTF-8')
+    public function setValue(string $value, string $encoding = 'UTF-8')
     {
         $dict = $this->getDictionary();
-        $dict->offsetSet('V', new \SetaPDF_Core_Type_String(\SetaPDF_Core_Encoding::toPdfString($value, $encoding)));
+        $dict->offsetSet('V', new PdfString(Encoding::toPdfString($value, $encoding)));
     }
 
     /**
@@ -89,27 +118,27 @@ class TextField extends \SetaPDF_Core_Document_Page_Annotation_Widget
      */
     protected function _setDaValues(array $daValues)
     {
-        $writer = new \SetaPDF_Core_Writer();
-        \SetaPDF_Core_Type_Name::writePdfString($writer, $daValues['fontName']->getValue());
-        \SetaPDF_Core_Type_Numeric::writePdfString($writer, $daValues['fontSize']->getValue());
+        $writer = new Writer();
+        PdfName::writePdfString($writer, $daValues['fontName']->getValue());
+        PdfNumeric::writePdfString($writer, $daValues['fontSize']->getValue());
         $writer->write(' Tf');
         $daValues['color']->draw($writer, false);
 
         $dict = $this->getDictionary();
-        $dict->offsetSet('DA', new \SetaPDF_Core_Type_String($writer));
+        $dict->offsetSet('DA', new PdfString($writer));
     }
 
     /**
      * Set the font
      *
-     * @param \SetaPDF_Core_Font_Simple $font
-     * @throws \SetaPDF_Core_SecHandler_Exception
-     * @throws \SetaPDF_Core_Exception
+     * @param Simple $font
+     * @throws \setasign\SetaPDF2\Core\SecHandler\Exception
+     * @throws Exception
      */
-    public function setFont(\SetaPDF_Core_Font_Simple $font)
+    public function setFont(Simple $font)
     {
         $daValues = $this->_getDaValues();
-        $daValues['fontName'] = new \SetaPDF_Core_Type_Name(
+        $daValues['fontName'] = new PdfName(
             $this->_document->getCatalog()->getAcroForm()->addResource($font)
         );
         $this->_setDaValues($daValues);
@@ -118,10 +147,10 @@ class TextField extends \SetaPDF_Core_Document_Page_Annotation_Widget
     /**
      * Set an individual which is used for rendering of the field value.
      *
-     * @param \SetaPDF_Core_Font_FontInterface $appearanceFont
+     * @param FontInterface $appearanceFont
      * @return void
      */
-    public function setAppearanceFont(\SetaPDF_Core_Font_FontInterface $appearanceFont)
+    public function setAppearanceFont(FontInterface $appearanceFont)
     {
         $this->_appearanceFont = $appearanceFont;
     }
@@ -129,49 +158,49 @@ class TextField extends \SetaPDF_Core_Document_Page_Annotation_Widget
     /**
      * Get the font
      *
-     * @return \SetaPDF_Core_Font
-     * @throws \SetaPDF_Core_Exception
-     * @throws \SetaPDF_Core_Font_Exception
-     * @throws \SetaPDF_Core_SecHandler_Exception
-     * @throws \SetaPDF_Core_Type_Exception
-     * @throws \SetaPDF_Core_Type_IndirectReference_Exception
-     * @throws \SetaPDF_Exception_NotImplemented
+     * @return Font
+     * @throws Exception
+     * @throws \setasign\SetaPDF2\Core\Font\Exception
+     * @throws \setasign\SetaPDF2\Core\SecHandler\Exception
+     * @throws \setasign\SetaPDF2\Core\Type\Exception
+     * @throws \setasign\SetaPDF2\Core\Type\IndirectReference\Exception
+     * @throws NotImplemented
      */
     public function getFont()
     {
         $daValues = $this->_getDaValues();
-        $fonts = $this->_document->getCatalog()->getAcroForm()->getDefaultResources(true, \SetaPDF_Core_Resource::TYPE_FONT);
+        $fonts = $this->_document->getCatalog()->getAcroForm()->getDefaultResources(true, Resource::TYPE_FONT);
 
-        /** @var \SetaPDF_Core_Type_IndirectReference $font */
+        /** @var PdfIndirectReference $font */
         $font = $fonts->getValue($daValues['fontName']->getValue());
-        return \SetaPDF_Core_Font::get($font);
+        return Font::get($font);
     }
 
     /**
      * Set the font size
      *
-     * @param integer|float $fontSize
-     * @throws \SetaPDF_Core_Exception
-     * @throws \SetaPDF_Core_SecHandler_Exception
+     * @param int|float $fontSize
+     * @throws Exception
+     * @throws \setasign\SetaPDF2\Core\SecHandler\Exception
      */
     public function setFontSize($fontSize)
     {
         $daValues = $this->_getDaValues();
-        $daValues['fontSize'] = new \SetaPDF_Core_Type_Numeric($fontSize);
+        $daValues['fontSize'] = new PdfNumeric($fontSize);
         $this->_setDaValues($daValues);
     }
 
     /**
      * Set the text color
      *
-     * @param \SetaPDF_Core_DataStructure_Color|int|float|string|array|\SetaPDF_Core_Type_Array $color
-     * @throws \SetaPDF_Core_Exception
-     * @throws \SetaPDF_Core_SecHandler_Exception
+     * @param Color|int|float|string|array|PdfArray $color
+     * @throws Exception
+     * @throws \setasign\SetaPDF2\Core\SecHandler\Exception
      */
     public function setTextColor($color)
     {
-        if (!$color instanceof \SetaPDF_Core_DataStructure_Color) {
-            $color = \SetaPDF_Core_DataStructure_Color::createByComponents($color);
+        if (!$color instanceof Color) {
+            $color = Color::createByComponents($color);
         }
 
         $daValues = $this->_getDaValues();
@@ -182,24 +211,24 @@ class TextField extends \SetaPDF_Core_Document_Page_Annotation_Widget
     /**
      * Set the form of quadding (justification / align) that shall be used in displaying the fields text.
      *
-     * @see SetaPDF_Core_Text::ALIGN_LEFT
-     * @see SetaPDF_Core_Text::ALIGN_CENTER
-     * @see SetaPDF_Core_Text::ALIGN_RIGHT
+     * @see Text::ALIGN_LEFT
+     * @see Text::ALIGN_CENTER
+     * @see Text::ALIGN_RIGHT
      * @param $align
      */
     public function setAlign($align)
     {
         $allowed = [
-            \SetaPDF_Core_Text::ALIGN_LEFT,
-            \SetaPDF_Core_Text::ALIGN_CENTER,
-            \SetaPDF_Core_Text::ALIGN_RIGHT
+            Text::ALIGN_LEFT,
+            Text::ALIGN_CENTER,
+            Text::ALIGN_RIGHT
         ];
 
         if (!\in_array($align, $allowed, true)) {
             throw new \InvalidArgumentException('Invalid align parameter "' . $align . '".');
         }
 
-        $this->_annotationDictionary->offsetSet('Q', new \SetaPDF_Core_Type_Numeric(\array_search($align, $allowed, true)));
+        $this->_annotationDictionary->offsetSet('Q', new PdfNumeric(\array_search($align, $allowed, true)));
     }
 
     /**
@@ -209,20 +238,20 @@ class TextField extends \SetaPDF_Core_Document_Page_Annotation_Widget
      */
     public function getAlign()
     {
-        $align = \SetaPDF_Core_Type_Dictionary_Helper::getValue($this->getDictionary(), 'Q');
-        if (!$align instanceof \SetaPDF_Core_Type_Numeric) {
-            return \SetaPDF_Core_Text::ALIGN_LEFT;
+        $align = DictionaryHelper::getValue($this->getDictionary(), 'Q');
+        if (!$align instanceof PdfNumeric) {
+            return Text::ALIGN_LEFT;
         }
 
         $align = (int)$align->getValue();
         $values = [
-            \SetaPDF_Core_Text::ALIGN_LEFT,
-            \SetaPDF_Core_Text::ALIGN_CENTER,
-            \SetaPDF_Core_Text::ALIGN_RIGHT
+            Text::ALIGN_LEFT,
+            Text::ALIGN_CENTER,
+            Text::ALIGN_RIGHT
         ];
 
         if (!isset($values[$align])) {
-            return \SetaPDF_Core_Text::ALIGN_LEFT;
+            return Text::ALIGN_LEFT;
         }
 
         return $values[$align];
@@ -231,9 +260,9 @@ class TextField extends \SetaPDF_Core_Document_Page_Annotation_Widget
     /**
      * Check if the multiline flag is set.
      *
-     * @return boolean
+     * @return bool
      */
-    public function isMultiline()
+    public function isMultiline(): bool
     {
         return $this->isFieldFlagSet(0x1000);
     }
@@ -241,9 +270,9 @@ class TextField extends \SetaPDF_Core_Document_Page_Annotation_Widget
     /**
      * Set the multiline flag.
      *
-     * @param bool|true $multiline
+     * @param bool $multiline
      */
-    public function setMultiline($multiline = true)
+    public function setMultiline(bool $multiline = true)
     {
         $this->setFieldFlags(0x1000, $multiline);
     }
@@ -252,29 +281,29 @@ class TextField extends \SetaPDF_Core_Document_Page_Annotation_Widget
      * Get default appearance values
      *
      * @return array
-     * @throws \SetaPDF_Core_Exception
-     * @throws \SetaPDF_Core_SecHandler_Exception
+     * @throws Exception
+     * @throws \setasign\SetaPDF2\Core\SecHandler\Exception
      */
     protected function _getDaValues()
     {
-        $da = \SetaPDF_Core_Type_Dictionary_Helper::resolveAttribute($this->_annotationDictionary, 'DA');
-        $da = $da ?: \SetaPDF_Core_Type_Dictionary_Helper::resolveAttribute(
+        $da = DictionaryHelper::resolveAttribute($this->_annotationDictionary, 'DA');
+        $da = $da ?: DictionaryHelper::resolveAttribute(
             $this->_document->getCatalog()->getAcroForm()->getDictionary(),
             'DA'
         );
 
         if (!$da) {
-            throw new \SetaPDF_Core_Exception('No DA key found.');
+            throw new Exception('No DA key found.');
         }
 
         $fontName = $fontSize = $color = null;
-        $parser = new \SetaPDF_Core_Parser_Content($da->getValue());
+        $parser = new Content($da->getValue());
         $parser->registerOperator('Tf', function($params) use (&$fontName, &$fontSize) {
             $fontName = $params[0];
             $fontSize = $params[1];
         });
         $parser->registerOperator(['g', 'rg', 'k'], function($params) use (&$color) {
-            $color = \SetaPDF_Core_DataStructure_Color::createByComponents($params);
+            $color = Color::createByComponents($params);
         });
 
         $parser->process();
@@ -288,12 +317,13 @@ class TextField extends \SetaPDF_Core_Document_Page_Annotation_Widget
 
     /**
      * Creates the appearance of the button
-     * @throws \SetaPDF_Core_Exception
-     * @throws \SetaPDF_Core_Font_Exception
-     * @throws \SetaPDF_Core_SecHandler_Exception
-     * @throws \SetaPDF_Core_Type_Exception
-     * @throws \SetaPDF_Core_Type_IndirectReference_Exception
-     * @throws \SetaPDF_Exception_NotImplemented
+     *
+     * @throws Exception
+     * @throws \setasign\SetaPDF2\Core\Font\Exception
+     * @throws \setasign\SetaPDF2\Core\SecHandler\Exception
+     * @throws \setasign\SetaPDF2\Core\Type\Exception
+     * @throws \setasign\SetaPDF2\Core\Type\IndirectReference\Exception
+     * @throws NotImplemented
      */
     protected function _createAppearance()
     {
@@ -304,7 +334,7 @@ class TextField extends \SetaPDF_Core_Document_Page_Annotation_Widget
 
         $n = $this->getAppearance('N');
         if (!$n) {
-            $n = \SetaPDF_Core_XObject_Form::create($document, [0, 0, $width, $height]);
+            $n = Form::create($document, [0, 0, $width, $height]);
         }
         $this->setAppearance($n);
 
@@ -313,7 +343,7 @@ class TextField extends \SetaPDF_Core_Document_Page_Annotation_Widget
         $appearanceCharacteristics = $this->getAppearanceCharacteristics();
         $borderStyle = $this->getBorderStyle();
         $borderWidth = 0;
-        $_borderStyle = \SetaPDF_Core_Document_Page_Annotation_BorderStyle::SOLID;
+        $_borderStyle = BorderStyle::SOLID;
 
         if ($borderStyle) {
             $_borderStyle = $borderStyle->getStyle();
@@ -351,13 +381,13 @@ class TextField extends \SetaPDF_Core_Document_Page_Annotation_Widget
             if ($c == 1)
                 $f = $width;
 
-            $n->getObject()->ensure()->getValue()->offsetSet('Matrix', new \SetaPDF_Core_Type_Array([
-                new \SetaPDF_Core_Type_Numeric($a),
-                new \SetaPDF_Core_Type_Numeric($b),
-                new \SetaPDF_Core_Type_Numeric($c),
-                new \SetaPDF_Core_Type_Numeric($d),
-                new \SetaPDF_Core_Type_Numeric($e),
-                new \SetaPDF_Core_Type_Numeric($f)
+            $n->getObject()->ensure()->getValue()->offsetSet('Matrix', new PdfArray([
+                new PdfNumeric($a),
+                new PdfNumeric($b),
+                new PdfNumeric($c),
+                new PdfNumeric($d),
+                new PdfNumeric($e),
+                new PdfNumeric($f)
             ]));
         }
 
@@ -367,7 +397,7 @@ class TextField extends \SetaPDF_Core_Document_Page_Annotation_Widget
             : null;
         if ($backgroundColor) {
             $backgroundColor->draw($canvas, false);
-            $canvas->draw()->rect(0, 0, $width, $height, \SetaPDF_Core_Canvas_Draw::STYLE_FILL);
+            $canvas->draw()->rect(0, 0, $width, $height, Draw::STYLE_FILL);
         }
 
         // Draw Border:
@@ -378,10 +408,10 @@ class TextField extends \SetaPDF_Core_Document_Page_Annotation_Widget
         // It is possible to have no border but only a border style!
 
         // Beveld or Inset
-        if ($_borderStyle === \SetaPDF_Core_Document_Page_Annotation_BorderStyle::BEVELED ||
-            $_borderStyle === \SetaPDF_Core_Document_Page_Annotation_BorderStyle::INSET) {
+        if ($_borderStyle === BorderStyle::BEVELED ||
+            $_borderStyle === BorderStyle::INSET) {
             $colorLtValue = 1;
-            if ($_borderStyle === \SetaPDF_Core_Document_Page_Annotation_BorderStyle::INSET) {
+            if ($_borderStyle === BorderStyle::INSET) {
                 $colorLtValue = .5;
             }
 
@@ -391,18 +421,18 @@ class TextField extends \SetaPDF_Core_Document_Page_Annotation_Widget
              * All other fields will use this effect.
              */
             if (
-                $_borderStyle === \SetaPDF_Core_Document_Page_Annotation_BorderStyle::BEVELED && $backgroundColor
+                $_borderStyle === BorderStyle::BEVELED && $backgroundColor
             ) {
                 $tmpColor = clone $backgroundColor;
                 $tmpColor->adjustAllComponents(-0.250977);
                 $colorRb = $tmpColor;
             } else {
-                $colorRb = new \SetaPDF_Core_DataStructure_Color_Gray(.75);
+                $colorRb = new Gray(.75);
             }
 
             // Draw the inner border
             $canvas->saveGraphicState();  // q
-            \SetaPDF_Core_DataStructure_Color_Gray::writePdfString($canvas, $colorLtValue, false);
+            Gray::writePdfString($canvas, $colorLtValue, false);
 
             $_borderWidth = $borderWidth * 2;
 
@@ -436,13 +466,13 @@ class TextField extends \SetaPDF_Core_Document_Page_Annotation_Widget
             $borderColor->draw($canvas, true);
 
             // Dashed
-            if ($_borderStyle === \SetaPDF_Core_Document_Page_Annotation_BorderStyle::DASHED) {
+            if ($_borderStyle === BorderStyle::DASHED) {
                 $canvas->path()->setDashPattern($borderStyle->getDashPattern());
             }
 
             // Draw border
             // NOT underline
-            if ($_borderStyle !== \SetaPDF_Core_Document_Page_Annotation_BorderStyle::UNDERLINE) {
+            if ($_borderStyle !== BorderStyle::UNDERLINE) {
                 $canvas->draw()->rect(
                     $borderWidth * .5,
                     $borderWidth * .5,
@@ -458,7 +488,7 @@ class TextField extends \SetaPDF_Core_Document_Page_Annotation_Widget
         }
 
         $dict = $this->getDictionary();
-        $value = \SetaPDF_Core_Type_Dictionary_Helper::getValue($dict, 'V', '', true);
+        $value = DictionaryHelper::getValue($dict, 'V', '', true);
         if ($value === '') {
             return;
         }
@@ -466,12 +496,12 @@ class TextField extends \SetaPDF_Core_Document_Page_Annotation_Widget
         $daValues = $this->_getDaValues();
 
         $font = $this->_appearanceFont ?: $this->getFont();
-        $textBlock = new \SetaPDF_Core_Text_Block($font, null);
+        $textBlock = new Block($font, null);
         $textBlock->setAlign($this->getAlign());
 
         $borderDoubled = (
-            $_borderStyle === \SetaPDF_Core_Document_Page_Annotation_BorderStyle::BEVELED ||
-            $_borderStyle === \SetaPDF_Core_Document_Page_Annotation_BorderStyle::INSET
+            $_borderStyle === BorderStyle::BEVELED ||
+            $_borderStyle === BorderStyle::INSET
         );
 
         $offset = \max(1, $borderWidth * ($borderDoubled ? 2 : 1)) * 2;
@@ -500,18 +530,18 @@ class TextField extends \SetaPDF_Core_Document_Page_Annotation_Widget
             ], "\x00\x20", $value);
         } else {
             // normalize line breaks and convert tabs to spaces
-            $value = \str_replace("\x00\x09", "\x00\x20", \SetaPDF_Core_Text::normalizeLineBreaks($value));
+            $value = \str_replace("\x00\x09", "\x00\x20", Text::normalizeLineBreaks($value));
         }
 
         $textBlock->setText(
-            \SetaPDF_Core_Encoding::convertPdfString($value, 'UTF-16BE'),
+            Encoding::convertPdfString($value, 'UTF-16BE'),
             'UTF-16BE'
         );
         $textBlock->setPadding($offset);
         $fontSize = $daValues['fontSize']->getValue();
 
         if ($multiline) {
-            $textBlock->setWidth($width - $offset * 2);
+            $textBlock->setTextWidth($width - $offset * 2);
         }
 
         if ($fontSize === 0) {
@@ -542,16 +572,16 @@ class TextField extends \SetaPDF_Core_Document_Page_Annotation_Widget
     }
 
     /**
-     * @param \SetaPDF_Core_Document|null $document
-     * @return \SetaPDF_Core_Type_IndirectObjectInterface
-     * @throws \SetaPDF_Core_Exception
-     * @throws \SetaPDF_Core_Font_Exception
-     * @throws \SetaPDF_Core_SecHandler_Exception
-     * @throws \SetaPDF_Core_Type_Exception
-     * @throws \SetaPDF_Core_Type_IndirectReference_Exception
-     * @throws \SetaPDF_Exception_NotImplemented
+     * @param Document|null $document
+     * @return IndirectObjectInterface
+     * @throws Exception
+     * @throws \setasign\SetaPDF2\Core\Font\Exception
+     * @throws \setasign\SetaPDF2\Core\SecHandler\Exception
+     * @throws \setasign\SetaPDF2\Core\Type\Exception
+     * @throws \setasign\SetaPDF2\Core\Type\IndirectReference\Exception
+     * @throws NotImplemented
      */
-    public function getIndirectObject(\SetaPDF_Core_Document $document = null)
+    public function getIndirectObject(?Document $document = null)
     {
         $this->_createAppearance();
         return parent::getIndirectObject($document);
@@ -560,8 +590,8 @@ class TextField extends \SetaPDF_Core_Document_Page_Annotation_Widget
     /**
      * Sets a field flag
      *
-     * @param integer $flags
-     * @param boolean|null $add Add = true, remove = false, set = null
+     * @param int $flags
+     * @param bool|null $add Add = true, remove = false, set = null
      */
     public function setFieldFlags($flags, $add = true)
     {
@@ -570,9 +600,9 @@ class TextField extends \SetaPDF_Core_Document_Page_Annotation_Widget
             return;
         }
 
-        $dict = \SetaPDF_Core_Type_Dictionary_Helper::resolveDictionaryByAttribute($this->_annotationDictionary, 'Ff');
+        $dict = DictionaryHelper::resolveDictionaryByAttribute($this->_annotationDictionary, 'Ff');
 
-        if ($dict instanceof \SetaPDF_Core_Type_AbstractType) {
+        if ($dict instanceof AbstractType) {
             $value = $dict->ensure()->getValue('Ff');
             if ($add === true) {
                 $value->setValue($value->getValue() | $flags);
@@ -581,20 +611,20 @@ class TextField extends \SetaPDF_Core_Document_Page_Annotation_Widget
             }
 
         } else {
-            $this->_annotationDictionary->offsetSet('Ff', new \SetaPDF_Core_Type_Numeric($flags));
+            $this->_annotationDictionary->offsetSet('Ff', new PdfNumeric($flags));
         }
     }
 
     /**
      * Removes a field flag
      *
-     * @param integer $flags
+     * @param int $flags
      */
     public function unsetFieldFlags($flags)
     {
-        $dict = \SetaPDF_Core_Type_Dictionary_Helper::resolveDictionaryByAttribute($this->_annotationDictionary, 'Ff');
+        $dict = DictionaryHelper::resolveDictionaryByAttribute($this->_annotationDictionary, 'Ff');
 
-        if ($dict instanceof \SetaPDF_Core_Type_AbstractType) {
+        if ($dict instanceof AbstractType) {
             $value = $dict->ensure()->getValue('Ff');
             $value->setValue($value->getValue() & ~$flags);
         }
@@ -603,11 +633,11 @@ class TextField extends \SetaPDF_Core_Document_Page_Annotation_Widget
     /**
      * Returns the current field flags
      *
-     * @return integer
+     * @return int
      */
     public function getFieldFlags()
     {
-        $fieldFlags = \SetaPDF_Core_Type_Dictionary_Helper::resolveAttribute($this->_annotationDictionary, 'Ff');
+        $fieldFlags = DictionaryHelper::resolveAttribute($this->_annotationDictionary, 'Ff');
         if ($fieldFlags) {
             return $fieldFlags->getValue();
         }
@@ -618,8 +648,8 @@ class TextField extends \SetaPDF_Core_Document_Page_Annotation_Widget
     /**
      * Checks if a specific field flag is set
      *
-     * @param integer $flag
-     * @return boolean
+     * @param int $flag
+     * @return bool
      */
     public function isFieldFlagSet($flag)
     {

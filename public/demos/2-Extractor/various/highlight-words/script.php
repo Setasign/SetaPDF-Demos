@@ -1,5 +1,13 @@
 <?php
 
+use setasign\SetaPDF2\Core\DataStructure\Rectangle as RectangleDataStructure;
+use setasign\SetaPDF2\Core\Document;
+use setasign\SetaPDF2\Core\Document\Page\Annotation\Highlight;
+use setasign\SetaPDF2\Core\Geometry\Rectangle;
+use setasign\SetaPDF2\Core\Writer\HttpWriter;
+use setasign\SetaPDF2\Extractor\Extractor;
+use setasign\SetaPDF2\Extractor\Strategy\Word;
+
 // load and register the autoload function
 require_once __DIR__ . '/../../../../../bootstrap.php';
 
@@ -14,16 +22,16 @@ $word = displaySelect('Highlight:', [
 ]);
 
 // load the document
-$document = \SetaPDF_Core_Document::loadByFilename(
+$document = Document::loadByFilename(
     $assetsDirectory . '/pdfs/tektown/Terms-and-Conditions.pdf',
-    new \SetaPDF_Core_Writer_Http('document.pdf', true)
+    new HttpWriter('document.pdf', true)
 );
 
 // initate an extractor instance
-$extractor = new \SetaPDF_Extractor($document);
+$extractor = new Extractor($document);
 
 // create the word extraction strategy and pass it to the extractor instance
-$strategy = new \SetaPDF_Extractor_Strategy_Word();
+$strategy = new Word();
 $extractor->setStrategy($strategy);
 
 // get access to the documents pages instance
@@ -39,7 +47,7 @@ if (isset($_SESSION['wordsPerPage'])) {
     // walk through the pages and extract the word
     for ($pageNo = 1; $pageNo <= $pages->count(); $pageNo++) {
         $words = $extractor->getResultByPageNumber($pageNo);
-        // restrucutre the data to be less memory intensive in the "cache"
+        // restructure the data to be less memory intensive in the "cache"
         foreach ($words AS $_word) {
             $wordsPerPage[$pageNo][] = [
                 'string' => $_word->getString(),
@@ -71,10 +79,10 @@ for ($pageNo = 1; $pageNo <= $pages->count(); $pageNo++) {
         // if a match occurs, create a highlight annotation and add it to the pages annotations instance
         $bounds = $_word['bounds'];
         foreach ($bounds AS $bound) {
-            $rect = new \SetaPDF_Core_Geometry_Rectangle($bound->getLl(), $bound->getUr());
-            $rect = \SetaPDF_Core_DataStructure_Rectangle::byRectangle($rect);
+            $rect = new Rectangle($bound->getLl(), $bound->getUr());
+            $rect = RectangleDataStructure::byRectangle($rect);
 
-            $annotation = new \SetaPDF_Core_Document_Page_Annotation_Highlight($rect);
+            $annotation = new Highlight($rect);
             $annotation->setColor([1, 1, 0]);
             $annotation->setContents('Match #' . (++$found));
             $annotation->setPrintFlag();

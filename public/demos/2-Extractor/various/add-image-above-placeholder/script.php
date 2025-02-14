@@ -1,17 +1,26 @@
 <?php
 
+use setasign\SetaPDF2\Core\Canvas\Draw;
+use setasign\SetaPDF2\Core\Document;
+use setasign\SetaPDF2\Core\Image;
+use setasign\SetaPDF2\Core\Writer\HttpWriter;
+use setasign\SetaPDF2\Core\XObject\Image as ImageXObject;
+use setasign\SetaPDF2\Extractor\Extractor;
+use setasign\SetaPDF2\Extractor\Result\Words;
+use setasign\SetaPDF2\Extractor\Strategy\Word as WordStrategy;
+
 // load and register the autoload function
 require_once __DIR__ . '/../../../../../bootstrap.php';
 
-$document = \SetaPDF_Core_Document::loadByFilename(
+$document = Document::loadByFilename(
     $assetsDirectory . '/pdfs/tektown/Laboratory-Report - with-sig-placeholders.pdf'
 );
 
 // initate an extractor instance
-$extractor = new \SetaPDF_Extractor($document);
+$extractor = new Extractor($document);
 
 // define the word strategy
-$strategy = new \SetaPDF_Extractor_Strategy_Word();
+$strategy = new WordStrategy();
 $extractor->setStrategy($strategy);
 
 // get the pages helper
@@ -19,7 +28,7 @@ $pages = $document->getCatalog()->getPages();
 
 // define a mapping of placeholders to images
 $images = [
-    'SIGNATURE' => \SetaPDF_Core_Image::getByPath(
+    'SIGNATURE' => Image::getByPath(
         $assetsDirectory . '/images/Handwritten-Signature.png'
     )->toXObject($document)
 ];
@@ -28,7 +37,7 @@ $images = [
 $matches = [];
 for ($pageNo = 1; $pageNo <= $pages->count(); $pageNo++) {
     /**
-     * @var \SetaPDF_Extractor_Result_Words $words
+     * @var Words $words
      */
     $words = $extractor->getResultByPageNumber($pageNo);
     $matches[] = [$pageNo, $words->search('/{{.*?}}/')];
@@ -36,7 +45,7 @@ for ($pageNo = 1; $pageNo <= $pages->count(); $pageNo++) {
 
 // iterate over the matches
 foreach ($matches AS list($pageNo, $results)) {
-    /** @var \SetaPDF_Extractor_Result_Words $segments */
+    /** @var Words $segments */
     foreach ($results as $segments) {
         $name = trim($segments->getString(), "{} \n");
         if (!isset($images[$name])) {
@@ -49,7 +58,7 @@ foreach ($matches AS list($pageNo, $results)) {
 
         // get the page object
         $page = $pages->getPage($pageNo);
-        // make sure that the new content is encapsulated in a seperate content stream
+        // make sure that the new content is encapsulated in a separate content stream
         $page->getContents()->encapsulateExistingContentInGraphicState();
         // get the canvas object
         $canvas = $page->getCanvas();
@@ -63,10 +72,10 @@ foreach ($matches AS list($pageNo, $results)) {
         // draw a white rectangle
         $canvas->draw()
             ->setNonStrokingColor(1)
-            ->rect($x, $y, $width, $height, \SetaPDF_Core_Canvas_Draw::STYLE_FILL);
+            ->rect($x, $y, $width, $height, Draw::STYLE_FILL);
 
         /**
-         * @var \SetaPDF_Core_XObject_Image $image
+         * @var ImageXObject $image
          */
         $image = $images[$name];
 
@@ -85,5 +94,5 @@ foreach ($matches AS list($pageNo, $results)) {
 }
 
 // save and finish the document
-$document->setWriter(new \SetaPDF_Core_Writer_Http('document.pdf', true));
+$document->setWriter(new HttpWriter('document.pdf', true));
 $document->save()->finish();

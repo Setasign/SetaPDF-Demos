@@ -1,16 +1,21 @@
 <?php
 
+use setasign\SetaPDF2\Core\Document;
+use setasign\SetaPDF2\Core\Writer\HttpWriter;
+use setasign\SetaPDF2\Signer\Signature\Module\Pades as PadesModule;
+use setasign\SetaPDF2\Signer\Signer;
+
 // load and register the autoload function
 require_once __DIR__ . '/../../../../../bootstrap.php';
 
-$writer = new \SetaPDF_Core_Writer_Http('signed.pdf');
-$document = \SetaPDF_Core_Document::loadByFilename(
+$writer = new HttpWriter('signed.pdf');
+$document = Document::loadByFilename(
     $assetsDirectory . '/pdfs/camtown/Laboratory-Report.pdf',
     $writer
 );
 
 // create a signer instance
-$signer = new \SetaPDF_Signer($document);
+$signer = new Signer($document);
 // add a signature field
 $field = $signer->addSignatureField();
 // and define that you want to use this field
@@ -30,7 +35,7 @@ if ($pfxRead === false) {
 
 
 // now create a signature module
-$module = new \SetaPDF_Signer_Signature_Module_Pades();
+$module = new PadesModule();
 // pass the certificate ...
 $module->setCertificate($pkcs12['cert']);
 // ...and private key to the module

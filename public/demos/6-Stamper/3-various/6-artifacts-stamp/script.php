@@ -1,27 +1,31 @@
 <?php
 
 use com\setasign\SetaPDF\Demos\Stamper\Stamp\ArtifactTextStamp as ArtifactTextStamp;
+use setasign\SetaPDF2\Core\Document;
+use setasign\SetaPDF2\Core\Font\TrueType\Subset;
+use setasign\SetaPDF2\Core\Writer\HttpWriter;
+use setasign\SetaPDF2\Stamper\Stamper;
 
 // load and register the autoload function
 require_once __DIR__ . '/../../../../../bootstrap.php';
 require_once __DIR__ . '/../../../../../classes/Stamper/Stamp/ArtifactTextStamp.php';
 
-// create a HTTP writer
-$writer = new \SetaPDF_Core_Writer_Http('artifact.pdf', true);
-//$writer = new \SetaPDF_Core_Writer_File('artifact.pdf');
+// create an HTTP writer
+$writer = new HttpWriter('artifact.pdf', true);
+//$writer = new \setasign\SetaPDF2\Core\Writer\FileWriter('artifact.pdf');
 // let's get the document
-$document = \SetaPDF_Core_Document::loadByFilename(
+$document = Document::loadByFilename(
     $assetsDirectory . '/pdfs/Brand-Guide.pdf',
     $writer
 );
 
 // create a stamper instance
-$stamper = new \SetaPDF_Stamper($document);
+$stamper = new Stamper($document);
 
 //--- Create a text stamp and wrap it in a Tagged stamp instance ---//
 
 // create a font instance which is needed for the text stamp instance
-$font = new \SetaPDF_Core_Font_TrueType_Subset(
+$font = new Subset(
     $document,
     $assetsDirectory . '/fonts/DejaVu/ttf/DejaVuSans.ttf'
 );
@@ -33,7 +37,7 @@ $textStamp->setText('Personalized for John Dow (jon.dow@example.com)');
 
 // add the stamp to the stamper instance
 $stamper->addStamp($textStamp, [
-    'position' => \SetaPDF_Stamper::POSITION_CENTER_TOP,
+    'position' => Stamper::POSITION_CENTER_TOP,
     'translateX' => 2,
     'translateY' => -2
 ]);
