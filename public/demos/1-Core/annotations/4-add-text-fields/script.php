@@ -75,7 +75,7 @@ for ($i = 0; $i < 18; $i++) {
     $multiline = ($i & 1) === 1;
     $align = $aligns[array_rand($aligns)];
 
-    // Create a textfield instance
+    // Create a text field instance
     $field = new TextField([$x, $y - $height - ($multiline ? 20 : 0), $x + $width, $y], 'field name ' . $i, $document);
     $field->setValue('A simple test which is a bit longer to show line breaking behavior (' . $i . ').');
     $field->setFontSize($fontSize);
