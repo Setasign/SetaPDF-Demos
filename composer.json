@@ -3,6 +3,12 @@
         "php": ">=7.1",
         "ext-json": "*",
 
+        "setasign/setapdf-core": "^2.47",
+        "setasign/setapdf-extractor": "^2.47",
+        "setasign/setapdf-formfiller_full": "^2.47",
+        "setasign/setapdf-merger": "^2.47",
+        "setasign/setapdf-signer": "^2.47",
+        "setasign/setapdf-stamper": "^2.47",
         "phpseclib/phpseclib": "^2.0 || ^3.0"
     },
     "repositories": [
