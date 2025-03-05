@@ -511,7 +511,7 @@ class TextField extends \SetaPDF_Core_Document_Page_Annotation_Widget
         $fontSize = $daValues['fontSize']->getValue();
 
         if ($multiline) {
-            $textBlock->setWidth($width - $offset * 2);
+            $textBlock->setTextWidth($width - $offset * 2);
         }
 
         if ($fontSize === 0) {
@@ -535,7 +535,17 @@ class TextField extends \SetaPDF_Core_Document_Page_Annotation_Widget
         if ($multiline) {
             $textBlock->draw($canvas, 0, $height - $textBlock->getHeight() - $borderWidth);
         } else {
-            $textBlock->draw($canvas, 0, $height / 2 - $textBlock->getHeight() / 2);
+            switch ($textBlock->getAlign()) {
+                case \SetaPDF_Core_Text::ALIGN_CENTER:
+                    $lineLeft = (($width - $offset * 2) / 2) - ($textBlock->getTextWidth() / 2);
+                    break;
+                case \SetaPDF_Core_Text::ALIGN_RIGHT:
+                    $lineLeft = ($width - $offset * 2) - $textBlock->getTextWidth();
+                    break;
+                default:
+                    $lineLeft = 0;
+            }
+            $textBlock->draw($canvas, $lineLeft, $height / 2 - $textBlock->getHeight() / 2);
         }
 
         $canvas->markedContent()->end();
