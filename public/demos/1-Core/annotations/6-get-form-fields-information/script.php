@@ -2,10 +2,10 @@
 
 use setasign\SetaPDF2\Core\Document;
 use setasign\SetaPDF2\Core\Document\Catalog\AcroForm;
-use setasign\SetaPDF2\Core\Document\Page\Annotation;
+use setasign\SetaPDF2\Core\Document\Page\Annotation\Annotation;
 use setasign\SetaPDF2\Core\Document\Page\Annotation\Widget;
-use setasign\SetaPDF2\Core\Encoding;
-use setasign\SetaPDF2\Core\Type\Dictionary\Helper as DictionaryHelper;
+use setasign\SetaPDF2\Core\Encoding\Encoding;
+use setasign\SetaPDF2\Core\Type\Dictionary\DictionaryHelper;
 use setasign\SetaPDF2\Core\Type\PdfStringInterface;
 
 // load and register the autoload function

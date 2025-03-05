@@ -1,11 +1,11 @@
 <?php
 
-namespace com\setasign\SetaPDF\Demos\Inspector;
+namespace setasign\SetaPDF2\Demos\Inspector;
 
 use setasign\SetaPDF2\Core\Document;
-use setasign\SetaPDF2\Core\Resource;
+use setasign\SetaPDF2\Core\Resource\ResourceInterface;
 use setasign\SetaPDF2\Core\Type\PdfDictionary;
-use setasign\SetaPDF2\Core\XObject;
+use setasign\SetaPDF2\Core\XObject\XObject;
 use setasign\SetaPDF2\Core\XObject\Form;
 use setasign\SetaPDF2\Core\XObject\Image;
 use setasign\SetaPDF2\Exception\NotImplemented;
@@ -59,12 +59,12 @@ class TransparencyInspector
 
             $this->_currentLocation = ['Page ' . $pageNo];
 
-            $xObjects = $page->getCanvas()->getResources(true, false, Resource::TYPE_X_OBJECT);
+            $xObjects = $page->getCanvas()->getResources(true, false, ResourceInterface::TYPE_X_OBJECT);
             if ($xObjects) {
                 $this->_processXObjects($xObjects);
             }
 
-            $graphicStates = $page->getCanvas()->getResources(true, false, Resource::TYPE_EXT_G_STATE);
+            $graphicStates = $page->getCanvas()->getResources(true, false, ResourceInterface::TYPE_EXT_G_STATE);
             if ($graphicStates) {
                 $this->_processGraphicStates($graphicStates);
             }
@@ -160,12 +160,12 @@ class TransparencyInspector
 
             // form XObjects
             } elseif ($xObject instanceof Form) {
-                $_xObjects = $xObject->getCanvas()->getResources(true, false, Resource::TYPE_X_OBJECT);
+                $_xObjects = $xObject->getCanvas()->getResources(true, false, ResourceInterface::TYPE_X_OBJECT);
                 if ($_xObjects) {
                     $this->_processXObjects($_xObjects);
                 }
 
-                $graphicStates = $xObject->getCanvas()->getResources(true, false, Resource::TYPE_EXT_G_STATE);
+                $graphicStates = $xObject->getCanvas()->getResources(true, false, ResourceInterface::TYPE_EXT_G_STATE);
                 if ($graphicStates) {
                     $this->_processGraphicStates($graphicStates);
                 }

@@ -1,15 +1,15 @@
 <?php
 
-namespace com\setasign\SetaPDF\Demos\ContentStreamProcessor;
+namespace setasign\SetaPDF2\Demos\ContentStreamProcessor;
 
-use setasign\SetaPDF2\Core\Canvas;
+use setasign\SetaPDF2\Core\Canvas\Canvas;
 use setasign\SetaPDF2\Core\Canvas\GraphicState;
 use setasign\SetaPDF2\Core\Filter\Exception as FilterException;
 use setasign\SetaPDF2\Core\Geometry\Vector;
 use setasign\SetaPDF2\Core\Parser\Content;
-use setasign\SetaPDF2\Core\Resource;
+use setasign\SetaPDF2\Core\Resource\ResourceInterface;
 use setasign\SetaPDF2\Core\Type\PdfIndirectReference;
-use setasign\SetaPDF2\Core\XObject;
+use setasign\SetaPDF2\Core\XObject\XObject;
 use setasign\SetaPDF2\Core\XObject\Form;
 use setasign\SetaPDF2\Exception\NotImplemented;
 
@@ -202,7 +202,7 @@ class ImageProcessor
      */
     public function _onFormXObject(array $arguments)
     {
-        $xObjects = $this->_canvas->getResources(true, false, Resource::TYPE_X_OBJECT);
+        $xObjects = $this->_canvas->getResources(true, false, ResourceInterface::TYPE_X_OBJECT);
         if ($xObjects === null) {
             return;
         }

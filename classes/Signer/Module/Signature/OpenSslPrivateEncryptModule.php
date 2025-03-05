@@ -1,14 +1,14 @@
 <?php
 
-namespace com\setasign\SetaPDF\Demos\Signer\Module\Signature;
+namespace setasign\SetaPDF2\Demos\Signer\Module\Signature;
 
 use setasign\SetaPDF2\Core\Reader\FilePath;
 use setasign\SetaPDF2\Signer\Asn1\Element as Asn1Element;
 use setasign\SetaPDF2\Signer\Asn1\Oid as Asn1Oid;
 use setasign\SetaPDF2\Signer\Digest;
 use setasign\SetaPDF2\Signer\Exception;
-use setasign\SetaPDF2\Signer\Signature\DictionaryInterface;
-use setasign\SetaPDF2\Signer\Signature\DocumentInterface;
+use setasign\SetaPDF2\Signer\Signature\Module\DictionaryInterface;
+use setasign\SetaPDF2\Signer\Signature\Module\DocumentInterface;
 use setasign\SetaPDF2\Signer\Signature\Module\ModuleInterface;
 use setasign\SetaPDF2\Signer\Signature\Module\PadesProxyTrait;
 

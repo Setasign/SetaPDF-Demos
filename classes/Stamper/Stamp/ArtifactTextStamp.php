@@ -1,6 +1,6 @@
 <?php
 
-namespace com\setasign\SetaPDF\Demos\Stamper\Stamp;
+namespace setasign\SetaPDF2\Demos\Stamper\Stamp;
 
 use setasign\SetaPDF2\Core\Document;
 use setasign\SetaPDF2\Core\Document\Page;

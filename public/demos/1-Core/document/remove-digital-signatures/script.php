@@ -1,7 +1,7 @@
 <?php
 
 use setasign\SetaPDF2\Core\Document;
-use setasign\SetaPDF2\Core\Type\Dictionary\Helper as DictionaryHelper;
+use setasign\SetaPDF2\Core\Type\Dictionary\DictionaryHelper;
 use setasign\SetaPDF2\Core\Type\PdfDictionary;
 use setasign\SetaPDF2\Core\Type\PdfStream;
 use setasign\SetaPDF2\Core\Writer\HttpWriter;

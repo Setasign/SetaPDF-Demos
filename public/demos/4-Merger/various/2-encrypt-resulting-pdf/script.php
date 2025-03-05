@@ -1,6 +1,6 @@
 <?php
 
-use setasign\SetaPDF2\Core\SecHandler;
+use setasign\SetaPDF2\Core\SecHandler\SecHandler;
 use setasign\SetaPDF2\Core\SecHandler\Standard\Aes256;
 use setasign\SetaPDF2\Core\Writer\HttpWriter;
 use setasign\SetaPDF2\Merger\Merger;

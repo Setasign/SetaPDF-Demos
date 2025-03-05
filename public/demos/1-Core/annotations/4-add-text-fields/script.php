@@ -1,11 +1,11 @@
 <?php
 
-use com\setasign\SetaPDF\Demos\Annotation\Widget\TextField;
+use setasign\SetaPDF2\Demos\Annotation\Widget\TextField;
 use setasign\SetaPDF2\Core\Document;
 use setasign\SetaPDF2\Core\Document\Page\Annotation\BorderStyle;
 use setasign\SetaPDF2\Core\Font\Standard\Helvetica;
 use setasign\SetaPDF2\Core\PageFormats;
-use setasign\SetaPDF2\Core\Text;
+use setasign\SetaPDF2\Core\Text\Text;
 use setasign\SetaPDF2\Core\Writer\HttpWriter;
 
 // load and register the autoload function

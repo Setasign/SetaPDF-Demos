@@ -1,6 +1,6 @@
 <?php
 
-use com\setasign\SetaPDF\Demos\Annotation\Widget\Pushbutton;
+use setasign\SetaPDF2\Demos\Annotation\Widget\Pushbutton;
 use setasign\SetaPDF2\Core\Document;
 use setasign\SetaPDF2\Core\Document\Action\JavaScriptAction;
 use setasign\SetaPDF2\Core\Document\Action\SubmitFormAction;

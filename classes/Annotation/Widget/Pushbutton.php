@@ -1,32 +1,32 @@
 <?php
 
-namespace com\setasign\SetaPDF\Demos\Annotation\Widget;
+namespace setasign\SetaPDF2\Demos\Annotation\Widget;
 
 use setasign\SetaPDF2\Core\Canvas\Draw;
-use setasign\SetaPDF2\Core\DataStructure\Color;
+use setasign\SetaPDF2\Core\DataStructure\Color\AbstractColor;
 use setasign\SetaPDF2\Core\DataStructure\Color\Gray;
 use setasign\SetaPDF2\Core\Document;
 use setasign\SetaPDF2\Core\Document\Catalog\AcroForm;
 use setasign\SetaPDF2\Core\Document\Page\Annotation\AppearanceCharacteristics;
 use setasign\SetaPDF2\Core\Document\Page\Annotation\BorderStyle;
 use setasign\SetaPDF2\Core\Document\Page\Annotation\Widget;
-use setasign\SetaPDF2\Core\Encoding;
+use setasign\SetaPDF2\Core\Encoding\Encoding;
 use setasign\SetaPDF2\Core\Exception;
-use setasign\SetaPDF2\Core\Font;
+use setasign\SetaPDF2\Core\Font\Font;
 use setasign\SetaPDF2\Core\Font\FontInterface;
 use setasign\SetaPDF2\Core\Parser\Content;
-use setasign\SetaPDF2\Core\Resource;
-use setasign\SetaPDF2\Core\Text;
+use setasign\SetaPDF2\Core\Resource\ResourceInterface;
+use setasign\SetaPDF2\Core\Text\Text;
 use setasign\SetaPDF2\Core\Text\Block;
 use setasign\SetaPDF2\Core\Type\AbstractType;
-use setasign\SetaPDF2\Core\Type\Dictionary\Helper as DictionaryHelper;
+use setasign\SetaPDF2\Core\Type\Dictionary\DictionaryHelper;
 use setasign\SetaPDF2\Core\Type\IndirectObjectInterface;
 use setasign\SetaPDF2\Core\Type\PdfArray;
 use setasign\SetaPDF2\Core\Type\PdfDictionary;
 use setasign\SetaPDF2\Core\Type\PdfName;
 use setasign\SetaPDF2\Core\Type\PdfNumeric;
 use setasign\SetaPDF2\Core\Type\PdfString;
-use setasign\SetaPDF2\Core\Writer;
+use setasign\SetaPDF2\Core\Writer\Writer;
 use setasign\SetaPDF2\Core\XObject\Form;
 
 /**
@@ -119,7 +119,7 @@ class Pushbutton extends Widget
     public function getFont()
     {
         $daValues = $this->_getDaValues();
-        $fonts = $this->_document->getCatalog()->getAcroForm()->getDefaultResources(true, Resource::TYPE_FONT);
+        $fonts = $this->_document->getCatalog()->getAcroForm()->getDefaultResources(true, ResourceInterface::TYPE_FONT);
 
         return Font::get($fonts->getValue($daValues['fontName']->getValue()));
     }
@@ -147,13 +147,13 @@ class Pushbutton extends Widget
     /**
      * Set the text color
      *
-     * @param int|float|string|array|PdfArray|Color $color
+     * @param int|float|string|array|PdfArray|AbstractColor $color
      * @throws Exception
      */
     public function setTextColor($color)
     {
-        if (!$color instanceof Color) {
-            $color = Color::createByComponents($color);
+        if (!$color instanceof AbstractColor) {
+            $color = AbstractColor::createByComponents($color);
         }
 
         $daValues = $this->_getDaValues();
@@ -192,7 +192,7 @@ class Pushbutton extends Widget
             $fontSize = $params[1];
         });
         $parser->registerOperator(['g', 'rg', 'k'], static function($params) use (&$color) {
-            $color = Color::createByComponents($params);
+            $color = AbstractColor::createByComponents($params);
         });
 
         $parser->process();

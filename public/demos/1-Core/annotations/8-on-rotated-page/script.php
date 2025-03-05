@@ -2,7 +2,7 @@
 
 use setasign\SetaPDF2\Core\Canvas\GraphicState;
 use setasign\SetaPDF2\Core\Document;
-use \setasign\SetaPDF2\Core\Document\Page\Annotation\Stamp as StampAnnotation;
+use setasign\SetaPDF2\Core\Document\Page\Annotation\Stamp as StampAnnotation;
 use setasign\SetaPDF2\Core\Document\PageLayout;
 use setasign\SetaPDF2\Core\Geometry\Vector;
 use setasign\SetaPDF2\Core\PageFormats;

@@ -1,6 +1,6 @@
 <?php
 
-use com\setasign\SetaPDF\Demos\ContentStreamProcessor\ImageProcessor;
+use setasign\SetaPDF2\Demos\ContentStreamProcessor\ImageProcessor;
 use setasign\SetaPDF2\Core\Document;
 use setasign\SetaPDF2\Core\Document\Action\GoToAction;
 use setasign\SetaPDF2\Core\Document\Destination;

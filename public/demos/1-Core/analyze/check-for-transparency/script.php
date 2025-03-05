@@ -1,6 +1,6 @@
 <?php
 
-use com\setasign\SetaPDF\Demos\Inspector\TransparencyInspector;
+use setasign\SetaPDF2\Demos\Inspector\TransparencyInspector;
 use setasign\SetaPDF2\Core\Document;
 
 // load and register the autoload function

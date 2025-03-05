@@ -1,25 +1,25 @@
 <?php
 
-namespace com\setasign\SetaPDF\Demos\Annotation\Widget;
+namespace setasign\SetaPDF2\Demos\Annotation\Widget;
 
 use setasign\SetaPDF2\Core\Canvas\Draw;
-use setasign\SetaPDF2\Core\DataStructure\Color;
+use setasign\SetaPDF2\Core\DataStructure\Color\AbstractColor;
 use setasign\SetaPDF2\Core\DataStructure\Color\Gray;
 use setasign\SetaPDF2\Core\Document;
 use setasign\SetaPDF2\Core\Document\Catalog\AcroForm;
 use setasign\SetaPDF2\Core\Document\Page\Annotation\BorderStyle;
 use setasign\SetaPDF2\Core\Document\Page\Annotation\Widget;
-use setasign\SetaPDF2\Core\Encoding;
+use setasign\SetaPDF2\Core\Encoding\Encoding;
 use setasign\SetaPDF2\Core\Exception;
-use setasign\SetaPDF2\Core\Font;
+use setasign\SetaPDF2\Core\Font\Font;
 use setasign\SetaPDF2\Core\Font\FontInterface;
 use setasign\SetaPDF2\Core\Font\Simple;
 use setasign\SetaPDF2\Core\Parser\Content;
-use setasign\SetaPDF2\Core\Resource;
-use setasign\SetaPDF2\Core\Text;
+use setasign\SetaPDF2\Core\Resource\ResourceInterface;
+use setasign\SetaPDF2\Core\Text\Text;
 use setasign\SetaPDF2\Core\Text\Block;
 use setasign\SetaPDF2\Core\Type\AbstractType;
-use setasign\SetaPDF2\Core\Type\Dictionary\Helper as DictionaryHelper;
+use setasign\SetaPDF2\Core\Type\Dictionary\DictionaryHelper;
 use setasign\SetaPDF2\Core\Type\IndirectObjectInterface;
 use setasign\SetaPDF2\Core\Type\PdfArray;
 use setasign\SetaPDF2\Core\Type\PdfDictionary;
@@ -27,7 +27,7 @@ use setasign\SetaPDF2\Core\Type\PdfIndirectReference;
 use setasign\SetaPDF2\Core\Type\PdfName;
 use setasign\SetaPDF2\Core\Type\PdfNumeric;
 use setasign\SetaPDF2\Core\Type\PdfString;
-use setasign\SetaPDF2\Core\Writer;
+use setasign\SetaPDF2\Core\Writer\Writer;
 use setasign\SetaPDF2\Core\XObject\Form;
 use setasign\SetaPDF2\Exception\NotImplemented;
 
@@ -169,7 +169,7 @@ class TextField extends Widget
     public function getFont()
     {
         $daValues = $this->_getDaValues();
-        $fonts = $this->_document->getCatalog()->getAcroForm()->getDefaultResources(true, Resource::TYPE_FONT);
+        $fonts = $this->_document->getCatalog()->getAcroForm()->getDefaultResources(true, ResourceInterface::TYPE_FONT);
 
         /** @var PdfIndirectReference $font */
         $font = $fonts->getValue($daValues['fontName']->getValue());
@@ -193,14 +193,14 @@ class TextField extends Widget
     /**
      * Set the text color
      *
-     * @param Color|int|float|string|array|PdfArray $color
+     * @param AbstractColor|int|float|string|array|PdfArray $color
      * @throws Exception
      * @throws \setasign\SetaPDF2\Core\SecHandler\Exception
      */
     public function setTextColor($color)
     {
-        if (!$color instanceof Color) {
-            $color = Color::createByComponents($color);
+        if (!$color instanceof AbstractColor) {
+            $color = AbstractColor::createByComponents($color);
         }
 
         $daValues = $this->_getDaValues();
@@ -303,7 +303,7 @@ class TextField extends Widget
             $fontSize = $params[1];
         });
         $parser->registerOperator(['g', 'rg', 'k'], function($params) use (&$color) {
-            $color = Color::createByComponents($params);
+            $color = AbstractColor::createByComponents($params);
         });
 
         $parser->process();
@@ -567,15 +567,15 @@ class TextField extends Widget
         } else {
             switch ($textBlock->getAlign()) {
                 case \SetaPDF_Core_Text::ALIGN_CENTER:
-                    $lineLeft = (($width - $offset * 2) / 2) - ($textBlock->getTextWidth() / 2);
+                    $left = (($width - $offset * 2) / 2) - ($textBlock->getTextWidth() / 2);
                     break;
                 case \SetaPDF_Core_Text::ALIGN_RIGHT:
-                    $lineLeft = ($width - $offset * 2) - $textBlock->getTextWidth();
+                    $left = ($width - $offset * 2) - $textBlock->getTextWidth();
                     break;
                 default:
-                    $lineLeft = 0;
+                    $left = 0;
             }
-            $textBlock->draw($canvas, $lineLeft, $height / 2 - $textBlock->getHeight() / 2);
+            $textBlock->draw($canvas, $left, $height / 2 - $textBlock->getHeight() / 2);
         }
 
         $canvas->markedContent()->end();

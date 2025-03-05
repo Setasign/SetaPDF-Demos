@@ -9,7 +9,7 @@ use setasign\SetaPDF2\Core\Geometry\Rectangle as RectangleGeometry;
 use setasign\SetaPDF2\Core\PageBoundaries;
 use setasign\SetaPDF2\Core\PageFormats;
 use setasign\SetaPDF2\Core\Reader\StringReader;
-use setasign\SetaPDF2\Core\Text;
+use setasign\SetaPDF2\Core\Text\Text;
 use setasign\SetaPDF2\Core\Text\Block;
 use setasign\SetaPDF2\Core\Writer\HttpWriter;
 use setasign\SetaPDF2\Core\Writer\StringWriter;

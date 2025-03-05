@@ -1,6 +1,6 @@
 <?php
 
-namespace com\setasign\SetaPDF\Demos;
+namespace setasign\SetaPDF2\Demos;
 
 use setasign\SetaPDF2\Core\Document;
 use setasign\SetaPDF2\Core\Font\Type0\Subset;

@@ -1,8 +1,8 @@
 <?php
 
-namespace com\setasign\SetaPDF\Demos\Inspector;
+namespace setasign\SetaPDF2\Demos\Inspector;
 
-use com\setasign\SetaPDF\Demos\ContentStreamProcessor\ColorProcessor;
+use setasign\SetaPDF2\Demos\ContentStreamProcessor\ColorProcessor;
 use setasign\SetaPDF2\Core\Document;
 use setasign\SetaPDF2\Core\Type\PdfDictionary;
 use setasign\SetaPDF2\Core\Type\PdfStream;

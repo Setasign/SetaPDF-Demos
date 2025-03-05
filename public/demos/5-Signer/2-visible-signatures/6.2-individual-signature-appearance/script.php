@@ -2,8 +2,8 @@
 
 use setasign\SetaPDF2\Core\Document;
 use setasign\SetaPDF2\Core\Font\Type0\Subset;
-use setasign\SetaPDF2\Core\Image;
-use setasign\SetaPDF2\Core\Text;
+use setasign\SetaPDF2\Core\Image\Image;
+use setasign\SetaPDF2\Core\Text\Text;
 use setasign\SetaPDF2\Core\Text\Block;
 use setasign\SetaPDF2\Core\Writer\HttpWriter;
 use setasign\SetaPDF2\Core\XObject\Form;

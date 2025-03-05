@@ -1,8 +1,8 @@
 <?php
 
-use com\setasign\SetaPDF\Demos\Stamper\Stamp\Tagged as TaggedStamp;
+use setasign\SetaPDF2\Demos\Stamper\Stamp\Tagged as TaggedStamp;
 use setasign\SetaPDF2\Core\Font\TrueType\Subset;
-use setasign\SetaPDF2\Core\Image;
+use setasign\SetaPDF2\Core\Image\Image;
 use setasign\SetaPDF2\Core\Writer\HttpWriter;
 use setasign\SetaPDF2\Stamper\Stamp\Image as ImageStamp;
 use setasign\SetaPDF2\Stamper\Stamp\Text as TextStamp;

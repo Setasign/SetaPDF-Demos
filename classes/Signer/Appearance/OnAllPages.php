@@ -1,10 +1,10 @@
 <?php
 
-namespace com\setasign\SetaPDF\Demos\Signer\Appearance;
+namespace setasign\SetaPDF2\Demos\Signer\Appearance;
 
 use setasign\SetaPDF2\Core\Document;
 use setasign\SetaPDF2\Core\Document\Page\Annotation\Stamp;
-use setasign\SetaPDF2\Core\Encoding;
+use setasign\SetaPDF2\Core\Encoding\Encoding;
 use setasign\SetaPDF2\Core\XObject\Form;
 use setasign\SetaPDF2\Signer\Signature\Appearance\AbstractAppearance;
 use setasign\SetaPDF2\Signer\Signer;

@@ -1,25 +1,25 @@
 <?php
 
-namespace com\setasign\SetaPDF\Demos\ContentStreamProcessor;
+namespace setasign\SetaPDF2\Demos\ContentStreamProcessor;
 
-use com\setasign\SetaPDF\Demos\Inspector\ColorInspector;
-use setasign\SetaPDF2\Core\Canvas;
-use setasign\SetaPDF2\Core\ColorSpace;
+use setasign\SetaPDF2\Demos\Inspector\ColorInspector;
+use setasign\SetaPDF2\Core\Canvas\Canvas;
+use setasign\SetaPDF2\Core\ColorSpace\ColorSpace;
 use setasign\SetaPDF2\Core\ColorSpace\DeviceN;
 use setasign\SetaPDF2\Core\ColorSpace\IccBased;
 use setasign\SetaPDF2\Core\ColorSpace\Indexed;
 use setasign\SetaPDF2\Core\ColorSpace\Separation;
-use setasign\SetaPDF2\Core\DataStructure\Color;
+use setasign\SetaPDF2\Core\DataStructure\Color\AbstractColor;
 use setasign\SetaPDF2\Core\DataStructure\Color\Cmyk;
 use setasign\SetaPDF2\Core\DataStructure\Color\Rgb;
 use setasign\SetaPDF2\Core\Filter\Exception as FilterException;
 use setasign\SetaPDF2\Core\Parser\Content;
-use setasign\SetaPDF2\Core\Resource;
+use setasign\SetaPDF2\Core\Resource\ResourceInterface;
 use setasign\SetaPDF2\Core\TransparencyGroup;
 use setasign\SetaPDF2\Core\Type\PdfDictionary;
 use setasign\SetaPDF2\Core\Type\PdfIndirectReference;
 use setasign\SetaPDF2\Core\Type\PdfStream;
-use setasign\SetaPDF2\Core\XObject;
+use setasign\SetaPDF2\Core\XObject\XObject;
 use setasign\SetaPDF2\Core\XObject\Form;
 use setasign\SetaPDF2\Core\XObject\Image;
 use setasign\SetaPDF2\Exception;
@@ -67,7 +67,7 @@ class ColorProcessor
      */
     public function _color(array $args, string $operator)
     {
-        $color = Color::createByComponents($args);
+        $color = AbstractColor::createByComponents($args);
 
         $info = 'Standard color operator (' . $operator . ') in content stream.';
         if ($color instanceof Rgb) {
@@ -91,7 +91,7 @@ class ColorProcessor
     public function _colorSpace(array $args, $operator)
     {
         $colorSpace = $args[0];
-        $colorSpaces = $this->_canvas->getResources(true, false, Resource::TYPE_COLOR_SPACE);
+        $colorSpaces = $this->_canvas->getResources(true, false, ResourceInterface::TYPE_COLOR_SPACE);
         if ($colorSpaces && $colorSpaces->offsetExists($colorSpace->getValue())) {
             $colorSpace = $colorSpaces->getValue($colorSpace->getValue());
         }
@@ -154,7 +154,7 @@ class ColorProcessor
     public function _paintXObject(array $args)
     {
         $name = $args[0]->getValue();
-        $xObjects = $this->_canvas->getResources(true, false, Resource::TYPE_X_OBJECT);
+        $xObjects = $this->_canvas->getResources(true, false, ResourceInterface::TYPE_X_OBJECT);
 
         if ($xObjects === false) {
             return;
@@ -245,7 +245,7 @@ class ColorProcessor
     public function _paintShapeAndColourShading($args)
     {
         $name = $args[0]->getValue();
-        $shadings = $this->_canvas->getResources(true, false, Resource::TYPE_SHADING);
+        $shadings = $this->_canvas->getResources(true, false, ResourceInterface::TYPE_SHADING);
 
         if ($shadings === false) {
             return;

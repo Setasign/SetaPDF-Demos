@@ -1,6 +1,6 @@
 <?php
 
-use com\setasign\SetaPDF\Demos\FontLoader;
+use setasign\SetaPDF2\Demos\FontLoader;
 use setasign\SetaPDF2\Core\DataStructure\Color\Rgb;
 use setasign\SetaPDF2\Core\Document;
 use setasign\SetaPDF2\Core\Writer\HttpWriter;

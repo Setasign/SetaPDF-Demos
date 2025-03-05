@@ -2,7 +2,7 @@
 
 use setasign\SetaPDF2\Core\Document;
 use setasign\SetaPDF2\Core\Document\Page;
-use setasign\SetaPDF2\Core\Document\Page\Annotation;
+use setasign\SetaPDF2\Core\Document\Page\Annotation\Annotation;
 use setasign\SetaPDF2\Core\Document\Page\Annotation\Widget;
 use setasign\SetaPDF2\Core\Geometry\Matrix;
 use setasign\SetaPDF2\Core\Geometry\Rectangle;

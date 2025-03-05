@@ -1,7 +1,7 @@
 <?php
 
 use setasign\SetaPDF2\Core\Document;
-use setasign\SetaPDF2\Core\Encoding;
+use setasign\SetaPDF2\Core\Encoding\Encoding;
 use setasign\SetaPDF2\Core\PageFormats;
 use setasign\SetaPDF2\Core\Writer\HttpWriter;
 use setasign\SetaPDF2\Merger\Collection;

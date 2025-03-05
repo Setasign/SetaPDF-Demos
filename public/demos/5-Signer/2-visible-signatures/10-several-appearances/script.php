@@ -1,6 +1,6 @@
 <?php
 
-use com\setasign\SetaPDF\Demos\Signer\Appearance\OnAllPages as AppearanceOnAllPages;
+use setasign\SetaPDF2\Demos\Signer\Appearance\OnAllPages as AppearanceOnAllPages;
 use setasign\SetaPDF2\Core\Document;
 use setasign\SetaPDF2\Core\Font\Type0\Subset;
 use setasign\SetaPDF2\Core\Writer\HttpWriter;

@@ -2,9 +2,9 @@
 
 use setasign\SetaPDF2\Core\Document;
 use setasign\SetaPDF2\Core\Document\Action\UriAction;
-use setasign\SetaPDF2\Core\Document\Page\Annotation;
+use setasign\SetaPDF2\Core\Document\Page\Annotation\Annotation;
 use setasign\SetaPDF2\Core\Document\Page\Annotation\Link;
-use setasign\SetaPDF2\Core\Image;
+use setasign\SetaPDF2\Core\Image\Image;
 use setasign\SetaPDF2\Core\Writer\HttpWriter;
 use setasign\SetaPDF2\Core\XObject\Form;
 

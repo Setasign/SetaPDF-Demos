@@ -1,12 +1,12 @@
 <?php
 
-namespace com\setasign\SetaPDF\Demos\ContentStreamProcessor;
+namespace setasign\SetaPDF2\Demos\ContentStreamProcessor;
 
-use setasign\SetaPDF2\Core\Canvas;
+use setasign\SetaPDF2\Core\Canvas\Canvas;
 use setasign\SetaPDF2\Core\Filter\Exception as FilterException;
 use setasign\SetaPDF2\Core\Parser\Content;
-use setasign\SetaPDF2\Core\Resource;
-use setasign\SetaPDF2\Core\XObject;
+use setasign\SetaPDF2\Core\Resource\ResourceInterface;
+use setasign\SetaPDF2\Core\XObject\XObject;
 use setasign\SetaPDF2\Core\XObject\Form;
 
 /**
@@ -91,7 +91,7 @@ class TextProcessor
         $contentParser->registerOperator(
             'Do',
             function ($arguments) {
-                $xObjects = $this->_canvas->getResources(true, false, Resource::TYPE_X_OBJECT);
+                $xObjects = $this->_canvas->getResources(true, false, ResourceInterface::TYPE_X_OBJECT);
                 if ($xObjects === false) {
                     return;
                 }

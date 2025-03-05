@@ -2,7 +2,7 @@
 
 use setasign\SetaPDF2\Core\Document;
 use setasign\SetaPDF2\Core\Document\Action\UriAction;
-use setasign\SetaPDF2\Core\Document\Page\Annotation;
+use setasign\SetaPDF2\Core\Document\Page\Annotation\Annotation;
 use setasign\SetaPDF2\Core\Writer\HttpWriter;
 
 // load and register the autoload function

@@ -1,6 +1,6 @@
 <?php
 
-use com\setasign\SetaPDF\Demos\Stamper\Stamp\ArtifactTextStamp as ArtifactTextStamp;
+use setasign\SetaPDF2\Demos\Stamper\Stamp\ArtifactTextStamp as ArtifactTextStamp;
 use setasign\SetaPDF2\Core\Document;
 use setasign\SetaPDF2\Core\Font\TrueType\Subset;
 use setasign\SetaPDF2\Core\Writer\HttpWriter;

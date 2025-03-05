@@ -1,6 +1,6 @@
 <?php
 
-use com\setasign\SetaPDF\Demos\Signer\Module\Signature\OpenSslPrivateEncryptModule;
+use setasign\SetaPDF2\Demos\Signer\Module\Signature\OpenSslPrivateEncryptModule;
 use setasign\SetaPDF2\Core\Document;
 use setasign\SetaPDF2\Core\Writer\HttpWriter;
 use setasign\SetaPDF2\Core\Writer\TempFileWriter;

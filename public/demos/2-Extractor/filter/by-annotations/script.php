@@ -1,7 +1,7 @@
 <?php
 
 use setasign\SetaPDF2\Core\Document;
-use setasign\SetaPDF2\Core\Document\Page\Annotation;
+use setasign\SetaPDF2\Core\Document\Page\Annotation\Annotation;
 use setasign\SetaPDF2\Core\Document\Page\Annotation\TextMarkup;
 use setasign\SetaPDF2\Core\Geometry\Rectangle;
 use setasign\SetaPDF2\Extractor\Extractor;

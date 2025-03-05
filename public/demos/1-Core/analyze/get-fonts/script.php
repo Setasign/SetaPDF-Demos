@@ -1,7 +1,7 @@
 <?php
 
-use com\setasign\SetaPDF\Demos\Inspector\FontInspector;
-use setasign\SetaPDF2\Core\Font;
+use setasign\SetaPDF2\Demos\Inspector\FontInspector;
+use setasign\SetaPDF2\Core\Font\Font;
 
 // load and register the autoload function
 require_once '../../../../../bootstrap.php';

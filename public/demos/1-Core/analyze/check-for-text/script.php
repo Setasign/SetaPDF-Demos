@@ -1,6 +1,6 @@
 <?php
 
-use com\setasign\SetaPDF\Demos\ContentStreamProcessor\TextProcessor;
+use setasign\SetaPDF2\Demos\ContentStreamProcessor\TextProcessor;
 use setasign\SetaPDF2\Core\Document;
 
 // load and register the autoload function

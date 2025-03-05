@@ -1,8 +1,8 @@
 <?php
 
-use com\setasign\SetaPDF\Demos\ContentStreamProcessor\ImageProcessor;
+use setasign\SetaPDF2\Demos\ContentStreamProcessor\ImageProcessor;
 use setasign\SetaPDF2\Core\Document;
-use setasign\SetaPDF2\Core\Image;
+use setasign\SetaPDF2\Core\Image\Image;
 use setasign\SetaPDF2\Core\Writer\HttpWriter;
 
 // load and register the autoload function

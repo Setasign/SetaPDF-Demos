@@ -1,14 +1,14 @@
 <?php
 
-namespace com\setasign\SetaPDF\Demos\Inspector;
+namespace setasign\SetaPDF2\Demos\Inspector;
 
 use setasign\SetaPDF2\Core\Document;
 use setasign\SetaPDF2\Core\Document\Page;
-use setasign\SetaPDF2\Core\Font;
-use setasign\SetaPDF2\Core\Resource;
+use setasign\SetaPDF2\Core\Font\Font;
+use setasign\SetaPDF2\Core\Resource\ResourceInterface;
 use setasign\SetaPDF2\Core\Type\PdfDictionary;
 use setasign\SetaPDF2\Core\Type\PdfStream;
-use setasign\SetaPDF2\Core\XObject;
+use setasign\SetaPDF2\Core\XObject\XObject;
 use setasign\SetaPDF2\Core\XObject\Form;
 use setasign\SetaPDF2\Exception\NotImplemented;
 
@@ -120,12 +120,12 @@ class FontInspector
      */
     protected function _resolveFonts($object)
     {
-        $fonts = $object->getCanvas()->getResources(true, false, Resource::TYPE_FONT);
+        $fonts = $object->getCanvas()->getResources(true, false, ResourceInterface::TYPE_FONT);
         if ($fonts) {
             $this->_remFonts($fonts);
         }
 
-        $xObjects = $object->getCanvas()->getResources(true, false, Resource::TYPE_X_OBJECT);
+        $xObjects = $object->getCanvas()->getResources(true, false, ResourceInterface::TYPE_X_OBJECT);
         if (!$xObjects) {
             return;
         }

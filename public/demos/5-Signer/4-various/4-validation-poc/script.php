@@ -2,7 +2,7 @@
 
 use setasign\SetaPDF2\Core\DataStructure\Date;
 use setasign\SetaPDF2\Core\Document;
-use setasign\SetaPDF2\Core\Encoding;
+use setasign\SetaPDF2\Core\Encoding\Encoding;
 use setasign\SetaPDF2\Core\Type\PdfDictionary;
 use setasign\SetaPDF2\Core\Type\PdfHexString;
 use setasign\SetaPDF2\Signer\Cms\SignedData;

@@ -2,7 +2,7 @@
 
 use setasign\SetaPDF2\Core\Document;
 use setasign\SetaPDF2\Core\Document\Catalog\AcroForm;
-use setasign\SetaPDF2\Core\Document\Page\Annotation;
+use setasign\SetaPDF2\Core\Document\Page\Annotation\Annotation;
 use setasign\SetaPDF2\Extractor\Extractor;
 use setasign\SetaPDF2\Extractor\Filter\Multi;
 use setasign\SetaPDF2\Extractor\Filter\Rectangle as RectangleFilter;

@@ -1,6 +1,6 @@
 <?php
 
-use com\setasign\SetaPDF\Demos\Inspector\ColorInspector;
+use setasign\SetaPDF2\Demos\Inspector\ColorInspector;
 use setasign\SetaPDF2\Core\ColorSpace\DeviceN;
 use setasign\SetaPDF2\Core\ColorSpace\IccBased;
 use setasign\SetaPDF2\Core\ColorSpace\Separation;

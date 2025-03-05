@@ -1,7 +1,7 @@
 <?php
 
 use setasign\SetaPDF2\Core\Document;
-use setasign\SetaPDF2\FormFiller\Field\CheckboxField;
+use setasign\SetaPDF2\FormFiller\Field\CheckboxButtonField;
 use setasign\SetaPDF2\FormFiller\Field\ComboField;
 use setasign\SetaPDF2\FormFiller\Field\ListField;
 use setasign\SetaPDF2\FormFiller\Field\RadioButtonGroup;
@@ -87,8 +87,8 @@ foreach ($fields AS $name => $field) {
 
     switch ($type) {
         // Button / Checkbox
-        case CheckboxField::class:
-            /** @var CheckboxField $field */
+        case CheckboxButtonField::class:
+            /** @var CheckboxButtonField $field */
             $typeProps['Rect'] = $field->getAnnotation()->getRect()->toPhp();
             $typeProps['Default Value'] = $field->getDefaultValue();
             $typeProps['Checked'] = ($field->isChecked() ? 'Yes' : 'No');
@@ -104,7 +104,7 @@ foreach ($fields AS $name => $field) {
             $buttons = $field->getButtons();
             $propValue = [];
             foreach ($buttons AS $button) {
-                /** @var CheckboxField $button */
+                /** @var CheckboxButtonField $button */
                 $propValue[$button->getQualifiedName()] = [
                     'Checked' => $button->isChecked() ? 'Yes' : 'No',
                     'Export Value' => $button->getExportValue(),

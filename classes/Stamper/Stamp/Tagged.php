@@ -1,27 +1,27 @@
 <?php
 
-namespace com\setasign\SetaPDF\Demos\Stamper\Stamp;
+namespace setasign\SetaPDF2\Demos\Stamper\Stamp;
 
-use setasign\SetaPDF2\Core\DataStructure\NumberTree;
+use setasign\SetaPDF2\Core\DataStructure\Tree\NumberTree;
 use setasign\SetaPDF2\Core\Document;
-use setasign\SetaPDF2\Core\Document\Action;
+use setasign\SetaPDF2\Core\Document\Action\Action;
 use setasign\SetaPDF2\Core\Document\OptionalContent\Group;
 use setasign\SetaPDF2\Core\Document\Page;
-use setasign\SetaPDF2\Core\Encoding;
+use setasign\SetaPDF2\Core\Encoding\Encoding;
 use setasign\SetaPDF2\Core\Type\PdfArray;
 use setasign\SetaPDF2\Core\Type\PdfDictionary;
 use setasign\SetaPDF2\Core\Type\PdfName;
 use setasign\SetaPDF2\Core\Type\PdfNumeric;
 use setasign\SetaPDF2\Core\Type\PdfString;
-use setasign\SetaPDF2\Stamper\Stamp;
+use setasign\SetaPDF2\Stamper\Stamp\AbstractStamp;
 
 /**
  * Class Tagged
  */
-class Tagged extends Stamp
+class Tagged extends AbstractStamp
 {
     /**
-     * @var Stamp
+     * @var AbstractStamp
      */
     protected $_mainStamp;
 
@@ -34,9 +34,9 @@ class Tagged extends Stamp
     /**
      * The constructor
      *
-     * @param Stamp $mainStamp The main stamp instance
+     * @param AbstractStamp $mainStamp The main stamp instance
      */
-    public function __construct(Stamp $mainStamp)
+    public function __construct(AbstractStamp $mainStamp)
     {
         $this->_mainStamp = $mainStamp;
     }
