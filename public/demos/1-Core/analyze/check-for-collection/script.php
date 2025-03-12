@@ -1,5 +1,7 @@
 <?php
 
+use setasign\SetaPDF2\Core\Document;
+
 // load and register the autoload function
 require_once '../../../../../bootstrap.php';
 
@@ -13,7 +15,7 @@ $files = [
 $path = displayFiles($files);
 
 // create a document
-$document = \SetaPDF_Core_Document::loadByFilename($path);
+$document = Document::loadByFilename($path);
 
 $catalog = $document->getCatalog();
 $dictionary = $catalog->getDictionary();

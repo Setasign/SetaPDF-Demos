@@ -1,16 +1,20 @@
 <?php
 
-namespace com\setasign\SetaPDF\Demos\Stamper\Stamp;
+namespace setasign\SetaPDF2\Demos\Stamper\Stamp;
+
+use setasign\SetaPDF2\Core\Document;
+use setasign\SetaPDF2\Core\Document\Page;
+use setasign\SetaPDF2\Stamper\Stamp\Text as TextStamp;
 
 /**
  * Class ArtifactTextStamp
  */
-class ArtifactTextStamp extends \SetaPDF_Stamper_Stamp_Text
+class ArtifactTextStamp extends TextStamp
 {
     /**
      * @inheritDoc
      */
-    protected function _preStamp(\SetaPDF_Core_Document $document, \SetaPDF_Core_Document_Page $page, array $stampData)
+    protected function _preStamp(Document $document, Page $page, array $stampData)
     {
         $page->getCanvas()
             ->markedContent()
@@ -22,7 +26,7 @@ class ArtifactTextStamp extends \SetaPDF_Stamper_Stamp_Text
     /**
      * @inheritDoc
      */
-    protected function _postStamp(\SetaPDF_Core_Document $document, \SetaPDF_Core_Document_Page $page, array $stampData)
+    protected function _postStamp(Document $document, Page $page, array $stampData)
     {
         $quadPoints = parent::_postStamp($document, $page, $stampData);
 

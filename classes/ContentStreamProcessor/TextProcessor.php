@@ -1,6 +1,13 @@
 <?php
 
-namespace com\setasign\SetaPDF\Demos\ContentStreamProcessor;
+namespace setasign\SetaPDF2\Demos\ContentStreamProcessor;
+
+use setasign\SetaPDF2\Core\Canvas\Canvas;
+use setasign\SetaPDF2\Core\Filter\Exception as FilterException;
+use setasign\SetaPDF2\Core\Parser\Content;
+use setasign\SetaPDF2\Core\Resource\ResourceInterface;
+use setasign\SetaPDF2\Core\XObject\XObject;
+use setasign\SetaPDF2\Core\XObject\Form;
 
 /**
  * Class TextProcessor
@@ -10,12 +17,12 @@ class TextProcessor
     /**
      * The canvas object
      *
-     * @var \SetaPDF_Core_Canvas
+     * @var Canvas
      */
     protected $_canvas;
 
     /**
-     * @var boolean
+     * @var bool
      */
     protected $_hasText;
 
@@ -24,9 +31,9 @@ class TextProcessor
      *
      * The parameter is the canvas instance.
      *
-     * @param \SetaPDF_Core_Canvas $canvas
+     * @param Canvas $canvas
      */
-    public function __construct(\SetaPDF_Core_Canvas $canvas)
+    public function __construct(Canvas $canvas)
     {
         $this->_canvas = $canvas;
     }
@@ -38,7 +45,7 @@ class TextProcessor
      *
      * @return bool
      */
-    public function hasText()
+    public function hasText(): bool
     {
         // if there are no resources no text can be output because no font is defined
         $resources = $this->_canvas->getResources();
@@ -58,18 +65,18 @@ class TextProcessor
     /**
      * Create a content parser instance.
      *
-     * @return \SetaPDF_Core_Parser_Content
+     * @return Content
      */
     protected function _createContentParser()
     {
         try {
             $stream = $this->_canvas->getStream();
-        } catch (\SetaPDF_Core_Filter_Exception $e) {
+        } catch (FilterException $e) {
             // if a stream cannot be unfiltered, we ignore it
             $stream = '';
         }
 
-        $contentParser = new \SetaPDF_Core_Parser_Content($stream);
+        $contentParser = new Content($stream);
 
         // register a callback for text output operators
         $contentParser->registerOperator(
@@ -84,15 +91,15 @@ class TextProcessor
         $contentParser->registerOperator(
             'Do',
             function ($arguments) {
-                $xObjects = $this->_canvas->getResources(true, false, \SetaPDF_Core_Resource::TYPE_X_OBJECT);
+                $xObjects = $this->_canvas->getResources(true, false, ResourceInterface::TYPE_X_OBJECT);
                 if ($xObjects === false) {
                     return;
                 }
 
                 $xObject = $xObjects->getValue($arguments[0]->getValue());
-                $xObject = \SetaPDF_Core_XObject::get($xObject);
+                $xObject = XObject::get($xObject);
 
-                if ($xObject instanceof \SetaPDF_Core_XObject_Form) {
+                if ($xObject instanceof Form) {
                     $processor = new self($xObject->getCanvas());
 
                     $this->_hasText = $processor->hasText();

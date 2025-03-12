@@ -1,5 +1,10 @@
 <?php
 
+use setasign\SetaPDF2\Core\Document;
+use setasign\SetaPDF2\Core\EmbeddedFileStream;
+use setasign\SetaPDF2\Core\FileSpecification;
+use setasign\SetaPDF2\Core\Writer\HttpWriter;
+
 // load and register the autoload function
 require_once '../../../../../bootstrap.php';
 
@@ -12,7 +17,7 @@ $files = [
 $path = displayFiles($files);
 
 // create a document
-$document = \SetaPDF_Core_Document::loadByFilename($path);
+$document = Document::loadByFilename($path);
 
 // get names
 $names = $document->getCatalog()->getNames();
@@ -22,7 +27,7 @@ $embeddedFiles = $names->getEmbeddedFiles();
 // extract the file
 if (isset($_GET['name'])) {
     $file = $embeddedFiles->get($_GET['name']);
-    if ($file instanceof \SetaPDF_Core_FileSpecification) {
+    if ($file instanceof FileSpecification) {
         // resolve the filename
         $filename = $file->getFileSpecification();
         // resolve the file stream
@@ -36,7 +41,7 @@ if (isset($_GET['name'])) {
         // pass the file to the client
         $stream = $embeddedFileStream->getStream();
         header('Content-Type: ' . $contentType);
-        header('Content-Disposition: attachment; ' . \SetaPDF_Core_Writer_Http::encodeFilenameForHttpHeader($filename));
+        header('Content-Disposition: attachment; ' . HttpWriter::encodeFilenameForHttpHeader($filename));
         header('Content-Transfer-Encoding: binary');
         header('Content-Length: ' . strlen($stream));
         echo $stream;
@@ -51,8 +56,8 @@ foreach ($files AS $name => $file) {
 
     $size = null;
     $params = $file->getEmbeddedFileStream()->getParams();
-    if (isset($params[\SetaPDF_Core_EmbeddedFileStream::PARAM_SIZE])) {
-        $size = $params[\SetaPDF_Core_EmbeddedFileStream::PARAM_SIZE];
+    if (isset($params[EmbeddedFileStream::PARAM_SIZE])) {
+        $size = $params[EmbeddedFileStream::PARAM_SIZE];
     }
 
     echo '<a href="?f=' . urlencode($_GET['f']) . '&name=' . urlencode($name) . '">';

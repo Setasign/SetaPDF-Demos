@@ -1,53 +1,55 @@
 <?php
 
+use setasign\SetaPDF2\Stamper\Stamper;
+
 return [
     [
-        'displayValue' => '\SetaPDF_Stamper::POSITION_LEFT_TOP & $translateX = 20, $translateY = -20',
-        'position' => \SetaPDF_Stamper::POSITION_LEFT_TOP,
+        'displayValue' => '\setasign\SetaPDF2\Stamper\Stamper::POSITION_LEFT_TOP & $translateX = 20, $translateY = -20',
+        'position' => Stamper::POSITION_LEFT_TOP,
         'translateX' => 20,
         'translateY' => -20
     ],
     [
-        'displayValue' => '\SetaPDF_Stamper::POSITION_CENTER_TOP & $translateX = 0, $translateY = -20',
-        'position' => \SetaPDF_Stamper::POSITION_CENTER_TOP,
+        'displayValue' => '\setasign\SetaPDF2\Stamper\Stamper::POSITION_CENTER_TOP & $translateX = 0, $translateY = -20',
+        'position' => Stamper::POSITION_CENTER_TOP,
         'translateX' => 0,
         'translateY' => -20
     ],
     [
-        'displayValue' => '\SetaPDF_Stamper::POSITION_RIGHT_TOP & $translateX = -20, $translateY = -20',
-        'position' => \SetaPDF_Stamper::POSITION_RIGHT_TOP,
+        'displayValue' => '\setasign\SetaPDF2\Stamper\Stamper::POSITION_RIGHT_TOP & $translateX = -20, $translateY = -20',
+        'position' => Stamper::POSITION_RIGHT_TOP,
         'translateX' => -20,
         'translateY' => -20
     ],
 
     [
-        'displayValue' => '\SetaPDF_Stamper::POSITION_LEFT_MIDDLE & $translateX = 20, $translateY = 0',
-        'position' => \SetaPDF_Stamper::POSITION_LEFT_MIDDLE,
+        'displayValue' => '\setasign\SetaPDF2\Stamper\Stamper::POSITION_LEFT_MIDDLE & $translateX = 20, $translateY = 0',
+        'position' => Stamper::POSITION_LEFT_MIDDLE,
         'translateX' => 20,
         'translateY' => 0
     ],
     [
-        'displayValue' => '\SetaPDF_Stamper::POSITION_RIGHT_MIDDLE & $translateX = -20, $translateY = 0',
-        'position' => \SetaPDF_Stamper::POSITION_RIGHT_MIDDLE,
+        'displayValue' => '\setasign\SetaPDF2\Stamper\Stamper::POSITION_RIGHT_MIDDLE & $translateX = -20, $translateY = 0',
+        'position' => Stamper::POSITION_RIGHT_MIDDLE,
         'translateX' => -20,
         'translateY' => 0
     ],
 
     [
-        'displayValue' => '\SetaPDF_Stamper::POSITION_LEFT_BOTTOM & $translateX = 20, $translateY = 20',
-        'position' => \SetaPDF_Stamper::POSITION_LEFT_BOTTOM,
+        'displayValue' => '\setasign\SetaPDF2\Stamper\Stamper::POSITION_LEFT_BOTTOM & $translateX = 20, $translateY = 20',
+        'position' => Stamper::POSITION_LEFT_BOTTOM,
         'translateX' => 20,
         'translateY' => 20
     ],
     [
-        'displayValue' => '\SetaPDF_Stamper::POSITION_CENTER_BOTTOM & $translateX = 0, $translateY = 20',
-        'position' => \SetaPDF_Stamper::POSITION_CENTER_BOTTOM,
+        'displayValue' => '\setasign\SetaPDF2\Stamper\Stamper::POSITION_CENTER_BOTTOM & $translateX = 0, $translateY = 20',
+        'position' => Stamper::POSITION_CENTER_BOTTOM,
         'translateX' => 0,
         'translateY' => 20
     ],
     [
-        'displayValue' => '\SetaPDF_Stamper::POSITION_RIGHT_BOTTOM & $translateX = -20, $translateY = 20',
-        'position' => \SetaPDF_Stamper::POSITION_RIGHT_BOTTOM,
+        'displayValue' => '\setasign\SetaPDF2\Stamper\Stamper::POSITION_RIGHT_BOTTOM & $translateX = -20, $translateY = 20',
+        'position' => Stamper::POSITION_RIGHT_BOTTOM,
         'translateX' => -20,
         'translateY' => 20
     ],

@@ -1,5 +1,9 @@
 <?php
 
+use setasign\SetaPDF2\Core\Document;
+use setasign\SetaPDF2\Core\PageBoundaries;
+use setasign\SetaPDF2\Core\Writer\HttpWriter;
+
 // load and register the autoload function
 require_once __DIR__ . '/../../../../../bootstrap.php';
 
@@ -13,10 +17,10 @@ $rectColors = [
 $rectColor = displaySelect('Crop to:', $rectColors);
 
 // create a writer instance
-$writer = new \SetaPDF_Core_Writer_Http('cropped.pdf', true);
+$writer = new HttpWriter('cropped.pdf', true);
 
 // create a document instance
-$document = \SetaPDF_Core_Document::loadByFilename($assetsDirectory . '/pdfs/misc/4-rects.pdf', $writer);
+$document = Document::loadByFilename($assetsDirectory . '/pdfs/misc/4-rects.pdf', $writer);
 
 // get the pages helper
 $pages = $document->getCatalog()->getPages();
@@ -35,7 +39,7 @@ $position = [
 ];
 
 // resize all available page boxes
-foreach (\SetaPDF_Core_PageBoundaries::$all AS $boxName) {
+foreach (PageBoundaries::$all AS $boxName) {
     $box = $page->getBoundary($boxName, false);
     if ($box === false) {
         continue;

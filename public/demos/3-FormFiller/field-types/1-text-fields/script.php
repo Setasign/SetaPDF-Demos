@@ -1,23 +1,28 @@
 <?php
 
+use setasign\SetaPDF2\Core\Document;
+use setasign\SetaPDF2\Core\Writer\HttpWriter;
+use setasign\SetaPDF2\FormFiller\Field\TextField;
+use setasign\SetaPDF2\FormFiller\FormFiller;
+
 // load and register the autoload function
 require_once __DIR__ . '/../../../../../bootstrap.php';
 
-$document = \SetaPDF_Core_Document::loadByFilename(
+$document = Document::loadByFilename(
     $assetsDirectory . '/pdfs/tektown/Subscription-tekMag.pdf',
-    new \SetaPDF_Core_Writer_Http('filled.pdf', true)
+    new HttpWriter('filled.pdf', true)
 );
 
-$formFiller = new \SetaPDF_FormFiller($document);
+$formFiller = new FormFiller($document);
 $fields = $formFiller->getFields();
 
-/** @var \SetaPDF_FormFiller_Field_Text $nameField */
+/** @var TextField $nameField */
 $nameField = $fields->get('Name');
 // or via ArrayAccess
 //$nameField = $fields['Name'];
 
 // that's how you can check for a text field type (just for demonstration here)
-if ($nameField instanceof \SetaPDF_FormFiller_Field_Text) {
+if ($nameField instanceof TextField) {
     // set a new value
     $nameField->setValue('John Dow');
 }
@@ -30,7 +35,7 @@ $fields['Zip Code']->setValue('38350');
 $fields['City']->setValue('Helmstedt');
 $fields['State']->setValue('Niedersachsen');
 
-// for sure you can pass a variable, too
+// for sure, you can pass a variable, too
 $country = 'GERMANY';
 $fields['Country']->setValue($country);
 

@@ -1,11 +1,19 @@
 <?php
 
+use setasign\SetaPDF2\Core\Document;
+use setasign\SetaPDF2\Core\Document\Catalog\AcroForm;
+use setasign\SetaPDF2\Core\Document\Page\Annotation\Annotation;
+use setasign\SetaPDF2\Extractor\Extractor;
+use setasign\SetaPDF2\Extractor\Filter\Multi;
+use setasign\SetaPDF2\Extractor\Filter\Rectangle as RectangleFilter;
+use setasign\SetaPDF2\Extractor\Strategy\Plain as PlainStrategy;
+
 // load and register the autoload function
 require_once __DIR__ . '/../../../../../bootstrap.php';
 
 // Let's load a template in which we'd drawn simple form fields to get the names and
 // coordinates of the areas we want to extract
-$template = \SetaPDF_Core_Document::loadByFilename($assetsDirectory . '/pdfs/Subscription-tekMag-form-template.pdf');
+$template = Document::loadByFilename($assetsDirectory . '/pdfs/Subscription-tekMag-form-template.pdf');
 $pages = $template->getCatalog()->getPages();
 
 // group the found fields by pages
@@ -17,9 +25,9 @@ for ($pageNo = 1, $pageCount = $pages->count(); $pageNo <= $pageCount; $pageNo++
     $annotations = $page->getAnnotations();
 
     // get all widget annotations
-    $widgetAnnotations = $annotations->getAll(\SetaPDF_Core_Document_Page_Annotation::TYPE_WIDGET);
+    $widgetAnnotations = $annotations->getAll(Annotation::TYPE_WIDGET);
     foreach ($widgetAnnotations AS $widgetAnnotation) {
-        $fieldName = \SetaPDF_Core_Document_Catalog_AcroForm::resolveFieldName($widgetAnnotation->getDictionary());
+        $fieldName = AcroForm::resolveFieldName($widgetAnnotation->getDictionary());
         $fieldsPerPage[$pageNo][$fieldName] = $widgetAnnotation->getRect()->getRectangle();
     }
 }
@@ -28,7 +36,7 @@ for ($pageNo = 1, $pageCount = $pages->count(); $pageNo <= $pageCount; $pageNo++
 $template->cleanUp();
 unset($page, $pages, $template);
 
-// let's extract the data from these filese...
+// let's extract the data from these files...
 foreach ([
      $assetsDirectory . '/pdfs/lenstown/Subscription-tekMag-filled-flat.pdf',
      $assetsDirectory . '/pdfs/camtown/Subscription-tekMag-filled-flat.pdf',
@@ -38,23 +46,23 @@ foreach ([
     echo '<h1>' . htmlspecialchars(substr($path, strlen($assetsDirectory . '/pdfs/'))) . '</h1>';
 
     // load the document
-    $document = \SetaPDF_Core_Document::loadByFilename($path);
+    $document = Document::loadByFilename($path);
 
     // create a plain strategy
-    $strategy = new \SetaPDF_Extractor_Strategy_Plain();
+    $strategy = new PlainStrategy();
 
     // create an extractor instance
-    $extractor = new \SetaPDF_Extractor($document, $strategy);
+    $extractor = new Extractor($document, $strategy);
 
     // iterate through the pages we want to extract data from.
     foreach ($fieldsPerPage AS $pageNo => $fields) {
 
         // define a multi filter
-        $filter = new \SetaPDF_Extractor_Filter_Multi();
+        $filter = new Multi();
         // create additional rectangle filters named by the found fields and ...
         foreach ($fields AS $name => $rect) {
-            $fieldFilter = new \SetaPDF_Extractor_Filter_Rectangle(
-                $rect, \SetaPDF_Extractor_Filter_Rectangle::MODE_CONTACT, $name
+            $fieldFilter = new RectangleFilter(
+                $rect, RectangleFilter::MODE_CONTACT, $name
             );
 
             // ...pass them to the multi filter

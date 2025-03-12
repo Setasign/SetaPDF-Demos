@@ -1,43 +1,52 @@
 <?php
 
+use setasign\SetaPDF2\Core\Document;
+use setasign\SetaPDF2\Core\Type\IndirectObjectInterface;
+use setasign\SetaPDF2\Core\Type\PdfDictionary;
+use setasign\SetaPDF2\Core\Type\PdfName;
+use setasign\SetaPDF2\Core\Type\PdfStream;
+use setasign\SetaPDF2\Core\Writer\HttpWriter;
+use setasign\SetaPDF2\Signer\Signature\Module\Pades as PadesModule;
+use setasign\SetaPDF2\Signer\Signer;
+
 // load and register the autoload function
 require_once __DIR__ . '/../../../../../bootstrap.php';
 
 // to get access to the signature dictionary, we extend the PAdES module
-class MySignatureModule extends \SetaPDF_Signer_Signature_Module_Pades
+class MySignatureModule extends PadesModule
 {
     /**
-     * @var \SetaPDF_Core_Type_IndirectObjectInterface
+     * @var IndirectObjectInterface
      */
     protected $metadata;
 
     /**
-     * @param \SetaPDF_Core_Type_IndirectObjectInterface $metadata The indirect object/reference to the metadata stream.
+     * @param IndirectObjectInterface $metadata The indirect object/reference to the metadata stream.
      */
-    public function setMetadata(\SetaPDF_Core_Type_IndirectObjectInterface $metadata)
+    public function setMetadata(IndirectObjectInterface $metadata)
     {
         $this->metadata = $metadata;
     }
 
     /**
-     * @param \SetaPDF_Core_Type_Dictionary $dictionary
-     * @throws \SetaPDF_Signer_Exception
+     * @param PdfDictionary $dictionary
+     * @throws \setasign\SetaPDF2\Signer\Exception
      */
-    public function updateSignatureDictionary(\SetaPDF_Core_Type_Dictionary $dictionary)
+    public function updateSignatureDictionary(PdfDictionary $dictionary)
     {
         parent::updateSignatureDictionary($dictionary);
         $dictionary->offsetSet('Metadata', $this->metadata);
     }
 }
 
-$writer = new \SetaPDF_Core_Writer_Http('signed.pdf');
-$document = \SetaPDF_Core_Document::loadByFilename(
+$writer = new HttpWriter('signed.pdf');
+$document = Document::loadByFilename(
     $assetsDirectory . '/pdfs/camtown/Laboratory-Report.pdf',
     $writer
 );
 
 // create a signer instance
-$signer = new \SetaPDF_Signer($document);
+$signer = new Signer($document);
 // add a signature field
 $field = $signer->addSignatureField();
 // and define that you want to use this field
@@ -49,10 +58,10 @@ $certificatePath = $assetsDirectory . '/certificates/setapdf-no-pw.pem';
 $module = new MySignatureModule();
 
 // create a metadata object
-$metadataObject = $document->createNewObject(new \SetaPDF_Core_Type_Stream(
-    new \SetaPDF_Core_Type_Dictionary([
-        'Type' => new \SetaPDF_Core_Type_Name('Metadata', true),
-        'Subtype' => new \SetaPDF_Core_Type_Name('XML', true)
+$metadataObject = $document->createNewObject(new PdfStream(
+    new PdfDictionary([
+        'Type' => new PdfName('Metadata', true),
+        'Subtype' => new PdfName('XML', true)
     ]),
     '<?xpacket begin="' . "\xEF\xBB\xBF" . '" id="W5M0MpCehiHzreSzNTczkc9d"?>' . "\n" .
     '<x:xmpmeta xmlns:x="adobe:ns:meta/"><!-- here goes your XMP package --></x:xmpmeta>' . "\n" .

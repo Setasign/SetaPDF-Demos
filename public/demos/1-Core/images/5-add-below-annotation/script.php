@@ -1,16 +1,24 @@
 <?php
 
+use setasign\SetaPDF2\Core\Document;
+use setasign\SetaPDF2\Core\Document\Action\UriAction;
+use setasign\SetaPDF2\Core\Document\Page\Annotation\Annotation;
+use setasign\SetaPDF2\Core\Document\Page\Annotation\Link;
+use setasign\SetaPDF2\Core\Image\Image;
+use setasign\SetaPDF2\Core\Writer\HttpWriter;
+use setasign\SetaPDF2\Core\XObject\Form;
+
 // load and register the autoload function
 require_once '../../../../../bootstrap.php';
 
-$writer = new \SetaPDF_Core_Writer_Http('result.pdf', true);
-$document = \SetaPDF_Core_Document::loadByFilename(
+$writer = new HttpWriter('result.pdf', true);
+$document = Document::loadByFilename(
     $assetsDirectory . '/pdfs/misc/link-annotation-placeholders.pdf',
     $writer
 );
 
 // let's prepare some kind of mapping
-$signatrues = [
+$signatures = [
     'NameOfPersonX' => $assetsDirectory . '/images/Handwritten-Signature.png',
     'NameOfPersonY' => $assetsDirectory . '/images/seal.png',
 ];
@@ -28,30 +36,30 @@ $pageOne->getContents()->encapsulateExistingContentInGraphicState();
 $canvas = $pageOne->getCanvas();
 
 $annotations = $pageOne->getAnnotations();
-/** @var SetaPDF_Core_Document_Page_Annotation_Link[] $linkAnnotations */
-$linkAnnotations = $annotations->getAll(SetaPDF_Core_Document_Page_Annotation::TYPE_LINK);
+/** @var Link[] $linkAnnotations */
+$linkAnnotations = $annotations->getAll(Annotation::TYPE_LINK);
 foreach ($linkAnnotations as $linkAnnotation) {
     $action = $linkAnnotation->getAction();
-    if ($action instanceof SetaPDF_Core_Document_Action_Uri) {
+    if ($action instanceof UriAction) {
         // let's parse the uri/url and ensure some keys/values. The URLs in the example document look like:
         // signature://yourDomain.com#nameOfPerson
         $uri = parse_url($action->getUri());
         if (
             !is_array($uri)
-            || !isset($uri['scheme'], $uri['fragment'], $signatrues[$uri['fragment']])
+            || !isset($uri['scheme'], $uri['fragment'], $signatures[$uri['fragment']])
             || $uri['scheme'] !== 'signature'
         ) {
             continue;
         }
 
-        $imgPath = $signatrues[$uri['fragment']];
-        $image = \SetaPDF_Core_Image::getByPath($imgPath)->toXObject($document);
+        $imgPath = $signatures[$uri['fragment']];
+        $image = Image::getByPath($imgPath)->toXObject($document);
 
         // let's create a new XObject to scale/fit the signature image:
         $rect = $linkAnnotation->getRect();
         $height = $rect->getHeight();
         $width = $rect->getWidth();
-        $xObject = SetaPDF_Core_XObject_Form::create($document, [0, 0, $width, $height]);
+        $xObject = Form::create($document, [0, 0, $width, $height]);
         $xObjectCanvas = $xObject->getCanvas();
 
         // fit the image into the size of the annotation

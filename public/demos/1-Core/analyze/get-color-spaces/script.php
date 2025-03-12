@@ -1,8 +1,12 @@
 <?php
 
-// load and register the autoload function
-use com\setasign\SetaPDF\Demos\Inspector\ColorInspector;
+use setasign\SetaPDF2\Demos\Inspector\ColorInspector;
+use setasign\SetaPDF2\Core\ColorSpace\DeviceN;
+use setasign\SetaPDF2\Core\ColorSpace\IccBased;
+use setasign\SetaPDF2\Core\ColorSpace\Separation;
+use setasign\SetaPDF2\Core\Document;
 
+// load and register the autoload function
 require_once '../../../../../bootstrap.php';
 
 // prepare some files
@@ -16,7 +20,7 @@ $path = displayFiles($files);
 require_once $classesDirectory . '/ContentStreamProcessor/ColorProcessor.php';
 require_once $classesDirectory . '/Inspector/ColorInspector.php';
 
-$document = \SetaPDF_Core_Document::loadByFilename($path);
+$document = Document::loadByFilename($path);
 $inspector = new ColorInspector($document);
 $colors = $inspector->getColors();
 
@@ -39,18 +43,18 @@ foreach ($colors AS $color) {
     echo $color['colorSpace'] . ': ' . $className . "\n";
 
     switch (true) {
-        case ($data instanceof \SetaPDF_Core_ColorSpace_Separation):
+        case ($data instanceof Separation):
             echo '    Name: ' . $data->getName() . "\n";
             echo '    Alt: ' . $data->getAlternateColorSpace()->getFamily() . "\n";
             break;
 
-        case ($data instanceof \SetaPDF_Core_ColorSpace_IccBased):
+        case ($data instanceof IccBased):
             $parser = $data->getIccProfileStream()->getParser();
             echo '    Description: ' . $parser->getDescription() . "\n";
             echo '    Number of components: ' . $parser->getNumberOfComponents() . "\n";
             break;
 
-        case ($data instanceof \SetaPDF_Core_ColorSpace_DeviceN):
+        case ($data instanceof DeviceN):
             echo '    Names: ' . implode(', ', $data->getNames()) . "\n";
             echo '    Alt: ' . $data->getAlternateColorSpace()->getFamily() . "\n";
             break;

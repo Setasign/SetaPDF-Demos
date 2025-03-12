@@ -1,19 +1,25 @@
 <?php
 
+use setasign\SetaPDF2\Core\Document;
+use setasign\SetaPDF2\Core\FileSpecification;
+use setasign\SetaPDF2\Core\Writer\HttpWriter;
+use setasign\SetaPDF2\Merger\Collection;
+use setasign\SetaPDF2\Merger\Collection\Folder;
+
 // load and register the autoload function
 require_once __DIR__ . '/../../../../../bootstrap.php';
 
 // create a document
-$document = \SetaPDF_Core_Document::loadByFilename(
+$document = Document::loadByFilename(
     $assetsDirectory . '/pdfs/Logos-Portfolio.pdf'
 );
 
 // get the collection instance
-$collection = new \SetaPDF_Merger_Collection($document);
+$collection = new Collection($document);
 
 if (isset($_GET['name'])) {
     $file = $collection->getFile($_GET['name']);
-    if ($file instanceof \SetaPDF_Core_FileSpecification) {
+    if ($file instanceof FileSpecification) {
         // resolve the filename
         $filename = $file->getFileSpecification();
         // resolve the file stream
@@ -27,7 +33,7 @@ if (isset($_GET['name'])) {
         $stream = $embeddedFileStream->getStream();
         header('Content-Type: ' . $contentType);
         header('Content-Disposition: attachment; ' .
-            \SetaPDF_Core_Writer_Http::encodeFilenameForHttpHeader($filename)
+            HttpWriter::encodeFilenameForHttpHeader($filename)
         );
         header('Content-Transfer-Encoding: binary');
         header('Content-Length: ' . strlen($stream));
@@ -37,7 +43,7 @@ if (isset($_GET['name'])) {
 }
 
 // a simple function which is called recursively to print out all folders and files
-function printFolder(\SetaPDF_Merger_Collection_Folder $folder, $level = 0) {
+function printFolder(Folder $folder, $level = 0) {
     $files = $folder->getFiles();
 
     echo str_repeat('&nbsp', $level++ * 4);

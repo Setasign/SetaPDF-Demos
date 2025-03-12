@@ -1,24 +1,32 @@
 <?php
 
+use setasign\SetaPDF2\Core\Document;
+use setasign\SetaPDF2\Core\Encoding\Encoding;
+use setasign\SetaPDF2\Core\PageFormats;
+use setasign\SetaPDF2\Core\Writer\HttpWriter;
+use setasign\SetaPDF2\Merger\Collection;
+use setasign\SetaPDF2\Merger\Collection\Schema;
+use setasign\SetaPDF2\Merger\Collection\Schema\Field;
+
 // load and register the autoload function
 require_once __DIR__ . '/../../../../../bootstrap.php';
 
 // create a document as the cover sheet
-$writer = new \SetaPDF_Core_Writer_Http('portfolio-with-schema.pdf');
-$document = new \SetaPDF_Core_Document($writer);
-$document->getCatalog()->getPages()->create(\SetaPDF_Core_PageFormats::A4);
+$writer = new HttpWriter('portfolio-with-schema.pdf');
+$document = new Document($writer);
+$document->getCatalog()->getPages()->create(PageFormats::A4);
 // we leave it empty for demonstration purpose...
 
 // create a collection instance
-$collection = new \SetaPDF_Merger_Collection($document);
+$collection = new Collection($document);
 
 // get the schema instance
 $schema = $collection->getSchema();
 
 // create a field instance manually
-$filenameField = \SetaPDF_Merger_Collection_Schema_Field::create(
+$filenameField = Field::create(
     'Filename', // the visible field name
-    \SetaPDF_Merger_Collection_Schema::DATA_FILE_NAME // refer to the file name
+    Schema::DATA_FILE_NAME // refer to the file name
 );
 $filenameField->setOrder(1);
 // add it to the schema
@@ -28,7 +36,7 @@ $schema->addField('filename', $filenameField);
 $schema->addField(
     'description',
     'Description',
-    \SetaPDF_Merger_Collection_Schema::DATA_DESCRIPTION,
+    Schema::DATA_DESCRIPTION,
     2
 );
 
@@ -36,7 +44,7 @@ $schema->addField(
 $schema->addField(
     'company',
     'Company Name',
-    \SetaPDF_Merger_Collection_Schema::TYPE_STRING,
+    Schema::TYPE_STRING,
     3
 );
 
@@ -44,14 +52,14 @@ $schema->addField(
 $orderField = $schema->addField(
     'order',
     'Order',
-    \SetaPDF_Merger_Collection_Schema::TYPE_NUMBER,
+    Schema::TYPE_NUMBER,
     4
 );
 // but hide it
 $orderField->setVisibility(false);
 
 // set default sorting
-$collection->setSort(['order' => \SetaPDF_Merger_Collection::SORT_ASC]);
+$collection->setSort(['order' => Collection::SORT_ASC]);
 
 // for demonstration purpose, we add some files now...
 $collection->addFile(
@@ -61,7 +69,7 @@ $collection->addFile(
     [],
     'application/pdf',
     [
-        'company' => \SetaPDF_Core_Encoding::toPdfString('tektown'),
+        'company' => Encoding::toPdfString('tektown'),
         'order'   => 3
     ]
 );
@@ -73,7 +81,7 @@ $collection->addFile(
     [],
     'application/pdf',
     [
-        'company' => \SetaPDF_Core_Encoding::toPdfString('etown'),
+        'company' => Encoding::toPdfString('etown'),
         'order'   => 2
     ]
 );
@@ -85,7 +93,7 @@ $collection->addFile(
     [],
     'application/pdf',
     [
-        'company' => \SetaPDF_Core_Encoding::toPdfString('lenstown'),
+        'company' => Encoding::toPdfString('lenstown'),
         'order'   => 4
     ]
 );
@@ -109,7 +117,7 @@ $imagesFolder->addFile(
     [],
     'image/png',
     [
-        'company' => \SetaPDF_Core_Encoding::toPdfString('tektown'),
+        'company' => Encoding::toPdfString('tektown'),
         'order'   => 3
     ]
 );
@@ -121,7 +129,7 @@ $imagesFolder->addFile(
     [],
     'image/png',
     [
-        'company' => \SetaPDF_Core_Encoding::toPdfString('etown'),
+        'company' => Encoding::toPdfString('etown'),
         'order'   => 2
     ]
 );
@@ -133,7 +141,7 @@ $imagesFolder->addFile(
     [],
     'image/png',
     [
-        'company' => \SetaPDF_Core_Encoding::toPdfString('lenstown'),
+        'company' => Encoding::toPdfString('lenstown'),
         'order'   => 1
     ]
 );

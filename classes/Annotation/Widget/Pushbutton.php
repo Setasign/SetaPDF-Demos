@@ -1,31 +1,58 @@
 <?php
 
-namespace com\setasign\SetaPDF\Demos\Annotation\Widget;
+namespace setasign\SetaPDF2\Demos\Annotation\Widget;
+
+use setasign\SetaPDF2\Core\Canvas\Draw;
+use setasign\SetaPDF2\Core\DataStructure\Color\AbstractColor;
+use setasign\SetaPDF2\Core\DataStructure\Color\Gray;
+use setasign\SetaPDF2\Core\Document;
+use setasign\SetaPDF2\Core\Document\Catalog\AcroForm;
+use setasign\SetaPDF2\Core\Document\Page\Annotation\AppearanceCharacteristics;
+use setasign\SetaPDF2\Core\Document\Page\Annotation\BorderStyle;
+use setasign\SetaPDF2\Core\Document\Page\Annotation\Widget;
+use setasign\SetaPDF2\Core\Encoding\Encoding;
+use setasign\SetaPDF2\Core\Exception;
+use setasign\SetaPDF2\Core\Font\Font;
+use setasign\SetaPDF2\Core\Font\FontInterface;
+use setasign\SetaPDF2\Core\Parser\Content;
+use setasign\SetaPDF2\Core\Resource\ResourceInterface;
+use setasign\SetaPDF2\Core\Text\Text;
+use setasign\SetaPDF2\Core\Text\Block;
+use setasign\SetaPDF2\Core\Type\AbstractType;
+use setasign\SetaPDF2\Core\Type\Dictionary\DictionaryHelper;
+use setasign\SetaPDF2\Core\Type\IndirectObjectInterface;
+use setasign\SetaPDF2\Core\Type\PdfArray;
+use setasign\SetaPDF2\Core\Type\PdfDictionary;
+use setasign\SetaPDF2\Core\Type\PdfName;
+use setasign\SetaPDF2\Core\Type\PdfNumeric;
+use setasign\SetaPDF2\Core\Type\PdfString;
+use setasign\SetaPDF2\Core\Writer\Writer;
+use setasign\SetaPDF2\Core\XObject\Form;
 
 /**
  * Example class representing a push-button.
  */
-class Pushbutton extends \SetaPDF_Core_Document_Page_Annotation_Widget
+class Pushbutton extends Widget
 {
     /**
-     * @var \SetaPDF_Core_Document
+     * @var Document
      */
     protected $_document;
 
     /**
      * Creates a new button field in a specific document
      *
-     * @param array|\SetaPDF_Core_Type_AbstractType|\SetaPDF_Core_Type_Dictionary|\SetaPDF_Core_Type_IndirectObjectInterface $objectOrDictionary
+     * @param array|AbstractType|PdfDictionary|IndirectObjectInterface $objectOrDictionary
      * @param $fieldName
-     * @param \SetaPDF_Core_Document $document
+     * @param Document $document
      */
-    public function __construct($objectOrDictionary, $fieldName, \SetaPDF_Core_Document $document)
+    public function __construct($objectOrDictionary, $fieldName, Document $document)
     {
         $this->_document = $document;
 
         parent::__construct($objectOrDictionary);
         $dict = $this->getDictionary();
-        $dict['FT'] = new \SetaPDF_Core_Type_Name('Btn');
+        $dict['FT'] = new PdfName('Btn');
         $this->setFieldFlags(0x010000); // pushbutton -> 17
 
         $acroForm = $document->getCatalog()->getAcroForm();
@@ -35,7 +62,7 @@ class Pushbutton extends \SetaPDF_Core_Document_Page_Annotation_Widget
         $fieldNames = [];
         foreach ($acroForm->getTerminalFieldsObjects() as $terminalObject) {
             /** @var string $name */
-            $name = \SetaPDF_Core_Document_Catalog_AcroForm::resolveFieldName($terminalObject->ensure());
+            $name = AcroForm::resolveFieldName($terminalObject->ensure());
             $fieldNames[$name] = $name;
         }
 
@@ -47,125 +74,125 @@ class Pushbutton extends \SetaPDF_Core_Document_Page_Annotation_Widget
             $fieldName = $oFieldName . '_' . ($i++);
         }
 
-        $dict['T'] = new \SetaPDF_Core_Type_String(\SetaPDF_Core_Encoding::toPdfString($fieldName));
+        $dict['T'] = new PdfString(Encoding::toPdfString($fieldName));
     }
 
     /**
      * Set the button caption
      *
-     * @param $caption
+     * @param string $caption
      * @param string $encoding
      */
-    public function setCaption($caption, $encoding = 'UTF-8')
+    public function setCaption(string $caption, string $encoding = 'UTF-8')
     {
-        /** @var \SetaPDF_Core_Document_Page_Annotation_AppearanceCharacteristics $appCharacteristics */
+        /** @var AppearanceCharacteristics $appCharacteristics */
         $appCharacteristics = $this->getAppearanceCharacteristics(true);
         $dict = $appCharacteristics->getDictionary();
-        $dict['CA'] = new \SetaPDF_Core_Type_String(\SetaPDF_Core_Encoding::toPdfString($caption, $encoding));
+        $dict['CA'] = new PdfString(Encoding::toPdfString($caption, $encoding));
     }
 
     /**
      * Set the font
      *
-     * @param \SetaPDF_Core_Font_FontInterface $font
-     * @throws \SetaPDF_FormFiller_Field_Exception
+     * @param FontInterface $font
+     * @throws Exception
      */
-    public function setFont(\SetaPDF_Core_Font_FontInterface $font)
+    public function setFont(FontInterface $font)
     {
         $daValues = $this->_getDaValues();
 
-        $writer = new \SetaPDF_Core_Writer();
-        \SetaPDF_Core_Type_Name::writePdfString($writer, $this->_document->getCatalog()->getAcroForm()->addResource($font));
+        $writer = new Writer();
+        PdfName::writePdfString($writer, $this->_document->getCatalog()->getAcroForm()->addResource($font));
         $daValues['fontSize']->writePdfString($writer, $daValues['fontSize']->getValue());
         $writer->write(' Tf');
         $daValues['color']->draw($writer, false);
 
-        $this->_annotationDictionary['DA'] = new \SetaPDF_Core_Type_String($writer);
+        $this->_annotationDictionary['DA'] = new PdfString($writer);
     }
 
     /**
      * Get the font
      *
-     * @return \SetaPDF_Core_Font
-     * @throws \SetaPDF_FormFiller_Field_Exception
+     * @return Font
+     * @throws Exception
      */
     public function getFont()
     {
         $daValues = $this->_getDaValues();
-        $fonts = $this->_document->getCatalog()->getAcroForm()->getDefaultResources(true, \SetaPDF_Core_Resource::TYPE_FONT);
+        $fonts = $this->_document->getCatalog()->getAcroForm()->getDefaultResources(true, ResourceInterface::TYPE_FONT);
 
-        return \SetaPDF_Core_Font::get($fonts->getValue($daValues['fontName']->getValue()));
+        return Font::get($fonts->getValue($daValues['fontName']->getValue()));
     }
 
     /**
      * Set the font size
      *
      * @param int|float $fontSize
-     * @throws \SetaPDF_FormFiller_Field_Exception
+     * @throws Exception
      */
     public function setFontSize($fontSize)
     {
         $daValues = $this->_getDaValues();
 
-        $writer = new \SetaPDF_Core_Writer();
-        $daValues['fontSize'] = new \SetaPDF_Core_Type_Numeric($fontSize);
-        \SetaPDF_Core_Type_Name::writePdfString($writer, $daValues['fontName']->getValue());
-        \SetaPDF_Core_Type_Numeric::writePdfString($writer, $daValues['fontSize']->getValue());
+        $writer = new Writer();
+        $daValues['fontSize'] = new PdfNumeric($fontSize);
+        PdfName::writePdfString($writer, $daValues['fontName']->getValue());
+        PdfNumeric::writePdfString($writer, $daValues['fontSize']->getValue());
         $writer->write(' Tf');
         $daValues['color']->draw($writer, false);
 
-        $this->_annotationDictionary['DA'] = new \SetaPDF_Core_Type_String($writer);
+        $this->_annotationDictionary['DA'] = new PdfString($writer);
     }
 
     /**
      * Set the text color
      *
-     * @param int|float|string|array|\SetaPDF_Core_Type_Array|\SetaPDF_Core_DataStructure_Color $color
-     * @throws \SetaPDF_FormFiller_Field_Exception
+     * @param int|float|string|array|PdfArray|AbstractColor $color
+     * @throws Exception
      */
     public function setTextColor($color)
     {
-        if (!$color instanceof \SetaPDF_Core_DataStructure_Color) {
-            $color = \SetaPDF_Core_DataStructure_Color::createByComponents($color);
+        if (!$color instanceof AbstractColor) {
+            $color = AbstractColor::createByComponents($color);
         }
 
         $daValues = $this->_getDaValues();
 
-        $writer = new \SetaPDF_Core_Writer();
-        \SetaPDF_Core_Type_Name::writePdfString($writer, $daValues['fontName']->getValue());
-        \SetaPDF_Core_Type_Numeric::writePdfString($writer, $daValues['fontSize']->getValue());
+        $writer = new Writer();
+        PdfName::writePdfString($writer, $daValues['fontName']->getValue());
+        PdfNumeric::writePdfString($writer, $daValues['fontSize']->getValue());
         $writer->write(' Tf');
         $color->draw($writer, false);
 
-        $this->_annotationDictionary['DA'] = new \SetaPDF_Core_Type_String($writer);
+        $this->_annotationDictionary['DA'] = new PdfString($writer);
     }
 
     /**
      * Get default appearance values
      *
      * @return array
-     * @throws \SetaPDF_FormFiller_Field_Exception
+     * @throws Exception
      */
     protected function _getDaValues()
     {
-        $da = \SetaPDF_Core_Type_Dictionary_Helper::resolveAttribute($this->_annotationDictionary, 'DA');
-        $da = $da ? $da : \SetaPDF_Core_Type_Dictionary_Helper::resolveAttribute(
+        $da = DictionaryHelper::resolveAttribute($this->_annotationDictionary, 'DA');
+        $da = $da ?: DictionaryHelper::resolveAttribute(
             $this->_document->getCatalog()->getAcroForm()->getDictionary(),
             'DA'
         );
 
         if (!$da) {
-            throw new \SetaPDF_FormFiller_Field_Exception('No DA key found.');
+            throw new Exception('No DA key found.');
         }
 
         $fontName = $fontSize = $color = null;
-        $parser = new \SetaPDF_Core_Parser_Content($da->getValue());
+        $parser = new Content($da->getValue());
         $parser->registerOperator('Tf', static function($params) use (&$fontName, &$fontSize) {
             $fontName = $params[0];
             $fontSize = $params[1];
         });
         $parser->registerOperator(['g', 'rg', 'k'], static function($params) use (&$color) {
-            $color = \SetaPDF_Core_DataStructure_Color::createByComponents($params);
+            $color = AbstractColor::createByComponents($params);
         });
 
         $parser->process();
@@ -189,7 +216,7 @@ class Pushbutton extends \SetaPDF_Core_Document_Page_Annotation_Widget
 
         $n = $this->getAppearance('N');
         if (!$n) {
-            $n = \SetaPDF_Core_XObject_Form::create($document, [0, 0, $width, $height]);
+            $n = Form::create($document, [0, 0, $width, $height]);
         }
         $this->setAppearance($n);
 
@@ -198,7 +225,7 @@ class Pushbutton extends \SetaPDF_Core_Document_Page_Annotation_Widget
         $appearanceCharacteristics = $this->getAppearanceCharacteristics();
         $borderStyle = $this->getBorderStyle();
         $borderWidth = 0;
-        $_borderStyle = \SetaPDF_Core_Document_Page_Annotation_BorderStyle::SOLID;
+        $_borderStyle = BorderStyle::SOLID;
 
         if ($borderStyle) {
             $_borderStyle = $borderStyle->getStyle();
@@ -239,13 +266,13 @@ class Pushbutton extends \SetaPDF_Core_Document_Page_Annotation_Widget
                 $f = $width;
             }
 
-            $n->getObject()->ensure()->getValue()->offsetSet('Matrix', new \SetaPDF_Core_Type_Array([
-                new \SetaPDF_Core_Type_Numeric($a),
-                new \SetaPDF_Core_Type_Numeric($b),
-                new \SetaPDF_Core_Type_Numeric($c),
-                new \SetaPDF_Core_Type_Numeric($d),
-                new \SetaPDF_Core_Type_Numeric($e),
-                new \SetaPDF_Core_Type_Numeric($f)
+            $n->getObject()->ensure()->getValue()->offsetSet('Matrix', new PdfArray([
+                new PdfNumeric($a),
+                new PdfNumeric($b),
+                new PdfNumeric($c),
+                new PdfNumeric($d),
+                new PdfNumeric($e),
+                new PdfNumeric($f)
             ]));
         }
 
@@ -255,7 +282,7 @@ class Pushbutton extends \SetaPDF_Core_Document_Page_Annotation_Widget
             : null;
         if ($backgroundColor) {
             $backgroundColor->draw($canvas, false);
-            $canvas->draw()->rect(0, 0, $width, $height, \SetaPDF_Core_Canvas_Draw::STYLE_FILL);
+            $canvas->draw()->rect(0, 0, $width, $height, Draw::STYLE_FILL);
         }
 
         // Draw Border:
@@ -266,10 +293,10 @@ class Pushbutton extends \SetaPDF_Core_Document_Page_Annotation_Widget
         // It is possible to have no border but only a border style!
 
         // Beveld or Inset
-        if ($_borderStyle === \SetaPDF_Core_Document_Page_Annotation_BorderStyle::BEVELED ||
-            $_borderStyle === \SetaPDF_Core_Document_Page_Annotation_BorderStyle::INSET) {
+        if ($_borderStyle === BorderStyle::BEVELED ||
+            $_borderStyle === BorderStyle::INSET) {
             $colorLtValue = 1; //' 1 g';
-            if ($_borderStyle === \SetaPDF_Core_Document_Page_Annotation_BorderStyle::INSET) {
+            if ($_borderStyle === BorderStyle::INSET) {
                 $colorLtValue = .5; // ' 0.5 g';
             }
 
@@ -278,19 +305,17 @@ class Pushbutton extends \SetaPDF_Core_Document_Page_Annotation_Widget
              * The effect will only occur if the field is active
              * All other fields will use this effect.
              */
-            if (
-                $_borderStyle === \SetaPDF_Core_Document_Page_Annotation_BorderStyle::BEVELED && $backgroundColor
-            ) {
+            if ($_borderStyle === BorderStyle::BEVELED && $backgroundColor) {
                 $tmpColor = clone $backgroundColor;
                 $tmpColor->adjustAllComponents(-0.250977);
                 $colorRb = $tmpColor;
             } else {
-                $colorRb = new \SetaPDF_Core_DataStructure_Color_Gray(.75);
+                $colorRb = new Gray(.75);
             }
 
             // Draw the inner border
             $canvas->saveGraphicState();  // q
-            \SetaPDF_Core_DataStructure_Color_Gray::writePdfString($canvas, $colorLtValue, false);
+            Gray::writePdfString($canvas, $colorLtValue, false);
 
             $_borderWidth = $borderWidth * 2;
 
@@ -324,13 +349,13 @@ class Pushbutton extends \SetaPDF_Core_Document_Page_Annotation_Widget
             $borderColor->draw($canvas, true);
 
             // Dashed
-            if ($_borderStyle === \SetaPDF_Core_Document_Page_Annotation_BorderStyle::DASHED) {
+            if ($_borderStyle === BorderStyle::DASHED) {
                 $canvas->path()->setDashPattern($borderStyle->getDashPattern());
             }
 
             // Draw border
             // NOT underline
-            if ($_borderStyle !== \SetaPDF_Core_Document_Page_Annotation_BorderStyle::UNDERLINE) {
+            if ($_borderStyle !== BorderStyle::UNDERLINE) {
                 $canvas->draw()->rect(
                     $borderWidth * .5,
                     $borderWidth * .5,
@@ -348,19 +373,19 @@ class Pushbutton extends \SetaPDF_Core_Document_Page_Annotation_Widget
         $daValues = $this->_getDaValues();
 
         $font = $this->getFont();
-        $textBlock = new \SetaPDF_Core_Text_Block($font, null);
+        $textBlock = new Block($font, null);
 
         $borderDoubled = (
-            $_borderStyle === \SetaPDF_Core_Document_Page_Annotation_BorderStyle::BEVELED ||
-            $_borderStyle === \SetaPDF_Core_Document_Page_Annotation_BorderStyle::INSET
+            $_borderStyle === BorderStyle::BEVELED ||
+            $_borderStyle === BorderStyle::INSET
         );
 
         $offset = max(1, $borderWidth * ($borderDoubled ? 2 : 1)) * 2;
 
-        /** @var \SetaPDF_Core_Document_Page_Annotation_AppearanceCharacteristics $appCharacteristics */
+        /** @var AppearanceCharacteristics $appCharacteristics */
         $appCharacteristics = $this->getAppearanceCharacteristics(true);
         $dict = $appCharacteristics->getDictionary();
-        $textBlock->setText(\SetaPDF_Core_Encoding::convertPdfString(
+        $textBlock->setText(Encoding::convertPdfString(
             $dict->getValue('CA')->getValue(), 'UTF-16BE'
         ), 'UTF-16BE');
         $textBlock->setPadding($offset);
@@ -378,18 +403,18 @@ class Pushbutton extends \SetaPDF_Core_Document_Page_Annotation_Widget
                 $fontSize = ($height - $offset * 2) * $fontSize / $textHeight;
             }
         }
-        $textBlock->setWidth($width - $offset * 2);
+        $textBlock->setTextWidth($width - $offset * 2);
         $textBlock->setFontSize($fontSize);
         $textBlock->setTextColor($daValues['color']);
 
-        $textBlock->setAlign(\SetaPDF_Core_Text::ALIGN_CENTER);
+        $textBlock->setAlign(Text::ALIGN_CENTER);
         $textBlock->draw($canvas, 0, $height / 2 - $textBlock->getHeight() / 2);
     }
 
     /**
-     * @return \SetaPDF_Core_Type_IndirectObjectInterface
+     * @return IndirectObjectInterface
      */
-    public function getIndirectObject(\SetaPDF_Core_Document $document = null)
+    public function getIndirectObject(Document $document = null)
     {
         $this->_createAppearance();
         return parent::getIndirectObject($document);
@@ -398,8 +423,8 @@ class Pushbutton extends \SetaPDF_Core_Document_Page_Annotation_Widget
     /**
      * Sets a field flag
      *
-     * @param integer $flags
-     * @param boolean|null $add Add = true, remove = false, set = null
+     * @param int $flags
+     * @param bool|null $add Add = true, remove = false, set = null
      */
     public function setFieldFlags($flags, $add = true)
     {
@@ -408,9 +433,9 @@ class Pushbutton extends \SetaPDF_Core_Document_Page_Annotation_Widget
             return;
         }
 
-        $dict = \SetaPDF_Core_Type_Dictionary_Helper::resolveDictionaryByAttribute($this->_annotationDictionary, 'Ff');
+        $dict = DictionaryHelper::resolveDictionaryByAttribute($this->_annotationDictionary, 'Ff');
 
-        if ($dict instanceof \SetaPDF_Core_Type_AbstractType) {
+        if ($dict instanceof AbstractType) {
             $value = $dict->ensure()->getValue('Ff');
             if ($add === true) {
                 $value->setValue($value->getValue() | $flags);
@@ -419,20 +444,20 @@ class Pushbutton extends \SetaPDF_Core_Document_Page_Annotation_Widget
             }
 
         } else {
-            $this->_annotationDictionary->offsetSet('Ff', new \SetaPDF_Core_Type_Numeric($flags));
+            $this->_annotationDictionary->offsetSet('Ff', new PdfNumeric($flags));
         }
     }
 
     /**
      * Removes a field flag
      *
-     * @param integer $flags
+     * @param int $flags
      */
-    public function unsetFieldFlags($flags)
+    public function unsetFieldFlags(int $flags)
     {
-        $dict = \SetaPDF_Core_Type_Dictionary_Helper::resolveDictionaryByAttribute($this->_annotationDictionary, 'Ff');
+        $dict = DictionaryHelper::resolveDictionaryByAttribute($this->_annotationDictionary, 'Ff');
 
-        if ($dict instanceof \SetaPDF_Core_Type_AbstractType) {
+        if ($dict instanceof AbstractType) {
             $value = $dict->ensure()->getValue('Ff');
             $value->setValue($value->getValue() & ~$flags);
         }
@@ -441,11 +466,11 @@ class Pushbutton extends \SetaPDF_Core_Document_Page_Annotation_Widget
     /**
      * Returns the current field flags
      *
-     * @return integer
+     * @return int
      */
-    public function getFieldFlags()
+    public function getFieldFlags(): int
     {
-        $fieldFlags = \SetaPDF_Core_Type_Dictionary_Helper::resolveAttribute($this->_annotationDictionary, 'Ff');
+        $fieldFlags = DictionaryHelper::resolveAttribute($this->_annotationDictionary, 'Ff');
         if ($fieldFlags) {
             return $fieldFlags->getValue();
         }
@@ -456,10 +481,10 @@ class Pushbutton extends \SetaPDF_Core_Document_Page_Annotation_Widget
     /**
      * Checks if a specific field flag is set
      *
-     * @param integer $flag
-     * @return boolean
+     * @param int $flag
+     * @return bool
      */
-    public function isFieldFlagSet($flag)
+    public function isFieldFlagSet(int $flag): bool
     {
         return ($this->getFieldFlags() & $flag) !== 0;
     }

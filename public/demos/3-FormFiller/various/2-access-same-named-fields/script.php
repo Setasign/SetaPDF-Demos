@@ -1,15 +1,19 @@
 <?php
 
+use setasign\SetaPDF2\Core\Document;
+use setasign\SetaPDF2\Core\Writer\HttpWriter;
+use setasign\SetaPDF2\FormFiller\FormFiller;
+
 // load and register the autoload function
 require_once __DIR__ . '/../../../../../bootstrap.php';
 
-$writer = new \SetaPDF_Core_Writer_Http('filled.pdf', true);
-$document = \SetaPDF_Core_Document::loadByFilename(
+$writer = new HttpWriter('filled.pdf', true);
+$document = Document::loadByFilename(
     $assetsDirectory . '/pdfs/etown/Terms-and-Conditions.pdf',
     $writer
 );
 
-$formFiller = new \SetaPDF_FormFiller($document);
+$formFiller = new FormFiller($document);
 
 // access the fields instance
 $fields = $formFiller->getFields();

@@ -1,5 +1,13 @@
 <?php
 
+use setasign\SetaPDF2\Core\Document;
+use setasign\SetaPDF2\Core\Font\TrueType\Subset;
+use setasign\SetaPDF2\Core\PageFormats;
+use setasign\SetaPDF2\Core\Text\Text;
+use setasign\SetaPDF2\Core\Writer\HttpWriter;
+use setasign\SetaPDF2\Stamper\Stamp\Text as TextStamp;
+use setasign\SetaPDF2\Stamper\Stamper;
+
 // load and register the autoload function
 require_once __DIR__ . '/../../../../../../bootstrap.php';
 
@@ -7,53 +15,53 @@ $text = "An example text with some more content\n"
     . "and line-breaks to be able to align\nthe text at all.";
 
 // we create a blank document to show the behavior
-$writer = new \SetaPDF_Core_Writer_Http('stamped.pdf', true);
-$document = new \SetaPDF_Core_Document($writer);
+$writer = new HttpWriter('stamped.pdf', true);
+$document = new Document($writer);
 
 // let's create 3 pages for demonstration purpose
 $pages = $document->getCatalog()->getPages();
-$pages->create(\SetaPDF_Core_PageFormats::A4);
-$pages->create(\SetaPDF_Core_PageFormats::A4);
-$pages->create(\SetaPDF_Core_PageFormats::A4);
+$pages->create(PageFormats::A4);
+$pages->create(PageFormats::A4);
+$pages->create(PageFormats::A4);
 
 // create a stamper instance
-$stamper = new \SetaPDF_Stamper($document);
+$stamper = new Stamper($document);
 
 // create a font instance which is needed for the text stamp instance
-$font = new \SetaPDF_Core_Font_TrueType_Subset(
+$font = new Subset(
     $document,
     $assetsDirectory . '/fonts/DejaVu/ttf/DejaVuSans.ttf'
 );
 
 // create a stamp instance left aligned
-$stampLeft = new \SetaPDF_Stamper_Stamp_Text($font, 12);
+$stampLeft = new TextStamp($font, 12);
 $stampLeft->setText($text);
-$stampLeft->setAlign(\SetaPDF_Core_Text::ALIGN_LEFT);
+$stampLeft->setAlign(Text::ALIGN_LEFT);
 $stamper->addStamp($stampLeft);
 
 // create a stamp instance centered
-$stampCenter = new \SetaPDF_Stamper_Stamp_Text($font, 12);
+$stampCenter = new TextStamp($font, 12);
 $stampCenter->setText($text);
-$stampCenter->setAlign(\SetaPDF_Core_Text::ALIGN_CENTER);
+$stampCenter->setAlign(Text::ALIGN_CENTER);
 $stamper->addStamp($stampCenter, [
-    'position' => \SetaPDF_Stamper::POSITION_CENTER_MIDDLE,
+    'position' => Stamper::POSITION_CENTER_MIDDLE,
     'translateY' => 140
 ]);
 
 // create a stamp instance justified
-$stampCenter = new \SetaPDF_Stamper_Stamp_Text($font, 12);
+$stampCenter = new TextStamp($font, 12);
 $stampCenter->setText($text);
-$stampCenter->setAlign(\SetaPDF_Core_Text::ALIGN_JUSTIFY);
+$stampCenter->setAlign(Text::ALIGN_JUSTIFY);
 $stamper->addStamp($stampCenter, [
-    'position' => \SetaPDF_Stamper::POSITION_CENTER_MIDDLE,
+    'position' => Stamper::POSITION_CENTER_MIDDLE,
     'translateY' => -140
 ]);
 
 // create a stamp instance right aligned
-$stampLeft = new \SetaPDF_Stamper_Stamp_Text($font, 12);
+$stampLeft = new TextStamp($font, 12);
 $stampLeft->setText($text);
-$stampLeft->setAlign(\SetaPDF_Core_Text::ALIGN_RIGHT);
-$stamper->addStamp($stampLeft, \SetaPDF_Stamper::POSITION_RIGHT_BOTTOM);
+$stampLeft->setAlign(Text::ALIGN_RIGHT);
+$stamper->addStamp($stampLeft, Stamper::POSITION_RIGHT_BOTTOM);
 
 // execute the stamp process
 $stamper->stamp();

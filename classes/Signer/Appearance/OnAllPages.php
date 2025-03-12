@@ -1,27 +1,31 @@
 <?php
 
-namespace com\setasign\SetaPDF\Demos\Signer\Appearance;
+namespace setasign\SetaPDF2\Demos\Signer\Appearance;
 
-use SetaPDF_Core_Document;
-use SetaPDF_Signer;
-use SetaPDF_Signer_SignatureField;
+use setasign\SetaPDF2\Core\Document;
+use setasign\SetaPDF2\Core\Document\Page\Annotation\Stamp;
+use setasign\SetaPDF2\Core\Encoding\Encoding;
+use setasign\SetaPDF2\Core\XObject\Form;
+use setasign\SetaPDF2\Signer\Signature\Appearance\AbstractAppearance;
+use setasign\SetaPDF2\Signer\Signer;
+use setasign\SetaPDF2\Signer\SignatureField;
 
-class OnAllPages extends \SetaPDF_Signer_Signature_Appearance_AbstractAppearance
+class OnAllPages extends AbstractAppearance
 {
     /**
-     * @var \SetaPDF_Core_XObject_Form
+     * @var Form
      */
     protected $_formXObject;
 
     /**
-     * @var \SetaPDF_Signer_Signature_Appearance_AbstractAppearance
+     * @var AbstractAppearance
      */
     protected $_mainAppearance;
 
     /**
-     * @param \SetaPDF_Signer_Signature_Appearance_AbstractAppearance $mainAppearance
+     * @param AbstractAppearance $mainAppearance
      */
-    public function __construct(\SetaPDF_Signer_Signature_Appearance_AbstractAppearance $mainAppearance)
+    public function __construct(AbstractAppearance $mainAppearance)
     {
         $this->_mainAppearance = $mainAppearance;
     }
@@ -31,14 +35,14 @@ class OnAllPages extends \SetaPDF_Signer_Signature_Appearance_AbstractAppearance
      *
      * Internally it adds stamp annotations to all other pages on the same position with the same appearance.
      *
-     * @param \SetaPDF_Signer_SignatureField $field
-     * @param \SetaPDF_Core_Document $document
-     * @param \SetaPDF_Signer $signer
+     * @param SignatureField $field
+     * @param Document $document
+     * @param Signer $signer
      */
     public function createAppearance(
-        \SetaPDF_Signer_SignatureField $field,
-        \SetaPDF_Core_Document $document,
-        \SetaPDF_Signer $signer
+        SignatureField $field,
+        Document $document,
+        Signer $signer
     ) {
         $this->_mainAppearance->createAppearance($field, $document, $signer);
 
@@ -52,7 +56,7 @@ class OnAllPages extends \SetaPDF_Signer_Signature_Appearance_AbstractAppearance
                 continue;
             }
 
-            $annotation = new \SetaPDF_Core_Document_Page_Annotation_Stamp($field->getRect());
+            $annotation = new Stamp($field->getRect());
             $annotation->setName(\uniqid('', true));
             $annotation->setModificationDate(new \DateTime());
             $annotation->setPrintFlag();
@@ -60,7 +64,7 @@ class OnAllPages extends \SetaPDF_Signer_Signature_Appearance_AbstractAppearance
             $annotation->setLockedContents();
             $annotation->setSubject(\sprintf(
                 'Copy of signature appearance of signature field "%s"',
-                \SetaPDF_Core_Encoding::convertPdfString($field->getQualifiedName())
+                Encoding::convertPdfString($field->getQualifiedName())
             ));
             $annotation->setTextLabel($signer->getName());
 
@@ -72,15 +76,15 @@ class OnAllPages extends \SetaPDF_Signer_Signature_Appearance_AbstractAppearance
     /**
      * Get a reusable form XObject.
      *
-     * @param \SetaPDF_Signer_SignatureField $field
-     * @param \SetaPDF_Core_Document $document
-     * @param \SetaPDF_Signer $signer
-     * @return \SetaPDF_Core_XObject_Form
+     * @param SignatureField $field
+     * @param Document $document
+     * @param Signer $signer
+     * @return Form
      */
     protected function _getFormXObject(
-        \SetaPDF_Signer_SignatureField $field,
-        \SetaPDF_Core_Document $document,
-        \SetaPDF_Signer $signer
+        SignatureField $field,
+        Document $document,
+        Signer $signer
     ) {
         if ($this->_formXObject === null) {
             $this->_formXObject = $this->_mainAppearance->_getN2XObject($field, $document, $signer);
@@ -95,15 +99,15 @@ class OnAllPages extends \SetaPDF_Signer_Signature_Appearance_AbstractAppearance
     }
 
     /**
-     * @param SetaPDF_Signer_SignatureField $field
-     * @param SetaPDF_Core_Document $document
-     * @param SetaPDF_Signer $signer
-     * @return \SetaPDF_Core_XObject_Form
+     * @param SignatureField $field
+     * @param Document $document
+     * @param Signer $signer
+     * @return Form
      */
     protected function _getN2XObject(
-        SetaPDF_Signer_SignatureField $field,
-        SetaPDF_Core_Document $document,
-        SetaPDF_Signer $signer
+        SignatureField $field,
+        Document $document,
+        Signer $signer
     ) {
         return $this->_mainAppearance->_getN2XObject($field, $document, $signer);
     }

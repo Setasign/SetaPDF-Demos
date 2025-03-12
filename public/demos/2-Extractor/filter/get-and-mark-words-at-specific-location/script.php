@@ -1,5 +1,15 @@
 <?php
 
+use setasign\SetaPDF2\Core\Document;
+use setasign\SetaPDF2\Core\Geometry\Rectangle;
+use setasign\SetaPDF2\Core\Writer\HttpWriter;
+use setasign\SetaPDF2\Extractor\Extractor;
+use setasign\SetaPDF2\Extractor\Filter\Multi as MultiFilter;
+use setasign\SetaPDF2\Extractor\Filter\Rectangle as RectangleFilter;
+use setasign\SetaPDF2\Extractor\Result\Word;
+use setasign\SetaPDF2\Extractor\Result\Words;
+use setasign\SetaPDF2\Extractor\Strategy\Word as WordStrategy;
+
 // load and register the autoload function
 require_once __DIR__ . '/../../../../../bootstrap.php';
 
@@ -7,36 +17,36 @@ $files = glob($assetsDirectory . '/pdfs/*/eBook-Invoice.pdf');
 
 $path = displayFiles($files);
 
-$document = \SetaPDF_Core_Document::loadByFilename($path);
+$document = Document::loadByFilename($path);
 
 // initiate an extractor instance
-$extractor = new \SetaPDF_Extractor($document);
+$extractor = new Extractor($document);
 
 // create a word strategy
-$strategy = new \SetaPDF_Extractor_Strategy_Word();
+$strategy = new WordStrategy();
 
 // define filter areas
-$invoicingPartyFilter = new \SetaPDF_Extractor_Filter_Rectangle(
-    new \SetaPDF_Core_Geometry_Rectangle(40, 705, 220, 720),
-    \SetaPDF_Extractor_Filter_Rectangle::MODE_CONTACT,
+$invoicingPartyFilter = new RectangleFilter(
+    new Rectangle(40, 705, 220, 720),
+    RectangleFilter::MODE_CONTACT,
     'invoicingParty'
 );
 
 // define filter areas
-$invoiceNoFilter = new \SetaPDF_Extractor_Filter_Rectangle(
-    new \SetaPDF_Core_Geometry_Rectangle(512, 520, 580, 540),
-    \SetaPDF_Extractor_Filter_Rectangle::MODE_CONTACT,
+$invoiceNoFilter = new RectangleFilter(
+    new Rectangle(512, 520, 580, 540),
+    RectangleFilter::MODE_CONTACT,
     'invoiceNo'
 );
 
 // pass them to the strategy
-$strategy->setFilter(new \SetaPDF_Extractor_Filter_Multi([$invoicingPartyFilter, $invoiceNoFilter]));
+$strategy->setFilter(new MultiFilter([$invoicingPartyFilter, $invoiceNoFilter]));
 
 // set the strategy
 $extractor->setStrategy($strategy);
 
 // get the result
-/** @var \SetaPDF_Extractor_Result_Words $words */
+/** @var Words $words */
 $words = $extractor->getResultByPageNumber(1);
 
 // mark the filter areas and words on the pages canvas
@@ -53,7 +63,7 @@ $canvas
     ->draw()->rect($rect->getLl()->getX(), $rect->getLl()->getY(), $rect->getWidth(), $rect->getHeight());
 
 // draw the word boundaries
-/** @var \SetaPDF_Extractor_Result_Word $word */
+/** @var Word $word */
 foreach ($words AS $word) {
     // to get access to the filter id which was used to resolve this word, just use:
     // $filterId = $word->getFilterId();
@@ -70,5 +80,5 @@ foreach ($words AS $word) {
     }
 }
 
-$document->setWriter(new \SetaPDF_Core_Writer_Http('document.pdf', true));
+$document->setWriter(new HttpWriter('document.pdf', true));
 $document->save()->finish();

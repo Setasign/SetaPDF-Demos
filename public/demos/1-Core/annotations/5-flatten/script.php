@@ -1,5 +1,15 @@
 <?php
 
+use setasign\SetaPDF2\Core\Document;
+use setasign\SetaPDF2\Core\Document\Page;
+use setasign\SetaPDF2\Core\Document\Page\Annotation\Annotation;
+use setasign\SetaPDF2\Core\Document\Page\Annotation\Widget;
+use setasign\SetaPDF2\Core\Geometry\Matrix;
+use setasign\SetaPDF2\Core\Geometry\Rectangle;
+use setasign\SetaPDF2\Core\Geometry\Vector;
+use setasign\SetaPDF2\Core\Writer\HttpWriter;
+use setasign\SetaPDF2\FormFiller\FormFiller;
+
 // load and register the autoload function
 require_once '../../../../../bootstrap.php';
 
@@ -11,7 +21,7 @@ $files = [
 ];
 
 // if the SetaPDF-FormFiller component is installed add a demo document with a signature field
-if (class_exists(\SetaPDF_FormFiller::class)) {
+if (class_exists(FormFiller::class)) {
     $files[] = $assetsDirectory . '/pdfs/tektown/Laboratory-Report - commented-and-signed.pdf';
     $files[] = $assetsDirectory . '/pdfs/tektown/Order-Form-filled.pdf';
     $files[] = $assetsDirectory . '/pdfs/tektown/Subscription-tekMag-filled.pdf';
@@ -19,13 +29,13 @@ if (class_exists(\SetaPDF_FormFiller::class)) {
 
 $path = displayFiles($files);
 
-$writer = new \SetaPDF_Core_Writer_Http('flatten-annotations.pdf', true);
-$document = \SetaPDF_Core_Document::loadByFilename($path, $writer);
+$writer = new HttpWriter('flatten-annotations.pdf', true);
+$document = Document::loadByFilename($path, $writer);
 
 $pages = $document->getCatalog()->getPages();
 $pageCount = $pages->count();
 
-function flattenAnnotation(\SetaPDF_Core_Document_Page $page, \SetaPDF_Core_Document_Page_Annotation $annotation)
+function flattenAnnotation(Page $page, Annotation $annotation)
 {
     $appearance = $annotation->getAppearance();
     if (
@@ -48,12 +58,12 @@ function flattenAnnotation(\SetaPDF_Core_Document_Page $page, \SetaPDF_Core_Docu
 
     $matrix = $appearance->getMatrix();
     if ($matrix === false) {
-        $matrix = new \SetaPDF_Core_Geometry_Matrix();
+        $matrix = new Matrix();
     }
 
-    $t = new \SetaPDF_Core_Geometry_Rectangle(
-        \SetaPDF_Core_Geometry_Vector::byPoint($bbox->getLl())->multiply($matrix)->toPoint(),
-        \SetaPDF_Core_Geometry_Vector::byPoint($bbox->getUr())->multiply($matrix)->toPoint()
+    $t = new Rectangle(
+        Vector::byPoint($bbox->getLl())->multiply($matrix)->toPoint(),
+        Vector::byPoint($bbox->getUr())->multiply($matrix)->toPoint()
     );
 
     if (empty($t->getHeight()) || empty($t->getWidth())) {
@@ -62,8 +72,8 @@ function flattenAnnotation(\SetaPDF_Core_Document_Page $page, \SetaPDF_Core_Docu
 
     $ll = $rect->getLl();
 
-    $m = new \SetaPDF_Core_Geometry_Matrix(1, 0, 0, 1, $ll->getX(), $ll->getY());
-    $scaleMatrix = new \SetaPDF_Core_Geometry_Matrix(
+    $m = new Matrix(1, 0, 0, 1, $ll->getX(), $ll->getY());
+    $scaleMatrix = new Matrix(
         ($rect->getWidth()) / ($t->getWidth()),
         0,
         0,
@@ -72,7 +82,7 @@ function flattenAnnotation(\SetaPDF_Core_Document_Page $page, \SetaPDF_Core_Docu
         0
     );
     $m = $scaleMatrix->multiply($m);
-    $translateMatrix2 = new \SetaPDF_Core_Geometry_Matrix(1, 0, 0, 1, -$t->getLl()->getX(), -$t->getLl()->getY());
+    $translateMatrix2 = new Matrix(1, 0, 0, 1, -$t->getLl()->getX(), -$t->getLl()->getY());
     $m = $translateMatrix2->multiply($m);
 
     $canvas->addCurrentTransformationMatrix(
@@ -96,7 +106,7 @@ for ($pageNo = 1; $pageNo <= $pageCount; $pageNo++) {
     $allAnnotations = $annotations->getAll();
 
     foreach ($allAnnotations as $k => $annotation) {
-        if ($annotation instanceof \SetaPDF_Core_Document_Page_Annotation_Widget) {
+        if ($annotation instanceof Widget) {
             continue;
         }
 
@@ -110,8 +120,8 @@ for ($pageNo = 1; $pageNo <= $pageCount; $pageNo++) {
 }
 
 // if the SetaPDF-FormFiller component is installed we are going to flatten form fields, too:
-if (class_exists(\SetaPDF_FormFiller::class)) {
-    $formFiller = new \SetaPDF_FormFiller($document);
+if (class_exists(FormFiller::class)) {
+    $formFiller = new FormFiller($document);
     $formFiller->getFields()->flatten();
 }
 

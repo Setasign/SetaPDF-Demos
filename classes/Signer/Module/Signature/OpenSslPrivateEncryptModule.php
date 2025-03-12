@@ -1,12 +1,20 @@
 <?php
 
-namespace com\setasign\SetaPDF\Demos\Signer\Module\Signature;
+namespace setasign\SetaPDF2\Demos\Signer\Module\Signature;
 
-class OpenSslPrivateEncryptModule implements \SetaPDF_Signer_Signature_Module_ModuleInterface,
-    \SetaPDF_Signer_Signature_DictionaryInterface,
-    \SetaPDF_Signer_Signature_DocumentInterface
+use setasign\SetaPDF2\Core\Reader\FilePath;
+use setasign\SetaPDF2\Signer\Asn1\Element as Asn1Element;
+use setasign\SetaPDF2\Signer\Asn1\Oid as Asn1Oid;
+use setasign\SetaPDF2\Signer\Digest;
+use setasign\SetaPDF2\Signer\Exception;
+use setasign\SetaPDF2\Signer\Signature\Module\DictionaryInterface;
+use setasign\SetaPDF2\Signer\Signature\Module\DocumentInterface;
+use setasign\SetaPDF2\Signer\Signature\Module\ModuleInterface;
+use setasign\SetaPDF2\Signer\Signature\Module\PadesProxyTrait;
+
+class OpenSslPrivateEncryptModule implements ModuleInterface, DictionaryInterface, DocumentInterface
 {
-    use \SetaPDF_Signer_Signature_Module_PadesProxyTrait;
+    use PadesProxyTrait;
 
     /**
      * @var \OpenSSLAsymmetricKey|resource
@@ -19,12 +27,12 @@ class OpenSslPrivateEncryptModule implements \SetaPDF_Signer_Signature_Module_Mo
      */
     public function setPrivateKey($privateKey)
     {
-        $details = openssl_pkey_get_details($privateKey);
+        $details = \openssl_pkey_get_details($privateKey);
         if (!is_array($details)) {
             throw new \InvalidArgumentException('Cannot get details from private key.');
         }
 
-        if ($details['type'] !== OPENSSL_KEYTYPE_RSA) {
+        if ($details['type'] !== \OPENSSL_KEYTYPE_RSA) {
             throw new \InvalidArgumentException('Only RSA keys are supported in this demo.');
         }
 
@@ -41,11 +49,11 @@ class OpenSslPrivateEncryptModule implements \SetaPDF_Signer_Signature_Module_Mo
     }
 
     /**
-     * @param \SetaPDF_Core_Reader_FilePath $tmpPath
+     * @param FilePath $tmpPath
      * @return string
-     * @throws \SetaPDF_Signer_Exception
+     * @throws Exception
      */
-    public function createSignature(\SetaPDF_Core_Reader_FilePath $tmpPath)
+    public function createSignature(FilePath $tmpPath)
     {
         $padesModule = $this->_getPadesModule();
         // get the hash data from the module
@@ -54,32 +62,32 @@ class OpenSslPrivateEncryptModule implements \SetaPDF_Signer_Signature_Module_Mo
         $hashData = hash($padesDigest, $padesModule->getDataToSign($tmpPath), true);
 
         // let's sign only the hash, so we create the ASN.1 container manually
-        $digestInfo = new \SetaPDF_Signer_Asn1_Element(
-            \SetaPDF_Signer_Asn1_Element::SEQUENCE | \SetaPDF_Signer_Asn1_Element::IS_CONSTRUCTED, '',
+        $digestInfo = new Asn1Element(
+            Asn1Element::SEQUENCE | Asn1Element::IS_CONSTRUCTED, '',
             [
-                new \SetaPDF_Signer_Asn1_Element(
-                    \SetaPDF_Signer_Asn1_Element::SEQUENCE | \SetaPDF_Signer_Asn1_Element::IS_CONSTRUCTED, '',
+                new Asn1Element(
+                    Asn1Element::SEQUENCE | Asn1Element::IS_CONSTRUCTED, '',
                     [
-                        new \SetaPDF_Signer_Asn1_Element(
-                            \SetaPDF_Signer_Asn1_Element::OBJECT_IDENTIFIER,
-                            \SetaPDF_Signer_Asn1_Oid::encode(
-                                \SetaPDF_Signer_Digest::getOid($padesModule->getDigest())
+                        new Asn1Element(
+                            Asn1Element::OBJECT_IDENTIFIER,
+                            Asn1Oid::encode(
+                                Digest::getOid($padesModule->getDigest())
                             )
                         ),
-                        new \SetaPDF_Signer_Asn1_Element(\SetaPDF_Signer_Asn1_Element::NULL)
+                        new Asn1Element(Asn1Element::NULL)
                     ]
                 ),
-                new \SetaPDF_Signer_Asn1_Element(
-                    \SetaPDF_Signer_Asn1_Element::OCTET_STRING,
+                new Asn1Element(
+                    Asn1Element::OCTET_STRING,
                     $hashData
                 )
             ]
         );
 
-        if (@openssl_private_encrypt($digestInfo, $signatureValue, $this->_privateKey) === false) {
-            $lastError = error_get_last();
-            throw new \SetaPDF_Signer_Exception(
-                'An OpenSSL error occured during signature process' .
+        if (@\openssl_private_encrypt($digestInfo, $signatureValue, $this->_privateKey) === false) {
+            $lastError = \error_get_last();
+            throw new Exception(
+                'An OpenSSL error occurred during signature process' .
                 (isset($lastError['message']) ? ': ' . $lastError['message'] : '') . '.'
             );
         }

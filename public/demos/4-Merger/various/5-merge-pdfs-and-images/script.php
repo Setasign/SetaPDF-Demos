@@ -1,5 +1,12 @@
 <?php
 
+use setasign\SetaPDF2\Core\Document;
+use setasign\SetaPDF2\Core\Image\Image;
+use setasign\SetaPDF2\Core\Image\Jpeg;
+use setasign\SetaPDF2\Core\PageFormats;
+use setasign\SetaPDF2\Core\Writer\HttpWriter;
+use setasign\SetaPDF2\Merger\Merger;
+
 // load and register the autoload function
 require_once __DIR__ . '/../../../../../bootstrap.php';
 
@@ -8,18 +15,18 @@ $files = glob($assetsDirectory . '/pdfs/*/Logo.*');
 // let's define a DPI value for the images
 $dpi = 150;
 
-$merger = new \SetaPDF_Merger();
+$merger = new Merger();
 
 foreach ($files as $path) {
     // simple check for an image file
     $image = getimagesize($path);
     if ($image !== false) {
         // now create an empty document instance
-        $imageDocument = new \SetaPDF_Core_Document();
+        $imageDocument = new Document();
         // load the image
-        $imgage = \SetaPDF_Core_Image::getByPath($path);
+        $image = Image::getByPath($path);
         // convert it into an XObject
-        $xObject = $imgage->toXObject($imageDocument);
+        $xObject = $image->toXObject($imageDocument);
 
         // calculate the size in view to the given resolution
         $width = $xObject->getWidth() * 72 / $dpi;
@@ -29,7 +36,7 @@ foreach ($files as $path) {
         $pages = $imageDocument->getCatalog()->getPages();
         $page = $pages->create(
             [$width, $height],
-            \SetaPDF_Core_PageFormats::ORIENTATION_AUTO
+            PageFormats::ORIENTATION_AUTO
         );
 
         // draw the image onto the page
@@ -38,7 +45,7 @@ foreach ($files as $path) {
 
         // JPEG images could be rotated by flags in their EXIF headers. To support these flags,
         // simply rotate the page accordingly:
-        if ($imgage instanceof \SetaPDF_Core_Image_Jpeg && function_exists('exif_read_data')) {
+        if ($image instanceof Jpeg && function_exists('exif_read_data')) {
             $exifData = exif_read_data($path);
             if (isset($exifData['Orientation'])) {
                 switch ($exifData['Orientation']) {
@@ -70,5 +77,5 @@ $merger->merge();
 
 $document = $merger->getDocument();
 
-$document->setWriter(new \SetaPDF_Core_Writer_Http('PDFs-and-Images.pdf', true));
+$document->setWriter(new HttpWriter('PDFs-and-Images.pdf', true));
 $document->save()->finish();

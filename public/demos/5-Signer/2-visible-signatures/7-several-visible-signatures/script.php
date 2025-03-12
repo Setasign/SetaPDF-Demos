@@ -1,23 +1,31 @@
 <?php
 
+use setasign\SetaPDF2\Core\Document;
+use setasign\SetaPDF2\Core\Writer\HttpWriter;
+use setasign\SetaPDF2\Core\Writer\StringWriter;
+use setasign\SetaPDF2\Signer\Signature\Appearance\Dynamic;
+use setasign\SetaPDF2\Signer\Signature\Module\Pades as PadesModule;
+use setasign\SetaPDF2\Signer\SignatureField;
+use setasign\SetaPDF2\Signer\Signer;
+
 // load and register the autoload function
 require_once __DIR__ . '/../../../../../bootstrap.php';
 
 // create a temporary writer
-$tempWriter = new \SetaPDF_Core_Writer_String();
+$tempWriter = new StringWriter();
 
-$document = \SetaPDF_Core_Document::loadByFilename(
+$document = Document::loadByFilename(
     $assetsDirectory . '/pdfs/camtown/Laboratory-Report.pdf',
     $tempWriter
 );
 
 // create a signer instance
-$signer = new \SetaPDF_Signer($document);
+$signer = new Signer($document);
 // add a visible signature field
 $field = $signer->addSignatureField(
-    \SetaPDF_Signer_SignatureField::DEFAULT_FIELD_NAME,
+    SignatureField::DEFAULT_FIELD_NAME,
     1,
-    \SetaPDF_Signer_SignatureField::POSITION_RIGHT_TOP,
+    SignatureField::POSITION_RIGHT_TOP,
     ['x' => -160, 'y' => -100],
     180,
     70
@@ -28,13 +36,13 @@ $signer->setSignatureFieldName($field->getQualifiedName());
 $certificatePath = $assetsDirectory . '/certificates/setapdf-no-pw.pem';
 
 // now create a signature module
-$module = new \SetaPDF_Signer_Signature_Module_Pades();
+$module = new PadesModule();
 // pass the path to the certificate
 $module->setCertificate('file://' . $certificatePath);
 $module->setPrivateKey('file://' . $certificatePath, '');
 
 // creat an appearance module instance
-$appearance = new \SetaPDF_Signer_Signature_Appearance_Dynamic($module);
+$appearance = new Dynamic($module);
 // pass it to the signer instance
 $signer->setAppearance($appearance);
 
@@ -46,18 +54,18 @@ $signer->sign($module);
 
 
 // create the final writer
-$writer = new \SetaPDF_Core_Writer_Http('several-signatures.pdf', true);
+$writer = new HttpWriter('several-signatures.pdf', true);
 
 // create a new document instance based on the temporary result
-$document = \SetaPDF_Core_Document::loadByString($tempWriter, $writer);
+$document = Document::loadByString($tempWriter, $writer);
 
 // create a signer instance
-$signer = new \SetaPDF_Signer($document);
+$signer = new Signer($document);
 // add a visible signature field
 $field = $signer->addSignatureField(
-    \SetaPDF_Signer_SignatureField::DEFAULT_FIELD_NAME,
+    SignatureField::DEFAULT_FIELD_NAME,
     1,
-    \SetaPDF_Signer_SignatureField::POSITION_RIGHT_TOP,
+    SignatureField::POSITION_RIGHT_TOP,
     ['x' => -160, 'y' => -200],
     180,
     70
@@ -68,15 +76,15 @@ $signer->setSignatureFieldName($field->getQualifiedName());
 $certificatePath = $assetsDirectory . '/certificates/setapdf-no-pw.pem';
 
 // now create a signature module
-$module = new \SetaPDF_Signer_Signature_Module_Pades();
+$module = new PadesModule();
 // pass the path to the certificate
 $module->setCertificate('file://' . $certificatePath);
 $module->setPrivateKey('file://' . $certificatePath, '');
 
 // creat an appearance module instance
-$appearance = new \SetaPDF_Signer_Signature_Appearance_Dynamic($module);
+$appearance = new Dynamic($module);
 // pass it to the signer instance
 $signer->setAppearance($appearance);
 
-// sign the document and wriote the final document to the final writer
+// sign the document and write the final document to the final writer
 $signer->sign($module);

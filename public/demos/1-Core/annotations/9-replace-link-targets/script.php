@@ -1,5 +1,10 @@
 <?php
 
+use setasign\SetaPDF2\Core\Document;
+use setasign\SetaPDF2\Core\Document\Action\UriAction;
+use setasign\SetaPDF2\Core\Document\Page\Annotation\Annotation;
+use setasign\SetaPDF2\Core\Writer\HttpWriter;
+
 // load and register the autoload function
 require_once '../../../../../bootstrap.php';
 
@@ -14,9 +19,9 @@ $files = [
 $path = displayFiles($files);
 
 // create a writer
-$writer = new \SetaPDF_Core_Writer_Http('links-replaced.pdf', true);
+$writer = new HttpWriter('links-replaced.pdf', true);
 // create a document
-$document = \SetaPDF_Core_Document::loadByFilename($path, $writer);
+$document = Document::loadByFilename($path, $writer);
 
 // Get the pages helper
 $pages = $document->getCatalog()->getPages();
@@ -24,12 +29,12 @@ $pages = $document->getCatalog()->getPages();
 $linksFound = false;
 for ($pageNo = 1, $pageCount = $pages->count(); $pageNo <= $pageCount; $pageNo++) {
     $page = $pages->getPage($pageNo);
-    $linkAnnotations = $page->getAnnotations()->getAll(\SetaPDF_Core_Document_Page_Annotation::TYPE_LINK);
+    $linkAnnotations = $page->getAnnotations()->getAll(Annotation::TYPE_LINK);
 
-    /** @var \SetaPDF_Core_Document_Page_Annotation_Link $linkAnnotation */
+    /** @var \setasign\SetaPDF2\Core\Document\Page\Annotation\Link $linkAnnotation */
     foreach ($linkAnnotations AS $linkAnnotation) {
         $action = $linkAnnotation->getAction();
-        if ($action && $action instanceof \SetaPDF_Core_Document_Action_Uri) {
+        if ($action && $action instanceof UriAction) {
             // simply set the new URI
             $action->setUri('https://www.setasign.com');
             $linksFound = true;

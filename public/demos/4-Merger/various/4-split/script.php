@@ -1,20 +1,26 @@
 <?php
 
+use setasign\SetaPDF2\Core\Document;
+use setasign\SetaPDF2\Core\Writer\HttpWriter;
+use setasign\SetaPDF2\Core\Writer\StringWriter;
+use setasign\SetaPDF2\Merger\Merger;
+
 // load and register the autoload function
 require_once __DIR__ . '/../../../../../bootstrap.php';
 
 $pdfPath = $assetsDirectory . '/pdfs/Brand-Guide.pdf';
 
 // let's prepare a ZipArchive instance
-$zip = new ZipArchive();
+$zip = new \ZipArchive();
 $zipName = tempnam(sys_get_temp_dir(), 'zip');
-$zip->open($zipName, ZipArchive::CREATE);
+unlink($zipName);
+$zip->open($zipName, \ZipArchive::CREATE);
 
 // load the "in"-document
-$inDocument = \SetaPDF_Core_Document::loadByFilename($pdfPath);
+$inDocument = Document::loadByFilename($pdfPath);
 // to prevent multiple object resolving set this to true
 $inDocument->setCacheReferencedObjects(true);
-// keep read objects for reusage for other pages
+// keep read objects for re-usage for other pages
 $inDocument->setCleanUpObjects(false);
 // we want to work with the pages
 $pages = $inDocument->getCatalog()->getPages();
@@ -25,14 +31,14 @@ $pages->ensureAllPageObjects();
 for ($pageNumber = 1, $pageCount = $pages->count(); $pageNumber <= $pageCount; $pageNumber++) {
 
     // we create a new merger instance
-    $merger = new \SetaPDF_Merger();
+    $merger = new Merger();
     // add the individual page of the "in"-document to the merger
     $merger->addDocument($inDocument, $pageNumber);
     // ...and merge
     $merger->merge();
 
     // create a writer which we can pass to the ZipArchive instance
-    $writer = new \SetaPDF_Core_Writer_String();
+    $writer = new StringWriter();
 
     // get the resulting document instance
     $resDocument = $merger->getDocument();
@@ -58,9 +64,8 @@ $zip->close();
 
 header('Content-Type: application/zip');
 header('Content-Length: ' . filesize($zipName));
-
 header('Content-Disposition: attachment; ' .
-    \SetaPDF_Core_Writer_Http::encodeFilenameForHttpHeader(basename($pdfPath, '.pdf') . '.zip')
+    HttpWriter::encodeFilenameForHttpHeader(basename($pdfPath, '.pdf') . '.zip')
 );
 readfile($zipName);
 

@@ -1,5 +1,15 @@
 <?php
 
+use setasign\SetaPDF2\Core\Canvas\GraphicState;
+use setasign\SetaPDF2\Core\Document;
+use setasign\SetaPDF2\Core\Geometry\Point;
+use setasign\SetaPDF2\Core\Geometry\Rectangle;
+use setasign\SetaPDF2\Core\Geometry\Vector;
+use setasign\SetaPDF2\FormFiller\Field\AbstractField;
+use setasign\SetaPDF2\FormFiller\Field\FieldInterface;
+use setasign\SetaPDF2\FormFiller\Field\RadioButtonGroup;
+use setasign\SetaPDF2\FormFiller\FormFiller;
+
 // load and register the autoload function
 require_once __DIR__ . '/../../../../../bootstrap.php';
 
@@ -13,8 +23,8 @@ $files = [
 $file = displayFiles($files);
 $dpi = 72;
 
-$document = \SetaPDF_Core_Document::loadByFilename($file);
-$formFiller = new SetaPDF_FormFiller($document);
+$document = Document::loadByFilename($file);
+$formFiller = new FormFiller($document);
 $fields = $formFiller->getFields();
 
 $pages = $document->getCatalog()->getPages();
@@ -26,7 +36,7 @@ for ($pageNo = 1; $pageNo <= $pages->count(); $pageNo++) {
         $cmd = 'mutool draw -F png -r ' . escapeshellarg($dpi) . ' -o ' . escapeshellarg($imageFile)
             . ' ' . escapeshellarg($file) . ' ' . escapeshellarg($pageNo);
 
-        exec($cmd, $ouput, $resultCode);
+        exec($cmd, $output, $resultCode);
 
         if ($resultCode !== 0) {
             echo 'Thumbnail could not be generated. Please make sure that ' .
@@ -36,7 +46,7 @@ for ($pageNo = 1; $pageNo <= $pages->count(); $pageNo++) {
         }
     }
 
-    $document = \SetaPDF_Core_Document::loadByFilename($file);
+    $document = Document::loadByFilename($file);
     $page = $document->getCatalog()->getPages()->getPage($pageNo);
 
     // this is the factor between points and px
@@ -48,7 +58,7 @@ for ($pageNo = 1; $pageNo <= $pages->count(); $pageNo++) {
     $rotation = $page->getRotation();
 
     // now we create a graphic state instance
-    $gs = new \SetaPDF_Core_Canvas_GraphicState();
+    $gs = new GraphicState();
     // scale it by the DPI factor
     $gs->scale($dpiFactor, $dpiFactor);
 
@@ -72,16 +82,16 @@ for ($pageNo = 1; $pageNo <= $pages->count(); $pageNo++) {
     }
 
     // this little helper applies the graphic state to a given point
-    $f = static function(\SetaPDF_Core_Geometry_Point $p) use ($gs) {
-        $v = new \SetaPDF_Core_Geometry_Vector($p->getX(), $p->getY(), 0);
+    $f = static function(Point $p) use ($gs) {
+        $v = new Vector($p->getX(), $p->getY(), 0);
         return $v->multiply($gs->getCurrentTransformationMatrix())->toPoint();
     };
 
     // this helper draws the rect of a form field
-    $renderFieldRect = function(SetaPDF_FormFiller_Field_AbstractField $field, $fieldName) use ($f)
+    $renderFieldRect = function(AbstractField $field, $fieldName) use ($f)
     {
         $rect = $field->getAnnotation()->getRect()->getRectangle();
-        $rect = new \SetaPDF_Core_Geometry_Rectangle(
+        $rect = new Rectangle(
             $f($rect->getLl()),
             $f($rect->getUr())
         );
@@ -93,30 +103,29 @@ for ($pageNo = 1; $pageNo <= $pages->count(); $pageNo++) {
             '" title="' . htmlspecialchars($fieldName). '"></div>';
     };
 
-    ?>
-    <div style="position: relative; width: <?=$pageWidth?>px; height: <?=$pageHeight?>;
-            border: 1px solid lightgrey; margin-bottom: 5px;"
-    >
-        <img src="<?=$imageFile?>" style="position: absolute; width: <?=$pageWidth?>px; height: <?=$pageHeight?>;" />
-        <?php
-        /**
-         * @var string $fieldName
-         * @var SetaPDF_FormFiller_Field_FieldInterface $field
-         */
-        foreach ($fields->getAll() as $fieldName => $field) {
-            if ($field instanceof SetaPDF_FormFiller_Field_AbstractField) {
-                if ($field->getPageNumber() === $pageNo) {
-                    $renderFieldRect($field, $fieldName);
-                }
-            } elseif ($field instanceof SetaPDF_FormFiller_Field_ButtonGroup) {
-                foreach ($field->getButtons() as $button) {
-                    if ($button->getPageNumber() === $pageNo) {
-                        $renderFieldRect($button, $fieldName);
-                    }
+    echo <<<HTML
+    <div style="position: relative; width: {$pageWidth}px; height: {$pageHeight}px;
+            border: 1px solid lightgrey; margin-bottom: 5px;">
+        <img src="$imageFile" style="position: absolute; width: {$pageWidth}px; height: {$pageHeight}px;" />
+HTML;
+
+    /**
+     * @var string $fieldName
+     * @var FieldInterface $field
+     */
+    foreach ($fields->getAll() as $fieldName => $field) {
+        if ($field instanceof AbstractField) {
+            if ($field->getPageNumber() === $pageNo) {
+                $renderFieldRect($field, $fieldName);
+            }
+        } elseif ($field instanceof RadioButtonGroup) {
+            foreach ($field->getButtons() as $button) {
+                if ($button->getPageNumber() === $pageNo) {
+                    $renderFieldRect($button, $fieldName);
                 }
             }
         }
-        ?>
-    </div>
-    <?php
+    }
+
+    echo '</div>';
 }

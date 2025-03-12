@@ -1,6 +1,14 @@
 <?php
 
-namespace com\setasign\SetaPDF\Demos\Inspector;
+namespace setasign\SetaPDF2\Demos\Inspector;
+
+use setasign\SetaPDF2\Core\Document;
+use setasign\SetaPDF2\Core\Resource\ResourceInterface;
+use setasign\SetaPDF2\Core\Type\PdfDictionary;
+use setasign\SetaPDF2\Core\XObject\XObject;
+use setasign\SetaPDF2\Core\XObject\Form;
+use setasign\SetaPDF2\Core\XObject\Image;
+use setasign\SetaPDF2\Exception\NotImplemented;
 
 /**
  * Class TransparencyInspector
@@ -8,7 +16,7 @@ namespace com\setasign\SetaPDF\Demos\Inspector;
 class TransparencyInspector
 {
     /**
-     * @var \SetaPDF_Core_Document
+     * @var Document
      */
     protected $_document;
 
@@ -29,9 +37,9 @@ class TransparencyInspector
     /**
      * The constructor
      *
-     * @param \SetaPDF_Core_Document $document
+     * @param Document $document
      */
-    public function __construct(\SetaPDF_Core_Document $document)
+    public function __construct(Document $document)
     {
         $this->_document = $document;
     }
@@ -51,12 +59,12 @@ class TransparencyInspector
 
             $this->_currentLocation = ['Page ' . $pageNo];
 
-            $xObjects = $page->getCanvas()->getResources(true, false, \SetaPDF_Core_Resource::TYPE_X_OBJECT);
+            $xObjects = $page->getCanvas()->getResources(true, false, ResourceInterface::TYPE_X_OBJECT);
             if ($xObjects) {
                 $this->_processXObjects($xObjects);
             }
 
-            $graphicStates = $page->getCanvas()->getResources(true, false, \SetaPDF_Core_Resource::TYPE_EXT_G_STATE);
+            $graphicStates = $page->getCanvas()->getResources(true, false, ResourceInterface::TYPE_EXT_G_STATE);
             if ($graphicStates) {
                 $this->_processGraphicStates($graphicStates);
             }
@@ -68,9 +76,9 @@ class TransparencyInspector
     /**
      * Check graphic states for transparency.
      *
-     * @param \SetaPDF_Core_Type_Dictionary $graphicStates
+     * @param PdfDictionary $graphicStates
      */
-    protected function _processGraphicStates(\SetaPDF_Core_Type_Dictionary $graphicStates)
+    protected function _processGraphicStates(PdfDictionary $graphicStates)
     {
         $root = $this->_currentLocation;
         foreach ($graphicStates AS $name => $graphicState) {
@@ -78,7 +86,7 @@ class TransparencyInspector
             $this->_currentLocation[] = 'GraphicState (' . $name . ')';
 
             $dictionary = $graphicState->ensure();
-            if (!$dictionary instanceof \SetaPDF_Core_Type_Dictionary) {
+            if (!$dictionary instanceof PdfDictionary) {
                 continue;
             }
 
@@ -110,20 +118,20 @@ class TransparencyInspector
     /**
      * Check XObjects for transparency.
      *
-     * @param \SetaPDF_Core_Type_Dictionary $xObjects
-     * @throws \SetaPDF_Exception_NotImplemented
+     * @param PdfDictionary $xObjects
+     * @throws NotImplemented
      */
-    protected function _processXObjects(\SetaPDF_Core_Type_Dictionary $xObjects)
+    protected function _processXObjects(PdfDictionary $xObjects)
     {
         $root = $this->_currentLocation;
         foreach ($xObjects AS $name => $xObject) {
             $this->_currentLocation = $root;
             $this->_currentLocation[] = 'XObject (' . $name . ')';
 
-            $xObject = \SetaPDF_Core_XObject::get($xObject);
+            $xObject = XObject::get($xObject);
 
             // images
-            if ($xObject instanceof \SetaPDF_Core_XObject_Image) {
+            if ($xObject instanceof Image) {
                 $dictionary = $xObject->getIndirectObject()->ensure()->getValue();
 
                 /* An image XObject may contain its own soft-mask image in the form of a subsidiary image XObject in the
@@ -151,13 +159,13 @@ class TransparencyInspector
                 }
 
             // form XObjects
-            } elseif ($xObject instanceof \SetaPDF_Core_XObject_Form) {
-                $_xObjects = $xObject->getCanvas()->getResources(true, false, \SetaPDF_Core_Resource::TYPE_X_OBJECT);
+            } elseif ($xObject instanceof Form) {
+                $_xObjects = $xObject->getCanvas()->getResources(true, false, ResourceInterface::TYPE_X_OBJECT);
                 if ($_xObjects) {
                     $this->_processXObjects($_xObjects);
                 }
 
-                $graphicStates = $xObject->getCanvas()->getResources(true, false, \SetaPDF_Core_Resource::TYPE_EXT_G_STATE);
+                $graphicStates = $xObject->getCanvas()->getResources(true, false, ResourceInterface::TYPE_EXT_G_STATE);
                 if ($graphicStates) {
                     $this->_processGraphicStates($graphicStates);
                 }

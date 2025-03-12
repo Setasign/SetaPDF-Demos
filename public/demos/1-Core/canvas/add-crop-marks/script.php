@@ -1,13 +1,16 @@
 <?php
 
+use setasign\SetaPDF2\Core\Document;
+use setasign\SetaPDF2\Core\Writer\HttpWriter;
+
 // load and register the autoload function
 require_once '../../../../../bootstrap.php';
 
 // create a writer instance
-$writer = new \SetaPDF_Core_Writer_Http('with-crop-marks.pdf', true);
+$writer = new HttpWriter('with-crop-marks.pdf', true);
 
 // create a document instance
-$document = SetaPDF_Core_Document::loadByFilename($assetsDirectory . '/pdfs/camtown/Business-Card-filled.pdf', $writer);
+$document = Document::loadByFilename($assetsDirectory . '/pdfs/camtown/Business-Card-filled.pdf', $writer);
 
 $pages = $document->getCatalog()->getPages();
 

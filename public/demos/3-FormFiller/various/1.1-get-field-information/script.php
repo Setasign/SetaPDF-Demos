@@ -1,5 +1,13 @@
 <?php
 
+use setasign\SetaPDF2\Core\Document;
+use setasign\SetaPDF2\FormFiller\Field\CheckboxButtonField;
+use setasign\SetaPDF2\FormFiller\Field\ComboField;
+use setasign\SetaPDF2\FormFiller\Field\ListField;
+use setasign\SetaPDF2\FormFiller\Field\RadioButtonGroup;
+use setasign\SetaPDF2\FormFiller\Field\TextField;
+use setasign\SetaPDF2\FormFiller\FormFiller;
+
 // load and register the autoload function
 require_once __DIR__ . '/../../../../../bootstrap.php';
 
@@ -25,10 +33,10 @@ function drawPropertyTable($caption, $data) {
 }
 
 // create the document instance
-$document = \SetaPDF_Core_Document::loadByFilename($path);
+$document = Document::loadByFilename($path);
 
 // now get an instance of the form filler
-$formFiller = new \SetaPDF_FormFiller($document);
+$formFiller = new FormFiller($document);
 
 // Get the form fields of the document
 $fields = $formFiller->getFields();
@@ -36,7 +44,7 @@ $fields = $formFiller->getFields();
 echo '<h1>' . basename($path) . '</h1>';
 echo '<p>Field count: ' . count($fields) . '</p>';
 
-// walk trough the fields
+// walk through the fields
 foreach ($fields AS $name => $field) {
     $type = get_class($field);
 
@@ -79,16 +87,16 @@ foreach ($fields AS $name => $field) {
 
     switch ($type) {
         // Button / Checkbox
-        case \SetaPDF_FormFiller_Field_Button::class:
-            /** @var \SetaPDF_FormFiller_Field_Button $field */
+        case CheckboxButtonField::class:
+            /** @var CheckboxButtonField $field */
             $typeProps['Rect'] = $field->getAnnotation()->getRect()->toPhp();
             $typeProps['Default Value'] = $field->getDefaultValue();
             $typeProps['Checked'] = ($field->isChecked() ? 'Yes' : 'No');
             $typeProps['Export Value'] = $field->getExportValue();
             break;
         // Radio buttons
-        case \SetaPDF_FormFiller_Field_ButtonGroup::class:
-            /** @var \SetaPDF_FormFiller_Field_ButtonGroup $field */
+        case RadioButtonGroup::class:
+            /** @var RadioButtonGroup $field */
             $typeProps['Value'] = $field->getValue();
             $typeProps['Default Value'] = $field->getDefaultValue();
 
@@ -96,7 +104,7 @@ foreach ($fields AS $name => $field) {
             $buttons = $field->getButtons();
             $propValue = [];
             foreach ($buttons AS $button) {
-                /** @var \SetaPDF_FormFiller_Field_Button $button */
+                /** @var CheckboxButtonField $button */
                 $propValue[$button->getQualifiedName()] = [
                     'Checked' => $button->isChecked() ? 'Yes' : 'No',
                     'Export Value' => $button->getExportValue(),
@@ -108,8 +116,8 @@ foreach ($fields AS $name => $field) {
             break;
 
         // List field
-        case \SetaPDF_FormFiller_Field_List::class:
-            /** @var \SetaPDF_FormFiller_Field_List $field */
+        case ListField::class:
+            /** @var ListField $field */
             $typeProps['Rect'] = $field->getAnnotation()->getRect()->toPhp();
             $typeProps['Is multi-select'] = ($field->isMultiSelect() ? 'Yes' : 'No');
             $typeProps['Default Value'] = print_r($field->getDefaultValue(), true);
@@ -119,8 +127,8 @@ foreach ($fields AS $name => $field) {
             break;
 
         // Combo Box / Select field
-        case \SetaPDF_FormFiller_Field_Combo::class:
-            /** @var \SetaPDF_FormFiller_Field_Combo $field */
+        case ComboField::class:
+            /** @var ComboField $field */
             $typeProps['Rect'] = $field->getAnnotation()->getRect()->toPhp();
             $typeProps['Is editable'] = ($field->isEditable() ? 'Yes' : 'No');
             $typeProps['Default Value'] = $field->getDefaultValue();
@@ -130,8 +138,8 @@ foreach ($fields AS $name => $field) {
             break;
 
         // Text field
-        case \SetaPDF_FormFiller_Field_Text::class:
-            /** @var \SetaPDF_FormFiller_Field_Text $field */
+        case TextField::class:
+            /** @var TextField $field */
             $typeProps['Rect'] = $field->getAnnotation()->getRect()->toPhp();
             $typeProps['Max Length'] = $field->getMaxLength();
             $typeProps['Multiline'] = ($field->isMultiline() ? 'Yes' : 'No');

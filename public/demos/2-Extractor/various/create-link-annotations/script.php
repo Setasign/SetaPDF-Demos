@@ -1,5 +1,16 @@
 <?php
 
+use setasign\SetaPDF2\Core\Document;
+use setasign\SetaPDF2\Core\Document\Page\Annotation\BorderStyle;
+use setasign\SetaPDF2\Core\Document\Page\Annotation\Link;
+use setasign\SetaPDF2\Core\Exception as CoreException;
+use setasign\SetaPDF2\Core\Writer\HttpWriter;
+use setasign\SetaPDF2\Extractor\Extractor;
+use setasign\SetaPDF2\Extractor\Result\Collection;
+use setasign\SetaPDF2\Extractor\Result\Word;
+use setasign\SetaPDF2\Extractor\Result\WordWithGlyphs;
+use setasign\SetaPDF2\Extractor\Strategy\Word as WordStrategy;
+
 // load and register the autoload function
 require_once __DIR__ . '/../../../../../bootstrap.php';
 
@@ -10,18 +21,18 @@ $files = [
 
 $file = displayFiles($files);
 
-$writer = new \SetaPDF_Core_Writer_Http('with-links.pdf', true);
-$document = \SetaPDF_Core_Document::loadByFilename($file, $writer);
+$writer = new HttpWriter('with-links.pdf', true);
+$document = Document::loadByFilename($file, $writer);
 
 $pages = $document->getCatalog()->getPages();
 
 // initiate an extractor instance
-$extractor = new \SetaPDF_Extractor($document);
+$extractor = new Extractor($document);
 
 // define the word strategy and
-$strategy = new \SetaPDF_Extractor_Strategy_Word();
+$strategy = new WordStrategy();
 // set the detail level
-$strategy->setDetailLevel(\SetaPDF_Extractor_Strategy_Word::DETAIL_LEVEL_GLYPHS);
+$strategy->setDetailLevel(WordStrategy::DETAIL_LEVEL_GLYPHS);
 // ...pass it to the extractor instance
 $extractor->setStrategy($strategy);
 
@@ -31,14 +42,12 @@ $sorter = $strategy->getSorter();
 /**
  * Proxy method to itemsJoining() method of the sorter class.
  *
- * @param \SetaPDF_Extractor_Result_WordWithGlyphs $left
- * @param \SetaPDF_Extractor_Result_WordWithGlyphs $right
+ * @param WordWithGlyphs $left
+ * @param WordWithGlyphs $right
  * @return bool
+ * @throws CoreException
  */
-$wordsJoining = function(
-    \SetaPDF_Extractor_Result_WordWithGlyphs $left, \SetaPDF_Extractor_Result_WordWithGlyphs $right
-) use ($sorter)
-{
+$wordsJoining = function(WordWithGlyphs $left, WordWithGlyphs $right) use ($sorter) {
     return $sorter->itemsJoining(
         $left->getGlyphs()[count($left->getGlyphs()) - 1]->getTextItem(),
         $right->getGlyphs()[0]->getTextItem()
@@ -47,7 +56,7 @@ $wordsJoining = function(
 
 for ($pageNo = 1; $pageNo <= $pages->count(); $pageNo++) {
     /**
-     * @var \SetaPDF_Extractor_Result_Word $words[]
+     * @var Word $words[]
      */
     $words = $extractor->getResultByPageNumber($pageNo);
 
@@ -56,7 +65,7 @@ for ($pageNo = 1; $pageNo <= $pages->count(); $pageNo++) {
 
     // let's try to find the links
     /**
-     * @var \SetaPDF_Extractor_Result_WordWithGlyphs[] $words
+     * @var WordWithGlyphs[] $words
      */
     for ($i = 0, $wordCount = count($words); $i < $wordCount; $i++) {
         $word = $words[$i];
@@ -101,13 +110,13 @@ for ($pageNo = 1; $pageNo <= $pages->count(); $pageNo++) {
                 }
 
                 // we have a link, now get the bounds of it and...
-                $linkItems = new \SetaPDF_Extractor_Result_Collection($linkItems);
+                $linkItems = new Collection($linkItems);
                 $bounds = $linkItems->getBounds();
                 $ll = $bounds[0]->getLl();
                 $ur = $bounds[0]->getUr();
 
                 // ...add a link annotation
-                $annotation = new \SetaPDF_Core_Document_Page_Annotation_Link(
+                $annotation = new Link(
                     [$ll->getX(), $ll->getY(), $ur->getX(), $ur->getY()],
                     $link
                 );
@@ -116,7 +125,7 @@ for ($pageNo = 1; $pageNo <= $pages->count(); $pageNo++) {
                 $annotation->setColor([1, 0, 0]);
                 $annotation->getBorderStyle()
                     ->setWidth(1)
-                    ->setStyle(\SetaPDF_Core_Document_Page_Annotation_BorderStyle::DASHED)
+                    ->setStyle(BorderStyle::DASHED)
                     ->setDashPattern([2, 2]);
 
                 $annotations->add($annotation);
@@ -155,13 +164,13 @@ for ($pageNo = 1; $pageNo <= $pages->count(); $pageNo++) {
                 }
 
                 // we have a valid email address, so get the bounds and...
-                $emailItems = new \SetaPDF_Extractor_Result_Collection($emailItems);
+                $emailItems = new Collection($emailItems);
                 $bounds = $emailItems->getBounds();
                 $ll = $bounds[0]->getLl();
                 $ur = $bounds[0]->getUr();
 
                 // ...add a link annotation
-                $annotation = new \SetaPDF_Core_Document_Page_Annotation_Link(
+                $annotation = new Link(
                     [$ll->getX(), $ll->getY(), $ur->getX(), $ur->getY()],
                     'mailto:' . $email
                 );
@@ -170,7 +179,7 @@ for ($pageNo = 1; $pageNo <= $pages->count(); $pageNo++) {
                 $annotation->setColor([0, 1, 0]);
                 $annotation->getBorderStyle()
                     ->setWidth(1)
-                    ->setStyle(\SetaPDF_Core_Document_Page_Annotation_BorderStyle::DASHED)
+                    ->setStyle(BorderStyle::DASHED)
                     ->setDashPattern([2, 2]);
 
                 $annotations->add($annotation);

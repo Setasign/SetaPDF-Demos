@@ -11,14 +11,14 @@ if (PHP_SAPI === 'cli-server') {
 
 require_once __DIR__ . '/../bootstrap.php';
 
-$scriptName = isset($_SERVER['SCRIPT_NAME']) ? $_SERVER['SCRIPT_NAME'] : '/index.php';
+$scriptName = $_SERVER['SCRIPT_NAME'] ?? '/index.php';
 $base = rtrim(str_replace(DIRECTORY_SEPARATOR, '/', dirname($scriptName)), '/') . '/';
 
 $demosDirectory = __DIR__ . '/demos';
-$requestPath = isset($_GET['p']) ? $_GET['p'] : '';
+$requestPath = $_GET['p'] ?? '';
 $isDemo = (strpos($requestPath, '/demo/') === 0);
 if ($requestPath === 'previewFile') {
-    $file = isset($_GET['f']) ? $_GET['f'] : '';
+    $file = $_GET['f'] ?? '';
     if (strpos($file, '/assets/') === 0 && strpos($file, '..') === false) {
         $file = __DIR__ . '/..' . $file;
 
@@ -47,7 +47,7 @@ if ($requestPath === 'previewFile') {
     } else {
         throw new RuntimeException('Unknown extension!');
     }
-    $inline = isset($_GET['inline']) ? $_GET['inline'] : true;
+    $inline = $_GET['inline'] ?? true;
     header('Content-Type: ' . $contentType);
     if ($inline) {
         header('Content-Disposition: inline; filename="' . basename($file) . '";');
@@ -76,14 +76,14 @@ $sorter = static function($a, $b) {
     $b = pathinfo($b, PATHINFO_BASENAME);
 
     if (is_numeric($a[0])) {
-        $a = (float)strstr($a, '-', true);
+        $a = (float) strstr($a, '-', true);
     }
 
     if (is_numeric($b[0])) {
-        $b = (float)strstr($b, '-', true);
+        $b = (float) strstr($b, '-', true);
     }
 
-    return $a > $b ? 1 : -1;
+    return $a <=> $b;
 };
 
 ob_start();
@@ -119,25 +119,25 @@ echo <<<HTML
 HTML;
 
 $availablePackages = [];
-if (class_exists(SetaPDF_Core::class)) {
+if (class_exists(\setasign\SetaPDF2\Core\Core::class)) {
     $availablePackages[] = 'SetaPDF-Core';
 }
-if (class_exists(SetaPDF_Extractor::class)) {
+if (class_exists(\setasign\SetaPDF2\Extractor\Extractor::class)) {
     $availablePackages[] = 'SetaPDF-Extractor';
 }
-if (class_exists(SetaPDF_FormFiller::class)) {
+if (class_exists(\setasign\SetaPDF2\FormFiller\FormFiller::class)) {
     $availablePackages[] = 'SetaPDF-FormFiller';
-    if (class_exists(SetaPDF_FormFiller_Field_List::class)) {
+    if (class_exists(\setasign\SetaPDF2\FormFiller\Field\ListField::class)) {
         $availablePackages[] = 'SetaPDF-FormFiller Full';
     }
 }
-if (class_exists(SetaPDF_Merger::class)) {
+if (class_exists(\setasign\SetaPDF2\Merger\Merger::class)) {
     $availablePackages[] = 'SetaPDF-Merger';
 }
-if (class_exists(SetaPDF_Signer::class)) {
+if (class_exists(\setasign\SetaPDF2\Signer\Signer::class)) {
     $availablePackages[] = 'SetaPDF-Signer';
 }
-if (class_exists(SetaPDF_Stamper::class)) {
+if (class_exists(\setasign\SetaPDF2\Stamper\Stamper::class)) {
     $availablePackages[] = 'SetaPDF-Stamper';
 }
 
@@ -320,7 +320,7 @@ if ($isDemo) {
 
     echo '<div class="step execute">'
         . '<iframe data-src="./demos/' . $requestPath . '/script.php" src="data:text/html;base64,'
-        . base64_encode(isset($demoData['iframePlaceholder']) ? $demoData['iframePlaceholder'] : 'Download started...')
+        . base64_encode($demoData['iframePlaceholder'] ?? 'Download started...')
         . '" frameborder="0" style="width: 100%; height: 100%;">'
         . '</iframe>'
         . '</div>'
@@ -421,13 +421,13 @@ if ($isDemo) {
             $metaData = json_decode(file_get_contents($dir . '/meta.json'), true);
         }
 
-        $name = isset($metaData['name']) ? $metaData['name'] : basename($dir);
-        $teaserText = isset($metaData['teaserText']) ? $metaData['teaserText'] : '';
+        $name = $metaData['name'] ?? basename($dir);
+        $teaserText = $metaData['teaserText'] ?? '';
         $path = substr($dir, strlen($demosDirectory));
-        $requires = isset($metaData['requires']) ? $metaData['requires'] : [];
+        $requires = $metaData['requires'] ?? [];
         $hasIcon = file_exists($dir . '/icon.png');
-        $faIcon = isset($metaData['faIcon']) ? $metaData['faIcon'] : '&#xf07c;';
-        $faIcon2 = isset($metaData['faIcon2']) ? $metaData['faIcon2'] : false;
+        $faIcon = $metaData['faIcon'] ?? '&#xf07c;';
+        $faIcon2 = $metaData['faIcon2'] ?? false;
 
         $missingRequires = [];
         foreach ($requires as $require) {
@@ -471,13 +471,13 @@ if ($isDemo) {
     foreach ($demoPaths as $demo) {
         $demoDirectory = dirname($demo);
         $demoData = json_decode(file_get_contents($demo), true);
-        $name = isset($demoData['name']) ? $demoData['name'] : basename($demoDirectory);
-        $teaserText = isset($demoData['teaserText']) ? $demoData['teaserText'] : '';
-        $requires = isset($demoData['requires']) ? $demoData['requires'] : [];
+        $name = $demoData['name'] ?? basename($demoDirectory);
+        $teaserText = $demoData['teaserText'] ?? '';
+        $requires = $demoData['requires'] ?? [];
         $hasIcon = file_exists($demoDirectory . '/icon.png');
         $path = '/demo' . substr($demoDirectory, strlen($demosDirectory));
-        $faIcon = isset($demoData['faIcon']) ? $demoData['faIcon'] : '&#xf121;';
-        $faIcon2 = isset($demoData['faIcon2']) ? $demoData['faIcon2'] : false;
+        $faIcon = $demoData['faIcon'] ?? '&#xf121;';
+        $faIcon2 = $demoData['faIcon2'] ?? false;
 
         $missingRequires = [];
         foreach ($requires as $require) {

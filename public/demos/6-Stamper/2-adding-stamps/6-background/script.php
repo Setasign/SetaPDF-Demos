@@ -1,31 +1,37 @@
 <?php
 
+use setasign\SetaPDF2\Core\Document;
+use setasign\SetaPDF2\Core\Document\Page;
+use setasign\SetaPDF2\Core\Writer\HttpWriter;
+use setasign\SetaPDF2\Stamper\Stamp\Pdf as PdfStamp;
+use setasign\SetaPDF2\Stamper\Stamper;
+
 // load and register the autoload function
 require_once __DIR__ . '/../../../../../bootstrap.php';
 
 // create a writer
-$writer = new \SetaPDF_Core_Writer_Http('background.pdf', true);
+$writer = new HttpWriter('background.pdf', true);
 // get a document instance
-$document = \SetaPDF_Core_Document::loadByFilename(
+$document = Document::loadByFilename(
     $assetsDirectory . '/pdfs/tektown/Laboratory-Report.pdf',
     $writer
 );
 
 // create a stamper instance
-$stamper = new \SetaPDF_Stamper($document);
+$stamper = new Stamper($document);
 
 // initiate the stamp - we use a PDF page as the background
-$stamp = new \SetaPDF_Stamper_Stamp_Pdf($assetsDirectory . '/pdfs/crumpled-paper.pdf');
+$stamp = new PdfStamp($assetsDirectory . '/pdfs/crumpled-paper.pdf');
 
 // add stamp to the stamper
 $stamper->addStamp($stamp, [
     'underlay' => true,
     // we use a callback to adjust the stamp size to the page size
     'callback' => static function(
-        $pageNumber,
-        $pageCount,
-        \SetaPDF_Core_Document_Page $page,
-        \SetaPDF_Stamper_Stamp_Pdf $stamp
+        int $pageNumber,
+        int $pageCount,
+        Page $page,
+        PdfStamp $stamp
     ) {
         $stamp->setWidth($page->getWidth());
         $stamp->setHeight($page->getHeight());

@@ -1,27 +1,34 @@
 <?php
 
-use com\setasign\SetaPDF\Demos\Signer\Appearance\OnAllPages as AppearanceOnAllPages;
+use setasign\SetaPDF2\Demos\Signer\Appearance\OnAllPages as AppearanceOnAllPages;
+use setasign\SetaPDF2\Core\Document;
+use setasign\SetaPDF2\Core\Font\Type0\Subset;
+use setasign\SetaPDF2\Core\Writer\HttpWriter;
+use setasign\SetaPDF2\Signer\Signature\Appearance\Dynamic;
+use setasign\SetaPDF2\Signer\Signature\Module\Pades as PadesModule;
+use setasign\SetaPDF2\Signer\SignatureField;
+use setasign\SetaPDF2\Signer\Signer;
 
 // load and register the autoload function
 require_once __DIR__ . '/../../../../../bootstrap.php';
 // load the wrapper class
 require_once __DIR__ . '/../../../../../classes/Signer/Appearance/OnAllPages.php';
 
-$writer = new \SetaPDF_Core_Writer_Http('several-appearances.pdf', true);
-$document = \SetaPDF_Core_Document::loadByFilename(
+$writer = new HttpWriter('several-appearances.pdf', true);
+$document = Document::loadByFilename(
     $assetsDirectory . '/pdfs/Brand-Guide.pdf',
 //    $assetsDirectory . '/pdfs/misc/rotated/all.pdf',
     $writer
 );
 
 // create a signer instance
-$signer = new \SetaPDF_Signer($document);
+$signer = new Signer($document);
 
 // add a visible signature field
 $field = $signer->addSignatureField(
-    \SetaPDF_Signer_SignatureField::DEFAULT_FIELD_NAME,
+    SignatureField::DEFAULT_FIELD_NAME,
     1,
-    \SetaPDF_Signer_SignatureField::POSITION_RIGHT_BOTTOM,
+    SignatureField::POSITION_RIGHT_BOTTOM,
     ['x' => -10, 'y' => 10],
     180,
     60
@@ -36,16 +43,16 @@ $signer->setName('www.setasign.com');
 $certificatePath = $assetsDirectory . '/certificates/setapdf-no-pw.pem';
 
 // now create a signature module
-$module = new \SetaPDF_Signer_Signature_Module_Pades();
+$module = new PadesModule();
 // pass the path to the certificate
 $module->setCertificate('file://' . $certificatePath);
 // set the path to the private key (in this demo the key is also saved in the certificate file)
 $module->setPrivateKey('file://' . $certificatePath, '');
 
 // now create the appearance module and pass the signature module along
-$appearance = new \SetaPDF_Signer_Signature_Appearance_Dynamic($module);
+$appearance = new Dynamic($module);
 // let's create a font instance to not use standard fonts (not embedded)
-$font = new \SetaPDF_Core_Font_Type0_Subset(
+$font = new Subset(
     $document,
     $assetsDirectory . '/fonts/DejaVu/ttf/DejaVuSans.ttf'
 );

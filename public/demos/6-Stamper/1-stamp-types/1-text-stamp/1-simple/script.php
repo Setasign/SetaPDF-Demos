@@ -1,5 +1,11 @@
 <?php
 
+use setasign\SetaPDF2\Core\Document;
+use setasign\SetaPDF2\Core\Font\TrueType\Subset;
+use setasign\SetaPDF2\Core\Writer\HttpWriter;
+use setasign\SetaPDF2\Stamper\Stamp\Text as TextStamp;
+use setasign\SetaPDF2\Stamper\Stamper;
+
 // load and register the autoload function
 require_once __DIR__ . '/../../../../../../bootstrap.php';
 
@@ -11,14 +17,14 @@ $files = [
 
 $path = displayFiles($files);
 
-$writer = new \SetaPDF_Core_Writer_Http('stamped.pdf', true);
-$document = \SetaPDF_Core_Document::loadByFilename($path, $writer);
+$writer = new HttpWriter('stamped.pdf', true);
+$document = Document::loadByFilename($path, $writer);
 
 // create a stamper instance
-$stamper = new \SetaPDF_Stamper($document);
+$stamper = new Stamper($document);
 
 // create a font instance which is needed for the text stamp instance
-$font = new \SetaPDF_Core_Font_TrueType_Subset(
+$font = new Subset(
     $document,
     $assetsDirectory . '/fonts/DejaVu/ttf/DejaVuSans.ttf'
 );
@@ -26,7 +32,7 @@ $font = new \SetaPDF_Core_Font_TrueType_Subset(
 $fontSize = 12;
 
 // create a stamp instance
-$stamp = new \SetaPDF_Stamper_Stamp_Text($font, $fontSize);
+$stamp = new TextStamp($font, $fontSize);
 // set a text
 $stamp->setText('A simple example text.');
 

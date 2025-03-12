@@ -1,23 +1,29 @@
 <?php
 
+use setasign\SetaPDF2\Core\Document;
+use setasign\SetaPDF2\Core\Image\Image;
+use setasign\SetaPDF2\Core\Writer\HttpWriter;
+use setasign\SetaPDF2\Stamper\Stamp\Image as ImageStamp;
+use setasign\SetaPDF2\Stamper\Stamper;
+
 // load and register the autoload function
 require_once __DIR__ . '/../../../../../../bootstrap.php';
 
 // create a writer
-$writer = new \SetaPDF_Core_Writer_Http('image-stamp.pdf', true);
+$writer = new HttpWriter('image-stamp.pdf', true);
 // get a document instance
-$document = \SetaPDF_Core_Document::loadByFilename(
+$document = Document::loadByFilename(
     $assetsDirectory . '/pdfs/Fact-Sheet-without-personalization.pdf',
     $writer
 );
 
 // create a stamper instance
-$stamper = new \SetaPDF_Stamper($document);
+$stamper = new Stamper($document);
 
 // get an image instance
-$image = \SetaPDF_Core_Image::getByPath($assetsDirectory . '/pdfs/camtown/Logo.png');
+$image = Image::getByPath($assetsDirectory . '/pdfs/camtown/Logo.png');
 // initiate the stamp
-$stamp = new \SetaPDF_Stamper_Stamp_Image($image);
+$stamp = new ImageStamp($image);
 // set height (and width until no setWidth is set the ratio will retain)
 $stamp->setHeight(23);
 

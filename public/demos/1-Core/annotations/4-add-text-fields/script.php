@@ -1,6 +1,12 @@
 <?php
 
-use com\setasign\SetaPDF\Demos\Annotation\Widget\TextField;
+use setasign\SetaPDF2\Demos\Annotation\Widget\TextField;
+use setasign\SetaPDF2\Core\Document;
+use setasign\SetaPDF2\Core\Document\Page\Annotation\BorderStyle;
+use setasign\SetaPDF2\Core\Font\Standard\Helvetica;
+use setasign\SetaPDF2\Core\PageFormats;
+use setasign\SetaPDF2\Core\Text\Text;
+use setasign\SetaPDF2\Core\Writer\HttpWriter;
 
 // load and register the autoload function
 require_once '../../../../../bootstrap.php';
@@ -8,12 +14,12 @@ require_once '../../../../../bootstrap.php';
 // require the text field class
 require_once('../../../../../classes/Annotation/Widget/TextField.php');
 
-$writer = new \SetaPDF_Core_Writer_Http('TextFields.pdf', true);
-$document = new \SetaPDF_Core_Document($writer);
+$writer = new HttpWriter('TextFields.pdf', true);
+$document = new Document($writer);
 
 // let's create a page to which we want to add the fields to
 $pages = $document->getCatalog()->getPages();
-$page = $pages->create(\SetaPDF_Core_PageFormats::A4);
+$page = $pages->create(PageFormats::A4);
 
 // prepare some variables we need later
 $acroForm = $document->getCatalog()->getAcroForm();
@@ -40,11 +46,11 @@ $colors = [
 ];
 
 $borderStyles = [
-    \SetaPDF_Core_Document_Page_Annotation_BorderStyle::BEVELED,
-    \SetaPDF_Core_Document_Page_Annotation_BorderStyle::DASHED,
-    \SetaPDF_Core_Document_Page_Annotation_BorderStyle::INSET,
-    \SetaPDF_Core_Document_Page_Annotation_BorderStyle::SOLID,
-    \SetaPDF_Core_Document_Page_Annotation_BorderStyle::UNDERLINE
+    BorderStyle::BEVELED,
+    BorderStyle::DASHED,
+    BorderStyle::INSET,
+    BorderStyle::SOLID,
+    BorderStyle::UNDERLINE
 ];
 
 $borderSizes = [1, 2, 3, 4];
@@ -52,9 +58,9 @@ $borderSizes = [1, 2, 3, 4];
 $fontSizes = [0, 5, 8, 10, 12, 18, 24];
 
 $aligns = [
-    \SetaPDF_Core_Text::ALIGN_LEFT,
-    \SetaPDF_Core_Text::ALIGN_CENTER,
-    \SetaPDF_Core_Text::ALIGN_RIGHT
+    Text::ALIGN_LEFT,
+    Text::ALIGN_CENTER,
+    Text::ALIGN_RIGHT
 ];
 
 // let's define the postion of the first field
@@ -62,7 +68,7 @@ $x = $page->getCropBox()->getLlx() + 5;
 $y = $page->getCropBox()->getUrY() - 5;
 
 // we use the same font for all fields
-$font = \SetaPDF_Core_Font_Standard_Helvetica::create($document);
+$font = Helvetica::create($document);
 
 // let's create 18 text fields with random properties
 for ($i = 0; $i < 18; $i++) {

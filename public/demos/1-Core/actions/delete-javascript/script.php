@@ -1,5 +1,9 @@
 <?php
 
+use setasign\SetaPDF2\Core\Document;
+use setasign\SetaPDF2\Core\Document\Catalog\Names;
+use setasign\SetaPDF2\Core\Writer\HttpWriter;
+
 // load and register the autoload function
 require_once '../../../../../bootstrap.php';
 
@@ -12,12 +16,12 @@ $files = [
 $path = displayFiles($files);
 
 // create a document
-$document = \SetaPDF_Core_Document::loadByFilename($path);
+$document = Document::loadByFilename($path);
 
 // get names
 $names = $document->getCatalog()->getNames();
 // get the JavaScript name tree
-$javaScriptTree = $names->getTree(\SetaPDF_Core_Document_Catalog_Names::JAVA_SCRIPT);
+$javaScriptTree = $names->getTree(Names::JAVA_SCRIPT);
 
 $out = '';
 
@@ -33,7 +37,7 @@ if ($javaScriptTree) {
     }
 
     if ($shouldSave) {
-        $writer = new \SetaPDF_Core_Writer_Http();
+        $writer = new HttpWriter();
         $document->setWriter($writer);
         $document->save()->finish();
         die();

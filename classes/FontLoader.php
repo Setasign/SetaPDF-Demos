@@ -1,6 +1,9 @@
 <?php
 
-namespace com\setasign\SetaPDF\Demos;
+namespace setasign\SetaPDF2\Demos;
+
+use setasign\SetaPDF2\Core\Document;
+use setasign\SetaPDF2\Core\Font\Type0\Subset;
 
 /**
  * This is a simple, straight forward font-loader implementation.
@@ -9,7 +12,7 @@ namespace com\setasign\SetaPDF\Demos;
 class FontLoader
 {
     /**
-     * @var \SetaPDF_Core_Font_Type0_Subset[]
+     * @var Subset[]
      */
     protected $loadedFonts = [];
 
@@ -31,24 +34,24 @@ class FontLoader
     /**
      * This is the method that is called when a font is requested.
      *
-     * @param \SetaPDF_Core_Document $document
+     * @param Document $document
      * @param string $fontFamily
      * @param string $fontStyle
-     * @return \SetaPDF_Core_Font_Type0_Subset
+     * @return Subset
      */
-    public function __invoke(\SetaPDF_Core_Document $document, $fontFamily, $fontStyle)
+    public function __invoke(Document $document, string $fontFamily, string $fontStyle)
     {
         $cacheKey = $document->getInstanceIdent() . '_' . $fontFamily . '_' . $fontStyle;
         if (!array_key_exists($cacheKey, $this->loadedFonts)) {
-            $dejaVufontPath = $this->assetsDirectory . '/fonts/DejaVu/ttf/DejaVuSans';
+            $dejavuFontPath = $this->assetsDirectory . '/fonts/DejaVu/ttf/DejaVuSans';
             if ($fontFamily === 'DejaVuSans' && $fontStyle === 'B') {
-                $font = new \SetaPDF_Core_Font_Type0_Subset($document, $dejaVufontPath . '-Bold.ttf');
+                $font = new Subset($document, $dejavuFontPath . '-Bold.ttf');
             } elseif ($fontFamily === 'DejaVuSans' && $fontStyle === 'I') {
-                $font = new \SetaPDF_Core_Font_Type0_Subset($document, $dejaVufontPath . '-Oblique.ttf');
+                $font = new Subset($document, $dejavuFontPath . '-Oblique.ttf');
             } elseif ($fontFamily === 'DejaVuSans' && $fontStyle === 'BI') {
-                $font = new \SetaPDF_Core_Font_Type0_Subset($document, $dejaVufontPath . '-BoldOblique.ttf');
+                $font = new Subset($document, $dejavuFontPath . '-BoldOblique.ttf');
             } else {
-                $font = new \SetaPDF_Core_Font_Type0_Subset($document, $dejaVufontPath . '.ttf');
+                $font = new Subset($document, $dejavuFontPath . '.ttf');
             }
 
             $this->loadedFonts[$cacheKey] = $font;

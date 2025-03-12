@@ -1,5 +1,11 @@
 <?php
 
+use setasign\SetaPDF2\Core\Document;
+use setasign\SetaPDF2\Core\Geometry\Rectangle;
+use setasign\SetaPDF2\Extractor\Extractor;
+use setasign\SetaPDF2\Extractor\Filter\Rectangle as RectangleFilter;
+use setasign\SetaPDF2\Extractor\Strategy\ExactPlain as ExactPlainStrategy;
+
 // load and register the autoload function
 require_once __DIR__ . '/../../../../../bootstrap.php';
 
@@ -34,13 +40,14 @@ if (isset($_GET['action']) && $_GET['action'] === 'preview') {
         throw new Exception('Invalid file!');
     }
     $file = $files[$_GET['file']];
-    $pageNo = isset($_GET['page']) ? $_GET['page'] : 1;
+    $pageNo = (int) ($_GET['page'] ?? 1);
     $imageFile = 'images/' . basename($file, '.pdf') . '-' . $dpi . '-PAGE.png';
     $realImageFile = str_replace('PAGE', $pageNo, $imageFile);
 
 
     if (!file_exists($realImageFile)) {
-        $cmd = 'mutool draw -F png -r ' . escapeshellarg($dpi) . ' -o ' . str_replace('PAGE', '%d', escapeshellarg($imageFile))
+        $cmd = 'mutool draw -F png -r ' . escapeshellarg($dpi)
+            . ' -o ' . str_replace('PAGE', '%d', escapeshellarg($imageFile))
             . ' ' . escapeshellarg($file) . ' ' . escapeshellarg($pageNo);
 
         exec($cmd, $output, $resultCode);
@@ -71,7 +78,7 @@ if (isset($_GET['action']) && $_GET['action'] === 'preview') {
     }
     $file = $files[$_GET['file']];
 
-    $document = \SetaPDF_Core_Document::loadByFilename($file);
+    $document = Document::loadByFilename($file);
     $pages = $document->getCatalog()->getPages();
     $pageCount = $pages->count();
     $pageFormats = [];
@@ -113,20 +120,20 @@ if (isset($_GET['action']) && $_GET['action'] === 'preview') {
     $y2 = $_GET['data']['y2'];
 
     // load the document
-    $document = \SetaPDF_Core_Document::loadByFilename($file);
+    $document = Document::loadByFilename($file);
 
     // get access to its pages
     $pages = $document->getCatalog()->getPages();
 
-    // the interresting part: initiate an extractor instance
-    $extractor = new \SetaPDF_Extractor($document);
+    // the interesting part: initiate an extractor instance
+    $extractor = new Extractor($document);
 
     // create a word strategy instance
-    $strategy = new \SetaPDF_Extractor_Strategy_ExactPlain();
+    $strategy = new ExactPlainStrategy();
     // pass a rectangle filter to the strategy
-    $strategy->setFilter(new \SetaPDF_Extractor_Filter_Rectangle(
-        new \SetaPDF_Core_Geometry_Rectangle($x1, $y1, $x2, $y2),
-        \SetaPDF_Extractor_Filter_Rectangle::MODE_CONTACT
+    $strategy->setFilter(new RectangleFilter(
+        new Rectangle($x1, $y1, $x2, $y2),
+        RectangleFilter::MODE_CONTACT
     ));
     $extractor->setStrategy($strategy);
 
@@ -146,6 +153,7 @@ if (isset($_GET['action']) && $_GET['action'] === 'preview') {
     return;
 } else {
     $filePath = displayFiles($files);
+
     $file = array_search($filePath, $files);
     if ($file === false) {
         throw new Exception('Invalid file selected');

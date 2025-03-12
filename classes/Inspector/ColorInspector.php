@@ -1,8 +1,11 @@
 <?php
 
-namespace com\setasign\SetaPDF\Demos\Inspector;
+namespace setasign\SetaPDF2\Demos\Inspector;
 
-use com\setasign\SetaPDF\Demos\ContentStreamProcessor\ColorProcessor;
+use setasign\SetaPDF2\Demos\ContentStreamProcessor\ColorProcessor;
+use setasign\SetaPDF2\Core\Document;
+use setasign\SetaPDF2\Core\Type\PdfDictionary;
+use setasign\SetaPDF2\Core\Type\PdfStream;
 
 /**
  * Class ColorInspector
@@ -10,7 +13,7 @@ use com\setasign\SetaPDF\Demos\ContentStreamProcessor\ColorProcessor;
 class ColorInspector
 {
     /**
-     * @var \SetaPDF_Core_Document
+     * @var Document
      */
     protected $_document;
 
@@ -31,9 +34,9 @@ class ColorInspector
     /**
      * The constructor
      *
-     * @param \SetaPDF_Core_Document $document
+     * @param Document $document
      */
-    public function __construct(\SetaPDF_Core_Document $document)
+    public function __construct(Document $document)
     {
         $this->_document = $document;
     }
@@ -77,14 +80,14 @@ class ColorInspector
 
                 foreach ($ap AS $type => $value) {
                     $object = $value->ensure();
-                    if ($object instanceof \SetaPDF_Core_Type_Stream) {
+                    if ($object instanceof PdfStream) {
                         $streamProcessor = new ColorProcessor($annotation->getAppearance($type)->getCanvas(), $this);
                         $streamProcessor->process();
 
-                    } elseif ($object instanceof \SetaPDF_Core_Type_Dictionary) {
+                    } elseif ($object instanceof PdfDictionary) {
                         foreach ($object AS $subType => $subValue) {
-                            $subOject = $subValue->ensure();
-                            if ($subOject instanceof \SetaPDF_Core_Type_Stream) {
+                            $subObject = $subValue->ensure();
+                            if ($subObject instanceof PdfStream) {
                                 $streamProcessor = new ColorProcessor(
                                     $annotation->getAppearance($type, $subType)->getCanvas(), $this
                                 );
@@ -103,8 +106,8 @@ class ColorInspector
      * A method which will register found color definitions.
      *
      * @param $colorSpace
-     * @param null $data
-     * @param null $info
+     * @param $data
+     * @param $info
      */
     public function addFoundColor($colorSpace, $data = null, $info = null)
     {

@@ -1,6 +1,15 @@
 <?php
 
-use \SetaPDF_Core_Document_Page_Annotation_FreeText as FreeTextAnnotation;
+use setasign\SetaPDF2\Core\Canvas\GraphicState;
+use setasign\SetaPDF2\Core\Document;
+use setasign\SetaPDF2\Core\Document\Page\Annotation\FreeText as FreeTextAnnotation;
+use setasign\SetaPDF2\Core\Font\Standard\Helvetica;
+use setasign\SetaPDF2\Core\Geometry\Vector;
+use setasign\SetaPDF2\Core\Text\Text;
+use setasign\SetaPDF2\Core\Text\Block;
+use setasign\SetaPDF2\Core\Type\PdfString;
+use setasign\SetaPDF2\Core\Writer\HttpWriter;
+use setasign\SetaPDF2\Core\XObject\Form;
 
 // load and register the autoload function
 require_once '../../../../../bootstrap.php';
@@ -16,21 +25,21 @@ $fillColor = '#00FF00';
 $textColor = '#0000FF';
 
 $text = "Received: " . date('Y-m-d H:i:s');
-$align = SetaPDF_Core_Text::ALIGN_LEFT;
+$align = Text::ALIGN_LEFT;
 
 // create a document instance by loading an existing PDF
-$writer = new \SetaPDF_Core_Writer_Http('signed+free-text-annotation.pdf', true);
-$document = \SetaPDF_Core_Document::loadByFilename(
+$writer = new HttpWriter('signed+free-text-annotation.pdf', true);
+$document = Document::loadByFilename(
     $assetsDirectory . '/pdfs/tektown/Laboratory-Report-signed.pdf',
     $writer
 );
 
 // we will need a font instance
-$font = SetaPDF_Core_Font_Standard_Helvetica::create($document);
+$font = Helvetica::create($document);
 $fontSize = 12;
 
 // now we create a text block first to know the final size:
-$box = new SetaPDF_Core_Text_Block($font, $fontSize);
+$box = new Block($font, $fontSize);
 $box->setTextColor($textColor);
 $box->setBorderWidth($borderWidth);
 $box->setBorderColor($borderColor);
@@ -43,7 +52,7 @@ $width = $box->getWidth();
 $height = $box->getHeight();
 
 // now draw the text block onto a canvas (we add the $borderWidth to show the complete border)
-$appearance = SetaPDF_Core_XObject_Form::create($document, [0, 0, $width + $borderWidth, $height + $borderWidth]);
+$appearance = Form::create($document, [0, 0, $width + $borderWidth, $height + $borderWidth]);
 $box->draw($appearance->getCanvas(), $borderWidth / 2, $borderWidth / 2);
 
 // now we need a page and calculate the correct coordinates for our annotation
@@ -54,7 +63,7 @@ $rotation = $page->getRotation();
 $box = $page->getBoundary();
 
 // with this information we create a graphic state
-$pageGs = new \SetaPDF_Core_Canvas_GraphicState();
+$pageGs = new GraphicState();
 switch ($rotation) {
     case 90:
         $pageGs->translate($box->getWidth(), 0);
@@ -72,7 +81,7 @@ $pageGs->translate($box->llx, $box->lly);
 
 // ...and a helper function to translate coordinates into vectors by using the page graphic state
 $f = static function($x, $y) use ($pageGs) {
-    $v = new \SetaPDF_Core_Geometry_Vector($x, $y);
+    $v = new Vector($x, $y);
     return $v->multiply($pageGs->getCurrentTransformationMatrix());
 };
 
@@ -102,23 +111,23 @@ $annotation->setAppearance($appearance);
 $dict = $annotation->getDictionary();
 $dict->offsetSet(
     'DS',
-    new SetaPDF_Core_Type_String('font: Helvetica, sans-serif ' . sprintf('%.2F', $fontSize) . 'pt;color: ' . $textColor)
+    new PdfString('font: Helvetica, sans-serif ' . sprintf('%.2F', $fontSize) . 'pt;color: ' . $textColor)
 );
 switch ($align) {
-    case SetaPDF_Core_Text::ALIGN_CENTER:
+    case Text::ALIGN_CENTER:
         $align = 'center';
         break;
-    case SetaPDF_Core_Text::ALIGN_RIGHT:
+    case Text::ALIGN_RIGHT:
         $align = 'right';
         break;
-    case SetaPDF_Core_Text::ALIGN_JUSTIFY:
+    case Text::ALIGN_JUSTIFY:
         $align = 'justify';
         break;
     default:
         $align = 'left';
 }
 
-$dict->offsetSet('RC', new SetaPDF_Core_Type_String(
+$dict->offsetSet('RC', new PdfString(
     '<?xml version="1.0"?><body xmlns="http://www.w3.org/1999/xhtml" xmlns:xfa="http://www.xfa.org/schema/xfa-data/1.0/" ' .
     'xfa:APIVersion="Acrobat:11.0.23" xfa:spec="2.0.2"  style="font-size:' . $fontSize . 'pt;text-align:' . $align .
     ';color:' . $textColor . ';font-weight:normal;font-style:normal;font-family:Helvetica,sans-serif;font-stretch:normal">' .

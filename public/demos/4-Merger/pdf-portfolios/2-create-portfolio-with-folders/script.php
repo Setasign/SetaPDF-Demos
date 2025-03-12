@@ -1,18 +1,23 @@
 <?php
 
+use setasign\SetaPDF2\Core\Document;
+use setasign\SetaPDF2\Core\PageFormats;
+use setasign\SetaPDF2\Core\Writer\HttpWriter;
+use setasign\SetaPDF2\Merger\Collection;
+
 // load and register the autoload function
 require_once __DIR__ . '/../../../../../bootstrap.php';
 
 // create a document as the cover sheet
-$writer = new \SetaPDF_Core_Writer_Http('portfolio-with-folders.pdf');
-$document = new \SetaPDF_Core_Document($writer);
-$document->getCatalog()->getPages()->create(\SetaPDF_Core_PageFormats::A4);
+$writer = new HttpWriter('portfolio-with-folders.pdf');
+$document = new Document($writer);
+$document->getCatalog()->getPages()->create(PageFormats::A4);
 // we leave it empty for demonstration purpose...
 
 // create a collection instance
-$collection = new \SetaPDF_Merger_Collection($document);
+$collection = new Collection($document);
 
-// thorugh the proxy method
+// through the proxy method
 $folderA = $collection->addFolder('Folder (A)');
 // add more sub folders
 $folderA->addFolder('Folder (AA)');

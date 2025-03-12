@@ -1,4 +1,23 @@
 <?php
+
+use setasign\SetaPDF2\Core\Document;
+use setasign\SetaPDF2\Core\Type\PdfHexString;
+use setasign\SetaPDF2\Core\Writer\FileWriter;
+use setasign\SetaPDF2\Core\Writer\StringWriter;
+use setasign\SetaPDF2\Core\Writer\TempFileWriter;
+use setasign\SetaPDF2\Signer\Cms\SignedData;
+use setasign\SetaPDF2\Signer\Digest;
+use setasign\SetaPDF2\Signer\InformationResolver\HttpCurlResolver;
+use setasign\SetaPDF2\Signer\InformationResolver\Manager as InformationResolverManager;
+use setasign\SetaPDF2\Signer\Signature\Module\Pades as PadesModule;
+use setasign\SetaPDF2\Signer\Signer;
+use setasign\SetaPDF2\Signer\Timestamp\Module\Rfc3161\Curl as CurlTimestampModule;
+use setasign\SetaPDF2\Signer\X509\Certificate;
+use setasign\SetaPDF2\Signer\X509\Collection;
+use setasign\SetaPDF2\Signer\X509\Extension\AuthorityInformationAccess;
+use setasign\SetaPDF2\Signer\X509\Extension\TimeStamp as TimeStampExtension;
+use setasign\SetaPDF2\Signer\X509\Format;
+
 if (!isset($_GET['action'])) {
     die();
 }
@@ -28,37 +47,37 @@ try {
             }
 
             // load the PDF document
-            $document = \SetaPDF_Core_Document::loadByFilename($fileToSign);
+            $document = Document::loadByFilename($fileToSign);
             // create a signer instance
-            $signer = new \SetaPDF_Signer($document);
+            $signer = new Signer($document);
             // create a module instance
-            $module = new \SetaPDF_Signer_Signature_Module_Pades();
-            $module->setDigest(\SetaPDF_Signer_Digest::SHA_256);
+            $module = new PadesModule();
+            $module->setDigest(Digest::SHA_256);
 
             // create a certificate instance
-            $certificate = new \SetaPDF_Signer_X509_Certificate($data->certificate);
+            $certificate = new Certificate($data->certificate);
 
             // pass the user certificate to the module
             $module->setCertificate($certificate);
 
             // setup information resolver manager
-            $informationResolverManager = new \SetaPDF_Signer_InformationResolver_Manager();
-            $informationResolverManager->addResolver(new \SetaPDF_Signer_InformationResolver_HttpCurlResolver([
-                CURLOPT_FOLLOWLOCATION => true,
-                CURLOPT_MAXREDIRS => 5
+            $informationResolverManager = new InformationResolverManager();
+            $informationResolverManager->addResolver(new HttpCurlResolver([
+                \CURLOPT_FOLLOWLOCATION => true,
+                \CURLOPT_MAXREDIRS => 5
             ]));
 
-            $extraCerts = new \SetaPDF_Signer_X509_Collection();
+            $extraCerts = new Collection();
 
             // get issuer certificates
             if (isset($data->useAIA) && $data->useAIA) {
                 $certificates = [$certificate];
                 while (count($certificates) > 0) {
-                    /** @var \SetaPDF_Signer_X509_Certificate $currentCertificate */
+                    /** @var Certificate $currentCertificate */
                     $currentCertificate = array_pop($certificates);
-                    /** @var \SetaPDF_Signer_X509_Extension_AuthorityInformationAccess $aia */
-                    $aia = $currentCertificate->getExtensions()->get(\SetaPDF_Signer_X509_Extension_AuthorityInformationAccess::OID);
-                    if ($aia instanceof \SetaPDF_Signer_X509_Extension_AuthorityInformationAccess) {
+                    /** @var AuthorityInformationAccess $aia */
+                    $aia = $currentCertificate->getExtensions()->get(AuthorityInformationAccess::OID);
+                    if ($aia instanceof AuthorityInformationAccess) {
                         foreach ($aia->fetchIssuers($informationResolverManager)->getAll() as $issuer) {
                             $extraCerts->add($issuer);
                             $certificates[] = $issuer;
@@ -71,7 +90,7 @@ try {
 
             $signatureContentLength = 10000;
             foreach ($extraCerts->getAll() as $extraCert) {
-                $signatureContentLength += (strlen($extraCert->get(\SetaPDF_Signer_X509_Format::DER)) * 2);
+                $signatureContentLength += (strlen($extraCert->get(Format::DER)) * 2);
             }
 
             $signer->setSignatureContentLength($signatureContentLength);
@@ -79,8 +98,8 @@ try {
             unset($_SESSION['tsUrl']);
             // get timestamp information and use it
             if (isset($data->useTimestamp) && $data->useTimestamp) {
-                /** @var \SetaPDF_Signer_X509_Extension_TimeStamp $ts */
-                $ts = $certificate->getExtensions()->get(\SetaPDF_Signer_X509_Extension_TimeStamp::OID);
+                /** @var TimeStampExtension $ts */
+                $ts = $certificate->getExtensions()->get(TimeStampExtension::OID);
                 if ($ts && $ts->getVersion() === 1 && $ts->requiresAuth() === false) {
                     $_SESSION['tsUrl'] = $ts->getLocation();
                     $signer->setSignatureContentLength($signatureContentLength + 6000);
@@ -88,18 +107,18 @@ try {
             }
 
             // you may use an own temporary file handler
-            $tempPath = \SetaPDF_Core_Writer_TempFile::createTempPath();
+            $tempPath = TempFileWriter::createTempPath();
 
             // prepare the PDF
             $tmpDocument = $signer->preSign(
-                new \SetaPDF_Core_Writer_File($tempPath),
+                new FileWriter($tempPath),
                 $module
             );
 
 
             // prepare the response
             $response = [
-                'dataToSign' => \SetaPDF_Core_Type_HexString::str2hex(
+                'dataToSign' => PdfHexString::str2hex(
                     $module->getDataToSign($tmpDocument->getHashFile())
                 )
             ];
@@ -112,7 +131,7 @@ try {
             echo json_encode($response);
             break;
 
-        // This action embeddeds the signature in the CMS container
+        // This action embeds the signature in the CMS container
         // and optionally requests and embeds the time stamp
         case 'complete':
             $data = json_decode(file_get_contents('php://input'));
@@ -120,21 +139,21 @@ try {
                 die();
             }
 
-            $data->signature = \SetaPDF_Core_Type_HexString::hex2str($data->signature);
+            $data->signature = PdfHexString::hex2str($data->signature);
 
             // create the document instance
-            $writer = new \SetaPDF_Core_Writer_String();
-            $document = \SetaPDF_Core_Document::loadByFilename($fileToSign, $writer);
-            $signer = new \SetaPDF_Signer($document);
+            $writer = new StringWriter();
+            $document = Document::loadByFilename($fileToSign, $writer);
+            $signer = new Signer($document);
 
             // pass the signature to the signature modul
             $_SESSION['module']->setSignatureValue($data->signature);
 
-            // get the CMS structur from the signature module
+            // get the CMS structure from the signature module
             $cms = (string)$_SESSION['module']->getCms();
 
             // verify that the received signature matches to the CMS package and document.
-            $signedData = new \SetaPDF_Signer_Cms_SignedData($cms);
+            $signedData = new SignedData($cms);
             $signedData->setDetachedSignedData($_SESSION['tmpDocument']->getHashFile());
             if (!$signedData->verify($signedData->getSigningCertificate())) {
                 throw new Exception('Signature cannot be verified!');
@@ -142,7 +161,7 @@ try {
 
             // add the timestamp (if available)
             if (isset($_SESSION['tsUrl'])) {
-                $tsModule = new \SetaPDF_Signer_Timestamp_Module_Rfc3161_Curl($_SESSION['tsUrl']);
+                $tsModule = new CurlTimestampModule($_SESSION['tsUrl']);
                 $signer->setTimestampModule($tsModule);
                 $cms = $signer->addTimeStamp($cms, $_SESSION['tmpDocument']);
             }
@@ -170,7 +189,7 @@ try {
 
         // a download action
         case 'download':
-            $key = 'id-' . (isset($_GET['id']) ? $_GET['id'] : '');
+            $key = 'id-' . ($_GET['id'] ?? '');
             if (!isset($_SESSION['pdfs']['docs'][$key])) {
                 die();
             }
@@ -187,7 +206,7 @@ try {
             flush();
             break;
     }
-} catch (\Exception $e) {
+} catch (\Throwable $e) {
     header('Content-Type: application/json; charset=utf-8', true, 500);
     echo json_encode(['error' => $e->getMessage()]);
 }

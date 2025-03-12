@@ -1,16 +1,20 @@
 <?php
 
+use setasign\SetaPDF2\Core\Document;
+use setasign\SetaPDF2\Core\Writer\HttpWriter;
+use setasign\SetaPDF2\FormFiller\FormFiller;
+
 // load and register the autoload function
 require_once __DIR__ . '/../../../../../bootstrap.php';
 
-// get the document isntance
-$document = \SetaPDF_Core_Document::loadByFilename(
+// get the document instance
+$document = Document::loadByFilename(
     $assetsDirectory . '/pdfs/forms/xfa/CheckRequest.pdf',
-    new \SetaPDF_Core_Writer_Http('static-xfa-form.pdf', true)
+    new HttpWriter('static-xfa-form.pdf', true)
 );
 
 // now get an instance of the form filler
-$formFiller = new \SetaPDF_FormFiller($document);
+$formFiller = new FormFiller($document);
 
 // solution A:
 $xfa = $formFiller->getXfa();

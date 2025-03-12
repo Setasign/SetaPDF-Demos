@@ -1,5 +1,11 @@
 <?php
 
+use setasign\SetaPDF2\Core\Document;
+use setasign\SetaPDF2\Core\Type\Dictionary\DictionaryHelper;
+use setasign\SetaPDF2\Core\Type\PdfDictionary;
+use setasign\SetaPDF2\Core\Type\PdfStream;
+use setasign\SetaPDF2\Core\Writer\HttpWriter;
+
 // load and register the autoload function
 require_once '../../../../../bootstrap.php';
 
@@ -12,19 +18,19 @@ $files = [
 
 $path = displayFiles($files, false);
 
-$writer = new \SetaPDF_Core_Writer_Http(basename($path));
-$document = \SetaPDF_Core_Document::loadByFilename($path, $writer);
+$writer = new HttpWriter(basename($path));
+$document = Document::loadByFilename($path, $writer);
 
 // get all terminal fields
 $terminalFields = $document->getCatalog()->getAcroForm()->getTerminalFieldsObjects();
 
 // iterate over the fields
 foreach ($terminalFields AS $fieldData) {
-    /** @var \SetaPDF_Core_Type_Dictionary $fieldData */
+    /** @var PdfDictionary $fieldData */
     $fieldData = $fieldData->ensure();
 
     // ensure that the field is a signature field
-    $ft = \SetaPDF_Core_Type_Dictionary_Helper::resolveAttribute($fieldData, 'FT');
+    $ft = DictionaryHelper::resolveAttribute($fieldData, 'FT');
     if (!$ft || $ft->getValue() !== 'Sig') {
         continue;
     }
@@ -43,11 +49,11 @@ foreach ($terminalFields AS $fieldData) {
         continue;
     }
 
-    /** @var \SetaPDF_Core_Type_Dictionary $ap */
+    /** @var PdfDictionary $ap */
     $ap = $ap->ensure();
     $n = $ap->getValue('N');
     if ($n) {
-        /** @var \SetaPDF_Core_Type_Stream $n */
+        /** @var PdfStream $n */
         $n = $n->ensure();
         $n->setStream('%% Blank');
     }

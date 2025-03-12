@@ -1,5 +1,10 @@
 <?php
 
+use setasign\SetaPDF2\Core\Document;
+use setasign\SetaPDF2\Core\Writer\HttpWriter;
+use setasign\SetaPDF2\FormFiller\Field\AbstractField;
+use setasign\SetaPDF2\FormFiller\FormFiller;
+
 // load and register the autoload function
 require_once __DIR__ . '/../../../../../bootstrap.php';
 
@@ -12,15 +17,15 @@ $files = [
 $dataId = displaySelect('Select file:', $files, true, 'displayValue');
 $data = $files[$dataId];
 
-$document = \SetaPDF_Core_Document::loadByFilename(
+$document = Document::loadByFilename(
     $data['file'],
-    new \SetaPDF_Core_Writer_Http('filled.pdf', true)
+    new HttpWriter('filled.pdf', true)
 );
 
-$formFiller = new \SetaPDF_FormFiller($document);
+$formFiller = new FormFiller($document);
 $fields = $formFiller->getFields();
 
-/** @var \SetaPDF_FormFiller_Field_AbstractField $field */
+/** @var AbstractField $field */
 foreach ($fields as $field) {
     $fieldName = $field->getQualifiedName();
     if (!isset($data['values'][$fieldName])) {

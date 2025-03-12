@@ -1,12 +1,18 @@
 <?php
 
+use setasign\SetaPDF2\Demos\FontLoader;
+use setasign\SetaPDF2\Core\Document;
+use setasign\SetaPDF2\Core\Writer\HttpWriter;
+use setasign\SetaPDF2\Stamper\Stamp\RichText as RichTextStamp;
+use setasign\SetaPDF2\Stamper\Stamper;
+
 // load and register the autoload function
 require_once __DIR__ . '/../../../../../../bootstrap.php';
 
 // create a writer
-$writer = new \SetaPDF_Core_Writer_Http('styled.pdf', true);
+$writer = new HttpWriter('styled.pdf', true);
 // get a document instance
-$document = \SetaPDF_Core_Document::loadByFilename(
+$document = Document::loadByFilename(
     $assetsDirectory . '/pdfs/lenstown/Laboratory-Report.pdf',
     $writer
 );
@@ -16,10 +22,10 @@ $document = \SetaPDF_Core_Document::loadByFilename(
  * the right font instances for us. See FontLoader.php for details:
  */
 require_once $classesDirectory . '/FontLoader.php';
-$fontLoader = new \com\setasign\SetaPDF\Demos\FontLoader($assetsDirectory);
+$fontLoader = new FontLoader($assetsDirectory);
 
-// now simply create a stam instance
-$stamp = new \SetaPDF_Stamper_Stamp_RichText($document, $fontLoader);
+// now simply create a stamp instance
+$stamp = new RichTextStamp($document, $fontLoader);
 $stamp->setDefaultFontFamily('DejaVuSans');
 $stamp->setDefaultFontSize(10);
 // pass an HTML like text to format the output
@@ -29,10 +35,10 @@ HTML
 );
 
 // create a stamper instance
-$stamper = new \SetaPDF_Stamper($document);
+$stamper = new Stamper($document);
 // pass the stamp instance
 $stamper->addStamp($stamp, [
-    'position' => \SetaPDF_Stamper::POSITION_CENTER_TOP,
+    'position' => Stamper::POSITION_CENTER_TOP,
     'translateY' => -5
 ]);
 

@@ -1,5 +1,13 @@
 <?php
 
+use setasign\SetaPDF2\Core\Document;
+use setasign\SetaPDF2\Core\Document\Catalog\AcroForm;
+use setasign\SetaPDF2\Core\Document\Page\Annotation\Annotation;
+use setasign\SetaPDF2\Core\Document\Page\Annotation\Widget;
+use setasign\SetaPDF2\Core\Encoding\Encoding;
+use setasign\SetaPDF2\Core\Type\Dictionary\DictionaryHelper;
+use setasign\SetaPDF2\Core\Type\PdfStringInterface;
+
 // load and register the autoload function
 require_once '../../../../../bootstrap.php';
 
@@ -14,7 +22,7 @@ $files = [
 $path = displayFiles($files);
 
 // create a document instance
-$document = \SetaPDF_Core_Document::loadByFilename($path);
+$document = Document::loadByFilename($path);
 
 // Get the pages helper
 $pages = $document->getCatalog()->getPages();
@@ -26,12 +34,12 @@ for ($pageNo = 1, $pageCount = $pages->count(); $pageNo <= $pageCount; $pageNo++
 
     // get the annotation helper
     $annotationsHelper = $page->getAnnotations();
-    $widgetAnnotations = $annotationsHelper->getAll(\SetaPDF_Core_Document_Page_Annotation::TYPE_WIDGET);
+    $widgetAnnotations = $annotationsHelper->getAll(Annotation::TYPE_WIDGET);
     echo '<p>' . count($widgetAnnotations) . ' widget annotations found.</p>';
 
-    /* @var \SetaPDF_Core_Document_Page_Annotation_Widget $widgetAnnotation */
+    /* @var Widget $widgetAnnotation */
     foreach ($widgetAnnotations AS $widgetAnnotation) {
-        $fieldName = \SetaPDF_Core_Document_Catalog_AcroForm::resolveFieldName(
+        $fieldName = AcroForm::resolveFieldName(
             $widgetAnnotation->getIndirectObject()->ensure()
         );
 
@@ -46,11 +54,11 @@ for ($pageNo = 1, $pageCount = $pages->count(); $pageNo <= $pageCount; $pageNo++
         echo '  height: ' . $rect->getHeight() . "\n";
 
         // get the field value
-        $value = \SetaPDF_Core_Type_Dictionary_Helper::resolveAttribute($widgetAnnotation->getDictionary(), 'V');
+        $value = DictionaryHelper::resolveAttribute($widgetAnnotation->getDictionary(), 'V');
         // limited to string values for demonstration purpose
-        if ($value instanceof \SetaPDF_Core_Type_StringValue) {
+        if ($value instanceof PdfStringInterface) {
             echo '   value: ';
-            echo \SetaPDF_Core_Encoding::convertPdfString($value->getValue());
+            echo Encoding::convertPdfString($value->getValue());
         }
 
         echo "</pre></br>";

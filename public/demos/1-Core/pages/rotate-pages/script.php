@@ -1,5 +1,8 @@
 <?php
 
+use setasign\SetaPDF2\Core\Document;
+use setasign\SetaPDF2\Core\Writer\HttpWriter;
+
 // load and register the autoload function
 require_once __DIR__ . '/../../../../../bootstrap.php';
 
@@ -12,9 +15,9 @@ $files = [
 $path = displayFiles($files);
 
 // create a file writer
-$writer = new \SetaPDF_Core_Writer_Http('rotated.pdf', true);
+$writer = new HttpWriter('rotated.pdf', true);
 // load document by filename
-$document = \SetaPDF_Core_Document::loadByFilename($path, $writer);
+$document = Document::loadByFilename($path, $writer);
 
 // get pages object
 $pages = $document->getCatalog()->getPages();

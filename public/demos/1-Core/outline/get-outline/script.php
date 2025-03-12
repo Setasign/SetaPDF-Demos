@@ -1,5 +1,12 @@
 <?php
 
+use setasign\SetaPDF2\Core\Document;
+use setasign\SetaPDF2\Core\Document\Action\GoToAction;
+use setasign\SetaPDF2\Core\Document\Action\JavaScriptAction;
+use setasign\SetaPDF2\Core\Document\Action\NamedAction;
+use setasign\SetaPDF2\Core\Document\Action\UriAction;
+use setasign\SetaPDF2\Core\Reader\FileReader;
+
 // load and register the autoload function
 require_once '../../../../../bootstrap.php';
 
@@ -12,9 +19,9 @@ $files = [
 $path = displayFiles($files);
 
 // create a reader
-$reader = new \SetaPDF_Core_Reader_File($path);
+$reader = new FileReader($path);
 // create a document
-$document = \SetaPDF_Core_Document::load($reader);
+$document = Document::load($reader);
 
 // get the outlines helper
 $outlines = $document->getCatalog()->getOutlines();
@@ -36,37 +43,37 @@ foreach ($iterator AS $outlineItem) {
     $open = $outlineItem->isOpen();
     $title = $outlineItem->getTitle();
 
-    $destionationOrAction = '';
+    $destinationOrAction = '';
     // get the destination of the outline item (if available)
     $destination = $outlineItem->getDestination($document);
     if ($destination !== false) {
-        $destionationOrAction = 'Destination: Page ' . $destination->getPageNo($document);
+        $destinationOrAction = 'Destination: Page ' . $destination->getPageNo($document);
     }
 
     // get the action of the outline item (if available)
     $action = $outlineItem->getAction();
     if ($action !== false) {
-        $destionationOrAction = $action->getType() . ' Action';
+        $destinationOrAction = $action->getType() . ' Action';
         switch (true) {
             // handle GoTo Actions
-            case $action instanceof \SetaPDF_Core_Document_Action_GoTo:
+            case $action instanceof GoToAction:
                 $destination = $action->getDestination($document);
-                $destionationOrAction .= ': Destination on Page ' . $destination->getPageNo($document);
+                $destinationOrAction .= ': Destination on Page ' . $destination->getPageNo($document);
                 break;
 
             // handle Named Actions
-            case $action instanceof \SetaPDF_Core_Document_Action_Named:
-                $destionationOrAction .= ': ' . $action->getName();
+            case $action instanceof NamedAction:
+                $destinationOrAction .= ': ' . $action->getName();
                 break;
 
             // handle JavaScript actions
-            case $action instanceof \SetaPDF_Core_Document_Action_JavaScript:
-                $destionationOrAction .= ': ' . substr($action->getJavaScript(), 0, 100);
+            case $action instanceof JavaScriptAction:
+                $destinationOrAction .= ': ' . substr($action->getJavaScript(), 0, 100);
                 break;
 
             // handle URI actions
-            case $action instanceof \SetaPDF_Core_Document_Action_Uri:
-                $destionationOrAction .= ': ' . $action->getUri();
+            case $action instanceof UriAction:
+                $destinationOrAction .= ': ' . $action->getUri();
                 break;
         }
     }
@@ -76,12 +83,11 @@ foreach ($iterator AS $outlineItem) {
         'depth' => $depth,
         'open' => $open,
         'title' => $title,
-        'destinationOrAction' => $destionationOrAction
+        'destinationOrAction' => $destinationOrAction
     ];
 }
 
-?>
-
+echo <<<HTML
 <table border="1" style="width:100%;">
     <tr>
         <th width="10%">Depth</th>
@@ -89,12 +95,16 @@ foreach ($iterator AS $outlineItem) {
         <th width="35%">Title</th>
         <th width="45%">Destination / Action</th>
     </tr>
-    <?php foreach ($data AS $itemData): ?>
-        <tr>
-            <td><?php echo $itemData['depth']; ?></td>
-            <td><?php if ($itemData['open'] !== null) { echo $itemData['open'] ? '-' : '+'; } ?></td>
-            <td><?php echo str_repeat('&nbsp;', $itemData['depth'] * 4) . htmlspecialchars($itemData['title']); ?></td>
-            <td><?php echo htmlspecialchars($itemData['destinationOrAction']); ?></td>
-        </tr>
-    <?php endforeach; ?>
+HTML;
+foreach ($data AS $itemData) {
+    echo '<tr>'
+        . '<td>' . $itemData['depth'] . '</td>'
+        . '<td>' . ($itemData['open'] !== null ? '-' : '+') . '</td>'
+        . '<td>' . str_repeat('&nbsp;', $itemData['depth'] * 4) . htmlspecialchars($itemData['title']) . '</td>'
+        . '<td>' . htmlspecialchars($itemData['destinationOrAction']) . '</td>'
+        . '</tr>';
+}
+
+echo <<<HTML
 </table>
+HTML;

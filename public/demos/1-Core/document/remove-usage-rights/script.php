@@ -1,5 +1,8 @@
 <?php
 
+use setasign\SetaPDF2\Core\Document;
+use setasign\SetaPDF2\Core\Writer\HttpWriter;
+
 // load and register the autoload function
 require_once '../../../../../bootstrap.php';
 
@@ -12,7 +15,7 @@ $files = [
 $path = displayFiles($files, false);
 
 // create a document
-$document = \SetaPDF_Core_Document::loadByFilename($path);
+$document = Document::loadByFilename($path);
 
 $permissions = $document->getCatalog()->getPermissions();
 
@@ -22,7 +25,7 @@ if ($permissions->hasUsageRights()) {
     $permissions->removeUsageRights();
 
     // save the document
-    $document->setWriter(new \SetaPDF_Core_Writer_Http('no-usage-rights.pdf'));
+    $document->setWriter(new HttpWriter('no-usage-rights.pdf'));
     $document->save()->finish();
 } else {
     echo 'No usage rights found.';

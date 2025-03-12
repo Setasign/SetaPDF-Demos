@@ -1,5 +1,10 @@
 <?php
 
+use setasign\SetaPDF2\Core\Document;
+use setasign\SetaPDF2\Extractor\Extractor;
+use setasign\SetaPDF2\Extractor\Filter\FontSize;
+use setasign\SetaPDF2\Extractor\Strategy\Word as WordStrategy;
+
 // load and register the autoload function
 require_once __DIR__ . '/../../../../../bootstrap.php';
 
@@ -9,21 +14,21 @@ $data = [
     '12' => '12pt'
 ];
 
-$fontSize = displaySelect('Filter by:', $data);
+$fontSize = (float) displaySelect('Filter by:', $data);
 
 // create a document instance
-$document = \SetaPDF_Core_Document::loadByFilename($assetsDirectory . '/pdfs/Brand-Guide.pdf');
+$document = Document::loadByFilename($assetsDirectory . '/pdfs/Brand-Guide.pdf');
 
 // create an extractor instance
-$extractor = new \SetaPDF_Extractor($document);
+$extractor = new Extractor($document);
 
 // create the word strategy...
-$strategy = new \SetaPDF_Extractor_Strategy_Word();
+$strategy = new WordStrategy();
 // ...and pass it to the extractor
 $extractor->setStrategy($strategy);
 
 // creat an instance of the font size filter
-$filter = new \SetaPDF_Extractor_Filter_FontSize((float)$fontSize);
+$filter = new FontSize($fontSize);
 // ...pass it to the strategy
 $strategy->setFilter($filter);
 

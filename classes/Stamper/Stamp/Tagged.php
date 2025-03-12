@@ -1,14 +1,27 @@
 <?php
 
-namespace com\setasign\SetaPDF\Demos\Stamper\Stamp;
+namespace setasign\SetaPDF2\Demos\Stamper\Stamp;
+
+use setasign\SetaPDF2\Core\DataStructure\Tree\NumberTree;
+use setasign\SetaPDF2\Core\Document;
+use setasign\SetaPDF2\Core\Document\Action\Action;
+use setasign\SetaPDF2\Core\Document\OptionalContent\Group;
+use setasign\SetaPDF2\Core\Document\Page;
+use setasign\SetaPDF2\Core\Encoding\Encoding;
+use setasign\SetaPDF2\Core\Type\PdfArray;
+use setasign\SetaPDF2\Core\Type\PdfDictionary;
+use setasign\SetaPDF2\Core\Type\PdfName;
+use setasign\SetaPDF2\Core\Type\PdfNumeric;
+use setasign\SetaPDF2\Core\Type\PdfString;
+use setasign\SetaPDF2\Stamper\Stamp\AbstractStamp;
 
 /**
  * Class Tagged
  */
-class Tagged extends \SetaPDF_Stamper_Stamp
+class Tagged extends AbstractStamp
 {
     /**
-     * @var \SetaPDF_Stamper_Stamp
+     * @var AbstractStamp
      */
     protected $_mainStamp;
 
@@ -21,9 +34,9 @@ class Tagged extends \SetaPDF_Stamper_Stamp
     /**
      * The constructor
      *
-     * @param \SetaPDF_Stamper_Stamp $mainStamp The main stamp instance
+     * @param AbstractStamp $mainStamp The main stamp instance
      */
-    public function __construct(\SetaPDF_Stamper_Stamp $mainStamp)
+    public function __construct(AbstractStamp $mainStamp)
     {
         $this->_mainStamp = $mainStamp;
     }
@@ -31,7 +44,7 @@ class Tagged extends \SetaPDF_Stamper_Stamp
     /**
      * @param string $tagName
      */
-    public function setTagName($tagName)
+    public function setTagName(string $tagName)
     {
         $this->_tagName = $tagName;
     }
@@ -39,7 +52,7 @@ class Tagged extends \SetaPDF_Stamper_Stamp
     /**
      * @param string $title Title in UTF-8
      */
-    public function setTitle($title)
+    public function setTitle(string $title)
     {
         $this->_title = $title;
     }
@@ -47,7 +60,7 @@ class Tagged extends \SetaPDF_Stamper_Stamp
     /**
      * @param string $actualText Actual text in UTF-8
      */
-    public function setActualText($actualText)
+    public function setActualText(string $actualText)
     {
         $this->_actualText = $actualText;
     }
@@ -55,7 +68,7 @@ class Tagged extends \SetaPDF_Stamper_Stamp
     /**
      * @param string $alternateText Alternate text in UTF-8
      */
-    public function setAlternateText($alternateText)
+    public function setAlternateText(string $alternateText)
     {
         $this->_alternateText = $alternateText;
     }
@@ -63,7 +76,7 @@ class Tagged extends \SetaPDF_Stamper_Stamp
     /**
      * @param string $language Language in UTF-8
      */
-    public function setLanguage($language)
+    public function setLanguage(string $language)
     {
         $this->_language = $language;
     }
@@ -71,7 +84,7 @@ class Tagged extends \SetaPDF_Stamper_Stamp
     /**
      * @inheritDoc
      */
-    public function stamp(\SetaPDF_Core_Document $document, \SetaPDF_Core_Document_Page $page, array $stampData)
+    public function stamp(Document $document, Page $page, array $stampData)
     {
         $this->_mainStamp->_preStamp($document, $page, $stampData);
         $this->_stamp($document, $page, $stampData);
@@ -89,7 +102,7 @@ class Tagged extends \SetaPDF_Stamper_Stamp
     /**
      * @inheritDoc
      */
-    protected function _stamp(\SetaPDF_Core_Document $document, \SetaPDF_Core_Document_Page $page, array $stampData)
+    protected function _stamp(Document $document, Page $page, array $stampData)
     {
         $document->getCatalog()->getMarkInfo()->setMarked(true);
 
@@ -100,52 +113,52 @@ class Tagged extends \SetaPDF_Stamper_Stamp
         if (!$pageDict->offsetExists('StructParents')) {
             $pageDict->offsetSet(
                 'StructParents',
-                new \SetaPDF_Core_Type_Numeric($structTreeRoot->getAndIncrementParentTreeNextKey())
+                new PdfNumeric($structTreeRoot->getAndIncrementParentTreeNextKey())
             );
         }
 
         $structParentsKey = $pageDict->getValue('StructParents')->getValue();
 
-        /** @var \SetaPDF_Core_DataStructure_NumberTree $parentTree */
+        /** @var NumberTree $parentTree */
         $parentTree = $structTreeRoot->getParentTree(true);
         $elements = $parentTree->get($structParentsKey);
         if ($elements !== false) {
             $elements = $elements->ensure();
         } else {
-            $elements = new \SetaPDF_Core_Type_Array();
+            $elements = new PdfArray();
             $parentTree->add($structParentsKey, $document->createNewObject($elements));
         }
 
         $mcid = count($elements);
 
-        $element = new \SetaPDF_Core_Type_Dictionary([
-            'K' => new \SetaPDF_Core_Type_Numeric($mcid),
+        $element = new PdfDictionary([
+            'K' => new PdfNumeric($mcid),
             'P' => $structTreeRoot->getObject(),
             'Pg' => $page->getObject(),
-            'S' => new \SetaPDF_Core_Type_Name($this->_tagName, true)
+            'S' => new PdfName($this->_tagName, true)
         ]);
 
         if ($this->_title !== '') {
-            $element->offsetSet('T', new \SetaPDF_Core_Type_String(
-                \SetaPDF_Core_Encoding::toPdfString($this->_title)
+            $element->offsetSet('T', new PdfString(
+                Encoding::toPdfString($this->_title)
             ));
         }
 
         if ($this->_alternateText !== '') {
-            $element->offsetSet('Alt', new \SetaPDF_Core_Type_String(
-                \SetaPDF_Core_Encoding::toPdfString($this->_alternateText)
+            $element->offsetSet('Alt', new PdfString(
+                Encoding::toPdfString($this->_alternateText)
             ));
         }
 
         if ($this->_actualText !== '') {
-            $element->offsetSet('ActualText', new \SetaPDF_Core_Type_String(
-                \SetaPDF_Core_Encoding::toPdfString($this->_actualText)
+            $element->offsetSet('ActualText', new PdfString(
+                Encoding::toPdfString($this->_actualText)
             ));
         }
 
         if ($this->_language !== '') {
-            $element->offsetSet('Lang', new \SetaPDF_Core_Type_String(
-                \SetaPDF_Core_Encoding::toPdfString($this->_language)
+            $element->offsetSet('Lang', new PdfString(
+                Encoding::toPdfString($this->_language)
             ));
         }
 
@@ -157,8 +170,8 @@ class Tagged extends \SetaPDF_Stamper_Stamp
 
         $canvas = $page->getCanvas();
 
-        $properties = new \SetaPDF_Core_Type_Dictionary([
-            'MCID' => new \SetaPDF_Core_Type_Numeric($mcid)
+        $properties = new PdfDictionary([
+            'MCID' => new PdfNumeric($mcid)
         ]);
         $canvas->markedContent()->begin($this->_tagName, $properties);
 
@@ -230,7 +243,7 @@ class Tagged extends \SetaPDF_Stamper_Stamp
     /**
      * @inheritDoc
      */
-    public function setAction(\SetaPDF_Core_Document_Action $action)
+    public function setAction(Action $action)
     {
         $this->_mainStamp->setAction($action);
     }
@@ -254,7 +267,7 @@ class Tagged extends \SetaPDF_Stamper_Stamp
     /**
      * @inheritDoc
      */
-    public function setOptionalContentGroup(\SetaPDF_Core_Document_OptionalContent_Group $optionalContentGroup = null)
+    public function setOptionalContentGroup(?Group $optionalContentGroup = null)
     {
         $this->_mainStamp->setOptionalContentGroup($optionalContentGroup);
     }
@@ -270,7 +283,7 @@ class Tagged extends \SetaPDF_Stamper_Stamp
     /**
      * @inheritDoc
      */
-    protected function _getOpacityGraphicState(\SetaPDF_Core_Document $document, $opacity)
+    protected function _getOpacityGraphicState(Document $document, $opacity)
     {
         return $this->_mainStamp->_getOpacityGraphicState($document, $opacity);
     }
@@ -278,7 +291,7 @@ class Tagged extends \SetaPDF_Stamper_Stamp
     /**
      * @inheritDoc
      */
-    protected function _getVisibilityGroup(\SetaPDF_Core_Document $document)
+    protected function _getVisibilityGroup(Document $document)
     {
         return $this->_mainStamp->_getVisibilityGroup($document);
     }
@@ -286,7 +299,7 @@ class Tagged extends \SetaPDF_Stamper_Stamp
     /**
      * @inheritDoc
      */
-    protected function _ensureResources(\SetaPDF_Core_Document $document, \SetaPDF_Core_Document_Page $page)
+    protected function _ensureResources(Document $document, Page $page)
     {
         return $this->_mainStamp->_ensureResources($document, $page);
     }

@@ -1,5 +1,9 @@
 <?php
 
+use setasign\SetaPDF2\Core\Document;
+use setasign\SetaPDF2\Core\Image\Image;
+use setasign\SetaPDF2\Core\Writer\HttpWriter;
+
 // load and register the autoload function
 require_once '../../../../../bootstrap.php';
 
@@ -25,8 +29,8 @@ $files = [
 
 $imgPath = displayFiles($files)['path'];
 
-$writer = new \SetaPDF_Core_Writer_Http('result.pdf', true);
-$document = \SetaPDF_Core_Document::loadByFilename(
+$writer = new HttpWriter('result.pdf', true);
+$document = Document::loadByFilename(
     $assetsDirectory . '/pdfs/Fact-Sheet-without-personalization.pdf',
     $writer
 );
@@ -43,11 +47,11 @@ $pageOne->getContents()->encapsulateExistingContentInGraphicState();
 // get the canvas
 $canvas = $pageOne->getCanvas();
 
-// normalize the rotation of the page, so that the origin is at the lower left througout
+// normalize the rotation of the page, so that the origin is at the lower left throughout
 $canvas->normalizeRotationAndOrigin($pageOne->getRotation(), $pageOne->getBoundary());
 
 // create an image instance
-$image = \SetaPDF_Core_Image::getByPath($imgPath)->toXObject($document);
+$image = Image::getByPath($imgPath)->toXObject($document);
 
 // let's use a fixed height
 $height = 40;

@@ -1,6 +1,10 @@
 <?php
 
-use com\setasign\SetaPDF\Demos\ContentStreamProcessor\ImageProcessor;
+use setasign\SetaPDF2\Demos\ContentStreamProcessor\ImageProcessor;
+use setasign\SetaPDF2\Core\Document;
+use setasign\SetaPDF2\Core\Document\Action\GoToAction;
+use setasign\SetaPDF2\Core\Document\Destination;
+use setasign\SetaPDF2\Core\Writer\HttpWriter;
 
 // load and register the autoload function
 require_once '../../../../../bootstrap.php';
@@ -19,7 +23,7 @@ require_once $classesDirectory . '/ContentStreamProcessor/ImageProcessor.php';
 if (!isset($_GET['p'])) {
 
     // load a document instance
-    $document = \SetaPDF_Core_Document::loadByFilename($path);
+    $document = Document::loadByFilename($path);
     // get access to the pages object
     $pages = $document->getCatalog()->getPages();
 
@@ -60,8 +64,8 @@ if (!isset($_GET['p'])) {
 } else {
 
     // let's create a writer and document instance
-    $writer = new \SetaPDF_Core_Writer_Http('marked.pdf', true);
-    $document = \SetaPDF_Core_Document::loadByFilename($path, $writer);
+    $writer = new HttpWriter('marked.pdf', true);
+    $document = Document::loadByFilename($path, $writer);
 
     // get access to the pages object
     $pages = $document->getCatalog()->getPages();
@@ -70,8 +74,8 @@ if (!isset($_GET['p'])) {
     $page = $pages->getPage($_GET['p']);
 
     // set an open action, so that the page is shown when opened (requires support of the reader application)
-    $dest = \SetaPDF_Core_Document_Destination::createByPage($page);
-    $document->getCatalog()->setOpenAction(new \SetaPDF_Core_Document_Action_GoTo($dest));
+    $dest = Destination::createByPage($page);
+    $document->getCatalog()->setOpenAction(new GoToAction($dest));
 
     // get access to the pages canvas
     $canvas = $page->getCanvas();
