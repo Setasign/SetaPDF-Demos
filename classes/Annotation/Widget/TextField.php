@@ -566,10 +566,10 @@ class TextField extends Widget
             $textBlock->draw($canvas, 0, $height - $textBlock->getHeight() - $borderWidth);
         } else {
             switch ($textBlock->getAlign()) {
-                case \SetaPDF_Core_Text::ALIGN_CENTER:
+                case Text::ALIGN_CENTER:
                     $left = (($width - $offset * 2) / 2) - ($textBlock->getTextWidth() / 2);
                     break;
-                case \SetaPDF_Core_Text::ALIGN_RIGHT:
+                case Text::ALIGN_RIGHT:
                     $left = ($width - $offset * 2) - $textBlock->getTextWidth();
                     break;
                 default:

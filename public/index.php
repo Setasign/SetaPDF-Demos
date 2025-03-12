@@ -119,25 +119,25 @@ echo <<<HTML
 HTML;
 
 $availablePackages = [];
-if (class_exists(SetaPDF_Core::class)) {
+if (class_exists(\setasign\SetaPDF2\Core\Core::class)) {
     $availablePackages[] = 'SetaPDF-Core';
 }
-if (class_exists(SetaPDF_Extractor::class)) {
+if (class_exists(\setasign\SetaPDF2\Extractor\Extractor::class)) {
     $availablePackages[] = 'SetaPDF-Extractor';
 }
-if (class_exists(SetaPDF_FormFiller::class)) {
+if (class_exists(\setasign\SetaPDF2\FormFiller\FormFiller::class)) {
     $availablePackages[] = 'SetaPDF-FormFiller';
-    if (class_exists(SetaPDF_FormFiller_Field_List::class)) {
+    if (class_exists(\setasign\SetaPDF2\FormFiller\Field\ListField::class)) {
         $availablePackages[] = 'SetaPDF-FormFiller Full';
     }
 }
-if (class_exists(SetaPDF_Merger::class)) {
+if (class_exists(\setasign\SetaPDF2\Merger\Merger::class)) {
     $availablePackages[] = 'SetaPDF-Merger';
 }
-if (class_exists(SetaPDF_Signer::class)) {
+if (class_exists(\setasign\SetaPDF2\Signer\Signer::class)) {
     $availablePackages[] = 'SetaPDF-Signer';
 }
-if (class_exists(SetaPDF_Stamper::class)) {
+if (class_exists(\setasign\SetaPDF2\Stamper\Stamper::class)) {
     $availablePackages[] = 'SetaPDF-Stamper';
 }
 
