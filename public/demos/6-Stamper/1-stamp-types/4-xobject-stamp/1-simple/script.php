@@ -4,7 +4,7 @@ use setasign\SetaPDF2\Core\Canvas\Draw;
 use setasign\SetaPDF2\Core\Document;
 use setasign\SetaPDF2\Core\Writer\HttpWriter;
 use setasign\SetaPDF2\Core\XObject\Form;
-use setasign\SetaPDF2\Stamper\Stamp\XObject as XObjectStamp;
+use setasign\SetaPDF2\Stamper\Stamp\XObjectStamp;
 use setasign\SetaPDF2\Stamper\Stamper;
 
 // load and register the autoload function

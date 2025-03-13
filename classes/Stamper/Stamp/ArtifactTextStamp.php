@@ -4,7 +4,7 @@ namespace setasign\SetaPDF2\Demos\Stamper\Stamp;
 
 use setasign\SetaPDF2\Core\Document;
 use setasign\SetaPDF2\Core\Document\Page;
-use setasign\SetaPDF2\Stamper\Stamp\Text as TextStamp;
+use setasign\SetaPDF2\Stamper\Stamp\TextStamp;
 
 /**
  * Class ArtifactTextStamp

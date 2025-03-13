@@ -5,7 +5,7 @@ use setasign\SetaPDF2\Core\Font\FontInterface;
 use setasign\SetaPDF2\Core\Font\TrueType\Subset;
 use setasign\SetaPDF2\Core\Writer\HttpWriter;
 use setasign\SetaPDF2\Core\XObject\Form;
-use setasign\SetaPDF2\Stamper\Stamp\XObject as XObjectStamp;
+use setasign\SetaPDF2\Stamper\Stamp\XObjectStamp;
 use setasign\SetaPDF2\Stamper\Stamper;
 
 // load and register the autoload function

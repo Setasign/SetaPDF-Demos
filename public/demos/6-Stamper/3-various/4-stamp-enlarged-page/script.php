@@ -7,7 +7,7 @@ use setasign\SetaPDF2\Core\PageBoundaries;
 use setasign\SetaPDF2\Core\Reader\FileReader;
 use setasign\SetaPDF2\Core\Text\Text;
 use setasign\SetaPDF2\Core\Writer\HttpWriter;
-use setasign\SetaPDF2\Stamper\Stamp\Text as TextStamp;
+use setasign\SetaPDF2\Stamper\Stamp\TextStamp;
 use setasign\SetaPDF2\Stamper\Stamper;
 
 // load and register the autoload function
