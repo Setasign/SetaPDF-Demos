@@ -2,7 +2,7 @@
 
 use setasign\SetaPDF2\Core\Document;
 use setasign\SetaPDF2\Core\Document\Action\UriAction;
-use setasign\SetaPDF2\Core\Document\Page\Annotation\Link;
+use setasign\SetaPDF2\Core\Document\Page\Annotation\LinkAnnotation;
 use setasign\SetaPDF2\Core\Font\Standard\Helvetica;
 use setasign\SetaPDF2\Core\PageFormats;
 use setasign\SetaPDF2\Core\Text\Block;
@@ -32,7 +32,7 @@ $y = $page->getHeight() - 100;
 $text->draw($canvas, $x, $y);
 
 // create the link annotation
-$link = new Link(
+$link = new LinkAnnotation(
     [$x, $y, $x + $text->getWidth(), $y + $text->getHeight()],
     new UriAction('https://www.setasign.com')
 );

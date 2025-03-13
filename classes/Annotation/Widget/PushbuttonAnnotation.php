@@ -7,13 +7,13 @@ use setasign\SetaPDF2\Core\DataStructure\Color\AbstractColor;
 use setasign\SetaPDF2\Core\DataStructure\Color\Gray;
 use setasign\SetaPDF2\Core\Document;
 use setasign\SetaPDF2\Core\Document\Catalog\AcroForm;
+use setasign\SetaPDF2\Core\Document\Page\Annotation\AppearanceCharacteristics;
 use setasign\SetaPDF2\Core\Document\Page\Annotation\BorderStyle;
-use setasign\SetaPDF2\Core\Document\Page\Annotation\Widget;
+use setasign\SetaPDF2\Core\Document\Page\Annotation\WidgetAnnotation;
 use setasign\SetaPDF2\Core\Encoding\Encoding;
 use setasign\SetaPDF2\Core\Exception;
 use setasign\SetaPDF2\Core\Font\Font;
 use setasign\SetaPDF2\Core\Font\FontInterface;
-use setasign\SetaPDF2\Core\Font\Simple;
 use setasign\SetaPDF2\Core\Parser\Content;
 use setasign\SetaPDF2\Core\Resource\ResourceInterface;
 use setasign\SetaPDF2\Core\Text\Text;
@@ -23,18 +23,16 @@ use setasign\SetaPDF2\Core\Type\Dictionary\DictionaryHelper;
 use setasign\SetaPDF2\Core\Type\IndirectObjectInterface;
 use setasign\SetaPDF2\Core\Type\PdfArray;
 use setasign\SetaPDF2\Core\Type\PdfDictionary;
-use setasign\SetaPDF2\Core\Type\PdfIndirectReference;
 use setasign\SetaPDF2\Core\Type\PdfName;
 use setasign\SetaPDF2\Core\Type\PdfNumeric;
 use setasign\SetaPDF2\Core\Type\PdfString;
 use setasign\SetaPDF2\Core\Writer\Writer;
 use setasign\SetaPDF2\Core\XObject\Form;
-use setasign\SetaPDF2\Exception\NotImplemented;
 
 /**
- * Example class representing a text field.
+ * Example class representing a push-button.
  */
-class TextField extends Widget
+class PushbuttonAnnotation extends WidgetAnnotation
 {
     /**
      * @var Document
@@ -42,24 +40,11 @@ class TextField extends Widget
     protected $_document;
 
     /**
-     * @var Font
-     */
-    protected $_appearanceFont;
-
-    /**
-     * @var string
-     */
-    protected $_qualifiedName;
-
-    /**
-     * Creates a new text field in a specific document
+     * Creates a new button field in a specific document
      *
      * @param array|AbstractType|PdfDictionary|IndirectObjectInterface $objectOrDictionary
-     * @param string $fieldName
+     * @param $fieldName
      * @param Document $document
-     * @throws \setasign\SetaPDF2\Core\SecHandler\Exception
-     * @throws \setasign\SetaPDF2\Core\Type\Exception
-     * @throws \setasign\SetaPDF2\Core\Type\IndirectReference\Exception
      */
     public function __construct($objectOrDictionary, $fieldName, Document $document)
     {
@@ -67,8 +52,8 @@ class TextField extends Widget
 
         parent::__construct($objectOrDictionary);
         $dict = $this->getDictionary();
-        $dict->offsetSet('FT', new PdfName('Tx'));
-        $this->setPrintFlag();
+        $dict['FT'] = new PdfName('Btn');
+        $this->setFieldFlags(0x010000); // pushbutton -> 17
 
         $acroForm = $document->getCatalog()->getAcroForm();
         $acroForm->addDefaultEntriesAndValues();
@@ -76,83 +61,53 @@ class TextField extends Widget
         // Ensure unique field name
         $fieldNames = [];
         foreach ($acroForm->getTerminalFieldsObjects() as $terminalObject) {
+            /** @var string $name */
             $name = AcroForm::resolveFieldName($terminalObject->ensure());
             $fieldNames[$name] = $name;
         }
 
         $i = 1;
-        $fieldName = \str_replace('.', '_', $fieldName);
         $oFieldName = $fieldName;
+        /** @var string $fieldName */
+        $fieldName = str_replace('.', '_', $fieldName);
         while (isset($fieldNames[$fieldName])) {
             $fieldName = $oFieldName . '_' . ($i++);
         }
 
-        $this->_qualifiedName = $fieldName;
-        $dict->offsetSet('T', new PdfString(Encoding::toPdfString($fieldName)));
+        $dict['T'] = new PdfString(Encoding::toPdfString($fieldName));
     }
 
     /**
-     * Returns the qualified name.
+     * Set the button caption
      *
-     * @return string
-     */
-    public function getQualifiedName()
-    {
-        return $this->_qualifiedName;
-    }
-
-    /**
-     * Set the value
-     *
-     * @param string $value
+     * @param string $caption
      * @param string $encoding
      */
-    public function setValue(string $value, string $encoding = 'UTF-8')
+    public function setCaption(string $caption, string $encoding = 'UTF-8')
     {
-        $dict = $this->getDictionary();
-        $dict->offsetSet('V', new PdfString(Encoding::toPdfString($value, $encoding)));
-    }
-
-    /**
-     * @param array $daValues
-     */
-    protected function _setDaValues(array $daValues)
-    {
-        $writer = new Writer();
-        PdfName::writePdfString($writer, $daValues['fontName']->getValue());
-        PdfNumeric::writePdfString($writer, $daValues['fontSize']->getValue());
-        $writer->write(' Tf');
-        $daValues['color']->draw($writer, false);
-
-        $dict = $this->getDictionary();
-        $dict->offsetSet('DA', new PdfString($writer));
+        /** @var AppearanceCharacteristics $appCharacteristics */
+        $appCharacteristics = $this->getAppearanceCharacteristics(true);
+        $dict = $appCharacteristics->getDictionary();
+        $dict['CA'] = new PdfString(Encoding::toPdfString($caption, $encoding));
     }
 
     /**
      * Set the font
      *
-     * @param Simple $font
-     * @throws \setasign\SetaPDF2\Core\SecHandler\Exception
+     * @param FontInterface $font
      * @throws Exception
      */
-    public function setFont(Simple $font)
+    public function setFont(FontInterface $font)
     {
         $daValues = $this->_getDaValues();
-        $daValues['fontName'] = new PdfName(
-            $this->_document->getCatalog()->getAcroForm()->addResource($font)
-        );
-        $this->_setDaValues($daValues);
-    }
 
-    /**
-     * Set an individual which is used for rendering of the field value.
-     *
-     * @param FontInterface $appearanceFont
-     * @return void
-     */
-    public function setAppearanceFont(FontInterface $appearanceFont)
-    {
-        $this->_appearanceFont = $appearanceFont;
+        $writer = new Writer();
+        PdfName::writePdfString($writer, $this->_document->getCatalog()->getAcroForm()->addResource($font));
+        $daValues['fontSize']->writePdfString($writer, $daValues['fontSize']->getValue());
+        $writer->write(' Tf');
+        $daValues['color']->draw($writer, false);
+
+        $this->_annotationDictionary['DA'] = new PdfString($writer);
     }
 
     /**
@@ -160,20 +115,13 @@ class TextField extends Widget
      *
      * @return Font
      * @throws Exception
-     * @throws \setasign\SetaPDF2\Core\Font\Exception
-     * @throws \setasign\SetaPDF2\Core\SecHandler\Exception
-     * @throws \setasign\SetaPDF2\Core\Type\Exception
-     * @throws \setasign\SetaPDF2\Core\Type\IndirectReference\Exception
-     * @throws NotImplemented
      */
     public function getFont()
     {
         $daValues = $this->_getDaValues();
         $fonts = $this->_document->getCatalog()->getAcroForm()->getDefaultResources(true, ResourceInterface::TYPE_FONT);
 
-        /** @var PdfIndirectReference $font */
-        $font = $fonts->getValue($daValues['fontName']->getValue());
-        return Font::get($font);
+        return Font::get($fonts->getValue($daValues['fontName']->getValue()));
     }
 
     /**
@@ -181,21 +129,26 @@ class TextField extends Widget
      *
      * @param int|float $fontSize
      * @throws Exception
-     * @throws \setasign\SetaPDF2\Core\SecHandler\Exception
      */
     public function setFontSize($fontSize)
     {
         $daValues = $this->_getDaValues();
+
+        $writer = new Writer();
         $daValues['fontSize'] = new PdfNumeric($fontSize);
-        $this->_setDaValues($daValues);
+        PdfName::writePdfString($writer, $daValues['fontName']->getValue());
+        PdfNumeric::writePdfString($writer, $daValues['fontSize']->getValue());
+        $writer->write(' Tf');
+        $daValues['color']->draw($writer, false);
+
+        $this->_annotationDictionary['DA'] = new PdfString($writer);
     }
 
     /**
      * Set the text color
      *
-     * @param AbstractColor|int|float|string|array|PdfArray $color
+     * @param int|float|string|array|PdfArray|AbstractColor $color
      * @throws Exception
-     * @throws \setasign\SetaPDF2\Core\SecHandler\Exception
      */
     public function setTextColor($color)
     {
@@ -204,77 +157,14 @@ class TextField extends Widget
         }
 
         $daValues = $this->_getDaValues();
-        $daValues['color'] = $color;
-        $this->_setDaValues($daValues);
-    }
 
-    /**
-     * Set the form of quadding (justification / align) that shall be used in displaying the fields text.
-     *
-     * @see Text::ALIGN_LEFT
-     * @see Text::ALIGN_CENTER
-     * @see Text::ALIGN_RIGHT
-     * @param $align
-     */
-    public function setAlign($align)
-    {
-        $allowed = [
-            Text::ALIGN_LEFT,
-            Text::ALIGN_CENTER,
-            Text::ALIGN_RIGHT
-        ];
+        $writer = new Writer();
+        PdfName::writePdfString($writer, $daValues['fontName']->getValue());
+        PdfNumeric::writePdfString($writer, $daValues['fontSize']->getValue());
+        $writer->write(' Tf');
+        $color->draw($writer, false);
 
-        if (!\in_array($align, $allowed, true)) {
-            throw new \InvalidArgumentException('Invalid align parameter "' . $align . '".');
-        }
-
-        $this->_annotationDictionary->offsetSet('Q', new PdfNumeric(\array_search($align, $allowed, true)));
-    }
-
-    /**
-     * Get the form of quadding (justification / align) that shall be used in displaying the fields text.
-     *
-     * @return mixed|string
-     */
-    public function getAlign()
-    {
-        $align = DictionaryHelper::getValue($this->getDictionary(), 'Q');
-        if (!$align instanceof PdfNumeric) {
-            return Text::ALIGN_LEFT;
-        }
-
-        $align = (int)$align->getValue();
-        $values = [
-            Text::ALIGN_LEFT,
-            Text::ALIGN_CENTER,
-            Text::ALIGN_RIGHT
-        ];
-
-        if (!isset($values[$align])) {
-            return Text::ALIGN_LEFT;
-        }
-
-        return $values[$align];
-    }
-
-    /**
-     * Check if the multiline flag is set.
-     *
-     * @return bool
-     */
-    public function isMultiline(): bool
-    {
-        return $this->isFieldFlagSet(0x1000);
-    }
-
-    /**
-     * Set the multiline flag.
-     *
-     * @param bool $multiline
-     */
-    public function setMultiline(bool $multiline = true)
-    {
-        $this->setFieldFlags(0x1000, $multiline);
+        $this->_annotationDictionary['DA'] = new PdfString($writer);
     }
 
     /**
@@ -282,7 +172,6 @@ class TextField extends Widget
      *
      * @return array
      * @throws Exception
-     * @throws \setasign\SetaPDF2\Core\SecHandler\Exception
      */
     protected function _getDaValues()
     {
@@ -298,11 +187,11 @@ class TextField extends Widget
 
         $fontName = $fontSize = $color = null;
         $parser = new Content($da->getValue());
-        $parser->registerOperator('Tf', function($params) use (&$fontName, &$fontSize) {
+        $parser->registerOperator('Tf', static function($params) use (&$fontName, &$fontSize) {
             $fontName = $params[0];
             $fontSize = $params[1];
         });
-        $parser->registerOperator(['g', 'rg', 'k'], function($params) use (&$color) {
+        $parser->registerOperator(['g', 'rg', 'k'], static function($params) use (&$color) {
             $color = AbstractColor::createByComponents($params);
         });
 
@@ -317,13 +206,6 @@ class TextField extends Widget
 
     /**
      * Creates the appearance of the button
-     *
-     * @throws Exception
-     * @throws \setasign\SetaPDF2\Core\Font\Exception
-     * @throws \setasign\SetaPDF2\Core\SecHandler\Exception
-     * @throws \setasign\SetaPDF2\Core\Type\Exception
-     * @throws \setasign\SetaPDF2\Core\Type\IndirectReference\Exception
-     * @throws NotImplemented
      */
     protected function _createAppearance()
     {
@@ -359,13 +241,14 @@ class TextField extends Widget
             ? $appearanceCharacteristics->getRotation()
             : 0;
         if ($rotation != 0) {
-            $rotation = $rotation % 360;
-            if ($rotation < 0)
-                $rotation = $rotation + 360;
+            $rotation %= 360;
+            if ($rotation < 0) {
+                $rotation += 360;
+            }
 
-            $r = deg2rad($rotation);
-            $a = $d = cos($r);
-            $b = sin($r);
+            $r = \deg2rad($rotation);
+            $a = $d = \cos($r);
+            $b = \sin($r);
             $c = -$b;
             $e = 0;
             $f = 0;
@@ -375,11 +258,13 @@ class TextField extends Widget
                 $f = $height;
             }
 
-            if ($b == 1)
+            if ($b == 1) {
                 $e = $height;
+            }
 
-            if ($c == 1)
+            if ($c == 1) {
                 $f = $width;
+            }
 
             $n->getObject()->ensure()->getValue()->offsetSet('Matrix', new PdfArray([
                 new PdfNumeric($a),
@@ -410,9 +295,9 @@ class TextField extends Widget
         // Beveld or Inset
         if ($_borderStyle === BorderStyle::BEVELED ||
             $_borderStyle === BorderStyle::INSET) {
-            $colorLtValue = 1;
+            $colorLtValue = 1; //' 1 g';
             if ($_borderStyle === BorderStyle::INSET) {
-                $colorLtValue = .5;
+                $colorLtValue = .5; // ' 0.5 g';
             }
 
             /**
@@ -420,9 +305,7 @@ class TextField extends Widget
              * The effect will only occur if the field is active
              * All other fields will use this effect.
              */
-            if (
-                $_borderStyle === BorderStyle::BEVELED && $backgroundColor
-            ) {
+            if ($_borderStyle === BorderStyle::BEVELED && $backgroundColor) {
                 $tmpColor = clone $backgroundColor;
                 $tmpColor->adjustAllComponents(-0.250977);
                 $colorRb = $tmpColor;
@@ -487,111 +370,51 @@ class TextField extends Widget
             }
         }
 
-        $dict = $this->getDictionary();
-        $value = DictionaryHelper::getValue($dict, 'V', '', true);
-        if ($value === '') {
-            return;
-        }
-
         $daValues = $this->_getDaValues();
 
-        $font = $this->_appearanceFont ?: $this->getFont();
+        $font = $this->getFont();
         $textBlock = new Block($font, null);
-        $textBlock->setAlign($this->getAlign());
 
         $borderDoubled = (
             $_borderStyle === BorderStyle::BEVELED ||
             $_borderStyle === BorderStyle::INSET
         );
 
-        $offset = \max(1, $borderWidth * ($borderDoubled ? 2 : 1)) * 2;
-        $clipOffset = \max(1, $borderWidth * ($borderDoubled ? 2 : 1));
+        $offset = max(1, $borderWidth * ($borderDoubled ? 2 : 1)) * 2;
 
-        $canvas->markedContent()->begin('Tx');
-
-        // Clip
-        $canvas->path()->rect(
-            $clipOffset,
-            $clipOffset,
-            $width - $clipOffset * 2,
-            $height - $clipOffset * 2
-        )->clip()->endPath();
-
-        $multiline = $this->isMultiline();
-
-        if ($multiline === false) {
-            $value = \str_replace([
-                // replace line breaks and tab with spaces
-                "\x00\x0d\x00\x0a",
-                "\x00\x0d",
-                "\x00\x0a",
-                // tab to space
-                "\x00\x09"
-            ], "\x00\x20", $value);
-        } else {
-            // normalize line breaks and convert tabs to spaces
-            $value = \str_replace("\x00\x09", "\x00\x20", Text::normalizeLineBreaks($value));
-        }
-
-        $textBlock->setText(
-            Encoding::convertPdfString($value, 'UTF-16BE'),
-            'UTF-16BE'
-        );
+        /** @var AppearanceCharacteristics $appCharacteristics */
+        $appCharacteristics = $this->getAppearanceCharacteristics(true);
+        $dict = $appCharacteristics->getDictionary();
+        $textBlock->setText(Encoding::convertPdfString(
+            $dict->getValue('CA')->getValue(), 'UTF-16BE'
+        ), 'UTF-16BE');
         $textBlock->setPadding($offset);
         $fontSize = $daValues['fontSize']->getValue();
-
-        if ($multiline) {
-            $textBlock->setTextWidth($width - $offset * 2);
-        }
-
-        if ($fontSize === 0) {
+        if ($fontSize == 0) {
             $textBlock->setFontSize(12);
             $textWidthAt12Points = $textBlock->getTextWidth();
 
             $fontSize = ($width - $offset * 2) / $textWidthAt12Points * 12;
             $textBlock->setFontSize($fontSize);
 
-            if (!$multiline) {
-                $textHeight = $textBlock->getTextHeight();
-                if ($textHeight > ($height - $offset * 2)) {
-                    // A near value...
-                    $fontSize = \max(4, ($height - $offset * 2) * $fontSize / $textHeight);
-                }
+            $textHeight = $textBlock->getTextHeight();
+            if ($textHeight > ($height - $offset * 2)) {
+                // A near value...
+                $fontSize = ($height - $offset * 2) * $fontSize / $textHeight;
             }
         }
+        $textBlock->setTextWidth($width - $offset * 2);
         $textBlock->setFontSize($fontSize);
         $textBlock->setTextColor($daValues['color']);
 
-        if ($multiline) {
-            $textBlock->draw($canvas, 0, $height - $textBlock->getHeight() - $borderWidth);
-        } else {
-            switch ($textBlock->getAlign()) {
-                case Text::ALIGN_CENTER:
-                    $left = (($width - $offset * 2) / 2) - ($textBlock->getTextWidth() / 2);
-                    break;
-                case Text::ALIGN_RIGHT:
-                    $left = ($width - $offset * 2) - $textBlock->getTextWidth();
-                    break;
-                default:
-                    $left = 0;
-            }
-            $textBlock->draw($canvas, $left, $height / 2 - $textBlock->getHeight() / 2);
-        }
-
-        $canvas->markedContent()->end();
+        $textBlock->setAlign(Text::ALIGN_CENTER);
+        $textBlock->draw($canvas, 0, $height / 2 - $textBlock->getHeight() / 2);
     }
 
     /**
-     * @param Document|null $document
      * @return IndirectObjectInterface
-     * @throws Exception
-     * @throws \setasign\SetaPDF2\Core\Font\Exception
-     * @throws \setasign\SetaPDF2\Core\SecHandler\Exception
-     * @throws \setasign\SetaPDF2\Core\Type\Exception
-     * @throws \setasign\SetaPDF2\Core\Type\IndirectReference\Exception
-     * @throws NotImplemented
      */
-    public function getIndirectObject(?Document $document = null)
+    public function getIndirectObject(Document $document = null)
     {
         $this->_createAppearance();
         return parent::getIndirectObject($document);
@@ -630,7 +453,7 @@ class TextField extends Widget
      *
      * @param int $flags
      */
-    public function unsetFieldFlags($flags)
+    public function unsetFieldFlags(int $flags)
     {
         $dict = DictionaryHelper::resolveDictionaryByAttribute($this->_annotationDictionary, 'Ff');
 
@@ -645,7 +468,7 @@ class TextField extends Widget
      *
      * @return int
      */
-    public function getFieldFlags()
+    public function getFieldFlags(): int
     {
         $fieldFlags = DictionaryHelper::resolveAttribute($this->_annotationDictionary, 'Ff');
         if ($fieldFlags) {
@@ -661,7 +484,7 @@ class TextField extends Widget
      * @param int $flag
      * @return bool
      */
-    public function isFieldFlagSet($flag)
+    public function isFieldFlagSet(int $flag): bool
     {
         return ($this->getFieldFlags() & $flag) !== 0;
     }

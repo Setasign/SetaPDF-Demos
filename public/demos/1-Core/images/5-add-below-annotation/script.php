@@ -3,7 +3,7 @@
 use setasign\SetaPDF2\Core\Document;
 use setasign\SetaPDF2\Core\Document\Action\UriAction;
 use setasign\SetaPDF2\Core\Document\Page\Annotation\Annotation;
-use setasign\SetaPDF2\Core\Document\Page\Annotation\Link;
+use setasign\SetaPDF2\Core\Document\Page\Annotation\LinkAnnotation;
 use setasign\SetaPDF2\Core\Image\Image;
 use setasign\SetaPDF2\Core\Writer\HttpWriter;
 use setasign\SetaPDF2\Core\XObject\Form;
@@ -36,7 +36,7 @@ $pageOne->getContents()->encapsulateExistingContentInGraphicState();
 $canvas = $pageOne->getCanvas();
 
 $annotations = $pageOne->getAnnotations();
-/** @var Link[] $linkAnnotations */
+/** @var LinkAnnotation[] $linkAnnotations */
 $linkAnnotations = $annotations->getAll(Annotation::TYPE_LINK);
 foreach ($linkAnnotations as $linkAnnotation) {
     $action = $linkAnnotation->getAction();

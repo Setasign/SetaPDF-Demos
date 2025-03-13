@@ -2,7 +2,7 @@
 
 use setasign\SetaPDF2\Core\Document;
 use setasign\SetaPDF2\Core\Document\Page\Annotation\BorderStyle;
-use setasign\SetaPDF2\Core\Document\Page\Annotation\Link;
+use setasign\SetaPDF2\Core\Document\Page\Annotation\LinkAnnotation;
 use setasign\SetaPDF2\Core\Exception as CoreException;
 use setasign\SetaPDF2\Core\Writer\HttpWriter;
 use setasign\SetaPDF2\Extractor\Extractor;
@@ -116,7 +116,7 @@ for ($pageNo = 1; $pageNo <= $pages->count(); $pageNo++) {
                 $ur = $bounds[0]->getUr();
 
                 // ...add a link annotation
-                $annotation = new Link(
+                $annotation = new LinkAnnotation(
                     [$ll->getX(), $ll->getY(), $ur->getX(), $ur->getY()],
                     $link
                 );
@@ -170,7 +170,7 @@ for ($pageNo = 1; $pageNo <= $pages->count(); $pageNo++) {
                 $ur = $bounds[0]->getUr();
 
                 // ...add a link annotation
-                $annotation = new Link(
+                $annotation = new LinkAnnotation(
                     [$ll->getX(), $ll->getY(), $ur->getX(), $ur->getY()],
                     'mailto:' . $email
                 );

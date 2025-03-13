@@ -3,7 +3,7 @@
 use setasign\SetaPDF2\Core\Document;
 use setasign\SetaPDF2\Core\Document\Page;
 use setasign\SetaPDF2\Core\Document\Page\Annotation\Annotation;
-use setasign\SetaPDF2\Core\Document\Page\Annotation\Widget;
+use setasign\SetaPDF2\Core\Document\Page\Annotation\WidgetAnnotation;
 use setasign\SetaPDF2\Core\Geometry\Matrix;
 use setasign\SetaPDF2\Core\Geometry\Rectangle;
 use setasign\SetaPDF2\Core\Geometry\Vector;
@@ -106,7 +106,7 @@ for ($pageNo = 1; $pageNo <= $pageCount; $pageNo++) {
     $allAnnotations = $annotations->getAll();
 
     foreach ($allAnnotations as $k => $annotation) {
-        if ($annotation instanceof Widget) {
+        if ($annotation instanceof WidgetAnnotation) {
             continue;
         }
 

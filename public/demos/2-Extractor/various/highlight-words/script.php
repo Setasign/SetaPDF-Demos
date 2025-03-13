@@ -2,7 +2,7 @@
 
 use setasign\SetaPDF2\Core\DataStructure\Rectangle as RectangleDataStructure;
 use setasign\SetaPDF2\Core\Document;
-use setasign\SetaPDF2\Core\Document\Page\Annotation\Highlight;
+use setasign\SetaPDF2\Core\Document\Page\Annotation\HighlightAnnotation;
 use setasign\SetaPDF2\Core\Geometry\Rectangle;
 use setasign\SetaPDF2\Core\Writer\HttpWriter;
 use setasign\SetaPDF2\Extractor\Extractor;
@@ -82,7 +82,7 @@ for ($pageNo = 1; $pageNo <= $pages->count(); $pageNo++) {
             $rect = new Rectangle($bound->getLl(), $bound->getUr());
             $rect = RectangleDataStructure::byRectangle($rect);
 
-            $annotation = new Highlight($rect);
+            $annotation = new HighlightAnnotation($rect);
             $annotation->setColor([1, 1, 0]);
             $annotation->setContents('Match #' . (++$found));
             $annotation->setPrintFlag();

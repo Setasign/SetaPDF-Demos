@@ -31,7 +31,7 @@ for ($pageNo = 1, $pageCount = $pages->count(); $pageNo <= $pageCount; $pageNo++
     $page = $pages->getPage($pageNo);
     $linkAnnotations = $page->getAnnotations()->getAll(Annotation::TYPE_LINK);
 
-    /** @var \setasign\SetaPDF2\Core\Document\Page\Annotation\Link $linkAnnotation */
+    /** @var \setasign\SetaPDF2\Core\Document\Page\Annotation\LinkAnnotation $linkAnnotation */
     foreach ($linkAnnotations AS $linkAnnotation) {
         $action = $linkAnnotation->getAction();
         if ($action && $action instanceof UriAction) {

@@ -1,6 +1,6 @@
 <?php
 
-use setasign\SetaPDF2\Demos\Annotation\Widget\Pushbutton;
+use setasign\SetaPDF2\Demos\Annotation\Widget\PushbuttonAnnotation;
 use setasign\SetaPDF2\Core\Document;
 use setasign\SetaPDF2\Core\Document\Action\JavaScriptAction;
 use setasign\SetaPDF2\Core\Document\Action\SubmitFormAction;
@@ -51,7 +51,7 @@ $x = $page->getCropBox()->getUrx() - $width - 5;
 $y = $page->getCropBox()->getUrY() - $height - 5;
 
 // Create a pushbutton instance
-$pb = new Pushbutton([$x, $y, $x + $width, $y + $height], 'submit btn', $document);
+$pb = new PushbuttonAnnotation([$x, $y, $x + $width, $y + $height], 'submit btn', $document);
 $pb->setCaption('Submit');
 $pb->setFontSize(12);
 $pb->setTextColor([0]);
@@ -91,7 +91,7 @@ $fields->push($annotations->add($pb));
 $x = $page->getCropBox()->getLlx() + 5;
 $y = $page->getCropBox()->getUrY() - $height - 5;
 
-$pb = new Pushbutton([$x, $y, $x + $width, $y + $height], 'random data btn', $document);
+$pb = new PushbuttonAnnotation([$x, $y, $x + $width, $y + $height], 'random data btn', $document);
 $pb->setCaption('Set values');
 $pb->setFontSize(12);
 $pb->setTextColor([0]);

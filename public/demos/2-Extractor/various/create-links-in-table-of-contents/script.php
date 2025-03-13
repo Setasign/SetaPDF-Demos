@@ -3,7 +3,7 @@
 use setasign\SetaPDF2\Core\Document;
 use setasign\SetaPDF2\Core\Document\Action\GoToAction;
 use setasign\SetaPDF2\Core\Document\Destination;
-use setasign\SetaPDF2\Core\Document\Page\Annotation\Link;
+use setasign\SetaPDF2\Core\Document\Page\Annotation\LinkAnnotation;
 use setasign\SetaPDF2\Core\Writer\HttpWriter;
 use setasign\SetaPDF2\Extractor\Extractor;
 use setasign\SetaPDF2\Extractor\Result\Collection;
@@ -96,7 +96,7 @@ for ($pageNo = $tocStartPage; $pageNo <= $tocEndPage; $pageNo++) {
         $bounds = $line->getBounds();
         $ll = $bounds[0]->getLl();
         $ur = $bounds[0]->getUr();
-        $annotation = new Link(
+        $annotation = new LinkAnnotation(
             [$ll->getX(), $ll->getY(), $ur->getX(), $ur->getY()],
             $action
         );

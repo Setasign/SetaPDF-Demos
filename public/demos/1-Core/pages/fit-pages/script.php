@@ -2,8 +2,8 @@
 
 use setasign\SetaPDF2\Core\DataStructure\Rectangle as RectangleDataStructure;
 use setasign\SetaPDF2\Core\Document;
-use setasign\SetaPDF2\Core\Document\Page\Annotation\Popup;
-use setasign\SetaPDF2\Core\Document\Page\Annotation\Square;
+use setasign\SetaPDF2\Core\Document\Page\Annotation\PopupAnnotation;
+use setasign\SetaPDF2\Core\Document\Page\Annotation\SquareAnnotation;
 use setasign\SetaPDF2\Core\Font\Standard\Courier;
 use setasign\SetaPDF2\Core\Geometry\Rectangle as RectangleGeometry;
 use setasign\SetaPDF2\Core\PageBoundaries;
@@ -140,7 +140,7 @@ foreach ($formats as $formatArray) {
     $text->draw($canvas, $x, $y);
 
     // create an annotation for demonstration purpose
-    $annotation = new Square(
+    $annotation = new SquareAnnotation(
         [$x, $y, $x + $text->getWidth(), $y + $text->getHeight()]
     );
 
@@ -280,7 +280,7 @@ for ($pageNumber = 1; $pageNumber <= $pageCount; $pageNumber++) {
 
         // the size of a popup annotation has to be handled individually
         // we just use the scale and translate values which were calculated before
-        if ($annotation instanceof Popup) {
+        if ($annotation instanceof PopupAnnotation) {
             $_rect = $annotation->getRect();
 
             $rect = RectangleDataStructure::byArray([

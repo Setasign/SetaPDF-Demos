@@ -1,6 +1,6 @@
 <?php
 
-use setasign\SetaPDF2\Demos\Annotation\Widget\TextField;
+use setasign\SetaPDF2\Demos\Annotation\Widget\TextFieldAnnotation;
 use setasign\SetaPDF2\Core\Document;
 use setasign\SetaPDF2\Core\Document\Page\Annotation\BorderStyle;
 use setasign\SetaPDF2\Core\Font\Standard\Helvetica;
@@ -82,7 +82,7 @@ for ($i = 0; $i < 18; $i++) {
     $align = $aligns[array_rand($aligns)];
 
     // Create a text field instance
-    $field = new TextField([$x, $y - $height - ($multiline ? 20 : 0), $x + $width, $y], 'field name ' . $i, $document);
+    $field = new TextFieldAnnotation([$x, $y - $height - ($multiline ? 20 : 0), $x + $width, $y], 'field name ' . $i, $document);
     $field->setValue('A simple test which is a bit longer to show line breaking behavior (' . $i . ').');
     $field->setFontSize($fontSize);
     $field->setTextColor($textColor);

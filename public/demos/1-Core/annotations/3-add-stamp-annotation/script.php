@@ -1,7 +1,7 @@
 <?php
 
 use setasign\SetaPDF2\Core\Document;
-use setasign\SetaPDF2\Core\Document\Page\Annotation\Stamp as StampAnnotation;
+use setasign\SetaPDF2\Core\Document\Page\Annotation\StampAnnotation;
 use setasign\SetaPDF2\Core\PageFormats;
 use setasign\SetaPDF2\Core\Writer\HttpWriter;
 

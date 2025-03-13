@@ -2,7 +2,7 @@
 
 use setasign\SetaPDF2\Core\Document;
 use setasign\SetaPDF2\Core\Document\Page\Annotation\Annotation;
-use setasign\SetaPDF2\Core\Document\Page\Annotation\TextMarkup;
+use setasign\SetaPDF2\Core\Document\Page\Annotation\TextMarkupAnnotation;
 use setasign\SetaPDF2\Core\Geometry\Rectangle;
 use setasign\SetaPDF2\Extractor\Extractor;
 use setasign\SetaPDF2\Extractor\Filter\Multi as MultiFilter;
@@ -62,14 +62,14 @@ for ($pageNo = 1, $pageCount = $pages->count(); $pageNo <= $pageCount; $pageNo++
     // iterate over all highlight annotations
     foreach ($annotations AS $tmpId => $annotation) {
         /**
-         * @var TextMarkup $annotation
+         * @var TextMarkupAnnotation $annotation
          */
         $name = 'P#' . $pageNo . '/TMA#' . $tmpId;
         if ($annotation->getName()) {
             $name .= ' (' . $annotation->getName() . ')';
         }
 
-        if ($annotation instanceof TextMarkup) {
+        if ($annotation instanceof TextMarkupAnnotation) {
             // iterate over the quad points to setup our filter instances
             $quadPoints = $annotation->getQuadPoints();
             for ($pos = 0, $c = count($quadPoints); $pos < $c; $pos += 8) {

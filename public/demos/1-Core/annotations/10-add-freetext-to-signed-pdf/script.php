@@ -2,7 +2,7 @@
 
 use setasign\SetaPDF2\Core\Canvas\GraphicState;
 use setasign\SetaPDF2\Core\Document;
-use setasign\SetaPDF2\Core\Document\Page\Annotation\FreeText as FreeTextAnnotation;
+use setasign\SetaPDF2\Core\Document\Page\Annotation\FreeTextAnnotation;
 use setasign\SetaPDF2\Core\Font\Standard\Helvetica;
 use setasign\SetaPDF2\Core\Geometry\Vector;
 use setasign\SetaPDF2\Core\Text\Text;

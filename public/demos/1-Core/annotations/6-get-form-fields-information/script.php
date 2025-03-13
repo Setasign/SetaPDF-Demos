@@ -3,7 +3,7 @@
 use setasign\SetaPDF2\Core\Document;
 use setasign\SetaPDF2\Core\Document\Catalog\AcroForm;
 use setasign\SetaPDF2\Core\Document\Page\Annotation\Annotation;
-use setasign\SetaPDF2\Core\Document\Page\Annotation\Widget;
+use setasign\SetaPDF2\Core\Document\Page\Annotation\WidgetAnnotation;
 use setasign\SetaPDF2\Core\Encoding\Encoding;
 use setasign\SetaPDF2\Core\Type\Dictionary\DictionaryHelper;
 use setasign\SetaPDF2\Core\Type\PdfStringInterface;
@@ -37,7 +37,7 @@ for ($pageNo = 1, $pageCount = $pages->count(); $pageNo <= $pageCount; $pageNo++
     $widgetAnnotations = $annotationsHelper->getAll(Annotation::TYPE_WIDGET);
     echo '<p>' . count($widgetAnnotations) . ' widget annotations found.</p>';
 
-    /* @var Widget $widgetAnnotation */
+    /* @var WidgetAnnotation $widgetAnnotation */
     foreach ($widgetAnnotations AS $widgetAnnotation) {
         $fieldName = AcroForm::resolveFieldName(
             $widgetAnnotation->getIndirectObject()->ensure()

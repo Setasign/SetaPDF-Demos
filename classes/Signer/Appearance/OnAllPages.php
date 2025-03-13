@@ -3,7 +3,7 @@
 namespace setasign\SetaPDF2\Demos\Signer\Appearance;
 
 use setasign\SetaPDF2\Core\Document;
-use setasign\SetaPDF2\Core\Document\Page\Annotation\Stamp;
+use setasign\SetaPDF2\Core\Document\Page\Annotation\StampAnnotation;
 use setasign\SetaPDF2\Core\Encoding\Encoding;
 use setasign\SetaPDF2\Core\XObject\Form;
 use setasign\SetaPDF2\Signer\Signature\Appearance\AbstractAppearance;
@@ -56,7 +56,7 @@ class OnAllPages extends AbstractAppearance
                 continue;
             }
 
-            $annotation = new Stamp($field->getRect());
+            $annotation = new StampAnnotation($field->getRect());
             $annotation->setName(\uniqid('', true));
             $annotation->setModificationDate(new \DateTime());
             $annotation->setPrintFlag();
