@@ -5,7 +5,7 @@ use setasign\SetaPDF2\Core\Font\TrueType\Subset;
 use setasign\SetaPDF2\Core\PageFormats;
 use setasign\SetaPDF2\Core\Text\Text;
 use setasign\SetaPDF2\Core\Writer\HttpWriter;
-use setasign\SetaPDF2\Stamper\Stamp\Text as TextStamp;
+use setasign\SetaPDF2\Stamper\Stamp\TextStamp;
 use setasign\SetaPDF2\Stamper\Stamper;
 
 // load and register the autoload function

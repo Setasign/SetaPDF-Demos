@@ -4,7 +4,7 @@ use setasign\SetaPDF2\Core\DataStructure\Color\Rgb;
 use setasign\SetaPDF2\Core\Document;
 use setasign\SetaPDF2\Core\Font\TrueType\Subset;
 use setasign\SetaPDF2\Core\Writer\HttpWriter;
-use setasign\SetaPDF2\Stamper\Stamp\Text as TextStamp;
+use setasign\SetaPDF2\Stamper\Stamp\TextStamp;
 use setasign\SetaPDF2\Stamper\Stamper;
 
 // load and register the autoload function

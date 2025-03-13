@@ -3,7 +3,7 @@
 use setasign\SetaPDF2\Core\Document;
 use setasign\SetaPDF2\Core\Document\Page;
 use setasign\SetaPDF2\Core\Writer\HttpWriter;
-use setasign\SetaPDF2\Stamper\Stamp\Pdf as PdfStamp;
+use setasign\SetaPDF2\Stamper\Stamp\PdfStamp;
 use setasign\SetaPDF2\Stamper\Stamper;
 
 // load and register the autoload function

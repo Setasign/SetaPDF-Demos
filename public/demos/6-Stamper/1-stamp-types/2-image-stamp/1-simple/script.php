@@ -3,7 +3,7 @@
 use setasign\SetaPDF2\Core\Document;
 use setasign\SetaPDF2\Core\Image\Image;
 use setasign\SetaPDF2\Core\Writer\HttpWriter;
-use setasign\SetaPDF2\Stamper\Stamp\Image as ImageStamp;
+use setasign\SetaPDF2\Stamper\Stamp\ImageStamp;
 use setasign\SetaPDF2\Stamper\Stamper;
 
 // load and register the autoload function
