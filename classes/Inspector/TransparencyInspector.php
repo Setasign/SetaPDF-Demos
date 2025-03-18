@@ -8,7 +8,7 @@ use setasign\SetaPDF2\Core\Type\PdfDictionary;
 use setasign\SetaPDF2\Core\XObject\XObject;
 use setasign\SetaPDF2\Core\XObject\Form;
 use setasign\SetaPDF2\Core\XObject\Image;
-use setasign\SetaPDF2\Exception\NotImplemented;
+use setasign\SetaPDF2\NotImplementedException;
 
 /**
  * Class TransparencyInspector
@@ -119,7 +119,7 @@ class TransparencyInspector
      * Check XObjects for transparency.
      *
      * @param PdfDictionary $xObjects
-     * @throws NotImplemented
+     * @throws NotImplementedException
      */
     protected function _processXObjects(PdfDictionary $xObjects)
     {

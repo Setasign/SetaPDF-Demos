@@ -11,7 +11,7 @@ use setasign\SetaPDF2\Core\Resource\ResourceInterface;
 use setasign\SetaPDF2\Core\Type\PdfIndirectReference;
 use setasign\SetaPDF2\Core\XObject\XObject;
 use setasign\SetaPDF2\Core\XObject\Form;
-use setasign\SetaPDF2\Exception\NotImplemented;
+use setasign\SetaPDF2\NotImplementedException;
 
 /**
  * Class ImageProcessor
@@ -198,7 +198,7 @@ class ImageProcessor
      * Callback for the content parser which is called if a "Do" operator/token is found.
      *
      * @param array $arguments
-     * @throws NotImplemented
+     * @throws NotImplementedException
      */
     public function _onFormXObject(array $arguments)
     {

@@ -6,7 +6,7 @@ use setasign\SetaPDF2\Core\Document\Page\Annotation\HighlightAnnotation;
 use setasign\SetaPDF2\Core\Geometry\Rectangle;
 use setasign\SetaPDF2\Core\Writer\HttpWriter;
 use setasign\SetaPDF2\Extractor\Extractor;
-use setasign\SetaPDF2\Extractor\Strategy\Word;
+use setasign\SetaPDF2\Extractor\Strategy\WordStrategy;
 
 // load and register the autoload function
 require_once __DIR__ . '/../../../../../bootstrap.php';
@@ -31,7 +31,7 @@ $document = Document::loadByFilename(
 $extractor = new Extractor($document);
 
 // create the word extraction strategy and pass it to the extractor instance
-$strategy = new Word();
+$strategy = new WordStrategy();
 $extractor->setStrategy($strategy);
 
 // get access to the documents pages instance

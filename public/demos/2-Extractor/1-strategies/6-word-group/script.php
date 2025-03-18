@@ -3,7 +3,7 @@
 use setasign\SetaPDF2\Core\Document;
 use setasign\SetaPDF2\Extractor\Extractor;
 use setasign\SetaPDF2\Extractor\Result\Word;
-use setasign\SetaPDF2\Extractor\Strategy\WordGroup as WordGroupStrategy;
+use setasign\SetaPDF2\Extractor\Strategy\WordGroupStrategy;
 
 // load and register the autoload function
 require_once __DIR__ . '/../../../../../bootstrap.php';

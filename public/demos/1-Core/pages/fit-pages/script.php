@@ -10,7 +10,7 @@ use setasign\SetaPDF2\Core\PageBoundaries;
 use setasign\SetaPDF2\Core\PageFormats;
 use setasign\SetaPDF2\Core\Reader\StringReader;
 use setasign\SetaPDF2\Core\Text\Text;
-use setasign\SetaPDF2\Core\Text\Block;
+use setasign\SetaPDF2\Core\Text\TextBlock;
 use setasign\SetaPDF2\Core\Writer\HttpWriter;
 use setasign\SetaPDF2\Core\Writer\StringWriter;
 
@@ -126,7 +126,7 @@ foreach ($formats as $formatArray) {
     );
 
     // create a new text block
-    $text = new Block($font, $fontSize);
+    $text = new TextBlock($font, $fontSize);
 
     // set the alignment
     $text->setAlign(Text::ALIGN_CENTER);

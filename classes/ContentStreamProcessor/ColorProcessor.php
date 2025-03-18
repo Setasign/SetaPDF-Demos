@@ -23,7 +23,7 @@ use setasign\SetaPDF2\Core\XObject\XObject;
 use setasign\SetaPDF2\Core\XObject\Form;
 use setasign\SetaPDF2\Core\XObject\Image;
 use setasign\SetaPDF2\Exception;
-use setasign\SetaPDF2\Exception\NotImplemented;
+use setasign\SetaPDF2\NotImplementedException;
 
 /**
  * Class ColorsProcessor
@@ -149,7 +149,7 @@ class ColorProcessor
      *
      * @param array $args
      * @throws Exception
-     * @throws NotImplemented
+     * @throws NotImplementedException
      */
     public function _paintXObject(array $args)
     {

@@ -4,11 +4,11 @@ use setasign\SetaPDF2\Core\Document;
 use setasign\SetaPDF2\Core\Geometry\Rectangle;
 use setasign\SetaPDF2\Core\Writer\HttpWriter;
 use setasign\SetaPDF2\Extractor\Extractor;
-use setasign\SetaPDF2\Extractor\Filter\Multi as MultiFilter;
-use setasign\SetaPDF2\Extractor\Filter\Rectangle as RectangleFilter;
+use setasign\SetaPDF2\Extractor\Filter\MultiFilter;
+use setasign\SetaPDF2\Extractor\Filter\RectangleFilter;
 use setasign\SetaPDF2\Extractor\Result\Word;
 use setasign\SetaPDF2\Extractor\Result\Words;
-use setasign\SetaPDF2\Extractor\Strategy\Word as WordStrategy;
+use setasign\SetaPDF2\Extractor\Strategy\WordStrategy;
 
 // load and register the autoload function
 require_once __DIR__ . '/../../../../../bootstrap.php';

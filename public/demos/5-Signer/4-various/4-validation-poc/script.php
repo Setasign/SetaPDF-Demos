@@ -6,7 +6,7 @@ use setasign\SetaPDF2\Core\Encoding\Encoding;
 use setasign\SetaPDF2\Core\Type\PdfDictionary;
 use setasign\SetaPDF2\Core\Type\PdfHexString;
 use setasign\SetaPDF2\Signer\Cms\SignedData;
-use setasign\SetaPDF2\Signer\Pem;
+use setasign\SetaPDF2\Signer\PemHelper;
 use setasign\SetaPDF2\Signer\Signer;
 use setasign\SetaPDF2\Signer\Tsp\Token;
 use setasign\SetaPDF2\Signer\ValidationRelatedInfo\IntegrityResult;
@@ -33,7 +33,7 @@ if (is_array($file)) {
 
 $trustedCerts = new Collection();
 // PLEASE NOTICE THAT THESE FILE SHOULD BE UNDER YOUR CONTROL. IT'S UP TO YOU WHO YOU TRUST OR NOT!
-$trustedCerts->add(Pem::extractFromFile(
+$trustedCerts->add(PemHelper::extractFromFile(
     $assetsDirectory . '/certificates/trusted/cacert.pem'
 ));
 $trustedCerts->add(Certificate::fromFile(

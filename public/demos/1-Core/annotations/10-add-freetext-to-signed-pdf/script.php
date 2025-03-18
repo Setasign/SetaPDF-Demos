@@ -6,7 +6,7 @@ use setasign\SetaPDF2\Core\Document\Page\Annotation\FreeTextAnnotation;
 use setasign\SetaPDF2\Core\Font\Standard\Helvetica;
 use setasign\SetaPDF2\Core\Geometry\Vector;
 use setasign\SetaPDF2\Core\Text\Text;
-use setasign\SetaPDF2\Core\Text\Block;
+use setasign\SetaPDF2\Core\Text\TextBlock;
 use setasign\SetaPDF2\Core\Type\PdfString;
 use setasign\SetaPDF2\Core\Writer\HttpWriter;
 use setasign\SetaPDF2\Core\XObject\Form;
@@ -39,7 +39,7 @@ $font = Helvetica::create($document);
 $fontSize = 12;
 
 // now we create a text block first to know the final size:
-$box = new Block($font, $fontSize);
+$box = new TextBlock($font, $fontSize);
 $box->setTextColor($textColor);
 $box->setBorderWidth($borderWidth);
 $box->setBorderColor($borderColor);

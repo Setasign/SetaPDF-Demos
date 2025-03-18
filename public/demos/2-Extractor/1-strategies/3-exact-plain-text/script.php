@@ -2,7 +2,7 @@
 
 use setasign\SetaPDF2\Core\Document;
 use setasign\SetaPDF2\Extractor\Extractor;
-use setasign\SetaPDF2\Extractor\Strategy\ExactPlain;
+use setasign\SetaPDF2\Extractor\Strategy\ExactPlainStrategy;
 
 // load and register the autoload function
 require_once __DIR__ . '/../../../../../bootstrap.php';
@@ -19,7 +19,7 @@ $path = displayFiles($files);
 $document = Document::loadByFilename($path);
 $extractor = new Extractor($document);
 
-$strategy = new ExactPlain();
+$strategy = new ExactPlainStrategy();
 $extractor->setStrategy($strategy);
 
 $pageCount = $document->getCatalog()->getPages()->count();

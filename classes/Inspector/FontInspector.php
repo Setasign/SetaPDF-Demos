@@ -10,7 +10,7 @@ use setasign\SetaPDF2\Core\Type\PdfDictionary;
 use setasign\SetaPDF2\Core\Type\PdfStream;
 use setasign\SetaPDF2\Core\XObject\XObject;
 use setasign\SetaPDF2\Core\XObject\Form;
-use setasign\SetaPDF2\Exception\NotImplemented;
+use setasign\SetaPDF2\NotImplementedException;
 
 /**
  * Class FontInspector
@@ -152,7 +152,7 @@ class FontInspector
      *
      * @param Font $font
      * @return bool
-     * @throws NotImplemented
+     * @throws NotImplementedException
      */
     public function isFontEmbedded(Font $font)
     {
@@ -192,7 +192,7 @@ class FontInspector
 
                 return false;
             case 'Type3':
-                throw new NotImplemented('Type3 fonts are not supported.');
+                throw new NotImplementedException('Type3 fonts are not supported.');
         }
     }
 }

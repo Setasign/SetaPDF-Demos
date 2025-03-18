@@ -17,7 +17,7 @@ use setasign\SetaPDF2\Core\Font\FontInterface;
 use setasign\SetaPDF2\Core\Parser\Content;
 use setasign\SetaPDF2\Core\Resource\ResourceInterface;
 use setasign\SetaPDF2\Core\Text\Text;
-use setasign\SetaPDF2\Core\Text\Block;
+use setasign\SetaPDF2\Core\Text\TextBlock;
 use setasign\SetaPDF2\Core\Type\AbstractType;
 use setasign\SetaPDF2\Core\Type\Dictionary\DictionaryHelper;
 use setasign\SetaPDF2\Core\Type\IndirectObjectInterface;
@@ -373,7 +373,7 @@ class PushbuttonAnnotation extends WidgetAnnotation
         $daValues = $this->_getDaValues();
 
         $font = $this->getFont();
-        $textBlock = new Block($font, null);
+        $textBlock = new TextBlock($font, null);
 
         $borderDoubled = (
             $_borderStyle === BorderStyle::BEVELED ||

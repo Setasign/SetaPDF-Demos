@@ -2,13 +2,13 @@
 
 use setasign\SetaPDF2\Core\Canvas\Draw;
 use setasign\SetaPDF2\Core\Document;
-use setasign\SetaPDF2\Core\Font\TrueType\Subset;
+use setasign\SetaPDF2\Core\Font\TrueType\Subset as TrueTypeSubset;
 use setasign\SetaPDF2\Core\Text\Text;
-use setasign\SetaPDF2\Core\Text\Block;
+use setasign\SetaPDF2\Core\Text\TextBlock;
 use setasign\SetaPDF2\Core\Writer\HttpWriter;
 use setasign\SetaPDF2\Extractor\Extractor;
 use setasign\SetaPDF2\Extractor\Result\Words;
-use setasign\SetaPDF2\Extractor\Strategy\Word as WordStrategy;
+use setasign\SetaPDF2\Extractor\Strategy\WordStrategy;
 
 // load and register the autoload function
 require_once __DIR__ . '/../../../../../bootstrap.php';
@@ -39,7 +39,7 @@ for ($pageNo = 1; $pageNo <= $pages->count(); $pageNo++) {
 }
 
 if (count($matches)) {
-    $font = new Subset(
+    $font = new TrueTypeSubset(
         $document,
         $assetsDirectory . '/fonts/DejaVu/ttf/DejaVuSans.ttf'
     );
@@ -71,7 +71,7 @@ foreach ($matches AS [$pageNo, $results]) {
             ->setNonStrokingColor(1)
             ->rect($x, $y, $width, $height, Draw::STYLE_FILL);
 
-        $textBlock = new Block($font, $height * .7);
+        $textBlock = new TextBlock($font, $height * .7);
         $textBlock->setText('875631');
         $textBlock->setAlign(Text::ALIGN_CENTER);
         $textBlock->setBorderColor([1, 0, 0]);

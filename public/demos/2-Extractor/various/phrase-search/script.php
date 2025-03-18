@@ -3,7 +3,7 @@
 use setasign\SetaPDF2\Core\Document;
 use setasign\SetaPDF2\Core\Writer\HttpWriter;
 use setasign\SetaPDF2\Extractor\Extractor;
-use setasign\SetaPDF2\Extractor\Strategy\WordGroup;
+use setasign\SetaPDF2\Extractor\Strategy\WordGroupStrategy;
 
 // load and register the autoload function
 require_once __DIR__ . '/../../../../../bootstrap.php';
@@ -25,7 +25,7 @@ if ($regex !== '//ui') {
     $extractor = new Extractor($document);
 
     // define the word group strategy
-    $strategy = new WordGroup();
+    $strategy = new WordGroupStrategy();
     $extractor->setStrategy($strategy);
 
     $pages = $document->getCatalog()->getPages();

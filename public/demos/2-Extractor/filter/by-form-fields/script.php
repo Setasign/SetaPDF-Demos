@@ -4,9 +4,9 @@ use setasign\SetaPDF2\Core\Document;
 use setasign\SetaPDF2\Core\Document\Catalog\AcroForm;
 use setasign\SetaPDF2\Core\Document\Page\Annotation\Annotation;
 use setasign\SetaPDF2\Extractor\Extractor;
-use setasign\SetaPDF2\Extractor\Filter\Multi;
-use setasign\SetaPDF2\Extractor\Filter\Rectangle as RectangleFilter;
-use setasign\SetaPDF2\Extractor\Strategy\Plain as PlainStrategy;
+use setasign\SetaPDF2\Extractor\Filter\MultiFilter;
+use setasign\SetaPDF2\Extractor\Filter\RectangleFilter;
+use setasign\SetaPDF2\Extractor\Strategy\PlainStrategy;
 
 // load and register the autoload function
 require_once __DIR__ . '/../../../../../bootstrap.php';
@@ -58,7 +58,7 @@ foreach ([
     foreach ($fieldsPerPage AS $pageNo => $fields) {
 
         // define a multi filter
-        $filter = new Multi();
+        $filter = new MultiFilter();
         // create additional rectangle filters named by the found fields and ...
         foreach ($fields AS $name => $rect) {
             $fieldFilter = new RectangleFilter(

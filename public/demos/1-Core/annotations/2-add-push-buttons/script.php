@@ -7,7 +7,7 @@ use setasign\SetaPDF2\Core\Document\Action\SubmitFormAction;
 use setasign\SetaPDF2\Core\Document\Page\Annotation\BorderStyle;
 use setasign\SetaPDF2\Core\Font\Standard\Courier;
 use setasign\SetaPDF2\Core\Font\Standard\Helvetica;
-use setasign\SetaPDF2\Core\Text\Block;
+use setasign\SetaPDF2\Core\Text\TextBlock;
 use setasign\SetaPDF2\Core\Writer\HttpWriter;
 
 // load and register the autoload function
@@ -18,7 +18,7 @@ if (count($_POST) > 0) {
     $writer = new HttpWriter();
     $document = new Document($writer);
     $canvas = $document->getCatalog()->getPages()->create('a4')->getCanvas();
-    $text = new Block(Courier::create($document), 12);
+    $text = new TextBlock(Courier::create($document), 12);
     $text->setText(print_r($_POST, true));
     $text->draw($canvas, 0, $canvas->getHeight() - $text->getHeight());
     $document->save()->finish();
@@ -32,7 +32,7 @@ if (!isset($_GET['dl'])) {
 }    
 
 // require the pushbutton class
-require_once('../../../../../classes/Annotation/Widget/Pushbutton.php');
+require_once('../../../../../classes/Annotation/Widget/PushbuttonAnnotation.php');
 
 //$pdfFile = $assetsDirectory . '/pdfs/tektown/Order-Form.pdf';
 $pdfFile = $assetsDirectory . '/pdfs/tektown/Subscription-tekMag.pdf';

@@ -12,7 +12,7 @@ use setasign\SetaPDF2\Core\Writer\HttpWriter;
 require_once '../../../../../bootstrap.php';
 
 // require the text field class
-require_once('../../../../../classes/Annotation/Widget/TextField.php');
+require_once('../../../../../classes/Annotation/Widget/TextFieldAnnotation.php');
 
 $writer = new HttpWriter('TextFields.pdf', true);
 $document = new Document($writer);

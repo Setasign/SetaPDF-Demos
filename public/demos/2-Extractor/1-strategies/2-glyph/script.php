@@ -3,7 +3,7 @@
 use setasign\SetaPDF2\Core\Document;
 use setasign\SetaPDF2\Extractor\Extractor;
 use setasign\SetaPDF2\Extractor\Result\Glyph;
-use setasign\SetaPDF2\Extractor\Strategy\Glyph as GlyphStrategy;
+use setasign\SetaPDF2\Extractor\Strategy\GlyphStrategy;
 
 // load and register the autoload function
 require_once __DIR__ . '/../../../../../bootstrap.php';

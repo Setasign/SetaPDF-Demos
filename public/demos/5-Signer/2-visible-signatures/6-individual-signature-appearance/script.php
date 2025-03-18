@@ -3,7 +3,7 @@
 use setasign\SetaPDF2\Core\Document;
 use setasign\SetaPDF2\Core\Font\Type0\Subset;
 use setasign\SetaPDF2\Core\Image\Image;
-use setasign\SetaPDF2\Core\Text\Block;
+use setasign\SetaPDF2\Core\Text\TextBlock;
 use setasign\SetaPDF2\Core\Writer\HttpWriter;
 use setasign\SetaPDF2\Core\XObject\Form;
 use setasign\SetaPDF2\Signer\Signature\Appearance\XObject;
@@ -43,7 +43,7 @@ $font = new Subset(
 );
 
 // let's create a simple text block
-$textBlock = new Block($font, 10);
+$textBlock = new TextBlock($font, 10);
 $textBlock->setTextWidth(200);
 $textBlock->setLineHeight(11);
 $textBlock->setPadding(2);

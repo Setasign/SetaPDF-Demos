@@ -2,5 +2,5 @@
     "name": "Add Push-Buttons",
     "teaserText": "This demo adds two push-buttons to an existing PDF document.",
     "faIcon": "&#xf064;",
-    "previewFiles": ["../../../../../classes/Annotation/Widget/Pushbutton.php"]
+    "previewFiles": ["../../../../../classes/Annotation/Widget/PushbuttonAnnotation.php"]
 }

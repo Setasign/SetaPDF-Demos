@@ -3,7 +3,7 @@
 use setasign\SetaPDF2\Core\Document;
 use setasign\SetaPDF2\Extractor\Extractor;
 use setasign\SetaPDF2\Extractor\Filter\FilterInterface;
-use setasign\SetaPDF2\Extractor\Strategy\Word as WordStrategy;
+use setasign\SetaPDF2\Extractor\Strategy\WordStrategy;
 use setasign\SetaPDF2\Extractor\TextItem;
 
 // load and register the autoload function

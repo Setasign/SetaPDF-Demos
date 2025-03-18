@@ -5,9 +5,9 @@ use setasign\SetaPDF2\Core\Document\Page\Annotation\Annotation;
 use setasign\SetaPDF2\Core\Document\Page\Annotation\TextMarkupAnnotation;
 use setasign\SetaPDF2\Core\Geometry\Rectangle;
 use setasign\SetaPDF2\Extractor\Extractor;
-use setasign\SetaPDF2\Extractor\Filter\Multi as MultiFilter;
-use setasign\SetaPDF2\Extractor\Filter\Rectangle as RectangleFilter;
-use setasign\SetaPDF2\Extractor\Strategy\ExactPlain as ExactPlainStrategy;
+use setasign\SetaPDF2\Extractor\Filter\MultiFilter;
+use setasign\SetaPDF2\Extractor\Filter\RectangleFilter;
+use setasign\SetaPDF2\Extractor\Strategy\ExactPlainStrategy;
 
 // load and register the autoload function
 require_once __DIR__ . '/../../../../../bootstrap.php';

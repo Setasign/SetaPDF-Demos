@@ -5,8 +5,8 @@ use setasign\SetaPDF2\Core\Writer\FileWriter;
 use setasign\SetaPDF2\Core\Writer\HttpWriter;
 use setasign\SetaPDF2\Signer\Digest;
 use setasign\SetaPDF2\Signer\Signature\Module\Pades as PadesModule;
-use setasign\SetaPDF2\Signer\Signer;
 use setasign\SetaPDF2\Signer\Timestamp\Module\Rfc3161\Curl as CurlTimestampModule;
+use setasign\SetaPDF2\Signer\Signer;
 
 // load and register the autoload function
 require_once __DIR__ . '/../../../../../bootstrap.php';

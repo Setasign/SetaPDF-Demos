@@ -17,7 +17,7 @@ use setasign\SetaPDF2\Core\Font\Simple;
 use setasign\SetaPDF2\Core\Parser\Content;
 use setasign\SetaPDF2\Core\Resource\ResourceInterface;
 use setasign\SetaPDF2\Core\Text\Text;
-use setasign\SetaPDF2\Core\Text\Block;
+use setasign\SetaPDF2\Core\Text\TextBlock;
 use setasign\SetaPDF2\Core\Type\AbstractType;
 use setasign\SetaPDF2\Core\Type\Dictionary\DictionaryHelper;
 use setasign\SetaPDF2\Core\Type\IndirectObjectInterface;
@@ -29,7 +29,7 @@ use setasign\SetaPDF2\Core\Type\PdfNumeric;
 use setasign\SetaPDF2\Core\Type\PdfString;
 use setasign\SetaPDF2\Core\Writer\Writer;
 use setasign\SetaPDF2\Core\XObject\Form;
-use setasign\SetaPDF2\Exception\NotImplemented;
+use setasign\SetaPDF2\NotImplementedException;
 
 /**
  * Example class representing a text field.
@@ -164,7 +164,7 @@ class TextFieldAnnotation extends WidgetAnnotation
      * @throws \setasign\SetaPDF2\Core\SecHandler\Exception
      * @throws \setasign\SetaPDF2\Core\Type\Exception
      * @throws \setasign\SetaPDF2\Core\Type\IndirectReference\Exception
-     * @throws NotImplemented
+     * @throws NotImplementedException
      */
     public function getFont()
     {
@@ -323,7 +323,7 @@ class TextFieldAnnotation extends WidgetAnnotation
      * @throws \setasign\SetaPDF2\Core\SecHandler\Exception
      * @throws \setasign\SetaPDF2\Core\Type\Exception
      * @throws \setasign\SetaPDF2\Core\Type\IndirectReference\Exception
-     * @throws NotImplemented
+     * @throws NotImplementedException
      */
     protected function _createAppearance()
     {
@@ -496,7 +496,7 @@ class TextFieldAnnotation extends WidgetAnnotation
         $daValues = $this->_getDaValues();
 
         $font = $this->_appearanceFont ?: $this->getFont();
-        $textBlock = new Block($font, null);
+        $textBlock = new TextBlock($font, null);
         $textBlock->setAlign($this->getAlign());
 
         $borderDoubled = (
@@ -589,7 +589,7 @@ class TextFieldAnnotation extends WidgetAnnotation
      * @throws \setasign\SetaPDF2\Core\SecHandler\Exception
      * @throws \setasign\SetaPDF2\Core\Type\Exception
      * @throws \setasign\SetaPDF2\Core\Type\IndirectReference\Exception
-     * @throws NotImplemented
+     * @throws NotImplementedException
      */
     public function getIndirectObject(?Document $document = null)
     {

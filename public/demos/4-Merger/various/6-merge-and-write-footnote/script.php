@@ -1,7 +1,7 @@
 <?php
 
 use setasign\SetaPDF2\Core\Font\TrueType\Subset;
-use setasign\SetaPDF2\Core\Text\Block;
+use setasign\SetaPDF2\Core\Text\TextBlock;
 use setasign\SetaPDF2\Core\Writer\HttpWriter;
 use setasign\SetaPDF2\Merger\Merger;
 
@@ -59,7 +59,7 @@ foreach ($pagesToFiles as $pageNo => list($nextPage, $path)) {
         $canvas->normalizeRotationAndOrigin($page->getRotation(), $page->getBoundary());
 
         // create a text block
-        $textBlock = new Block($font, 5);
+        $textBlock = new TextBlock($font, 5);
         $textBlock->setText(basename($path));
         // and draw it onto the canvas
         $textBlock->draw($canvas, $page->getWidth() - $textBlock->getWidth() - 5, 5);

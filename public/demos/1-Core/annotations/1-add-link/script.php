@@ -5,7 +5,7 @@ use setasign\SetaPDF2\Core\Document\Action\UriAction;
 use setasign\SetaPDF2\Core\Document\Page\Annotation\LinkAnnotation;
 use setasign\SetaPDF2\Core\Font\Standard\Helvetica;
 use setasign\SetaPDF2\Core\PageFormats;
-use setasign\SetaPDF2\Core\Text\Block;
+use setasign\SetaPDF2\Core\Text\TextBlock;
 use setasign\SetaPDF2\Core\Writer\HttpWriter;
 
 // load and register the autoload function
@@ -25,7 +25,7 @@ $canvas = $page->getCanvas();
 $font = Helvetica::create($document);
 
 // use the text block helper to draw the text
-$text = new Block($font, 12);
+$text = new TextBlock($font, 12);
 $text->setText('This is a link to www.setasign.com!');
 $x = $page->getWidth() / 2 - $text->getWidth() / 2;
 $y = $page->getHeight() - 100;
