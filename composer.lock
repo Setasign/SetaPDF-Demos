@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "a67eed40540110407140160480a36931",
+    "content-hash": "2f47c3b6fce083d305bc3fecb7aa7983",
     "packages": [
         {
             "name": "paragonie/constant_time_encoding",
@@ -232,6 +232,191 @@
                 }
             ],
             "time": "2024-12-14T21:12:59+00:00"
+        },
+        {
+            "name": "setasign/setapdf-core",
+            "version": "2.47.0.2095",
+            "dist": {
+                "type": "zip",
+                "url": "https://www.setasign.com/downloads/6953131/SetaPDF-Core_2.47.0.2095-without-demos.zip"
+            },
+            "require": {
+                "php": ">=7.1 <=8.4.99999"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-0": {
+                    "SetaPDF_": "library/"
+                },
+                "psr-4": {
+                    "setasign\\SetaPDF2\\": "library/SetaPDF"
+                },
+                "files": [
+                    "library/SetaPDF/Autoload.php"
+                ]
+            },
+            "license": [
+                "proprietary"
+            ],
+            "support": {
+                "email": "support@setasign.com"
+            },
+            "time": "2025-03-19T00:00:00+00:00"
+        },
+        {
+            "name": "setasign/setapdf-extractor",
+            "version": "2.47.0.2095",
+            "dist": {
+                "type": "zip",
+                "url": "https://www.setasign.com/downloads/6953159/SetaPDF-Extractor_2.47.0.2095-without-core.zip"
+            },
+            "require": {
+                "php": ">=7.1 <=8.4.99999",
+                "setasign/setapdf-core": "2.47.0.2095"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-0": {
+                    "SetaPDF_": "library/"
+                },
+                "psr-4": {
+                    "setasign\\SetaPDF2\\": "library/SetaPDF"
+                },
+                "files": [
+                    "library/SetaPDF/Autoload.php"
+                ]
+            },
+            "license": [
+                "proprietary"
+            ],
+            "support": {
+                "email": "support@setasign.com"
+            },
+            "time": "2025-03-19T00:00:00+00:00"
+        },
+        {
+            "name": "setasign/setapdf-formfiller_full",
+            "version": "2.47.0.2095",
+            "dist": {
+                "type": "zip",
+                "url": "https://www.setasign.com/downloads/6953155/SetaPDF-FormFiller-Full_2.47.0.2095-without-core.zip"
+            },
+            "require": {
+                "php": ">=7.1 <=8.4.99999",
+                "setasign/setapdf-core": "2.47.0.2095"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-0": {
+                    "SetaPDF_": "library/"
+                },
+                "psr-4": {
+                    "setasign\\SetaPDF2\\": "library/SetaPDF"
+                },
+                "files": [
+                    "library/SetaPDF/Autoload.php"
+                ]
+            },
+            "license": [
+                "proprietary"
+            ],
+            "support": {
+                "email": "support@setasign.com"
+            },
+            "time": "2025-03-19T00:00:00+00:00"
+        },
+        {
+            "name": "setasign/setapdf-merger",
+            "version": "2.47.0.2095",
+            "dist": {
+                "type": "zip",
+                "url": "https://www.setasign.com/downloads/6953162/SetaPDF-Merger_2.47.0.2095-without-core.zip"
+            },
+            "require": {
+                "php": ">=7.1 <=8.4.99999",
+                "setasign/setapdf-core": "2.47.0.2095"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-0": {
+                    "SetaPDF_": "library/"
+                },
+                "psr-4": {
+                    "setasign\\SetaPDF2\\": "library/SetaPDF"
+                },
+                "files": [
+                    "library/SetaPDF/Autoload.php"
+                ]
+            },
+            "license": [
+                "proprietary"
+            ],
+            "support": {
+                "email": "support@setasign.com"
+            },
+            "time": "2025-03-19T00:00:00+00:00"
+        },
+        {
+            "name": "setasign/setapdf-signer",
+            "version": "2.47.0.2095",
+            "dist": {
+                "type": "zip",
+                "url": "https://www.setasign.com/downloads/6953135/SetaPDF-Signer_2.47.0.2095-without-core.zip"
+            },
+            "require": {
+                "php": ">=7.1 <=8.4.99999",
+                "setasign/setapdf-core": "2.47.0.2095"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-0": {
+                    "SetaPDF_": "library/"
+                },
+                "psr-4": {
+                    "setasign\\SetaPDF2\\": "library/SetaPDF"
+                },
+                "files": [
+                    "library/SetaPDF/Autoload.php"
+                ]
+            },
+            "license": [
+                "proprietary"
+            ],
+            "support": {
+                "email": "support@setasign.com"
+            },
+            "time": "2025-03-19T00:00:00+00:00"
+        },
+        {
+            "name": "setasign/setapdf-stamper",
+            "version": "2.47.0.2095",
+            "dist": {
+                "type": "zip",
+                "url": "https://www.setasign.com/downloads/6953156/SetaPDF-Stamper_2.47.0.2095-without-core.zip"
+            },
+            "require": {
+                "php": ">=7.1 <=8.4.99999",
+                "setasign/setapdf-core": "2.47.0.2095"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-0": {
+                    "SetaPDF_": "library/"
+                },
+                "psr-4": {
+                    "setasign\\SetaPDF2\\": "library/SetaPDF"
+                },
+                "files": [
+                    "library/SetaPDF/Autoload.php"
+                ]
+            },
+            "license": [
+                "proprietary"
+            ],
+            "support": {
+                "email": "support@setasign.com"
+            },
+            "time": "2025-03-19T00:00:00+00:00"
         }
     ],
     "packages-dev": [],
