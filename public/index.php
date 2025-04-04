@@ -76,11 +76,11 @@ $sorter = static function($a, $b) {
     $b = pathinfo($b, PATHINFO_BASENAME);
 
     if (is_numeric($a[0])) {
-        $a = (float) strstr($a, '-', true);
+        $a = strstr($a, '-', true);
     }
 
     if (is_numeric($b[0])) {
-        $b = (float) strstr($b, '-', true);
+        $b = strstr($b, '-', true);
     }
 
     return $a <=> $b;
