@@ -54,6 +54,11 @@ class ImageProcessor
     protected $_switchWidthAndHeight = false;
 
     /**
+     * @var array All object ids of visited XObjects to prevent circular references
+     */
+    protected $_xObjectObjectIds = [];
+
+    /**
      * The constructor.
      *
      * The parameters are the content stream and its resource dictionary.
@@ -222,6 +227,12 @@ class ImageProcessor
              * the form xobjects stream.
              */
 
+            if (isset($this->_xObjectObjectIds[$xObject->getIndirectObject()->getObjectId()])) {
+                // recursion
+                return;
+            }
+            $this->_xObjectObjectIds[$xObject->getIndirectObject()->getObjectId()] = true;
+
             $gs = $this->getGraphicState();
             $gs->save();
             $dict = $xObject->getIndirectObject()->ensure()->getValue();
@@ -233,13 +244,19 @@ class ImageProcessor
                 );
             }
 
-            $processor = new self($xObject->getCanvas(), $this->_switchWidthAndHeight, $gs);
+            $processor = new self(
+                $xObject->getCanvas(),
+                $this->_switchWidthAndHeight,
+                $gs
+            );
+            $processor->_xObjectObjectIds =& $this->_xObjectObjectIds;
 
             foreach ($processor->process() AS $image) {
                 $this->_result[] = $image;
             }
 
             $gs->restore();
+            unset($this->_xObjectObjectIds[$xObject->getIndirectObject()->getObjectId()]);
 
         } else {
             $newResult = $this->_getNewResult($xObject->getWidth(), $xObject->getHeight());

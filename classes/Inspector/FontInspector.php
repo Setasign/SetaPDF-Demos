@@ -28,11 +28,11 @@ class FontInspector
     public $fonts = [];
 
     /**
-     * All object ids of visited XObjects
+     * All object ids of visited XObjects to prevent circular references
      *
      * @var array
      */
-    protected $_xObjectObjectIds = [];
+    private $_xObjectObjectIds = [];
 
     /**
      * The constructor
@@ -131,19 +131,21 @@ class FontInspector
         }
 
         foreach ($xObjects AS $xObjectIndirectObject) {
-            if (isset($this->_xObjectObjectIds[$xObjectIndirectObject->getObjectId()])) {
-                continue;
-            }
-
             $dict = $xObjectIndirectObject->ensure()->getValue();
             if ($dict->getValue('Subtype')->getValue() !== 'Form') {
                 continue;
             }
 
+            if (isset($this->_xObjectObjectIds[$xObjectIndirectObject->getObjectId()])) {
+                // recursion
+                continue;
+            }
             $this->_xObjectObjectIds[$xObjectIndirectObject->getObjectId()] = true;
 
             $xObject = XObject::get($xObjectIndirectObject);
             $this->_resolveFonts($xObject);
+
+            unset($this->_xObjectObjectIds[$xObject->getIndirectObject()->getObjectId()]);
         }
     }
 

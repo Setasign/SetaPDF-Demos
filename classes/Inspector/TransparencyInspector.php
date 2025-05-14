@@ -35,6 +35,11 @@ class TransparencyInspector
     protected $_elements = [];
 
     /**
+     * @var array All object ids of visited XObjects to prevent circular references
+     */
+    protected $_xObjectObjectIds = [];
+
+    /**
      * The constructor
      *
      * @param Document $document
@@ -160,10 +165,17 @@ class TransparencyInspector
 
             // form XObjects
             } elseif ($xObject instanceof Form) {
+                if (isset($this->_xObjectObjectIds[$xObject->getIndirectObject()->getObjectId()])) {
+                    // recursion
+                    continue;
+                }
+                $this->_xObjectObjectIds[$xObject->getIndirectObject()->getObjectId()] = true;
+
                 $_xObjects = $xObject->getCanvas()->getResources(true, false, ResourceInterface::TYPE_X_OBJECT);
                 if ($_xObjects) {
                     $this->_processXObjects($_xObjects);
                 }
+                unset($this->_xObjectObjectIds[$xObject->getIndirectObject()->getObjectId()]);
 
                 $graphicStates = $xObject->getCanvas()->getResources(true, false, ResourceInterface::TYPE_EXT_G_STATE);
                 if ($graphicStates) {

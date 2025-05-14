@@ -22,6 +22,11 @@ class TextProcessor
     protected $_canvas;
 
     /**
+     * @var array All object ids of visited XObjects to prevent circular references
+     */
+    protected $_xObjectObjectIds = [];
+
+    /**
      * @var bool
      */
     protected $_hasText;
@@ -100,9 +105,18 @@ class TextProcessor
                 $xObject = XObject::get($xObject);
 
                 if ($xObject instanceof Form) {
+                    if (isset($this->_xObjectObjectIds[$xObject->getIndirectObject()->getObjectId()])) {
+                        // recursion
+                        return;
+                    }
+                    $this->_xObjectObjectIds[$xObject->getIndirectObject()->getObjectId()] = true;
+
                     $processor = new self($xObject->getCanvas());
+                    $processor->_xObjectObjectIds =& $this->_xObjectObjectIds;
 
                     $this->_hasText = $processor->hasText();
+                    unset($this->_xObjectObjectIds[$xObject->getIndirectObject()->getObjectId()]);
+
                     if ($this->_hasText === true) {
                         return false;
                     }

@@ -48,6 +48,11 @@ class ColorProcessor
     protected $_parser;
 
     /**
+     * @var array All object ids of visited XObjects to prevent circular references
+     */
+    protected $_xObjectObjectIds = [];
+
+    /**
      * The constructor
      *
      * @param Canvas $canvas
@@ -188,10 +193,19 @@ class ColorProcessor
                 }
             }
 
+            if (isset($this->_xObjectObjectIds[$xObjectIndirectObject->getObjectId()])) {
+                // recursion
+                return;
+            }
+            $this->_xObjectObjectIds[$xObject->getIndirectObject()->getObjectId()] = true;
+
             /* We got a Form XObject - start recursive processing
              */
             $streamProcessor = new self($xObject->getCanvas(), $this->_colorInspector);
+            $streamProcessor->_xObjectObjectIds =& $this->_xObjectObjectIds;
             $streamProcessor->process();
+
+            unset($this->_xObjectObjectIds[$xObject->getIndirectObject()->getObjectId()]);
         }
     }
 

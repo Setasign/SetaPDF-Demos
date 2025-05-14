@@ -44,7 +44,7 @@ class ColorInspector
     /**
      * Get all used colors
      *
-     * @param bool $processAnnotations Set to false to ignore color definitions in annotation appearance streams
+     * @param bool $processAnnotations Set to `false` to ignore color definitions in annotation appearance streams
      * @param null|integer $maxPages The maximum of pages to process
      * @return array
      */
