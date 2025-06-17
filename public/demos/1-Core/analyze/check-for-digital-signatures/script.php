@@ -40,7 +40,7 @@ foreach ($terminalFields as $fieldData) {
     $signatureFieldFound = true;
 
     $v = DictionaryHelper::resolveAttribute($fieldData, 'V');
-    if (!$v || !$v->ensure() instanceof PdfDictionary) {
+    if (!$v instanceof PdfDictionary) {
         echo ' But not digital signed.<br /><br />';
         continue;
     }
@@ -48,7 +48,7 @@ foreach ($terminalFields as $fieldData) {
     echo ' Including a digital signature.<br />';
 
     // This is the signature value
-    $signatureData = $v->ensure()->getValue('Contents')->ensure()->getValue();
+    $signatureData = PdfHexString::ensureType(DictionaryHelper::getValue($v, 'Contents'))->getValue();
     $signatureData = rtrim($signatureData, "\0");
 
     echo '<a href="https://lapo.it/asn1js/#' . PdfHexString::str2hex($signatureData) . '" ' .
@@ -58,14 +58,14 @@ foreach ($terminalFields as $fieldData) {
 
     echo '<br />';
 
-    $value = $v->ensure();
     $signatureProperties = [];
     foreach (['Name', 'Location', 'ContactInfo', 'Reason', 'M'] as $property) {
-        if (!$value->offsetExists($property)) {
+        $value = DictionaryHelper::getValue($v, $property);
+        if ($value === null) {
             continue;
         }
 
-        $propertyValue = $value->getValue($property)->ensure()->getValue();
+        $propertyValue = $value->getValue();
         if ($property === 'M') {
             $propertyValue = Date::stringToDateTime($propertyValue);
         } else {
