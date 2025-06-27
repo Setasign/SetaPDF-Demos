@@ -86,12 +86,53 @@ $sorter = static function($a, $b) {
     return $a <=> $b;
 };
 
+$breadCrumb = [
+    ['path' => '/', 'text' => 'Demos', 'title' => 'Demos'],
+];
+
+$fullPath = '/';
+foreach (explode('/', $requestPath) as $pathPart) {
+    if ($pathPart === '') {
+        continue;
+    }
+
+    $fullPath .= $pathPart . '/';
+    $metaData = [];
+    if (file_exists($demosDirectory . $fullPath . 'demo.json')) {
+        $metaData = json_decode(file_get_contents($demosDirectory . $fullPath . 'demo.json'), true);
+        $breadCrumb[] = [
+            'path' => '/demo' . $fullPath,
+            'text' => $metaData['name'] ?? $pathPart,
+            'title' => $metaData['title'] ?? $metaData['name'] ?? $pathPart,
+        ];
+    } elseif (file_exists($demosDirectory . $fullPath . 'meta.json')) {
+        $metaData = json_decode(file_get_contents($demosDirectory . $fullPath . 'meta.json'), true);
+        $breadCrumb[] = [
+            'path' => $fullPath,
+            'text' => $metaData['name'] ?? $pathPart,
+            'title' => $metaData['title'] ?? $metaData['name'] ?? $pathPart,
+        ];
+    } else {
+        $breadCrumb[] = [
+            'path' => $fullPath,
+            'text' => $pathPart,
+            'title' => $pathPart,
+        ];
+    }
+}
+unset($fullPath);
+if ($requestPath === '') {
+    $pageTitle = 'SetaPDF Demos';
+} else {
+    $pageTitle = implode(' / ', array_reverse(array_column($breadCrumb, 'title')));
+}
+
 ob_start();
 echo <<<HTML
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <title>SetaPDF Demos</title>
+    <title>{$pageTitle}</title>
     <base href="{$base}"/>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
@@ -145,39 +186,6 @@ echo '</div></div><style>#loading-error { display:none; }</style>';
 echo '<div id="breadcrumb"><div class="wrapper">'
     . '<nav><ul>';
 
-$breadCrumb = [
-    ['path' => '/', 'text' => 'Demos']
-];
-
-$fullPath = '/';
-foreach (explode('/', $requestPath) as $pathPart) {
-    if ($pathPart === '') {
-        continue;
-    }
-
-    $fullPath .= $pathPart . '/';
-    $metaData = [];
-    if (file_exists($demosDirectory . $fullPath . 'demo.json')) {
-        $metaData = json_decode(file_get_contents($demosDirectory . $fullPath . 'demo.json'), true);
-        $breadCrumb[] = [
-            'path' => '/demo' . $fullPath,
-            'text' => isset($metaData['name']) ? $metaData['name'] : $pathPart
-        ];
-    } elseif (file_exists($demosDirectory . $fullPath . 'meta.json')) {
-        $metaData = json_decode(file_get_contents($demosDirectory . $fullPath . 'meta.json'), true);
-        $breadCrumb[] = [
-            'path' => $fullPath,
-            'text' => isset($metaData['name']) ? $metaData['name'] : $pathPart
-        ];
-    } else {
-        $breadCrumb[] = [
-            'path' => $fullPath,
-            'text' => $pathPart
-        ];
-    }
-}
-unset($fullPath);
-
 foreach ($breadCrumb as $crumb) {
     echo '<li itemprop="title"><a itemprop="url" href="?p=' . urlencode($crumb['path']) . '">'
         . $crumb['text']
@@ -195,8 +203,8 @@ if ($isDemo) {
         return;
     }
     $demoData = json_decode(file_get_contents($demoDirectory . '/demo.json'), true);
-    $name = isset($demoData['name']) ? $demoData['name'] : basename($demoDirectory);
-    $requires = isset($demoData['requires']) ? $demoData['requires'] : [];
+    $name = $demoData['name'] ?? basename($demoDirectory);
+    $requires = $demoData['requires'] ?? [];
 
     $hasAllRequires = true;
     $missingRequires = [];
@@ -215,7 +223,7 @@ if ($isDemo) {
     foreach ($demoPaths as $actualDemo) {
         $actualDemoDirectory = dirname($actualDemo);
         $actualDemoData = json_decode(file_get_contents($actualDemo), true);
-        $actualDemoName = isset($actualDemoData['name']) ? $actualDemoData['name'] : basename($actualDemoDirectory);
+        $actualDemoName = $actualDemoData['name'] ?? basename($actualDemoDirectory);
         $actualDemoPath = '/demo' . substr($actualDemoDirectory, strlen($demosDirectory));
 
         if ($actualDemoDirectory === $demoDirectory) {
