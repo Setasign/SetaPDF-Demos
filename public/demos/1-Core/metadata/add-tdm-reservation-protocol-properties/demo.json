@@ -1,0 +1,9 @@
+{
+    "name": "Add TDM Reservation Protocol (TDMRep) Properties",
+    "teaserText": "Add information to block AI Models from scraping your PDFs.",
+    "requires": [
+        "SetaPDF-Core"
+    ],
+    "faIcon": "&#xf544;",
+    "faIcon2": "&#xf05e;"
+}
