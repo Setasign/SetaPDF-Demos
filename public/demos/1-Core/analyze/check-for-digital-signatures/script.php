@@ -13,7 +13,7 @@ require_once '../../../../../bootstrap.php';
 
 // prepare some files
 $files = [
-    $assetsDirectory . '/pdfs/tektown/Laboratory-Report-signed-no-LTV.pdf',
+    $assetsDirectory . '/pdfs/camtown/Laboratory-Report-signed.pdf',
     $assetsDirectory . '/pdfs/tektown/Laboratory-Report-signed.pdf',
     $assetsDirectory . '/pdfs/lenstown/Laboratory-Report-signed-PAdES.pdf',
     $assetsDirectory . '/pdfs/tektown/Order-Form.pdf',
