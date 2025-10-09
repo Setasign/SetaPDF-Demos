@@ -8,24 +8,26 @@
     "packages": [
         {
             "name": "paragonie/constant_time_encoding",
-            "version": "v2.7.0",
+            "version": "v3.1.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/paragonie/constant_time_encoding.git",
-                "reference": "52a0d99e69f56b9ec27ace92ba56897fe6993105"
+                "reference": "d5b01a39b3415c2cd581d3bd3a3575c1ebbd8e77"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/paragonie/constant_time_encoding/zipball/52a0d99e69f56b9ec27ace92ba56897fe6993105",
-                "reference": "52a0d99e69f56b9ec27ace92ba56897fe6993105",
+                "url": "https://api.github.com/repos/paragonie/constant_time_encoding/zipball/d5b01a39b3415c2cd581d3bd3a3575c1ebbd8e77",
+                "reference": "d5b01a39b3415c2cd581d3bd3a3575c1ebbd8e77",
                 "shasum": ""
             },
             "require": {
-                "php": "^7|^8"
+                "php": "^8"
             },
             "require-dev": {
-                "phpunit/phpunit": "^6|^7|^8|^9",
-                "vimeo/psalm": "^1|^2|^3|^4"
+                "infection/infection": "^0",
+                "nikic/php-fuzzer": "^0",
+                "phpunit/phpunit": "^9|^10|^11",
+                "vimeo/psalm": "^4|^5|^6"
             },
             "type": "library",
             "autoload": {
@@ -71,7 +73,7 @@
                 "issues": "https://github.com/paragonie/constant_time_encoding/issues",
                 "source": "https://github.com/paragonie/constant_time_encoding"
             },
-            "time": "2024-05-08T12:18:48+00:00"
+            "time": "2025-09-24T15:06:41+00:00"
         },
         {
             "name": "paragonie/random_compat",
@@ -125,16 +127,16 @@
         },
         {
             "name": "phpseclib/phpseclib",
-            "version": "3.0.43",
+            "version": "3.0.47",
             "source": {
                 "type": "git",
                 "url": "https://github.com/phpseclib/phpseclib.git",
-                "reference": "709ec107af3cb2f385b9617be72af8cf62441d02"
+                "reference": "9d6ca36a6c2dd434765b1071b2644a1c683b385d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/phpseclib/phpseclib/zipball/709ec107af3cb2f385b9617be72af8cf62441d02",
-                "reference": "709ec107af3cb2f385b9617be72af8cf62441d02",
+                "url": "https://api.github.com/repos/phpseclib/phpseclib/zipball/9d6ca36a6c2dd434765b1071b2644a1c683b385d",
+                "reference": "9d6ca36a6c2dd434765b1071b2644a1c683b385d",
                 "shasum": ""
             },
             "require": {
@@ -215,7 +217,7 @@
             ],
             "support": {
                 "issues": "https://github.com/phpseclib/phpseclib/issues",
-                "source": "https://github.com/phpseclib/phpseclib/tree/3.0.43"
+                "source": "https://github.com/phpseclib/phpseclib/tree/3.0.47"
             },
             "funding": [
                 {
@@ -231,14 +233,14 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2024-12-14T21:12:59+00:00"
+            "time": "2025-10-06T01:07:24+00:00"
         },
         {
             "name": "setasign/setapdf-core",
-            "version": "2.47.0.2095",
+            "version": "2.49.0.2199",
             "dist": {
                 "type": "zip",
-                "url": "https://www.setasign.com/downloads/6953131/SetaPDF-Core_2.47.0.2095-without-demos.zip"
+                "url": "https://www.setasign.com/downloads/7014656/SetaPDF-Core_2.49.0.2199-without-demos.zip"
             },
             "require": {
                 "php": ">=7.1 <=8.4.99999"
@@ -261,18 +263,18 @@
             "support": {
                 "email": "support@setasign.com"
             },
-            "time": "2025-03-19T00:00:00+00:00"
+            "time": "2025-09-11T00:00:00+00:00"
         },
         {
             "name": "setasign/setapdf-extractor",
-            "version": "2.47.0.2095",
+            "version": "2.49.0.2199",
             "dist": {
                 "type": "zip",
-                "url": "https://www.setasign.com/downloads/6953159/SetaPDF-Extractor_2.47.0.2095-without-core.zip"
+                "url": "https://www.setasign.com/downloads/7014672/SetaPDF-Extractor_2.49.0.2199-without-core.zip"
             },
             "require": {
                 "php": ">=7.1 <=8.4.99999",
-                "setasign/setapdf-core": "2.47.0.2095"
+                "setasign/setapdf-core": "2.49.0.2199"
             },
             "type": "library",
             "autoload": {
@@ -292,18 +294,18 @@
             "support": {
                 "email": "support@setasign.com"
             },
-            "time": "2025-03-19T00:00:00+00:00"
+            "time": "2025-09-11T00:00:00+00:00"
         },
         {
             "name": "setasign/setapdf-formfiller_full",
-            "version": "2.47.0.2095",
+            "version": "2.49.0.2199",
             "dist": {
                 "type": "zip",
-                "url": "https://www.setasign.com/downloads/6953155/SetaPDF-FormFiller-Full_2.47.0.2095-without-core.zip"
+                "url": "https://www.setasign.com/downloads/7014666/SetaPDF-FormFiller-Full_2.49.0.2199-without-core.zip"
             },
             "require": {
                 "php": ">=7.1 <=8.4.99999",
-                "setasign/setapdf-core": "2.47.0.2095"
+                "setasign/setapdf-core": "2.49.0.2199"
             },
             "type": "library",
             "autoload": {
@@ -323,18 +325,18 @@
             "support": {
                 "email": "support@setasign.com"
             },
-            "time": "2025-03-19T00:00:00+00:00"
+            "time": "2025-09-11T00:00:00+00:00"
         },
         {
             "name": "setasign/setapdf-merger",
-            "version": "2.47.0.2095",
+            "version": "2.49.0.2199",
             "dist": {
                 "type": "zip",
-                "url": "https://www.setasign.com/downloads/6953162/SetaPDF-Merger_2.47.0.2095-without-core.zip"
+                "url": "https://www.setasign.com/downloads/7014649/SetaPDF-Merger_2.49.0.2199-without-core.zip"
             },
             "require": {
                 "php": ">=7.1 <=8.4.99999",
-                "setasign/setapdf-core": "2.47.0.2095"
+                "setasign/setapdf-core": "2.49.0.2199"
             },
             "type": "library",
             "autoload": {
@@ -354,18 +356,18 @@
             "support": {
                 "email": "support@setasign.com"
             },
-            "time": "2025-03-19T00:00:00+00:00"
+            "time": "2025-09-11T00:00:00+00:00"
         },
         {
             "name": "setasign/setapdf-signer",
-            "version": "2.47.0.2095",
+            "version": "2.49.0.2199",
             "dist": {
                 "type": "zip",
-                "url": "https://www.setasign.com/downloads/6953135/SetaPDF-Signer_2.47.0.2095-without-core.zip"
+                "url": "https://www.setasign.com/downloads/7014662/SetaPDF-Signer_2.49.0.2199-without-core.zip"
             },
             "require": {
                 "php": ">=7.1 <=8.4.99999",
-                "setasign/setapdf-core": "2.47.0.2095"
+                "setasign/setapdf-core": "2.49.0.2199"
             },
             "type": "library",
             "autoload": {
@@ -385,18 +387,18 @@
             "support": {
                 "email": "support@setasign.com"
             },
-            "time": "2025-03-19T00:00:00+00:00"
+            "time": "2025-09-11T00:00:00+00:00"
         },
         {
             "name": "setasign/setapdf-stamper",
-            "version": "2.47.0.2095",
+            "version": "2.49.0.2199",
             "dist": {
                 "type": "zip",
-                "url": "https://www.setasign.com/downloads/6953156/SetaPDF-Stamper_2.47.0.2095-without-core.zip"
+                "url": "https://www.setasign.com/downloads/7014677/SetaPDF-Stamper_2.49.0.2199-without-core.zip"
             },
             "require": {
                 "php": ">=7.1 <=8.4.99999",
-                "setasign/setapdf-core": "2.47.0.2095"
+                "setasign/setapdf-core": "2.49.0.2199"
             },
             "type": "library",
             "autoload": {
@@ -416,19 +418,19 @@
             "support": {
                 "email": "support@setasign.com"
             },
-            "time": "2025-03-19T00:00:00+00:00"
+            "time": "2025-09-11T00:00:00+00:00"
         }
     ],
     "packages-dev": [],
     "aliases": [],
     "minimum-stability": "stable",
-    "stability-flags": [],
+    "stability-flags": {},
     "prefer-stable": false,
     "prefer-lowest": false,
     "platform": {
         "php": ">=7.1",
         "ext-json": "*"
     },
-    "platform-dev": [],
-    "plugin-api-version": "2.1.0"
+    "platform-dev": {},
+    "plugin-api-version": "2.6.0"
 }
