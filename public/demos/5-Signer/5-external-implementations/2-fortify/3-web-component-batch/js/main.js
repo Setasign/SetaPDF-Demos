@@ -132,8 +132,7 @@
 
                     if (startJson.extraCerts.length > 0) {
                         document.getElementById('extraCerts').innerHTML = startJson.extraCerts.length
-                            + ' extra certificate(s) resolved and embedded through the '
-                            + '<a href="http://www.pkiglobe.org/auth_info_access.html" target="_blank">AIA extension</a>.';
+                            + ' extra certificate(s) resolved and embedded through the AIA extension.';
                     } else {
                         document.getElementById('extraCerts').innerHTML = 'No extra certificates were resolved.';
                     }

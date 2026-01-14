@@ -37,7 +37,7 @@ if ($_SERVER['SERVER_NAME'] !== 'localhost' && (empty($_SERVER['HTTPS']) || $_SE
     <select id="certificatesSelect"><option>Loading...</option></select>
     <br />
 
-    <input type="checkbox" name="useAIA" id="useAIA" checked="checked"/><label for="useAIA">Embedded certificates fetched from the <a href="http://www.pkiglobe.org/auth_info_access.html" target="_blank">AIA extension</a> (only HTTP, .cer/.der (no .p7c support), no validation is done).</label><br />
+    <input type="checkbox" name="useAIA" id="useAIA" checked="checked"/><label for="useAIA">Embedded certificates fetched from the AIA extension (only HTTP, .cer/.der (no .p7c support), no validation is done).</label><br />
     <input type="checkbox" name="useTimestamp" id="useTimestamp" checked="checked" /><label for="useTimestamp">Embedded timestamp if adobe timestamp extension is available in certificate.</label><br />
 
     <button id="signBtn" disabled="disabled">Sign Dummy File</button>

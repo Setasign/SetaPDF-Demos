@@ -124,7 +124,7 @@ $controllerPath = 'https://' . $_SERVER['HTTP_HOST'] . $path . 'controller.php';
         <h4>Signature Settings</h4>
         <label class="checkbox" for="useAIA">
             <input type="checkbox" name="useAIA" id="useAIA" checked="checked"/>
-            Embedded certificates fetched from the <a href="http://www.pkiglobe.org/auth_info_access.html" target="_blank">AIA extension</a>.
+            Embedded certificates fetched from the AIA extension.
         </label>
 
         <label class="checkbox" for="useTimestamp">
