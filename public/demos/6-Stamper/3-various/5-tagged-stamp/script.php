@@ -1,10 +1,9 @@
 <?php
 
+use setasign\SetaPDF2\Core\DataStructure\Color\Rgb;
 use setasign\SetaPDF2\Demos\Stamper\Stamp\Tagged as TaggedStamp;
 use setasign\SetaPDF2\Core\Font\TrueType\Subset;
-use setasign\SetaPDF2\Core\Image\Image;
 use setasign\SetaPDF2\Core\Writer\HttpWriter;
-use setasign\SetaPDF2\Stamper\Stamp\ImageStamp;
 use setasign\SetaPDF2\Stamper\Stamp\TextStamp;
 use setasign\SetaPDF2\Stamper\Stamper;
 
@@ -17,7 +16,7 @@ $writer = new HttpWriter('tagged.pdf', true);
 //$writer = new \setasign\SetaPDF2\Core\Writer\FileWriter('tagged.pdf');
 // let's get the document
 $document = \setasign\SetaPDF2\Core\Document::loadByFilename(
-    $assetsDirectory . '/pdfs/Brand-Guide.pdf',
+    $assetsDirectory . '/pdfs/camtown/Terms-and-Conditions - Tagged.pdf',
     $writer
 );
 
@@ -35,43 +34,25 @@ $font = new Subset(
 // create a stamp instance
 $textStamp = new TextStamp($font, 10);
 // set a text
-$textStamp->setText('Personalized for John Dow (jon.dow@example.com)');
+$textStamp->setText(date('Y-m-d H:i:s'));
+// and its color
+$textStamp->setTextColor(new Rgb(240/255, 90/255, 40/255));
 
-// create a Tagged stamp instance and pass the text stamp to it
-$stamp = new TaggedStamp($textStamp);
+// create a Tagged stamp instance and pass the text stamp to it,
+// we also define the parent tag found by the id "date".
+$stamp = new TaggedStamp($textStamp, 'date');
+// we want to add the text content into the existing tag, so let's reset the tag-name
+$stamp->setTagName(null);
 $stamp->setActualText($textStamp->getText());
-$stamp->setTitle('Personalization information of user');
+$stamp->setTitle('Creation of this Terms and Conditions');
 
 // add the stamp to the stamper instance
 $stamper->addStamp($stamp, [
-    'position' => Stamper::POSITION_CENTER_TOP,
-    'translateX' => 2,
-    'translateY' => -2
+    'showOnPage' => 1,
+    'position' => Stamper::POSITION_RIGHT_TOP,
+    'translateX' => -40,
+    'translateY' => -140,
 ]);
-
-
-//--- Create an image stamp and wrap it in a Tagged stamp instance ---//
-
-// get an image instance
-$image = Image::getByPath($assetsDirectory . '/pdfs/tektown/Logo.png');
-// initiate the image stamp
-$imageStamp = new ImageStamp($image);
-// set height (and width until no setWidth is set the ratio will retain)
-$imageStamp->setHeight(23);
-
-// create a Tagged stamp instance and pass the image stamp to it
-$stamp = new TaggedStamp($imageStamp);
-$stamp->setTagName('Figure');
-$stamp->setAlternateText('Logo of "tektown"');
-$stamp->setTitle('tektown');
-
-// add the stamp to the stamper instance
-$stamper->addStamp($stamp, [
-    'showOnPage' => '2-21',
-    'position' => Stamper::POSITION_CENTER_BOTTOM,
-    'translateY' => 10
-]);
-
 
 // execute the stamp process
 $stamper->stamp();

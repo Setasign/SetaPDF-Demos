@@ -1,7 +1,22 @@
 <p>
-    This demo uses a proxy stamp class which will enclose the stamps in marked-content sequences.
-    You can define the tag name, title, actual text, alternate text and the language.
+    This demo uses a proxy stamp class which will enclose the stamps in marked-content sequences and
+    add it to the documents structure tree.
 </p>
 <p>
-    The tags are appended to the root node of the global tag structure.
+    By default the new structure element is appended to the root node of the global tag structure.
+    To add a stamp as a child of an existing structure element, make sure that it has an ID and
+    pass this as the <code>$parentId</code> parameter of the constructor.
+</p>
+<p>
+    If no individual tag should be created but the one that is resolved by the <code>$parentId</code>, you
+    have to set the tag-name to <i>null</i>: <code>$stamp->setTagName(null);</code><br />
+    <b>NOTE: Such stamp can only appear on a single page!</b>
+</p>
+<p>
+    You can also define an individual tag name, title, actual text, alternate text and the language.
+</p>
+<p>
+    To demonstrate the usage of this class, we added an empty <code>Span</code>-tag to the document element
+    structure of the PDF and set its ID to <code>date</code>. The demo than adds a text stamp directly into
+    this prepared structure element.
 </p>

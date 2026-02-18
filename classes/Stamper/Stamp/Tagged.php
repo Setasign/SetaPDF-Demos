@@ -2,17 +2,21 @@
 
 namespace setasign\SetaPDF2\Demos\Stamper\Stamp;
 
+use setasign\SetaPDF2\Core\DataStructure\Tree\NameTree;
 use setasign\SetaPDF2\Core\DataStructure\Tree\NumberTree;
 use setasign\SetaPDF2\Core\Document;
 use setasign\SetaPDF2\Core\Document\Action\Action;
 use setasign\SetaPDF2\Core\Document\OptionalContent\Group;
 use setasign\SetaPDF2\Core\Document\Page;
 use setasign\SetaPDF2\Core\Encoding\Encoding;
+use setasign\SetaPDF2\Core\Type\Dictionary\DictionaryHelper;
 use setasign\SetaPDF2\Core\Type\PdfArray;
 use setasign\SetaPDF2\Core\Type\PdfDictionary;
+use setasign\SetaPDF2\Core\Type\PdfIndirectReference;
 use setasign\SetaPDF2\Core\Type\PdfName;
 use setasign\SetaPDF2\Core\Type\PdfNumeric;
 use setasign\SetaPDF2\Core\Type\PdfString;
+use setasign\SetaPDF2\NotImplementedException;
 use setasign\SetaPDF2\Stamper\Stamp\AbstractStamp;
 
 /**
@@ -25,26 +29,31 @@ class Tagged extends AbstractStamp
      */
     protected $_mainStamp;
 
+    protected $_parentId;
     protected $_tagName = 'Span';
     protected $_title = '';
     protected $_actualText = '';
     protected $_alternateText = '';
     protected $_language = '';
+    protected $_stampedOnPage;
 
     /**
      * The constructor
      *
      * @param AbstractStamp $mainStamp The main stamp instance
+     * @param string|null $parentId The ID of the parent structure element. If set to null the new tag
+     *                              will be added to the root of the structure tree.
      */
-    public function __construct(AbstractStamp $mainStamp)
+    public function __construct(AbstractStamp $mainStamp, ?string $parentId = null)
     {
         $this->_mainStamp = $mainStamp;
+        $this->_parentId = $parentId;
     }
 
     /**
-     * @param string $tagName
+     * @param ?string $tagName
      */
-    public function setTagName(string $tagName)
+    public function setTagName(?string $tagName)
     {
         $this->_tagName = $tagName;
     }
@@ -109,7 +118,7 @@ class Tagged extends AbstractStamp
         $structTreeRoot = $document->getCatalog()->getStructTreeRoot();
         $structTreeRoot->getDictionary(true);
 
-        $pageDict = $page->getObject()->ensure();
+        $pageDict = PdfDictionary::ensureType($page->getObject());
         if (!$pageDict->offsetExists('StructParents')) {
             $pageDict->offsetSet(
                 'StructParents',
@@ -117,26 +126,70 @@ class Tagged extends AbstractStamp
             );
         }
 
-        $structParentsKey = $pageDict->getValue('StructParents')->getValue();
+        $structParentsKey = PdfNumeric::ensureType($pageDict->getValue('StructParents'))->getValue();
 
         /** @var NumberTree $parentTree */
         $parentTree = $structTreeRoot->getParentTree(true);
-        $elements = $parentTree->get($structParentsKey);
-        if ($elements !== false) {
-            $elements = $elements->ensure();
+        $parentElements = $parentTree->get($structParentsKey);
+        if ($parentElements !== false) {
+            $parentElements = $parentElements->ensure();
         } else {
-            $elements = new PdfArray();
-            $parentTree->add($structParentsKey, $document->createNewObject($elements));
+            $parentElements = new PdfArray();
+            $parentTree->add($structParentsKey, $document->createNewObject($parentElements));
         }
 
-        $mcid = count($elements);
+        $mcid = \count($parentElements);
 
-        $element = new PdfDictionary([
-            'K' => new PdfNumeric($mcid),
-            'P' => $structTreeRoot->getObject(),
-            'Pg' => $page->getObject(),
-            'S' => new PdfName($this->_tagName, true)
-        ]);
+        if ($this->_parentId !== null) {
+            $idTree = $structTreeRoot->getIdTree();
+            if (!$idTree instanceof NameTree) {
+                throw new \InvalidArgumentException(\sprintf(
+                    'The parentId (%s) cannot be found.',
+                    $this->_parentId
+                ));
+            }
+
+            $parent = $idTree->get($this->_parentId);
+            if (!$parent instanceof PdfIndirectReference) {
+                throw new \InvalidArgumentException(\sprintf(
+                    'The parentId (%s) cannot be found.',
+                    $this->_parentId
+                ));
+            }
+        } else {
+            $parent = $structTreeRoot->getObject();
+        }
+
+        if ($this->_tagName === null) {
+            if ($this->_parentId === null) {
+                throw new \InvalidArgumentException(
+                    'The tagName can only be left, if a parentId is provided.'
+                );
+            }
+
+            $element = PdfDictionary::ensureType($parent);
+            $parentElements[] = $parent;
+            $newKidValue = new PdfNumeric($mcid);
+        } else {
+            $element = new PdfDictionary([
+                'K' => new PdfNumeric($mcid),
+                'P' => $parent,
+                'S' => new PdfName($this->_tagName, true)
+            ]);
+
+            $newKidValue = $document->createNewObject($element);
+            $parentElements[] = $newKidValue;
+        }
+
+        if ($this->_tagName === null) {
+            $pageObjectId = $page->getObject()->getObjectId();
+            if ($this->_stampedOnPage !== null && $this->_stampedOnPage !== $pageObjectId) {
+               throw new \InvalidArgumentException('A stamp without a tag-name can only be stamped on a single page.');
+            }
+
+            $element['Pg'] = $page->getObject();
+            $this->_stampedOnPage = $pageObjectId;
+        }
 
         if ($this->_title !== '') {
             $element->offsetSet('T', new PdfString(
@@ -162,18 +215,26 @@ class Tagged extends AbstractStamp
             ));
         }
 
-        $elementReference = $document->createNewObject($element);
+        $parentDict = PdfDictionary::ensureType($parent);
+        $k = DictionaryHelper::getValue($parentDict, 'K');
+        if ($k === null) {
+            $k = new PdfArray();
+            $parentDict->offsetSet('K', $document->createNewObject($k));
+        }
 
-        $elements[] = $elementReference;
+        if (!$k instanceof PdfArray) {
+            $k = new PdfArray([$k]);
+            $parentDict->offsetSet('K', $document->createNewObject($k));
+        }
 
-        $structTreeRoot->addChild($elementReference);
+        $k[] = $newKidValue;
 
         $canvas = $page->getCanvas();
 
         $properties = new PdfDictionary([
             'MCID' => new PdfNumeric($mcid)
         ]);
-        $canvas->markedContent()->begin($this->_tagName, $properties);
+        $canvas->markedContent()->begin($this->_tagName ?? 'Span', $properties);
 
         $this->_mainStamp->_stamp($document, $page, $stampData);
 
@@ -245,7 +306,7 @@ class Tagged extends AbstractStamp
      */
     public function setAction(Action $action)
     {
-        $this->_mainStamp->setAction($action);
+        throw new NotImplementedException('Actions are actually not implemented for tagged stamps.');
     }
 
     /**
@@ -261,7 +322,7 @@ class Tagged extends AbstractStamp
      */
     public function setLink($uri)
     {
-        $this->_mainStamp->setLink($uri);
+        throw new NotImplementedException('Links are actually not implemented for tagged stamps.');
     }
 
     /**
