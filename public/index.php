@@ -127,6 +127,8 @@ if ($requestPath === '') {
     $pageTitle = implode(' / ', array_reverse(array_column($breadCrumb, 'title')));
 }
 
+$canonical = 'https://demos.setasign.com/?' . http_build_query(['p' => $_GET['p'] ?? '/']);
+
 ob_start();
 echo <<<HTML
 <!DOCTYPE html>
@@ -139,6 +141,7 @@ echo <<<HTML
     <link rel="stylesheet" type="text/css" href="./layout/normalize.css"/>
     <link rel="stylesheet" type="text/css" href="./layout/style.css"/>
     <link rel="stylesheet" type="text/css" href="./js/codemirror-5.61.1/codemirror.css"/>
+    <link rel="canonical" href="{$canonical}" />
     <script type="text/javascript" src="./js/jquery-3.6.0.min.js"></script>
     <script type="text/javascript" src="./js/codemirror-5.61.1/codemirror.js"></script>
     <script type="text/javascript" src="./js/clipboard.js"></script>
@@ -147,7 +150,7 @@ echo <<<HTML
 <header>
     <div class="wrapper default">
         <h1>SetaPDF Demos</h1>
-        <a href="http://www.setasign.com"><img src="./layout/img/small-logo.png" class="companyLogo" alt="Logo"/></a>
+        <a href="https://www.setasign.com"><img src="./layout/img/small-logo.png" class="companyLogo" alt="Setasign Logo"/></a>
     </div>
 </header>
 <div id="loading-error">
