@@ -32,8 +32,5 @@ $secHandler = Aes256::create(
     SecHandler::PERM_PRINT | SecHandler::PERM_DIGITAL_PRINT
 );
 
-// pass it to the document instance
-$document->setSecHandler($secHandler);
-
 // save and finish
 $document->save()->finish();
