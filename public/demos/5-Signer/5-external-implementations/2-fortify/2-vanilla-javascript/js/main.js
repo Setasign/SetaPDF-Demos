@@ -243,7 +243,8 @@
                     })
                 );
                 let startJson = JSON.parse(startResponseText),
-                    privateKey = cert.privateKey;
+                    privateKey = cert.privateKey,
+                    algorithmName = privateKey.algorithm.name;
 
                 const message = fromHex(startJson.dataToSign);
                 const alg = {
@@ -254,7 +255,7 @@
                 let signature = await provider.subtle.sign(alg, privateKey, message);
                 let completeResponseText = await postRequest(
                     'controller.php?action=complete',
-                    JSON.stringify({signature: toHex(signature)})
+                    JSON.stringify({signature: toHex(signature), algorithmName: algorithmName})
                 );
                 let completeJson = JSON.parse(completeResponseText);
                 lastId = completeJson.id;

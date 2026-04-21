@@ -4,6 +4,7 @@ use setasign\SetaPDF2\Core\Document;
 use setasign\SetaPDF2\Core\Type\PdfHexString;
 use setasign\SetaPDF2\Core\Writer\StringWriter;
 use setasign\SetaPDF2\Core\Writer\TempFileWriter;
+use setasign\SetaPDF2\Signer\Asn1\Element as Asn1Element;
 use setasign\SetaPDF2\Signer\Cms\SignedData;
 use setasign\SetaPDF2\Signer\InformationResolver\HttpCurlResolver;
 use setasign\SetaPDF2\Signer\InformationResolver\Manager as InformationResolverManager;
@@ -191,8 +192,37 @@ try {
                 $document = Document::loadByFilename($fileToSign, $writer);
                 $signer = new Signer($document);
 
+                $signatureValue = $data['signatures'][$key];
+
+                if (isset($data['algorithmName']) && $data['algorithmName'] === 'ECDSA') {
+                    $len = \strlen($signatureValue);
+                    // prohibit 'Uninitialized string offset 0' error
+                    if ($len < 2) {
+                        throw new Exception('Signature value is faulty!');
+                    }
+
+                    $s = \substr($signatureValue, 0, $len / 2);
+                    if (\ord($s[0]) & 0x80) { // ensure positive integers
+                        $s = "\0" . $s;
+                    }
+                    $r = \substr($signatureValue, $len / 2);
+                    if (\ord($r[0]) & 0x80) { // ensure positive integers
+                        $r = "\0" . $r;
+                    }
+
+                    $signatureValueElm = new Asn1Element(
+                        Asn1Element::SEQUENCE | Asn1Element::IS_CONSTRUCTED, '',
+                        [
+                            new Asn1Element(Asn1Element::INTEGER, $s),
+                            new Asn1Element(Asn1Element::INTEGER, $r),
+                        ]
+                    );
+
+                    $signatureValue = (string)$signatureValueElm;
+                }
+
                 // pass the signature to the signature modul
-                $_SESSION['tmpDocuments'][$key]['module']->setSignatureValue($data['signatures'][$key]);
+                $_SESSION['tmpDocuments'][$key]['module']->setSignatureValue($signatureValue);
 
                 // get the CMS structure from the signature module
                 $cms = (string)$_SESSION['tmpDocuments'][$key]['module']->getCms();

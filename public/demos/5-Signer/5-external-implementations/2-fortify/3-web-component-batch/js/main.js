@@ -110,7 +110,8 @@
                 show('signButtonContainer');
             });
             fortifyComp.addEventListener('selectionSuccess', async function (event) {
-                let signatures = {};
+                let signatures = {},
+                    algorithmName;
                 try {
                     show('loader');
                     document.getElementById('loader').setAttribute('data-text', 'Signing document');
@@ -150,8 +151,9 @@
                         }
 
                         const message = fromHex(startJson.dataToSign[key]);
+                        algorithmName = privateKey.algorithm.name;
                         const alg = {
-                            name: privateKey.algorithm.name,
+                            name: algorithmName,
                             hash: "SHA-256",
                         };
 
@@ -168,7 +170,7 @@
                 try {
                     let completeResponseText = await postRequest(
                         controllerPath + '?action=complete',
-                        JSON.stringify({signatures})
+                        JSON.stringify({signatures, algorithmName})
                     );
                     let completeJson = JSON.parse(completeResponseText);
 

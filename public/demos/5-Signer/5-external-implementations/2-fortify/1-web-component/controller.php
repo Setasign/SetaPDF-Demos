@@ -5,6 +5,7 @@ use setasign\SetaPDF2\Core\Type\PdfHexString;
 use setasign\SetaPDF2\Core\Writer\FileWriter;
 use setasign\SetaPDF2\Core\Writer\StringWriter;
 use setasign\SetaPDF2\Core\Writer\TempFileWriter;
+use setasign\SetaPDF2\Signer\Asn1\Element as Asn1Element;
 use setasign\SetaPDF2\Signer\Cms\SignedData;
 use setasign\SetaPDF2\Signer\InformationResolver\HttpCurlResolver;
 use setasign\SetaPDF2\Signer\InformationResolver\Manager as InformationResolverManager;
@@ -174,6 +175,33 @@ try {
             $writer = new StringWriter();
             $document = Document::loadByFilename($fileToSign, $writer);
             $signer = new Signer($document);
+
+            if (isset($data->algorithmName) && $data->algorithmName === 'ECDSA') {
+                $len = \strlen($data->signature);
+                // prohibit 'Uninitialized string offset 0' error
+                if ($len < 2) {
+                    throw new Exception('Signature value is faulty!');
+                }
+
+                $s = \substr($data->signature, 0, $len / 2);
+                if (\ord($s[0]) & 0x80) { // ensure positive integers
+                    $s = "\0" . $s;
+                }
+                $r = \substr($data->signature, $len / 2);
+                if (\ord($r[0]) & 0x80) { // ensure positive integers
+                    $r = "\0" . $r;
+                }
+
+                $signatureValueElm = new Asn1Element(
+                    Asn1Element::SEQUENCE | Asn1Element::IS_CONSTRUCTED, '',
+                    [
+                        new Asn1Element(Asn1Element::INTEGER, $s),
+                        new Asn1Element(Asn1Element::INTEGER, $r),
+                    ]
+                );
+
+                $data->signature = (string)$signatureValueElm;
+            }
 
             // pass the signature to the signature modul
             $_SESSION['module']->setSignatureValue($data->signature);
