@@ -1,14 +1,13 @@
 <?php
 
-use setasign\SetaPDF2\Demos\Stamper\Stamp\ArtifactTextStamp;
 use setasign\SetaPDF2\Core\Document;
 use setasign\SetaPDF2\Core\Font\TrueType\Subset;
 use setasign\SetaPDF2\Core\Writer\HttpWriter;
+use setasign\SetaPDF2\Stamper\Stamp\TextStamp;
 use setasign\SetaPDF2\Stamper\Stamper;
 
 // load and register the autoload function
 require_once __DIR__ . '/../../../../../bootstrap.php';
-require_once __DIR__ . '/../../../../../classes/Stamper/Stamp/ArtifactTextStamp.php';
 
 // create an HTTP writer
 $writer = new HttpWriter('artifact.pdf', true);
@@ -31,7 +30,11 @@ $font = new Subset(
 );
 
 // create a stamp instance
-$textStamp = new ArtifactTextStamp($font, 10);
+$textStamp = new TextStamp($font, 10);
+
+// simply define to mark the stamp as an artifact
+$textStamp->setMarkAsArtifact();
+
 // set a text
 $textStamp->setText('Personalized for John Dow (jon.dow@example.com)');
 

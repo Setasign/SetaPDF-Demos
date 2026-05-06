@@ -4,8 +4,5 @@
     "requires": [
         "SetaPDF-Core", "SetaPDF-Stamper"
     ],
-    "faIcon": "&#xf070;",
-    "previewFiles": [
-        "../../../../../classes/Stamper/Stamp/ArtifactTextStamp.php"
-    ]
+    "faIcon": "&#xf070;"
 }
