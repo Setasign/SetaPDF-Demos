@@ -149,7 +149,7 @@ echo <<<HTML
 <body>
 <header>
     <div class="wrapper default">
-        <h1>SetaPDF Demos</h1>
+        <h1>SetaPDF Demos <span>PHP libraries to handle, modify or create PDF files</span></h1>
         <a href="https://www.setasign.com"><img src="./layout/img/small-logo.png" class="companyLogo" alt="Setasign Logo"/></a>
     </div>
 </header>
