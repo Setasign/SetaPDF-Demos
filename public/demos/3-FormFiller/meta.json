@@ -1,5 +1,5 @@
 {
     "name": "SetaPDF-FormFiller",
-    "teaserText": "Access, fill and flatten PDF forms (aka AcroForms) with the SetaPDF-FormFiller component. See also how you can deal with XFA form in pure PHP.",
+    "teaserText": "Access, fill and flatten PDF forms (aka AcroForms) with the SetaPDF-FormFiller component. See also how you can deal with XFA forms in pure PHP.",
     "requires": ["SetaPDF-Core", "SetaPDF-FormFiller"]
 }
