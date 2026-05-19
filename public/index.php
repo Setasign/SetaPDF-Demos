@@ -153,6 +153,10 @@ echo <<<HTML
         <a href="https://www.setasign.com"><img src="./layout/img/small-logo.png" class="companyLogo" alt="Setasign Logo"/></a>
     </div>
 </header>
+HTML;
+
+if ($_SERVER['SERVER_NAME'] !== 'demos.setasign.com') {
+    echo <<<HTML
 <div id="loading-error">
     <div class="wrapper">
         <p>There seems to be a problem loading the components. Please check your PHP error logs for details!</p>
@@ -161,9 +165,11 @@ echo <<<HTML
             on an unsupported PHP version.
         </p>
 HTML;
+}
 
 $availablePackages = [];
-if (class_exists(\setasign\SetaPDF2\Core\Core::class)) {
+// we use the Document class for the Core component because Core.php is never encrypted
+if (class_exists(\setasign\SetaPDF2\Core\Document::class)) {
     $availablePackages[] = 'SetaPDF-Core';
 }
 if (class_exists(\setasign\SetaPDF2\Extractor\Extractor::class)) {
@@ -185,7 +191,10 @@ if (class_exists(\setasign\SetaPDF2\Stamper\Stamper::class)) {
     $availablePackages[] = 'SetaPDF-Stamper';
 }
 
-echo '</div></div><style>#loading-error { display:none; }</style>';
+if ($_SERVER['SERVER_NAME'] !== 'demos.setasign.com') {
+    echo '</div></div><style>#loading-error { display:none; }</style>';
+}
+
 echo '<div id="breadcrumb"><div class="wrapper">'
     . '<nav><ul>';
 
