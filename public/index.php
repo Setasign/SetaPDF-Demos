@@ -123,8 +123,10 @@ foreach (explode('/', $requestPath) as $pathPart) {
 unset($fullPath);
 if ($requestPath === '') {
     $pageTitle = 'SetaPDF Demos';
+    $description = 'PHP demos of SetaPDF - modify, handle and create PDFs in pure PHP.';
 } else {
     $pageTitle = implode(' / ', array_reverse(array_column($breadCrumb, 'title')));
+    $description = $metaData['description'] ?? $metaData['teaserText'] ?? '';
 }
 
 $canonical = 'https://demos.setasign.com/?' . http_build_query(['p' => $_GET['p'] ?? '/']);
@@ -137,6 +139,7 @@ echo <<<HTML
     <title>{$pageTitle}</title>
     <base href="{$base}"/>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <meta name="description" content="{$description}"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <link rel="stylesheet" type="text/css" href="./layout/normalize.css"/>
     <link rel="stylesheet" type="text/css" href="./layout/style.css?2"/>
