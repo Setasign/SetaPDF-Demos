@@ -15,10 +15,10 @@ $scriptName = $_SERVER['SCRIPT_NAME'] ?? '/index.php';
 $base = rtrim(str_replace(DIRECTORY_SEPARATOR, '/', dirname($scriptName)), '/') . '/';
 
 $demosDirectory = __DIR__ . '/demos';
-$requestPath = $_SERVER['REQUEST_URI'] ?? '';
+$fullRequestPath = $requestPath = $_SERVER['REQUEST_URI'] ?? '';
 $queryPos = strpos($requestPath, '?');
 if ($queryPos !== false) {
-    $requestPath = substr($requestPath, 0, $queryPos);
+    $fullRequestPath = $requestPath = substr($requestPath, 0, $queryPos);
 }
 $isDemo = (strpos($requestPath, '/demo/') === 0);
 if ($requestPath === '/previewFile') {
@@ -133,7 +133,7 @@ if ($requestPath === '') {
     $description = $metaData['description'] ?? $metaData['teaserText'] ?? '';
 }
 
-$canonical = 'https://demos.setasign.com/?' . http_build_query(['p' => $_GET['p'] ?? '/']);
+$canonical = 'https://demos.setasign.com/' . ltrim($fullRequestPath, '/');
 
 ob_start();
 echo <<<HTML
