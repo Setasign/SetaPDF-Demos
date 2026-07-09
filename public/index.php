@@ -15,9 +15,13 @@ $scriptName = $_SERVER['SCRIPT_NAME'] ?? '/index.php';
 $base = rtrim(str_replace(DIRECTORY_SEPARATOR, '/', dirname($scriptName)), '/') . '/';
 
 $demosDirectory = __DIR__ . '/demos';
-$requestPath = $_GET['p'] ?? '';
+$requestPath = $_SERVER['REQUEST_URI'] ?? '';
+$queryPos = strpos($requestPath, '?');
+if ($queryPos !== false) {
+    $requestPath = substr($requestPath, 0, $queryPos);
+}
 $isDemo = (strpos($requestPath, '/demo/') === 0);
-if ($requestPath === 'previewFile') {
+if ($requestPath === '/previewFile') {
     $file = $_GET['f'] ?? '';
     if (strpos($file, '/assets/') === 0 && strpos($file, '..') === false) {
         $file = __DIR__ . '/..' . $file;
@@ -202,7 +206,7 @@ echo '<div id="breadcrumb"><div class="wrapper">'
     . '<nav><ul>';
 
 foreach ($breadCrumb as $crumb) {
-    echo '<li itemprop="title"><a itemprop="url" href="?p=' . urlencode($crumb['path']) . '">'
+    echo '<li itemprop="title"><a itemprop="url" href="' . $crumb['path'] . '">'
         . $crumb['text']
         . '</a></li>';
 }
@@ -312,7 +316,7 @@ if ($isDemo) {
             }
 
             echo '<div class="step ' . $previewFileIdent . '">'
-                . '<iframe data-src="?p=previewFile&f=' . $previewFile . '" src="about:blank"'
+                . '<iframe data-src="/previewFile?f=' . $previewFile . '" src="about:blank"'
                 . ' frameborder="0" style="width: 100%; height: 100%;"></iframe>'
                 . '</div>';
             continue;
@@ -333,7 +337,7 @@ if ($isDemo) {
             . '<div class="code">'
             . ($codemirrorLang === 'php' ? '<div class="phpInfo" title="The PHP source code that is executed by this demo.">PHP</div>' : '')
             . '<ul class="buttons">'
-            . '<li><a href="?p=' . urlencode($_GET['p']) . '#" class="copy"'
+            . '<li><a href="' . $_SERVER['REQUEST_URI'] . '#" class="copy"'
             . ($codemirrorLang === 'php' ? ' title="copy PHP code"' : '') . '>copy</a></li>'
             . '</ul><pre class="code" data-lang="' . $codemirrorLang . '">'
             . htmlspecialchars(file_get_contents($demoDirectory . '/' . $previewFile), ENT_QUOTES | ENT_HTML5)
@@ -383,7 +387,7 @@ if ($isDemo) {
     if (count($nextDemos) > 0) {
         $nextDemo = array_shift($nextDemos);
         echo '<span>'
-            . '<a href="?p=' . urlencode($nextDemo['path']) . '" class="next" title="' . $nextDemo['name'] . '">'
+            . '<a href="' . $nextDemo['path'] . '" class="next" title="' . $nextDemo['name'] . '">'
             . $nextDemo['name']
             . '</a>';
 
@@ -391,7 +395,7 @@ if ($isDemo) {
         if (count($nextDemos) > 0) {
             echo '<div class="others"><ul>';
             foreach (array_reverse($nextDemos) as $nextDemo) {
-                echo '<li><a href="?p=' . urlencode($nextDemo['path']) . '">' . $nextDemo['name'] . '</a></li>';
+                echo '<li><a href="' . $nextDemo['path'] . '">' . $nextDemo['name'] . '</a></li>';
             }
             echo '</ul></div>';
         }
@@ -403,7 +407,7 @@ if ($isDemo) {
     if (count($previousDemos) > 0) {
         $previousDemo = array_pop($previousDemos);
         echo '<span>'
-            . '<a href="?p=' . urlencode($previousDemo['path']) . '" class="prev" title="' . $previousDemo['name'] . '">'
+            . '<a href="' . $previousDemo['path'] . '" class="prev" title="' . $previousDemo['name'] . '">'
             . $previousDemo['name']
             . '</a>';
 
@@ -411,7 +415,7 @@ if ($isDemo) {
         if (count($previousDemos) > 0) {
             echo '<div class="others"><ul>';
             foreach ($previousDemos as $previousDemo) {
-                echo '<li><a href="?p=' . urlencode($previousDemo['path']) . '">' . $previousDemo['name'] . '</a></li>';
+                echo '<li><a href="' . $previousDemo['path'] . '">' . $previousDemo['name'] . '</a></li>';
             }
             echo '</ul></div>';
         }
@@ -423,7 +427,7 @@ if ($isDemo) {
     echo '</div>'
         . '</div>';
 } else {
-    echo '<h2>' . (isset($metaData['name']) ? $metaData['name'] : end($breadCrumb)['text']) . '</h2>';
+    echo '<h2>' . ($metaData['name'] ?? end($breadCrumb)['text']) . '</h2>';
 
     if (file_exists($demosDirectory . '/' . $requestPath . '/description.html')) {
         echo file_get_contents($demosDirectory . '/' . $requestPath . '/description.html');
@@ -462,18 +466,18 @@ if ($isDemo) {
         echo '<div class="demoDirectory' . (count($missingRequires) > 0 ? ' missingRequire' : '') . '">';
 
         if ($hasIcon) {
-            echo '<a href="?p=' . urlencode($path) . '" title="' . htmlspecialchars($name, ENT_QUOTES | ENT_HTML5) . '">'
+            echo '<a href="' . $path . '" title="' . htmlspecialchars($name, ENT_QUOTES | ENT_HTML5) . '">'
                 . '<img alt="Demo Icon" src="data:image/png;base64,'
                 . base64_encode(file_get_contents($dir . '/icon.png')) . '"/>'
                 . '</a>';
         } else {
-            echo '<a href="?p=' . urlencode($path) . '" title="' . htmlspecialchars($name, ENT_QUOTES | ENT_HTML5)
+            echo '<a href="' . $path . '" title="' . htmlspecialchars($name, ENT_QUOTES | ENT_HTML5)
                 . '" class="teaserIcon" data-faIcon="' . $faIcon . '"'
                 . (($faIcon2) ? ' data-faIcon2="' . $faIcon2 . '"' : '')
                 . '></a>';
         }
 
-        echo '<h2><a href="?p=' . urlencode($path) . '" title="' . htmlspecialchars($name, ENT_QUOTES | ENT_HTML5) . '">'
+        echo '<h2><a href="' . $path . '" title="' . htmlspecialchars($name, ENT_QUOTES | ENT_HTML5) . '">'
             . htmlspecialchars($name, ENT_QUOTES | ENT_HTML5)
             . '</a>';
         if (count($missingRequires) > 0) {
@@ -511,18 +515,18 @@ if ($isDemo) {
 
         echo '<div class="demoTeaser' . (count($missingRequires) > 0 ? ' missingRequire' : '') . '">';
         if ($hasIcon) {
-            echo '<a href="?p=' . urlencode($path) . '" title="' . htmlspecialchars($name, ENT_QUOTES | ENT_HTML5) . '">'
+            echo '<a href="' . $path . '" title="' . htmlspecialchars($name, ENT_QUOTES | ENT_HTML5) . '">'
                 . '<img alt="Demo Icon" src="data:image/png;base64,'
                 . base64_encode(file_get_contents($demoDirectory . '/icon.png')) . '"/>'
                 . '</a>';
         } else {
-            echo '<a href="?p=' . urlencode($path) . '" title="' . htmlspecialchars($name, ENT_QUOTES | ENT_HTML5)
+            echo '<a href="' . $path . '" title="' . htmlspecialchars($name, ENT_QUOTES | ENT_HTML5)
                 . '" class="teaserIcon" data-faIcon="' . $faIcon . '"'
                 . (($faIcon2) ? ' data-faIcon2="' . $faIcon2 . '"' : '')
                 . '></a>';
         }
 
-        echo '<h3><a href="?p=' . urlencode($path) . '" title="' . htmlspecialchars($name, ENT_QUOTES | ENT_HTML5) . '">'
+        echo '<h3><a href="' . $path . '" title="' . htmlspecialchars($name, ENT_QUOTES | ENT_HTML5) . '">'
             . htmlspecialchars($name, ENT_QUOTES | ENT_HTML5)
             . '</a>';
 
