@@ -11,6 +11,12 @@ if (PHP_SAPI === 'cli-server') {
 
 require_once __DIR__ . '/../bootstrap.php';
 
+if (!function_exists('str_ends_with')) {
+  function str_ends_with($str, $end) {
+    return (@substr_compare($str, $end, -strlen($end))==0);
+  }
+}
+
 $scriptName = $_SERVER['SCRIPT_NAME'] ?? '/index.php';
 $base = rtrim(str_replace(DIRECTORY_SEPARATOR, '/', dirname($scriptName)), '/') . '/';
 
@@ -20,7 +26,6 @@ $queryPos = strpos($requestPath, '?');
 if ($queryPos !== false) {
     $fullRequestPath = $requestPath = substr($requestPath, 0, $queryPos);
 }
-$isDemo = (strpos($requestPath, '/demo/') === 0);
 if ($requestPath === '/previewFile') {
     $file = $_GET['f'] ?? '';
     if (strpos($file, '/assets/') === 0 && strpos($file, '..') === false) {
@@ -64,7 +69,7 @@ if ($requestPath === '/previewFile') {
     return;
 }
 
-$requestPath = trim($isDemo ? substr($requestPath, strlen('/demo/')) : $requestPath, '/');
+$requestPath = trim($requestPath, '/');
 
 if (strpos($requestPath, '..') !== false || !is_dir($demosDirectory . '/' . $requestPath)) {
     header("HTTP/1.0 404 Not Found");
@@ -105,7 +110,7 @@ foreach (explode('/', $requestPath) as $pathPart) {
     if (file_exists($demosDirectory . $fullPath . 'demo.json')) {
         $metaData = json_decode(file_get_contents($demosDirectory . $fullPath . 'demo.json'), true);
         $breadCrumb[] = [
-            'path' => '/demo' . $fullPath,
+            'path' => $fullPath,
             'text' => $metaData['name'] ?? $pathPart,
             'title' => $metaData['title'] ?? $metaData['name'] ?? $pathPart,
         ];
@@ -133,7 +138,7 @@ if ($requestPath === '') {
     $description = $metaData['description'] ?? $metaData['teaserText'] ?? '';
 }
 
-$canonical = 'https://demos.setasign.com/' . ltrim($fullRequestPath, '/');
+$canonical = 'https://demos.setasign.com/' . trim($fullRequestPath, '/');
 
 ob_start();
 echo <<<HTML
@@ -206,7 +211,7 @@ echo '<div id="breadcrumb"><div class="wrapper">'
     . '<nav><ul>';
 
 foreach ($breadCrumb as $crumb) {
-    echo '<li itemprop="title"><a itemprop="url" href="' . $crumb['path'] . '">'
+    echo '<li itemprop="title"><a itemprop="url" href="' . rtrim($crumb['path'], '/') . '">'
         . $crumb['text']
         . '</a></li>';
 }
@@ -214,13 +219,8 @@ foreach ($breadCrumb as $crumb) {
 echo '</ul></nav></div></div>'
     . '<div id="content"><div class="wrapper">';
 
-if ($isDemo) {
-    $demoDirectory = $demosDirectory . '/' . $requestPath;
-    if (!file_exists($demoDirectory . '/demo.json')) {
-        header("HTTP/1.0 404 Not Found");
-        ob_end_clean();
-        return;
-    }
+$demoDirectory = $demosDirectory . '/' . $requestPath;
+if (file_exists($demoDirectory . '/demo.json')) {
     $demoData = json_decode(file_get_contents($demoDirectory . '/demo.json'), true);
     $name = $demoData['name'] ?? basename($demoDirectory);
     $requires = $demoData['requires'] ?? [];
@@ -243,7 +243,7 @@ if ($isDemo) {
         $actualDemoDirectory = dirname($actualDemo);
         $actualDemoData = json_decode(file_get_contents($actualDemo), true);
         $actualDemoName = $actualDemoData['name'] ?? basename($actualDemoDirectory);
-        $actualDemoPath = '/demo' . substr($actualDemoDirectory, strlen($demosDirectory));
+        $actualDemoPath = substr($actualDemoDirectory, strlen($demosDirectory));
 
         if ($actualDemoDirectory === $demoDirectory) {
             $currentDemoFound = true;
@@ -273,7 +273,7 @@ if ($isDemo) {
         echo '<p>' . $demoData['teaserText'] . '</p>';
     }
 
-    $previewFiles = array_merge(['script.php'], isset($demoData['previewFiles']) ? $demoData['previewFiles'] : []);
+    $previewFiles = array_merge(['script.php'], $demoData['previewFiles'] ?? []);
 
     echo '<div class="setapdf-demo' . (count($previewFiles) > 1 ? ' extended' : '') . '">'
         . '<div class="run"><ul>';
@@ -502,7 +502,7 @@ if ($isDemo) {
         $teaserText = $demoData['teaserText'] ?? '';
         $requires = $demoData['requires'] ?? [];
         $hasIcon = file_exists($demoDirectory . '/icon.png');
-        $path = '/demo' . substr($demoDirectory, strlen($demosDirectory));
+        $path = substr($demoDirectory, strlen($demosDirectory));
         $faIcon = $demoData['faIcon'] ?? '&#xf121;';
         $faIcon2 = $demoData['faIcon2'] ?? false;
 
