@@ -26,6 +26,21 @@ $queryPos = strpos($requestPath, '?');
 if ($queryPos !== false) {
     $fullRequestPath = $requestPath = substr($requestPath, 0, $queryPos);
 }
+
+if (isset($_GET['p'])) {
+    $fullRequestPath = $_GET['p'];
+    if (strpos($fullRequestPath, '/demo/') === 0) {
+        $fullRequestPath = substr($fullRequestPath, strlen('/demo/'));
+    } elseif ($fullRequestPath === 'previewFile') {
+        $fullRequestPath = '/previewFile';
+    }
+
+    header("HTTP/1.0 301 Moved Permanently");
+    header("Location: $fullRequestPath");
+    ob_end_clean();
+    return;
+}
+
 if ($requestPath === '/previewFile') {
     $file = $_GET['f'] ?? '';
     if (strpos($file, '/assets/') === 0 && strpos($file, '..') === false) {
