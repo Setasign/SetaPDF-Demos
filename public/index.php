@@ -21,7 +21,8 @@ $scriptName = $_SERVER['SCRIPT_NAME'] ?? '/index.php';
 $base = rtrim(str_replace(DIRECTORY_SEPARATOR, '/', dirname($scriptName)), '/') . '/';
 
 $demosDirectory = __DIR__ . '/demos';
-$fullRequestPath = $requestPath = $_SERVER['REQUEST_URI'] ?? '';
+$fullRequestPath = $requestPath = '/' . substr($_SERVER['REQUEST_URI'] ?? '', strlen($base));
+
 $queryPos = strpos($requestPath, '?');
 if ($queryPos !== false) {
     $fullRequestPath = $requestPath = substr($requestPath, 0, $queryPos);
@@ -226,7 +227,7 @@ echo '<div id="breadcrumb"><div class="wrapper">'
     . '<nav><ul>';
 
 foreach ($breadCrumb as $crumb) {
-    echo '<li itemprop="title"><a itemprop="url" href="' . rtrim($crumb['path'], '/') . '">'
+    echo '<li itemprop="title"><a itemprop="url" href="' . trim($crumb['path'], '/') . '">'
         . $crumb['text']
         . '</a></li>';
 }
@@ -258,7 +259,7 @@ if (file_exists($demoDirectory . '/demo.json')) {
         $actualDemoDirectory = dirname($actualDemo);
         $actualDemoData = json_decode(file_get_contents($actualDemo), true);
         $actualDemoName = $actualDemoData['name'] ?? basename($actualDemoDirectory);
-        $actualDemoPath = substr($actualDemoDirectory, strlen($demosDirectory));
+        $actualDemoPath = substr($actualDemoDirectory, strlen($demosDirectory) + 1);
 
         if ($actualDemoDirectory === $demoDirectory) {
             $currentDemoFound = true;
@@ -331,7 +332,7 @@ if (file_exists($demoDirectory . '/demo.json')) {
             }
 
             echo '<div class="step ' . $previewFileIdent . '">'
-                . '<iframe data-src="/previewFile?f=' . $previewFile . '" src="about:blank"'
+                . '<iframe data-src="previewFile?f=' . $previewFile . '" src="about:blank"'
                 . ' frameborder="0" style="width: 100%; height: 100%;"></iframe>'
                 . '</div>';
             continue;
@@ -465,7 +466,7 @@ if (file_exists($demoDirectory . '/demo.json')) {
 
         $name = $metaData['name'] ?? basename($dir);
         $teaserText = $metaData['teaserText'] ?? '';
-        $path = substr($dir, strlen($demosDirectory));
+        $path = substr($dir, strlen($demosDirectory) + 1);
         $requires = $metaData['requires'] ?? [];
         $hasIcon = file_exists($dir . '/icon.png');
         $faIcon = $metaData['faIcon'] ?? '&#xf07c;';
@@ -517,7 +518,7 @@ if (file_exists($demoDirectory . '/demo.json')) {
         $teaserText = $demoData['teaserText'] ?? '';
         $requires = $demoData['requires'] ?? [];
         $hasIcon = file_exists($demoDirectory . '/icon.png');
-        $path = substr($demoDirectory, strlen($demosDirectory));
+        $path = substr($demoDirectory, strlen($demosDirectory) + 1);
         $faIcon = $demoData['faIcon'] ?? '&#xf121;';
         $faIcon2 = $demoData['faIcon2'] ?? false;
 
