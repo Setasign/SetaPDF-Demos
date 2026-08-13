@@ -1,5 +1,5 @@
 {
     "name": "Pages",
-    "teaserText": "See how to access, modify and/or delete pages or their properties (such as boundary boxes, size, rotation).",
+    "teaserText": "See how to access, modify and/or delete PDF pages or their properties (such as boundary boxes, size, rotation) in PHP.",
     "faIcon": "&#xf0c5;"
 }

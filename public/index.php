@@ -116,13 +116,13 @@ $breadCrumb = [
 ];
 
 $fullPath = '/';
+$metaData = [];
 foreach (explode('/', $requestPath) as $pathPart) {
     if ($pathPart === '') {
         continue;
     }
 
     $fullPath .= $pathPart . '/';
-    $metaData = [];
     if (file_exists($demosDirectory . $fullPath . 'demo.json')) {
         $metaData = json_decode(file_get_contents($demosDirectory . $fullPath . 'demo.json'), true);
         $breadCrumb[] = [
@@ -150,7 +150,7 @@ if ($requestPath === '') {
     $pageTitle = 'SetaPDF Demos';
     $description = 'PHP demos of SetaPDF - modify, handle and create PDFs in pure PHP.';
 } else {
-    $pageTitle = implode(' / ', array_reverse(array_column($breadCrumb, 'title')));
+    $pageTitle = $metaData['title'] ?: implode(' / ', array_reverse(array_column($breadCrumb, 'title')));
     $description = $metaData['description'] ?? $metaData['teaserText'] ?? '';
 }
 
