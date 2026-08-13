@@ -1,6 +1,7 @@
 {
     "name": "Get Color-Spaces",
-    "teaserText": "This script extracts all color related information from an existing PDF file.",
+    "title": "Get Color-Spaces from a PDF Document in PHP / SetaPDF-Core Demo",
+    "teaserText": "This script extracts all color related information from an existing PDF file in PHP.",
     "faIcon": "&#xf75b;",
     "previewFiles": [
         "../../../../../classes/Inspector/ColorInspector.php",
