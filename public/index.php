@@ -150,7 +150,7 @@ if ($requestPath === '') {
     $pageTitle = 'SetaPDF Demos';
     $description = 'PHP demos of SetaPDF - modify, handle and create PDFs in pure PHP.';
 } else {
-    $pageTitle = $metaData['title'] ?: implode(' / ', array_reverse(array_column($breadCrumb, 'title')));
+    $pageTitle = $metaData['title'] ?? implode(' / ', array_reverse(array_column($breadCrumb, 'title')));
     $description = $metaData['description'] ?? $metaData['teaserText'] ?? '';
 }
 
