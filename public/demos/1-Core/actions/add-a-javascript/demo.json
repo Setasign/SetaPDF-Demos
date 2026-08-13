@@ -1,5 +1,6 @@
 {
     "name": "Add a JavaScript",
-    "teaserText": "Add a JavaScript action which opens an alert window at opening time to a PDF document.",
+    "title": "Add a JavaScript Action to a PDF in PHP / SetaPDF-Core Demo",
+    "teaserText": "Add a JavaScript action which opens an alert window at opening time to a PDF document using PHP.",
     "faIcon": "&#xf06a;"
 }

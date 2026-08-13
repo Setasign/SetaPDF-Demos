@@ -1,4 +1,5 @@
 {
     "name": "Get JavaScript",
-    "teaserText": "Access existing document level JavaScript in a PDF document."
+    "title": "Get a JavaScript Action from a PDF in PHP / SetaPDF-Core Demo",
+    "teaserText": "Access existing document level JavaScript in a PDF document with PHP."
 }
