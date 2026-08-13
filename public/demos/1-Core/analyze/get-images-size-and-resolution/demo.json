@@ -1,5 +1,6 @@
 {
     "name": "Get Images Size and Resolution",
+    "title": "Get Images Size and Resolution from Images in a PDF Document with PHP / SetaPDF-Core Demo",
     "teaserText": "Get size and resolution of used images in a PDF document.",
     "faIcon": "&#xf302;",
     "previewFiles": ["../../../../../classes/ContentStreamProcessor/ImageProcessor.php"]
