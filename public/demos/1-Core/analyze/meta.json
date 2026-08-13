@@ -1,5 +1,6 @@
 {
     "name": "Analyze",
+    "title" : "Analyze PDF Documents using PHP / SetaPDF-Core Demos",
     "teaserText": "Analyze a PDF document for specific properties, such as e.g. encryption, text, images, fonts, colors or digital signatures with PHP.",
     "faIcon": "&#xf5da;"
 }

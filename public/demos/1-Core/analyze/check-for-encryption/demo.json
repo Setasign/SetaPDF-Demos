@@ -1,5 +1,6 @@
 {
     "name": "Check for Encryption",
-    "teaserText": "Checks wether a document is encrypted and what permissions are granted.",
+    "title": "Check a PDF document for Encryption using PHP / SetaPDF-Core Demo",
+    "teaserText": "Checks wether a PDF document is encrypted and what permissions are granted.",
     "faIcon": "&#xf3c1;"
 }
