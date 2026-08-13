@@ -1,6 +1,6 @@
 {
     "name": "Check for Collection",
-    "title": "Check a PDF document for Collection in PHP / SetaPDF-Core Demo",
+    "title": "Check a PDF Document for Collection in PHP / SetaPDF-Core Demo",
     "teaserText": "This PHP demo shows how to check whether a PDF document is a Collection (aka PDF Portfolio or PDF Package).",
     "faIcon": "&#xf187;"
 }

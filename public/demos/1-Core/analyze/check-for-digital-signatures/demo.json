@@ -1,6 +1,6 @@
 {
     "name": "Check for Digital Signatures",
-    "title": "Check a PDF document for Digital Signatures in PHP / SetaPDF-Core Demo",
+    "title": "Check a PDF Document for Digital Signatures in PHP / SetaPDF-Core Demo",
     "teaserText": "Check and extract the value of digital signatures from a PDF document (no validation).",
     "faIcon": "&#xf573;"
 }

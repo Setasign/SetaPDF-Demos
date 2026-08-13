@@ -1,5 +1,6 @@
 {
     "name": "Check for Transparency",
+    "title": "Check a PDF Document for Transparency Elements with PHP / SetaPDF-Core Demo",
     "teaserText": "Check whether transparency elements are found in a PDF document or not.",
     "faIcon": "&#xf070;",
     "previewFiles": ["../../../../../classes/Inspector/TransparencyInspector.php"]
