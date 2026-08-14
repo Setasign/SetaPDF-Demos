@@ -1,5 +1,6 @@
 {
     "name": "Get Form Fields Information",
-    "teaserText": "Extract information from Widget Annotations.",
+    "title": "Get Form Fields Information from a PDF in PHP / SetaPDF-Core Demo",
+    "teaserText": "Extract information from Widget Annotations from a PDF page using PHP.",
     "faIcon": "&#xf05a;"
 }

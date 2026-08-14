@@ -1,6 +1,7 @@
 {
     "name": "Annotation on Rotated or Shifted Page",
-    "teaserText": "See how to calculate the coordinates for an annotation in case of a rotated or shifted page.",
+    "title": "Handle Annotations on Rotated or Shifted PDF Pages in PHP / SetaPDF-Core Demo",
+    "teaserText": "See how to calculate the coordinates for an annotation in case of a rotated or shifted PDF page.",
     "faIcon": "&#xf15b;",
     "faIcon2": "&#xf2f1;"
 }
