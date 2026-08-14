@@ -1,5 +1,6 @@
 {
     "name": "Add Stamp Annotations",
-    "teaserText": "Stamp annotations with individual appearances.",
+    "title": "Add a Stamp Annotation to a PDF with PHP / SetaPDF-Core Demo",
+    "teaserText": "Stamp annotations with individual appearances in PDF documents.",
     "faIcon": "&#xf5bf;"
 }

@@ -1,5 +1,6 @@
 {
     "name": "Create a Link Annotation",
+    "title": "Add a Link Annotation to a PDF in PHP / SetaPDF-Core Demo",
     "teaserText": "Create a simple text and put a link on top of it.",
     "faIcon": "&#xf35d;"
 }

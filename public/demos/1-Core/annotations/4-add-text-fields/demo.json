@@ -1,6 +1,7 @@
 {
     "name": "Add Text Fields",
-    "teaserText": "This demo adds text fields to a PDF document.",
+    "title": "Add Text Fields to a PDF in PHP / SetaPDF-Core Demo",
+    "teaserText": "This PHP demo adds text fields to a PDF document.",
     "faIcon": "&#xf5cb;",
     "faIcon2": "&#xf031;",
     "previewFiles": ["../../../../../classes/Annotation/Widget/TextFieldAnnotation.php"]
