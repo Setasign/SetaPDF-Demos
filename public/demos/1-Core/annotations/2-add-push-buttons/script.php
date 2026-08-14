@@ -85,7 +85,7 @@ $annotations = $page->getAnnotations();
 
 $fields->push($annotations->add($pb));
 
-// Add a snd button which fills out the form with dummy values
+// Add a send button which fills out the form with dummy values
 
 // left top
 $x = $page->getCropBox()->getLlx() + 5;

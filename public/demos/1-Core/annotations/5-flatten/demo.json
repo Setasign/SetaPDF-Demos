@@ -1,5 +1,6 @@
 {
     "name": "Flatten Annotations",
-    "teaserText": "Flatten annotations to a pages content stream.",
+    "title": "Flatten Annotations to a PDF Pages Content Stream using PHP / SetaPDF-Core Demo",
+    "teaserText": "Flatten annotations to a PDF pages content stream.",
     "faIcon": "&#xf56f;"
 }

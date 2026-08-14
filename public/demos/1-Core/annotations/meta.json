@@ -1,5 +1,6 @@
 {
     "name": "Annotations",
+    "title" : "Handle Annotations in PDF Documents using PHP / SetaPDF-Core Demos",
     "teaserText": "PDFs can have various types of annotations. See how to access, create and edit PDF annotations in PHP. For example: extract comments, modify links or flatten annotations.",
     "faIcon": "&#xf086;"
 }
