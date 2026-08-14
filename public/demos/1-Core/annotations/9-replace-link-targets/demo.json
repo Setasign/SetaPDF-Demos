@@ -1,5 +1,6 @@
 {
     "name": "Replace Link Targets",
-    "teaserText": "Replace the URI of link annotations.",
+    "title": "Replace Targets of Link Annotations on PDF Pages in PHP / SetaPDF-Core Demo",
+    "teaserText": "This PHP demo shows how to replace the URI of link annotations on PDF pages with SetaPDF.",
     "faIcon": "&#xf5eb;"
 }

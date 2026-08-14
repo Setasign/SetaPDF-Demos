@@ -1,5 +1,6 @@
 {
     "name": "Get Link Annotations",
+    "title": "Get Link Annotations from a PDF in PHP / SetaPDF-Core Demo",
     "teaserText": "Get access to all link annotations with an URI action.",
     "faIcon": "&#xf0c1;"
 }
