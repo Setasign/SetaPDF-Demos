@@ -1,5 +1,6 @@
 {
     "name": "Check for Text",
+    "title": "Check a PDF Document for Text using PHP / SetaPDF-Core Demo",
     "teaserText": "Check whether text is output on a page or not.",
     "faIcon": "&#xf1dd;",
     "previewFiles": ["../../../../../classes/ContentStreamProcessor/TextProcessor.php"]
