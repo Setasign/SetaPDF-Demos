@@ -1,7 +1,7 @@
 {
     "name": "List and Extract Attachments",
     "title": "List and Extract Attachments of a PDF with PHP / SetaPDF-Core Demo",
-    "teaserText": "Get access to embedded files of a PDF document with PHP.",
+    "teaserText": "Get access to attachments / embedded files of a PDF document with PHP.",
     "requires": [
         "SetaPDF-Core"
     ],
