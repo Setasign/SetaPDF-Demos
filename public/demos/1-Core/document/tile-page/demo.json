@@ -1,5 +1,6 @@
 {
     "name": "Tile a Page",
+    "title": "Tile a PDF Page into multiple Pages using PHP / SetaPDF-Core Demo",
     "teaserText": "Tiles a single page into multiple pages.",
     "requires": [
         "SetaPDF-Core"

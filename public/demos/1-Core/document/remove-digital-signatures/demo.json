@@ -1,5 +1,6 @@
 {
     "name": "Remove Digital Signatures",
+    "title": "Remove Digital Signatures from a PDF in PHP / SetaPDF-Core Demo",
     "teaserText": "Empty signature field values.",
     "requires": [
         "SetaPDF-Core"
