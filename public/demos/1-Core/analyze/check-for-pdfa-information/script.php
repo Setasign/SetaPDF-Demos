@@ -1,6 +1,7 @@
 <?php
 
 use setasign\SetaPDF2\Core\Document;
+use setasign\SetaPDF2\Core\Xmp\PdfA;
 
 // load and register the autoload function
 require_once '../../../../../bootstrap.php';
@@ -15,19 +16,12 @@ $files = [
 $path = displayFiles($files);
 
 $document = Document::loadByFilename($path);
-$metadata = $document->getInfo()->getMetadata();
 
-$xpath = new \DOMXPath($metadata);
-$xpath->registerNamespace('x', 'adobe:ns:meta/');
-$xpath->registerNamespace('rdf', 'http://www.w3.org/1999/02/22-rdf-syntax-ns#');
-$xpath->registerNamespace('pdfaid', 'http://www.aiim.org/pdfa/ns/id/');
+[$part, $conformance] = PdfA::getPartAndConformance($document);
 
-$part = $xpath->query('//x:xmpmeta/rdf:RDF/rdf:Description/pdfaid:part')->item(0);
-$conformance = $xpath->query('//x:xmpmeta/rdf:RDF/rdf:Description/pdfaid:conformance')->item(0);
-
-if ($part === null || $conformance === null) {
+if ($part === false || $conformance === false) {
     echo 'No PDF/A information found.';
     die();
 }
 
-echo sprintf('This file claims compliance with the PDF/A-%s%s standard.', $part->nodeValue, $conformance->nodeValue);
+echo sprintf('This file claims compliance with the PDF/A-%s%s standard.', $part, $conformance);
