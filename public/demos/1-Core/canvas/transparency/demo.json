@@ -1,5 +1,6 @@
 {
     "name": "Transparency",
+    "title" : "Image Transpency on a PDF page with PHP / SetaPDF-Core Demo",
     "teaserText": "Simple usage of transparency for drawing instructions via external graphic state objects.",
     "requires": [
         "SetaPDF-Core"
