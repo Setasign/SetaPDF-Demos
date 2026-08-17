@@ -1,5 +1,6 @@
 {
     "name": "Canvas",
+    "title" : "Use the Canvas Object of a PDF Page or Form XObject with SetaPDF / SetaPDF-Core Demos",
     "teaserText": "Some PHP demos for low-level access to the canvas object of a PDF page or XObject.",
     "faIcon": "&#xf03e;"
 }

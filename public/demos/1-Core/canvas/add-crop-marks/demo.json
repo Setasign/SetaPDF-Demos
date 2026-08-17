@@ -1,6 +1,7 @@
 {
     "name": "Add Crop Marks",
-    "teaserText": "Update the page boundaries and add some crop marks to an existing PDF page.",
+    "title" : "Add Crop Marks to a PDF page with PHP / SetaPDF-Core Demo",
+    "teaserText": "A PHP Demo showing how to update the page boundaries and add some crop marks to an existing PDF page.",
     "requires": [
         "SetaPDF-Core"
     ],
