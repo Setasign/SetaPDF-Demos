@@ -19,7 +19,7 @@ $fieldNames = Signer::getSignatureFieldNames($document);
 // let's filter only used signature fields
 $fieldNames = array_filter($fieldNames, static function($fieldName) use ($document) {
     $integrityResult = IntegrityResult::create($document, $fieldName);
-    return $integrityResult !== IntegrityResult::STATUS_NOT_SIGNED;
+    return $integrityResult->getStatus() !== IntegrityResult::STATUS_NOT_SIGNED;
 });
 
 $fieldNameId = displaySelect('Signature field name:', $fieldNames);
