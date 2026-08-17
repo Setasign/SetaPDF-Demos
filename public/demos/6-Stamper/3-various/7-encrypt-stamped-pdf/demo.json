@@ -1,0 +1,10 @@
+{
+    "name": "Encrypt Stamped PDF",
+    "title": "Encrypt stamped PDF in PHP / SetaPDF-Stamper Demo",
+    "teaserText": "This PHP demo protects the stamped PDF with passwords.",
+    "requires": [
+        "SetaPDF-Core", "SetaPDF-Stamper"
+    ],
+    "faIcon": "&#xf5bf;",
+    "faIcon2": "&#xf023;"
+}
