@@ -1,5 +1,6 @@
 {
     "name": "Encrypt with Password",
+    "title": "Encrypt a PDF Document using SetaPDF in PHP / SetaPDF-Core Demo",
     "teaserText": "Encrypt a PDF document with a user and owner password.",
     "requires": [
         "SetaPDF-Core"

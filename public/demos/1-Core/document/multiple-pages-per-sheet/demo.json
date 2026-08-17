@@ -1,6 +1,7 @@
 {
     "name": "Multiple Pages per Sheet",
-    "teaserText": "Combine multiple pages on new pages.",
+    "title": "Multiple Pages per Sheet in a PDF Document using PHP / SetaPDF-Core Demo",
+    "teaserText": "Combine multiple pages on new PDF pages.",
     "requires": [
         "SetaPDF-Core"
     ],

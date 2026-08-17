@@ -1,0 +1,10 @@
+{
+    "name": "Replace Link Annotation with Image",
+    "title": "Replace a Link Annotation with an Image in a PDF document using PHP / SetaPDF-Core Demo",
+    "teaserText": "Place an image at the position of a link annotation.",
+    "requires": [
+        "SetaPDF-Core"
+    ],
+    "faIcon": "&#xf03e;",
+    "faIcon2": "&#xf0c1;"
+}

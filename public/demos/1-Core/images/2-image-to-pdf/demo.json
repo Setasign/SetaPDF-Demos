@@ -1,5 +1,6 @@
 {
     "name": "Image to PDF",
+    "title": "Convert an Image to a PDF File with PHP / SetaPDF-Core Demo",
     "teaserText": "Convert an image to a PDF file.",
     "requires": [
         "SetaPDF-Core"

@@ -1,6 +1,7 @@
 {
     "name": "Add Image",
-    "teaserText": "Add an image to an existing PDF file.",
+    "title": "Add an Image to a PDF in PHP / SetaPDF-Core Demo",
+    "teaserText": "Add an image to an existing PDF file with PHP.",
     "requires": [
         "SetaPDF-Core"
     ],

@@ -1,5 +1,6 @@
 {
     "name": "Document",
-    "teaserText": "See how you can do more general tasks on PDF documents such as access or modify metadata or attachments. We also show how to remove digital signatures or PDF usage rights.",
+    "title": "General Tasks on PDF Documents with SetaPDF / SetaPDF-Core Demos",
+    "teaserText": "See how you can do more general tasks on PDF documents using PHP such as access or modify metadata or attachments. We also show how to remove digital signatures or PDF usage rights.",
     "faIcon": "&#xf1c1;"
 }

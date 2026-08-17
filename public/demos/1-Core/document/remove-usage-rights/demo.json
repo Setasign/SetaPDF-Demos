@@ -1,6 +1,7 @@
 {
     "name": "Remove Usage Rights",
-    "teaserText": "Check for usage rights and removes them.",
+    "title": "Remove Usage Rights from a PDF document in PHP / SetaPDF-Core Demo",
+    "teaserText": "Check for usage rights and remove them from a PDF document with SetaPDF.",
     "requires": [
         "SetaPDF-Core"
     ],
