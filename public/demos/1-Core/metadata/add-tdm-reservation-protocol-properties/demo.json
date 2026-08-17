@@ -1,5 +1,6 @@
 {
     "name": "Add TDM Reservation Protocol (TDMRep) Properties",
+    "title": "Use Metadata to Block AI Models from Scraping PDFs / SetaPDF-Core Demo",
     "teaserText": "Add information to block AI Models from scraping your PDFs.",
     "requires": [
         "SetaPDF-Core"

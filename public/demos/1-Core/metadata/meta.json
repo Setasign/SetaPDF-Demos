@@ -1,5 +1,6 @@
 {
     "name": "Metadata",
-    "teaserText": "Access and modify PDF document metadata and XMP packages.",
+    "title": "Access and Modify PDF Document Metadata with SetaPDF in PHP / SetaPDF-Core Demos",
+    "teaserText": "Access and modify PDF document metadata and XMP packages using PHP.",
     "faIcon": "&#xf05a;"
 }

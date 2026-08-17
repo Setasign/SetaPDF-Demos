@@ -1,5 +1,6 @@
 {
     "name": "Get Metadata",
+    "title": "Read Metadata from a PDF Document with PHP / SetaPDF-Core Demo",
     "teaserText": "Read metadata from a PDF document with PHP.",
     "requires": [
         "SetaPDF-Core"

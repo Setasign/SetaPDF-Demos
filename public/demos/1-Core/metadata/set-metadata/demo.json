@@ -1,5 +1,6 @@
 {
     "name": "Set Metadata",
+    "title": "Set Metadata in an Existing PDF document in PHP / SetaPDF-Core Demo",
     "teaserText": "Set metadata in an existing PDF document.",
     "requires": [
         "SetaPDF-Core"

@@ -45,4 +45,6 @@ print_r($info->getAllCustomMetadata());
 
 // additionally you can access the XMP metadata package:
 $metadata = $document->getCatalog()->getMetadata();
-echo htmlentities($metadata);
+if ($metadata !== null) {
+    echo htmlentities($metadata);
+}
