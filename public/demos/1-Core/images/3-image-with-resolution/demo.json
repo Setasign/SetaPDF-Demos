@@ -1,5 +1,6 @@
 {
     "name": "Image to PDF with pre-defined resolution",
+    "title": "Convert an Image to a PDF File with a Pre-defined Resolution using PHP / SetaPDF-Core Demo",
     "teaserText": "Convert an image to a PDF file with a pre-defined resolution.",
     "requires": [
         "SetaPDF-Core"

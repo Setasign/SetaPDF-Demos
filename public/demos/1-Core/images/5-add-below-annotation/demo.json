@@ -1,5 +1,6 @@
 {
     "name": "Add Image Below Link Annotation",
+    "title": "Add an Image below a Link Annotation in a PDF in PHP / SetaPDF-Core Demo",
     "teaserText": "Add an image at the position of a link annotation.",
     "requires": [
         "SetaPDF-Core"

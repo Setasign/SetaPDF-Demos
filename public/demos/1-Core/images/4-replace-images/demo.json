@@ -1,6 +1,7 @@
 {
     "name": "Replace Images",
-    "teaserText": "Replace existing images with anothers.",
+    "title": "Replace an Image in a PDF using PHP / SetaPDF-Core Demo",
+    "teaserText": "Replace an existing image with another in a PDF document with SetaPDF.",
     "requires": [
         "SetaPDF-Core"
     ],
