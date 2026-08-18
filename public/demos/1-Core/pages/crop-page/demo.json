@@ -1,5 +1,6 @@
 {
     "name": "Crop Page",
+    "title": "Crop a PDF Page using PHP / SetaPDF-Core Demo",
     "teaserText": "Resize page boundaries to simulate a cropping process.",
     "requires": [
         "SetaPDF-Core"

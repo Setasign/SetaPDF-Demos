@@ -1,5 +1,6 @@
 {
     "name": "Page Count",
+    "title": "Get the Page Count of a PDF Document with PHP / SetaPDF-Core Demo",
     "teaserText": "Get the page count from a PDF document with PHP.",
     "requires": [
         "SetaPDF-Core"

@@ -1,5 +1,6 @@
 {
     "name": "Add Pages",
+    "title": "Append or Prepend Pages to a PDF Document with PHP / SetaPDF-Core Demo",
     "teaserText": "Append or prepend pages to a PDF document.",
     "requires": [
         "SetaPDF-Core"
