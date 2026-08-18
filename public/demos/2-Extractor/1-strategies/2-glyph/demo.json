@@ -1,7 +1,7 @@
 {
     "name": "Glyph",
     "title" : "Using the Glyph Strategy on a PDF Document with PHP / SetaPDF-Extractor Demo",
-    "teaserText": "Extract all individual glyphs in PDF document.",
+    "teaserText": "Extract all individual glyphs from a PDF document.",
     "requires": [
         "SetaPDF-Core", "SetaPDF-Extractor"
     ],

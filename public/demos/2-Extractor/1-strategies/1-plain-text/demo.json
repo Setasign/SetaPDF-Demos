@@ -1,7 +1,7 @@
 {
     "name": "Plain Text",
     "title" : "Get Text of a PDF Document using the Plain Text Strategy in PHP / SetaPDF-Extractor Demo",
-    "teaserText": "Get text using the plain text strategy.",
+    "teaserText": "Get text from a PDF page using the plain text strategy.",
     "requires": [
         "SetaPDF-Core", "SetaPDF-Extractor"
     ],
