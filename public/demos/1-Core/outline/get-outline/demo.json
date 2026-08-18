@@ -1,5 +1,6 @@
 {
     "name": "Get Bookmark Outline",
+    "title": "Get Bookmark Outline of a PDF document using PHP / SetaPDF-Core Demo",
     "teaserText": "Access information of the bookmark outline of a PDF document.",
     "requires": [
         "SetaPDF-Core"

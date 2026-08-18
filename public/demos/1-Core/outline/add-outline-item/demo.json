@@ -1,6 +1,7 @@
 {
     "name": "Add Outline Item",
-    "teaserText": "Add a new outline item to the document bookmark outline.",
+    "title": "Add Outline Item to PDF document with PHP / SetaPDF-Core Demo",
+    "teaserText": "Add a new outline item to the PDF document bookmark outline using PHP.",
     "requires": [
         "SetaPDF-Core"
     ],
