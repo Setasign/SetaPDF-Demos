@@ -1,5 +1,6 @@
 {
     "name": "Outline",
-    "teaserText": "See how to access and modify a PDF documents bookmark outline.",
+    "title": "Access and Modify PDF Documents Bookmark Outline in PHP / SetaPDF-Core Demos",
+    "teaserText": "See how to access and modify a PDF documents bookmark outline using PHP.",
     "faIcon": "&#xf02e;"
 }
