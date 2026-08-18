@@ -1,6 +1,7 @@
 {
     "name": "Delete Pages",
-    "teaserText": "Remove pages from a PDF document.",
+    "title": "Delete Pages of a PDF Document in PHP / SetaPDF-Core Demo",
+    "teaserText": "Remove pages from a PDF document with SetaPDF.",
     "requires": [
         "SetaPDF-Core"
     ],

@@ -1,5 +1,6 @@
 {
     "name": "Rotate Page",
+    "title": "Rotate Pages of a PDF Document in PHP / SetaPDF-Core Demo",
     "teaserText": "Rotate pages from a PDF document with PHP.",
     "requires": [
         "SetaPDF-Core"

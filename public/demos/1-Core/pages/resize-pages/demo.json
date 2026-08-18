@@ -1,6 +1,7 @@
 {
     "name": "Resize Pages",
-    "teaserText": "Resize pages boundary boxes.",
+    "title": "Resize PDF Pages Boundary Boxes using PHP / SetaPDF-Core Demo",
+    "teaserText": "Resize PDF pages boundary boxes.",
     "requires": [
         "SetaPDF-Core"
     ],
