@@ -1,5 +1,6 @@
 {
     "name": "SetaPDF-Extractor",
+    "title": "PHP Demos of the SetaPDF-Extractor",
     "teaserText": "Extract text and words with their coordinates in PDF documents with the SetaPDF-Extractor component.",
     "requires": ["SetaPDF-Core", "SetaPDF-Extractor"]
 }

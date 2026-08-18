@@ -1,6 +1,7 @@
 {
     "name": "Word Group",
-    "teaserText": "Get words in groups by the Word Group strategy.",
+    "title" : "Get Words in Groups of a PDF Document in PHP / SetaPDF-Extractor Demo",
+    "teaserText": "Get words in groups of a PDF document by the Word Group strategy.",
     "requires": [
         "SetaPDF-Core", "SetaPDF-Extractor"
     ],

@@ -1,6 +1,7 @@
 {
     "name": "Word",
-    "teaserText": "Get words using the word strategy.",
+    "title" : "Get Words of a PDF Document using PHP / SetaPDF-Extractor Demo",
+    "teaserText": "Get words from a PDF document using the word strategy.",
     "requires": [
         "SetaPDF-Core", "SetaPDF-Extractor"
     ],
