@@ -1,6 +1,6 @@
 {
     "name": "Get and Mark Words",
-    "title": "Get and Mark Found Words on a PDF page / SetaPDF-Extractor Demo",
+    "title": "Filter by Rectangles and Mark Found Words on a PDF page / SetaPDF-Extractor Demo",
     "teaserText": "Filter by rectangles and mark the found words in a PDF.",
     "requires": [
         "SetaPDF-Core", "SetaPDF-Extractor"
