@@ -1,6 +1,7 @@
 {
     "name": "Interactive GUI",
-    "teaserText": "Filter by drawing a rectangle with an interactive GUI",
+    "title": "Get Text by Drawing a Rectangle on an Image of a PDF Page / SetaPDF-Extractor Demo",
+    "teaserText": "Get text via an interactive GUI. The filter will be set by drawing a rectangle on an image of a PDF page.",
     "requires": [
         "SetaPDF-Core", "SetaPDF-Extractor"
     ],

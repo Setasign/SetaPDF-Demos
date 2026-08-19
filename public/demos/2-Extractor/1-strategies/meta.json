@@ -1,6 +1,6 @@
 {
     "name": "Strategies",
-    "title" : "All Available Extraction Strategies for PDF Documents using PHP / SetaPDF-Extractor Demos",
-    "teaserText": "Simple PHP demos of all available text extraction strategies for PDF documents.",
+    "title" : "All Available PDF Extraction Strategies using PHP / SetaPDF-Extractor Demos",
+    "teaserText": "Simple PHP demos of all available text extraction strategies of the SetaPDF-Extractor.",
     "requires": ["SetaPDF-Core", "SetaPDF-Extractor"]
 }

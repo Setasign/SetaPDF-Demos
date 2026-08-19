@@ -1,6 +1,7 @@
 {
     "name": "Filter Same Area Several Times",
-    "teaserText": "A demo that filters the same area several times to recognize a document type.",
+    "title": "Filter Same Area of a PDF Page Several Times in PHP / SetaPDF-Extractor Demo",
+    "teaserText": "A PHP demo that filters the same area of a PDF page several times.",
     "requires": [
         "SetaPDF-Core", "SetaPDF-Extractor"
     ],
