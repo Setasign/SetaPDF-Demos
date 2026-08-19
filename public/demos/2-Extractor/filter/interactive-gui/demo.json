@@ -1,5 +1,6 @@
 {
     "name": "Interactive GUI",
+    "title": "Filter by Drawing a Rectangle on an Image of a PDF Document with PHP / SetaPDF-Extractor Demo",
     "teaserText": "Filter by drawing a rectangle with an interactive GUI",
     "requires": [
         "SetaPDF-Core", "SetaPDF-Extractor"

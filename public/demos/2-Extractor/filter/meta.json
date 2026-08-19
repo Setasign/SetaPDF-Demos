@@ -1,6 +1,7 @@
 {
     "name": "Filter",
-    "teaserText": "Demos showing the use of filters.",
+    "title" : "Use of Filters in PDF Documents using PHP / SetaPDF-Extractor Demos",
+    "teaserText": "Demos showing the use of filters in PDF documents.",
     "requires": ["SetaPDF-Core", "SetaPDF-Extractor"],
     "faIcon": "&#xf0b0;"
 }

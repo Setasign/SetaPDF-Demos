@@ -1,6 +1,7 @@
 {
     "name": "Filter by Annotations",
-    "teaserText": "Filter result by text markup annotations.",
+    "title" : "Filter Result by Text Markup Annotations of a PDF Document using PHP / SetaPDF-Extractor Demo",
+    "teaserText": "Filter result by text markup annotations of a PDF document.",
     "requires": [
         "SetaPDF-Core", "SetaPDF-Extractor"
     ],

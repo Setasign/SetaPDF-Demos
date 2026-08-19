@@ -1,6 +1,7 @@
 {
     "name": "Filter by Font Size",
-    "teaserText": "Filter result by a font size.",
+    "title" : "Filter Text by Font Size in a PDF Document using PHP / SetaPDF-Extractor Demo",
+    "teaserText": "Filter text by a font size in a PDF document with PHP.",
     "requires": [
         "SetaPDF-Core", "SetaPDF-Extractor"
     ],

@@ -1,6 +1,7 @@
 {
     "name": "Get and Mark Words",
-    "teaserText": "Filter by rectangles and mark the found words.",
+    "title": "Filter by Rectangles and Mark Found Words in a PDF Document with PHP / SetaPDF-Extractor Demo",
+    "teaserText": "Filter by rectangles and mark the found words in a PDF.",
     "requires": [
         "SetaPDF-Core", "SetaPDF-Extractor"
     ],

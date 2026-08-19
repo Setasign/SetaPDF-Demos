@@ -1,6 +1,7 @@
 {
     "name": "Filter by Bold Text",
-    "teaserText": "Create an individual filter for bold text.",
+    "title" : "Filter Result by Bold Text in a PDF Document with PHP / SetaPDF-Extractor Demo",
+    "teaserText": "Create an individual filter for bold text in a PDF document.",
     "requires": [
         "SetaPDF-Core", "SetaPDF-Extractor"
     ],
