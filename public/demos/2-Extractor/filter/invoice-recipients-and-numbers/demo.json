@@ -1,6 +1,6 @@
 {
     "name": "Invoice Recipients and Numbers",
-    "title": "Filter Recipients and Numbers from PDF Invoices with PHP / SetaPDF-Extractor Demo",
+    "title": "Get Recipients and Numbers from PDF Invoices with PHP / SetaPDF-Extractor Demo",
     "teaserText": "A PHP demo that iterates through several PDF invoices and extracts the recipients and numbers.",
     "requires": [
         "SetaPDF-Core", "SetaPDF-Extractor"

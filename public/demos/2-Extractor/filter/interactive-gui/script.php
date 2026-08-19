@@ -44,7 +44,6 @@ if (isset($_GET['action']) && $_GET['action'] === 'preview') {
     $imageFile = 'images/' . basename($file, '.pdf') . '-' . $dpi . '-PAGE.png';
     $realImageFile = str_replace('PAGE', $pageNo, $imageFile);
 
-
     if (!file_exists($realImageFile)) {
         $cmd = 'mutool draw -F png -r ' . escapeshellarg($dpi)
             . ' -o ' . str_replace('PAGE', '%d', escapeshellarg($imageFile))
@@ -54,7 +53,7 @@ if (isset($_GET['action']) && $_GET['action'] === 'preview') {
 
         if ($resultCode !== 0) {
             echo 'Thumbnail could not be generated. Please make sure that ' .
-                '<a href="https://www.mupdf.com/docs/manual-mutool-draw.html" target="_blank">mutool</a> is installed ' .
+                '<a href="https://mupdf.readthedocs.io/en/1.28.2/index.html" target="_blank">mutool</a> is installed ' .
                 'and that the images/ folder is writable.';
             die();
         }

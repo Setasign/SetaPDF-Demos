@@ -1,6 +1,6 @@
 {
     "name": "Filter by Form Fields",
-    "title" : "Filter by Form Fields of a PDF Form using PHP / SetaPDF-Extractor Demo",
+    "title" : "Filter Static Form Data by using a PDF Form as Template / SetaPDF-Extractor Demo",
     "teaserText": "Filter static form data by using a PDF form as a template.",
     "requires": [
         "SetaPDF-Core", "SetaPDF-Extractor"

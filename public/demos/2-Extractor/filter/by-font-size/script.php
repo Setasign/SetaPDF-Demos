@@ -27,7 +27,7 @@ $strategy = new WordStrategy();
 // ...and pass it to the extractor
 $extractor->setStrategy($strategy);
 
-// creat an instance of the font size filter
+// create an instance of the font size filter
 $filter = new FontSizeFilter($fontSize);
 // ...pass it to the strategy
 $strategy->setFilter($filter);
