@@ -1,6 +1,7 @@
 {
     "name": "Create Named Destinations",
-    "teaserText": "This demo adds named destinations on found phrases.",
+    "title": "Create Named Destinations on Found Phrases in PDF Documents / SetaPDF-Extractor Demo",
+    "teaserText": "This PHP demo adds named destinations on found phrases in PDF documents.",
     "requires": [
         "SetaPDF-Core", "SetaPDF-Extractor"
     ],

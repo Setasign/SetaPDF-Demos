@@ -1,5 +1,6 @@
 {
     "name": "Various",
+    "title": "Various PHP Demos Showing Solutions Created with the SetaPDF-Extractor / SetaPDF-Extractor Demos",
     "teaserText": "Various demos showing solutions you can create with the SetaPDF-Extractor component.",
     "requires": ["SetaPDF-Core", "SetaPDF-Extractor"]
 }

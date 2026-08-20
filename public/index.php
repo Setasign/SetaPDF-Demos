@@ -170,6 +170,7 @@ echo <<<HTML
     <link rel="stylesheet" type="text/css" href="./layout/style.css?2"/>
     <link rel="stylesheet" type="text/css" href="./js/codemirror-5.61.1/codemirror.css"/>
     <link rel="canonical" href="{$canonical}" />
+    <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon"/>
     <script type="text/javascript" src="./js/jquery-3.6.0.min.js"></script>
     <script type="text/javascript" src="./js/codemirror-5.61.1/codemirror.js"></script>
     <script type="text/javascript" src="./js/clipboard.js"></script>

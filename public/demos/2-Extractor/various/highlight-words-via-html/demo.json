@@ -1,6 +1,7 @@
 {
     "name": "Highlight Words with HTML",
-    "teaserText": "This demo searches for words and highlight them via HTML above an image of the PDF page.",
+    "title": "Highlight Words with HTML / SetaPDF-Extractor Demo",
+    "teaserText": "This PHP demo searches for words and highlights them via HTML above an image of the PDF page.",
     "requires": [
         "SetaPDF-Core", "SetaPDF-Extractor"
     ],

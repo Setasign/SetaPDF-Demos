@@ -1,5 +1,6 @@
 {
     "name": "Highlight Words",
+    "title": "Search for Words in a PDF and Highlight them / SetaPDF-Extractor Demo",
     "teaserText": "This demo searches for words and allows you to highlight them.",
     "requires": [
         "SetaPDF-Core", "SetaPDF-Extractor"

@@ -1,6 +1,7 @@
 {
     "name": "Add Text Above Found String",
-    "teaserText": "This demo finds a string/number, adds a white rectangle and text surrounded by a red border above it.",
+    "title": "Add a Text Above a Found String / SetaPDF-Extractor Demo",
+    "teaserText": "This PHP demo finds a string/number, adds a white rectangle and text surrounded by a red border above it.",
     "requires": [
         "SetaPDF-Core", "SetaPDF-Extractor"
     ],
