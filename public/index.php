@@ -170,7 +170,12 @@ echo <<<HTML
     <link rel="stylesheet" type="text/css" href="./layout/style.css?2"/>
     <link rel="stylesheet" type="text/css" href="./js/codemirror-5.61.1/codemirror.css"/>
     <link rel="canonical" href="{$canonical}" />
-    <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon"/>
+    <link rel="icon" type="image/png" href="/images/favicon/favicon-96x96.png" sizes="96x96" />
+    <link rel="icon" type="image/svg+xml" href="/images/favicon/favicon.svg" />
+    <link rel="shortcut icon" href="/images/favicon/favicon.ico" />
+    <link rel="apple-touch-icon" sizes="180x180" href="/images/favicon/apple-touch-icon.png" />
+    <meta name="apple-mobile-web-app-title" content="Setasign" />
+    <link rel="manifest" href="/images/favicon/site.webmanifest" />
     <script type="text/javascript" src="./js/jquery-3.6.0.min.js"></script>
     <script type="text/javascript" src="./js/codemirror-5.61.1/codemirror.js"></script>
     <script type="text/javascript" src="./js/clipboard.js"></script>
