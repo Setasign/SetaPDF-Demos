@@ -1,6 +1,7 @@
 {
     "name": "Add Image Above Placeholder",
-    "teaserText": "This demo finds a placeholder and adds an image overlay to it.",
+    "title": "Add an Image Above a Placeholder / SetaPDF-Extractor Demo",
+    "teaserText": "This PHP demo finds a placeholder in a PDF and adds an image overlay to it.",
     "requires": [
         "SetaPDF-Core", "SetaPDF-Extractor"
     ],

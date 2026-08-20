@@ -1,6 +1,7 @@
 {
-    "name": "The $boundaryBox parameter",
-    "teaserText": "This demo shows the behavior of the $boundaryBox parameter.",
+    "name": "The $boundaryBox Parameter",
+    "title": "Behavior of the $boundaryBox Parameter / SetaPDF-Extractor Demo",
+    "teaserText": "This PHP demo shows the behavior of the $boundaryBox parameter.",
     "requires": [
         "SetaPDF-Core", "SetaPDF-Extractor"
     ],

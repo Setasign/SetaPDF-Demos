@@ -1,6 +1,7 @@
 {
     "name": "Create Link Annotations",
-    "teaserText": "This demo finds URLs and e-mail addresses and overlays them with clickable link annotations.",
+    "title": "Create Link Annotations to Overlay Found URLs and E-mail Addresses / SetaPDF-Extractor Demo",
+    "teaserText": "This PHP demo finds URLs and e-mail addresses and overlays them with clickable link annotations.",
     "requires": [
         "SetaPDF-Core", "SetaPDF-Extractor"
     ],

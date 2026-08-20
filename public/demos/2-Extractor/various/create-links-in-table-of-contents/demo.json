@@ -1,6 +1,7 @@
 {
-    "name": "Create Links in Table Of Contents",
-    "teaserText": "This demo analyzes the table of contents and adds links on its entries.",
+    "name": "Create Links in Table of Contents",
+    "title": "Create Links in Table of Contents / SetaPDF-Extractor Demo",
+    "teaserText": "This PHP demo analyzes the table of contents and adds links on its entries.",
     "requires": [
         "SetaPDF-Core", "SetaPDF-Extractor"
     ],
