@@ -1,7 +1,7 @@
 {
     "name": "Phrase Search",
-    "title": "Search for Phrases by Regular Expressions and Mark Words / SetaPDF-Extractor Demo",
-    "teaserText": "Search and mark words by regular expressions.",
+    "title": "Search for Phrases by Regular Expressions in a PDF and Mark Words / SetaPDF-Extractor Demo",
+    "teaserText": "Search and mark words in a PDF by regular expressions.",
     "requires": [
         "SetaPDF-Core", "SetaPDF-Extractor"
     ],
