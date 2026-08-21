@@ -1,6 +1,7 @@
 {
     "name": "Fill All Field Types",
-    "teaserText": "Access all field types.",
+    "title" : "Fill All Form Field Types in a PDF Document using PHP / SetaPDF-FormFiller Demo",
+    "teaserText": "Access all form field types in a PDF document and fill them.",
     "requires": [
         "SetaPDF-Core", "SetaPDF-FormFiller Full"
     ],

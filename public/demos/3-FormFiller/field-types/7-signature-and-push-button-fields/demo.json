@@ -1,6 +1,7 @@
 {
     "name": "Signature and Push Button Fields",
-    "teaserText": "Access signature and push button fields.",
+    "title" : "Access Siganture and Push Button Fields in a PDF Document using PHP / SetaPDF-FormFiller Demo",
+    "teaserText": "Access signature and push button fields in a PDF document.",
     "requires": [
         "SetaPDF-Core", "SetaPDF-FormFiller Full"
     ],
