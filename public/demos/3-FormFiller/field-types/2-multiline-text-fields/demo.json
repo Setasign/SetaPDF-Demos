@@ -1,6 +1,7 @@
 {
     "name": "Multiline Text Fields",
-    "teaserText": "Access simple multiline text fields.",
+    "title" : "Access Simple Multiline Text Fields in a PDF Document with PHP / SetaPDF-FormFiller Demo",
+    "teaserText": "Access simple multiline text fields with PHP.",
     "requires": [
         "SetaPDF-Core", "SetaPDF-FormFiller"
     ],

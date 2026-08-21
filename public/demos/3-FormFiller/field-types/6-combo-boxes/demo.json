@@ -1,6 +1,7 @@
 {
     "name": "Combo Boxes",
-    "teaserText": "Access combo box fields.",
+    "title" : "Access Combo Box Fields in a PDF Document with PHP / SetaPDF-FormFiller Demo",
+    "teaserText": "Access combo box fields in a PDF document using PHP.",
     "requires": [
         "SetaPDF-Core", "SetaPDF-FormFiller Full"
     ],

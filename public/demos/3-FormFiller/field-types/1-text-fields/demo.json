@@ -1,6 +1,7 @@
 {
     "name": "Text Fields",
-    "teaserText": "Access simple text fields.",
+    "title" : "Access Simple Text Fields in a PDF Document with PHP / SetaPDF-FormFiller Demo",
+    "teaserText": "Access simple text fields in a PDF document.",
     "requires": [
         "SetaPDF-Core", "SetaPDF-FormFiller"
     ],

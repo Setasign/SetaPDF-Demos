@@ -1,6 +1,7 @@
 {
     "name": "List Fields",
-    "teaserText": "Access list fields.",
+    "title" : "Access List Fields in a PDF Document using PHP / SetaPDF-FormFiller Demo",
+    "teaserText": "Access list fields in a PDF document.",
     "requires": [
         "SetaPDF-Core", "SetaPDF-FormFiller Full"
     ],
