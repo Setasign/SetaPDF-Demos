@@ -1,7 +1,7 @@
 {
     "name": "Radio Button Groups",
     "title" : "Access Radio Button Groups in a PDF Document with PHP / SetaPDF-FormFiller Demo",
-    "teaserText": "Access radio button group in a PDF document.",
+    "teaserText": "Access radio button groups in a PDF document.",
     "requires": [
         "SetaPDF-Core", "SetaPDF-FormFiller Full"
     ],
