@@ -1,7 +1,7 @@
 {
     "name": "Document Outlines",
-    "title": "Handle Different PDF Document Outlines with PHP / SetaPDF-Merger Demos",
-    "teaserText": "PHP Demos showing how to control the behavior of different outlines.",
+    "title": "Handle Outlines of Merged PDF Documents with PHP / SetaPDF-Merger Demos",
+    "teaserText": "PHP Demos showing how to control the behavior of bookmark outlines of merged PDF documents.",
     "requires": ["SetaPDF-Core", "SetaPDF-Merger"],
     "faIcon": "&#xf02e;"
 }
