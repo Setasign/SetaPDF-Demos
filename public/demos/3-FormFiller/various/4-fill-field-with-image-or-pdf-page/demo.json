@@ -1,7 +1,7 @@
 {
-    "name": "Fill Field With an Image or PDF Page",
+    "name": "Fill Form Field With an Image or PDF Page",
     "title": "Fill Form Field With an Image or PDF Page using PHP / SetaPDF-FormFiller Demo",
-    "teaserText": "Use an image or a PDF page as a field appearance.",
+    "teaserText": "Use an image or a PDF page as a form field appearance.",
     "requires": [
         "SetaPDF-Core", "SetaPDF-FormFiller"
     ],

@@ -1,7 +1,7 @@
 {
-    "name": "Flatten Fields",
-    "title": "Flatten PDF form fields in PHP / SetaPDF-FormFiller Demo",
-    "teaserText": "A simple PHP demo that flattens a specific or all fields in a PDF document.",
+    "name": "Flatten Form Fields",
+    "title": "Flatten PDF Form Fields in PHP / SetaPDF-FormFiller Demo",
+    "teaserText": "A simple PHP demo that flattens a specific or all form fields in a PDF document.",
     "requires": [
         "SetaPDF-Core", "SetaPDF-FormFiller"
     ],
