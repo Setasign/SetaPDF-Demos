@@ -1,6 +1,7 @@
 {
-    "name": "Fill Dynamic XFA",
-    "teaserText": "A demo that shows you how to fill a dynamic XFA form.",
+    "name": "Fill Dynamic XFA Form",
+    "title": "Fill a Dynamic XFA Form using PHP / SetaPDF-FormFiller Demo",
+    "teaserText": "A PHP demo that shows you how to fill a dynamic XFA form.",
     "requires": [
         "SetaPDF-Core", "SetaPDF-FormFiller"
     ],

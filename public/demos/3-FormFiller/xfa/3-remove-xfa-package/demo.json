@@ -1,6 +1,7 @@
 {
     "name": "Remove XFA Package",
-    "teaserText": "This demo reduces a static XFA form to a normal PDF form.",
+    "title": "Remove XFA Package from a PDF / SetaPDF-FormFiller Demo",
+    "teaserText": "This PHP demo reduces a static XFA form to a normal PDF form.",
     "requires": [
         "SetaPDF-Core", "SetaPDF-FormFiller"
     ],
