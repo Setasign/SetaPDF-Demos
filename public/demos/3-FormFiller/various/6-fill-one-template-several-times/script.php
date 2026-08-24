@@ -21,7 +21,7 @@ for ($i = 0; $i < 30; $i++) {
     ];
 }
 
-// not iterate through the data and create PDFs
+// now iterate through the data and create PDFs
 foreach ($participants as $participant) {
     $writer = new StringWriter();
     $document = Document::loadByFilename(

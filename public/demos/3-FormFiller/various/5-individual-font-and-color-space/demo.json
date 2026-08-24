@@ -1,5 +1,6 @@
 {
     "name": "Individual Font and Color Space",
+    "title": "Use Individual Font and Color Space for PDF Form Field Text Appearance / SetaPDF-FormFiller Demo",
     "teaserText": "Use an external TTF font and an individual color space.",
     "requires": [
         "SetaPDF-Core", "SetaPDF-FormFiller"

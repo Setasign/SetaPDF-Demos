@@ -1,5 +1,6 @@
 {
     "name": "Fill with Rich-Text Styling",
+    "title": "Fill a PDF Form Field with Rich-Text Styled Text using PHP / SetaPDF-FormFiller Demo",
     "teaserText": "Use a subset of HTML and CSS to style the fields content.",
     "requires": [
         "SetaPDF-Core", "SetaPDF-FormFiller"

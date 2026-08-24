@@ -1,6 +1,7 @@
 {
     "name": "Get Field Information",
-    "teaserText": "This demos shows various information of all found form fields.",
+    "title": "Get Field Information from a PDF document with PHP / SetaPDF-FormFiller Demo",
+    "teaserText": "This PHP demo shows various information of all found form fields in a PDF document.",
     "requires": [
         "SetaPDF-Core", "SetaPDF-FormFiller"
     ],

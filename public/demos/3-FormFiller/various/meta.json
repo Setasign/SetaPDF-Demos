@@ -1,5 +1,6 @@
 {
     "name": "Various",
-    "teaserText": "Various demos showing things or solutions you can create with the SetaPDF-FormFiller component.",
+    "title": "Various PHP Demos Showing Solutions Created with the SetaPDF-FormFiller / SetaPDF-FormFiller Demos",
+    "teaserText": "Various PHP demos showing usages and solutions you can create with the SetaPDF-FormFiller component.",
     "requires": ["SetaPDF-Core", "SetaPDF-FormFiller"]
 }
