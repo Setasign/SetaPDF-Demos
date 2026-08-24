@@ -40,7 +40,7 @@ for ($pageNo = 1; $pageNo <= $pages->count(); $pageNo++) {
 
         if ($resultCode !== 0) {
             echo 'Thumbnail could not be generated. Please make sure that ' .
-                '<a href="https://www.mupdf.com/docs/manual-mutool-draw.html" target="_blank">mutool</a> is installed ' .
+                '<a href="https://mupdf.readthedocs.io/en/1.28.2/index.html" target="_blank">mutool</a> is installed ' .
                 'and that the images/ folder is writable.';
             die();
         }

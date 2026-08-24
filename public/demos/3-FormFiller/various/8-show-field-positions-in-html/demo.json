@@ -1,6 +1,7 @@
 {
-    "name": "Show Field Positions in HTML",
-    "teaserText": "This demo translates the rectangle values of form field annotations to values you can use in HTML.",
+    "name": "Show Form Field Positions in HTML",
+    "title": "Show PDF Form Field Positions in HTML with PHP / SetaPDF-FormFiller Demo",
+    "teaserText": "This PHP demo translates the rectangle values of PDF form field annotations to values you can use in HTML.",
     "requires": [
         "SetaPDF-Core", "SetaPDF-FormFiller"
     ],

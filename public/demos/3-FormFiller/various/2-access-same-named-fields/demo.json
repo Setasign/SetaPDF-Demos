@@ -1,6 +1,7 @@
 {
-    "name": "Access Same Named Fields",
-    "teaserText": "This demo shows how to fill and access same named fields.",
+    "name": "Access Same Named Form Fields",
+    "title": "Access Same Named Form Fields in a PDF document with PHP / SetaPDF-FormFiller Demo",
+    "teaserText": "This PHP demo shows how to fill and access same named form fields in a PDF document.",
     "requires": [
         "SetaPDF-Core", "SetaPDF-FormFiller"
     ],

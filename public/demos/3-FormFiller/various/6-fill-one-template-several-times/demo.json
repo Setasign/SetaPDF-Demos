@@ -1,5 +1,6 @@
 {
     "name": "Fill One Template Several Times",
+    "title": "Fill One PDF Form Template Several Times using PHP / SetaPDF-FormFiller Demo",
     "teaserText": "Iterate over data and fill a PDF form template several times.",
     "requires": [
         "SetaPDF-Core", "SetaPDF-FormFiller"

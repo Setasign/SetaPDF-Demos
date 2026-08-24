@@ -1,6 +1,7 @@
 {
-    "name": "Get Field Names and Types",
-    "teaserText": "A simple demo that resolves field names and types.",
+    "name": "Get Form Field Names and Types",
+    "title": "Get Form Field Names and Types from a PDF document using PHP / SetaPDF-FormFiller Demo",
+    "teaserText": "A simple PHP demo that resolves PDF form field names and types.",
     "requires": [
         "SetaPDF-Core", "SetaPDF-FormFiller"
     ],

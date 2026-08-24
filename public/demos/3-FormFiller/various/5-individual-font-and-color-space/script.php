@@ -36,7 +36,7 @@ $font = new Subset(
 /*
 $font = new \setasign\SetaPDF2\Core\Font\Type0\Subset(
     $document,
-    $assetsDirectory . '/fonts/dDejaVu/ttf/DejaVuSansCondensed-Oblique.ttf'
+    $assetsDirectory . '/fonts/DejaVu/ttf/DejaVuSansCondensed-Oblique.ttf'
 );*/
 
 /* NOT RECOMMENDED: alternatively you can create an instance with a font which will not be embedded.*/
