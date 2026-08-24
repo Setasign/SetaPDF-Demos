@@ -1,5 +1,6 @@
 {
     "name": "XFA",
-    "teaserText": "Demos showing how to work with XFA forms.",
+    "title": "Handle XFA Forms with the SetaPDF-FormFiller / SetaPDF-FormFiller Demos",
+    "teaserText": "PHP Demos showing how to work with XFA forms.",
     "requires": ["SetaPDF-Core", "SetaPDF-FormFiller"]
 }
