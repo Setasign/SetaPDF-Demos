@@ -1,5 +1,6 @@
 {
-    "name": "Insert Pages",
+    "name": "Insert PDF Pages",
+    "title": "Insert PDF Pages Between Pages of an Existing Document with PHP / SetaPDF-Merger Demo",
     "teaserText": "Import a whole document but insert pages between.",
     "requires": [
         "SetaPDF-Core", "SetaPDF-Merger"

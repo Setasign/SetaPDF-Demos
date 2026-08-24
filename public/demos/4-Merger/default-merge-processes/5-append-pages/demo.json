@@ -1,6 +1,7 @@
 {
     "name": "Append Pages To an Existing PDF Document",
-    "teaserText": "This demo shows you how to start with an existing PDF and append pages from another document.",
+    "title": "Append Pages To an Existing PDF Document with PHP / SetaPDF-Merger Demo",
+    "teaserText": "This PHP demo shows how to start with an existing PDF and append pages from another document.",
     "requires": [
         "SetaPDF-Core", "SetaPDF-Merger"
     ],

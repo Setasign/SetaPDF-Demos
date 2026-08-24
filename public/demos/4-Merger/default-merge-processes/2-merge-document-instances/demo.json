@@ -1,6 +1,7 @@
 {
     "name": "Merge Document Instances",
-    "teaserText": "This demos shows how to merge document instances which are independent from the file system.",
+    "title": "Merge PDF Document Instances using PHP / SetaPDF-Merger Demo",
+    "teaserText": "This PHP demos shows how to merge PDF document instances which are independent from the file system.",
     "requires": [
         "SetaPDF-Core", "SetaPDF-Merger"
     ]

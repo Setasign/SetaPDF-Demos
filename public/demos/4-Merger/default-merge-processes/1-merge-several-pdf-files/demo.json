@@ -1,6 +1,7 @@
 {
     "name": "Merge Several PDF Files",
-    "teaserText": "A simple demo showing how to merge several PDF documents stored in the file system.",
+    "title": "Merge Several PDF Files using PHP / SetaPDF-Merger Demo",
+    "teaserText": "A simple PHP demo showing how to merge several PDF documents stored in the file system.",
     "requires": [
         "SetaPDF-Core", "SetaPDF-Merger"
     ]
