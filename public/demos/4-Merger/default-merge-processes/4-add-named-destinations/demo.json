@@ -1,7 +1,7 @@
 {
     "name": "Add Named Destinations",
-    "title": "Add Named Destinations to Imported PDF Files or Pages using PHP / SetaPDF-Merger Demo",
-    "teaserText": "Add named destinations to imported PDF files, pages or ranges.",
+    "title": "Add Named Destinations to Merged PDF Files or Pages using PHP / SetaPDF-Merger Demo",
+    "teaserText": "Add named destinations to merged PDF files, pages or ranges.",
     "requires": [
         "SetaPDF-Core", "SetaPDF-Merger"
     ],
