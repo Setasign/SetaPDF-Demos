@@ -1,6 +1,7 @@
 {
     "name": "Individual Page Ranges",
-    "teaserText": "A demo showing how to pass individual page ranges.",
+    "title": "Control Which Pages of a PDF File Should Be Merged / SetaPDF-Merger Demo",
+    "teaserText": "A PHP demo showing how to control which pages of a PDF file should be merged.",
     "requires": [
         "SetaPDF-Core", "SetaPDF-Merger"
     ],

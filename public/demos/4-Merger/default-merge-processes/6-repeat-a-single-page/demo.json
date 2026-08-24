@@ -1,6 +1,7 @@
 {
-    "name": "Repeat a Single Page",
-    "teaserText": "A demo showing how to repeat a page several times.",
+    "name": "Repeat a Single PDF Page",
+    "title": "Repeat a Single PDF Page using PHP / SetaPDF-Merger Demo",
+    "teaserText": "A PHP demo showing how to repeat a PDF page several times.",
     "requires": [
         "SetaPDF-Core", "SetaPDF-Merger"
     ],

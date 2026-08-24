@@ -1,5 +1,6 @@
 {
     "name": "Default Merge Processes",
-    "teaserText": "Demos showing simple or default merge processes.",
+    "title": "Simple Processes of Merging PDF Documents with PHP / SetaPDF-Merger Demos",
+    "teaserText": "PHP demos showing simple or default processes of merging PDF documents.",
     "requires": ["SetaPDF-Core", "SetaPDF-Merger"]
 }
