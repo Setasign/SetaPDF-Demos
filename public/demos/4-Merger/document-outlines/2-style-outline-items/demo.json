@@ -1,6 +1,7 @@
 {
     "name": "Style Outline Items",
-    "teaserText": "Demo that shows possibilites to style outline items.",
+    "title": "Style Outline Items of a PDF Document with PHP / SetaPDF-Merger Demo",
+    "teaserText": "PHP demo that shows possibilites to style outline items of a PDF document.",
     "requires": [
         "SetaPDF-Core", "SetaPDF-Merger"
     ]

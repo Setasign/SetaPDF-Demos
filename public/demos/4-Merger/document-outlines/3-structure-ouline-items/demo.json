@@ -1,6 +1,7 @@
 {
     "name": "Structure Outline Items",
-    "teaserText": "See how you can structure the outline items of merged documents.",
+    "title": "Structure Outline Items of Merged PDF Documents in PHP / SetaPDF-Merger Demo",
+    "teaserText": "See how to structure the outline items of merged PDF documents.",
     "requires": [
         "SetaPDF-Core", "SetaPDF-Merger"
     ]
