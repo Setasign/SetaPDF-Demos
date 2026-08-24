@@ -1,7 +1,7 @@
 {
     "name": "Copy Outlines to Root Outline",
-    "title": "Copy Outline Items to Root Outline of a PDF Document with PHP / SetaPDF-Merger Demo",
-    "teaserText": "See how to copy outlines to the root outline of a PDF document.",
+    "title": "Copy Outline Items to Root Outline of a Merged PDF Document with PHP / SetaPDF-Merger Demo",
+    "teaserText": "See how to copy outlines to the root outline of a merged PDF document.",
     "requires": [
         "SetaPDF-Core", "SetaPDF-Merger"
     ]

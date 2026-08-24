@@ -1,6 +1,6 @@
 {
     "name": "Outline Item per Document",
-    "title": "Create and Add Bookmark Items to an Existing PDF Document with PHP / SetaPDF-Merger Demo",
+    "title": "Create and Add Bookmark Items to a Merged PDF Document with PHP / SetaPDF-Merger Demo",
     "teaserText": "See how to add an outline item per PDF document.",
     "requires": [
         "SetaPDF-Core", "SetaPDF-Merger"

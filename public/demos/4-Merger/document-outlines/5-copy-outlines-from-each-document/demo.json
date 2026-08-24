@@ -1,6 +1,6 @@
 {
     "name": "Copy Outlines from Each Document",
-    "title": "Copy Outline Items for Each Merged PDF Document with PHP / SetaPDF-Merger Demo",
+    "title": "Copy Outline Items from Each Merged PDF Document / SetaPDF-Merger Demo",
     "teaserText": "See how to copy outlines from each document below an unique outline item.",
     "requires": [
         "SetaPDF-Core", "SetaPDF-Merger"
