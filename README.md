@@ -13,7 +13,7 @@ PHP setup:
 
 ```
 cd public
-php -S localhost:8080
+php -S localhost:8080 index.php
 ```
 
 ...and open [http://localhost:8080](http://localhost:8080) in your web browser.

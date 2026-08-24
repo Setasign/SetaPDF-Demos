@@ -18,7 +18,11 @@ if (!function_exists('str_ends_with')) {
 }
 
 $scriptName = $_SERVER['SCRIPT_NAME'] ?? '/index.php';
-$base = rtrim(str_replace(DIRECTORY_SEPARATOR, '/', dirname($scriptName)), '/') . '/';
+if (str_ends_with($scriptName, '/index.php')) {
+    $base = rtrim(str_replace(DIRECTORY_SEPARATOR, '/', dirname($scriptName)), '/') . '/';
+} else {
+    $base = '/';
+}
 
 $demosDirectory = __DIR__ . '/demos';
 $fullRequestPath = $requestPath = '/' . substr($_SERVER['REQUEST_URI'] ?? '', strlen($base));
