@@ -1,6 +1,7 @@
 {
     "name": "Encrypt Portfolio",
-    "teaserText": "To use it as an encrypted wrapper for e.g. digital signed documents.",
+    "title": "Use a PDF Portfolio as Encrypted Wrapper with PHP / SetaPDF-Merger Demo",
+    "teaserText": "Use a PDF portfolio as an encrypted wrapper for e.g. digital signed documents.",
     "requires": [
         "SetaPDF-Core", "SetaPDF-Merger"
     ],

@@ -1,6 +1,7 @@
 {
     "name": "Extract Files",
-    "teaserText": "See how to extract files from a PDF portfolio.",
+    "title": "Extract Files from PDF Portfolio using PHP / SetaPDF-Merger Demo",
+    "teaserText": "See how to extract files from a PDF portfolio with PHP.",
     "requires": [
         "SetaPDF-Core", "SetaPDF-Merger"
     ],

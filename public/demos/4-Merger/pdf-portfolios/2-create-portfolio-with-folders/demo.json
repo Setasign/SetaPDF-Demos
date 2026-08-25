@@ -1,6 +1,7 @@
 {
     "name": "Create a PDF Portfolio with Folders",
-    "teaserText": "See how to create a PDF portfolio with folders.",
+    "title": "Create a PDF Portfolio with Folders using PHP / SetaPDF-Merger Demo",
+    "teaserText": "See how to create a PDF portfolio with folders in PHP.",
     "requires": [
         "SetaPDF-Core", "SetaPDF-Merger"
     ],

@@ -1,6 +1,7 @@
 {
     "name": "Create a Simple PDF Portfolio",
-    "teaserText": "See how to create a simple PDF portfolio.",
+    "title": "Create a Simple PDF Portfolio using PHP / SetaPDF-Merger Demo",
+    "teaserText": "See how to create a simple PDF portfolio with SetaPDF using PHP.",
     "requires": [
         "SetaPDF-Core", "SetaPDF-Merger"
     ],
