@@ -1,5 +1,6 @@
 {
-    "name": "PDF Portfolio With Schema",
+    "name": "PDF Portfolio with Schema",
+    "title": "PDF Portfolio with Individual Schema using PHP / SetaPDF-Merger Demo",
     "teaserText": "See how to define individual fields and data for files in a portfolio.",
     "requires": [
         "SetaPDF-Core", "SetaPDF-Merger"

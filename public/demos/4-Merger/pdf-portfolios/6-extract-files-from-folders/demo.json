@@ -1,5 +1,6 @@
 {
     "name": "Extract Files From Folders",
+    "title": "Extract Files from Folders of a PDF Portfolio with PHP / SetaPDF-Merger Demo",
     "teaserText": "See how to extract files from folders in a PDF portfolio.",
     "requires": [
         "SetaPDF-Core", "SetaPDF-Merger"
