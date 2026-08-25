@@ -1,6 +1,6 @@
 {
-    "name": "PDF Portfolio with Dynamic Files & Metadata",
-    "title": "PDF Portfolio with Dynamic Files & Metadata using PHP / SetaPDF-Merger Demo",
+    "name": "Create a PDF Portfolio with Dynamic Files & Metadata",
+    "title": "Create a PDF Portfolio with Dynamic Files & Metadata using PHP / SetaPDF-Merger Demo",
     "teaserText": "See some more low-level things you can define for files in a PDF portfolio.",
     "requires": [
         "SetaPDF-Core", "SetaPDF-Merger"
