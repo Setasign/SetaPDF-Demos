@@ -1,6 +1,7 @@
 {
     "name": "Merge PDFs and Write Footnotes",
-    "teaserText": "This demo adds the filename as a footnote to the merged pages.",
+    "title": "Merge PDFs and Write Footnotes in PHP / SetaPDF-Merger Demo",
+    "teaserText": "This PHP demo adds the filename as a footnote to the merged pages of the PDF document.",
     "requires": [
         "SetaPDF-Core", "SetaPDF-Merger"
     ],

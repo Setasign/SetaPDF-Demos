@@ -1,5 +1,6 @@
 {
     "name": "Various",
-    "teaserText": "Various demos of the SetaPDF-Merger component.",
+    "title": "PHP Demos Showing Solutions Created with the SetaPDF-Merger / SetaPDF-Merger Demos",
+    "teaserText": "Various PHP demos showing usages and solutions you can create with the SetaPDF-Merger component.",
     "requires": ["SetaPDF-Core", "SetaPDF-Merger"]
 }

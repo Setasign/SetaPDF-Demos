@@ -1,5 +1,6 @@
 {
     "name": "Merge PDFs and Images",
+    "title": "Merge PDFs and Images using PHP / SetaPDF-Merger Demo",
     "teaserText": "Merge images and PDFs with the SetaPDF-Merger component.",
     "requires": [
         "SetaPDF-Core", "SetaPDF-Merger"

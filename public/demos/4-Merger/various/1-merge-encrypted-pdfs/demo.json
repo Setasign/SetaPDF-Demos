@@ -1,5 +1,6 @@
 {
     "name": "Merge Encrypted PDFs",
+    "title": "Merge Encrypted PDFs using PHP / SetaPDF-Merger Demo",
     "teaserText": "See how to merge encrypted or protected PDF documents.",
     "requires": [
         "SetaPDF-Core", "SetaPDF-Merger"

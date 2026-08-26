@@ -1,6 +1,7 @@
 {
     "name": "Merge With Layers",
-    "teaserText": "See how to copy layer information to the resulting document.",
+    "title": "Merge PDF Documents with Layers using PHP / SetaPDF-Merger Demo",
+    "teaserText": "See how to copy layer information to the resulting PDF document.",
     "requires": [
         "SetaPDF-Core", "SetaPDF-Merger"
     ],
