@@ -1,5 +1,6 @@
 {
     "name": "Split a PDF Document",
+    "title": "Split a PDF Document using PHP / SetaPDF-Merger Demo",
     "teaserText": "See how to split a PDF document with the SetaPDF-Merger component.",
     "requires": [
         "SetaPDF-Core", "SetaPDF-Merger"

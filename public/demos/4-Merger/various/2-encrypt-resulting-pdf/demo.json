@@ -1,5 +1,6 @@
 {
     "name": "Encrypt Resulting PDF",
+    "title": "Merge PDF Documents and Encrypt the Result / SetaPDF-Merger Demo",
     "teaserText": "Merge PDF documents and encrypt the result with a password.",
     "requires": [
         "SetaPDF-Core", "SetaPDF-Merger"
