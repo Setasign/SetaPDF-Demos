@@ -1,6 +1,6 @@
 {
     "name": "Standard Signatures",
-    "title": "Basics for Signature an Timestamp Creation for PDF Documents using PHP / SetaPDF-Signer Demos",
+    "title": "Basics for Signature and Timestamp Creation for PDF Documents using PHP / SetaPDF-Signer Demos",
     "teaserText": "Demos showing the basics for signature and timestamp creation.",
     "requires": ["SetaPDF-Core", "SetaPDF-Signer"]
 }
