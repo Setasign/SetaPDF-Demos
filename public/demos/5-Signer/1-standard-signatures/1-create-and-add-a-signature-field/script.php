@@ -53,7 +53,7 @@ $fieldC = SignatureField::add(
 // create a signer instance
 $signer = new Signer($document);
 
-// adds a hidden field
+// add a hidden field
 $fieldD = $signer->addSignatureField('Signature');
 // if you want to sign e.g. $fieldD later on, you need to pass its name to the signer component:
 $signer->setSignatureFieldName($fieldD->getQualifiedName());

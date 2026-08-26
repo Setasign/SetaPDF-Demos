@@ -1,6 +1,7 @@
 {
     "name": "Create and Add a Signature Field",
-    "teaserText": "A demo that shows you how to create and add signature fields.",
+    "title": "Create and Add a Signature Field to a PDF Document using PHP / SetaPDF-Signer Demo",
+    "teaserText": "A PHP demo that shows you how to create and add signature fields to a PDF document.",
     "requires": [
         "SetaPDF-Core", "SetaPDF-Signer"
     ],

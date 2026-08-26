@@ -1,6 +1,7 @@
 {
     "name": "Create a Simple Digital Signature",
-    "teaserText": "This demo shows you how to create a simple digital signature for a PDF document.",
+    "title": "Create a Simple Digital Signature for a PDF Document / SetaPDF-Signer Demo",
+    "teaserText": "This PHP demo shows you how to create a simple digital signature for a PDF document.",
     "requires": [
         "SetaPDF-Core", "SetaPDF-Signer"
     ],
