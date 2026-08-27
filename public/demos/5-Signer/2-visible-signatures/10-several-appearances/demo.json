@@ -1,6 +1,7 @@
 {
     "name": "Appearance on Several Pages",
-    "teaserText": "Simulate several appearances of a single signature field by stamp annotations on all pages.",
+    "title": "Simulate Appearance on Several Pages of a PDF Document / SetaPDF-Signer Demo",
+    "teaserText": "Simulate several appearances of a single signature field by stamp annotations on all pages of a PDF document.",
     "requires": [
         "SetaPDF-Core", "SetaPDF-Signer"
     ],

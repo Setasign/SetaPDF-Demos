@@ -1,5 +1,6 @@
 {
     "name": "Localized Dynamic Appearance",
+    "title": "Localized Labels in Dynamic Appearances for Signature Fields in PDF Documents / SetaPDF-Signer Demo",
     "teaserText": "See how to localize labels of the dynamic appearance module.",
     "requires": [
         "SetaPDF-Core", "SetaPDF-Signer"

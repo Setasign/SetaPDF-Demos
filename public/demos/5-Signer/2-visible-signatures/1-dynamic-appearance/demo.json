@@ -1,6 +1,7 @@
 {
     "name": "Dynamic Appearance",
-    "teaserText": "This demo shows you how to use the dynamic appearance module.",
+    "title": "Dynamic Appearance for Signature Fields in PDF Documents / SetaPDF-Signer Demo",
+    "teaserText": "This PHP demo shows how to use the dynamic appearance module.",
     "requires": [
         "SetaPDF-Core", "SetaPDF-Signer"
     ],

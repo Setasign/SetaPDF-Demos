@@ -1,5 +1,6 @@
 {
     "name": "Another Individual Signature Appearance",
+    "title": "Combine Image, Text and a QR Code in an Appearance for a Signature Field in a PDF Document / SetaPDF-Signer Demo",
     "teaserText": "Combine an image, text and a QR code in an appearance.",
     "requires": [
         "SetaPDF-Core", "SetaPDF-Signer"
