@@ -1,6 +1,7 @@
 {
     "name": "Create a Certification Signature",
-    "teaserText": "With certification you can control if additional changes to the document are allowed.",
+    "title": "Create a Certification Signature and Control Additional Changes to a PDF Document / SetaPDF-Signer Demo",
+    "teaserText": "With a certification signature used in this PHP demo you can control if additional changes to the PDF document are allowed.",
     "requires": [
         "SetaPDF-Core", "SetaPDF-Signer"
     ],

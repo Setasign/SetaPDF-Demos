@@ -1,6 +1,7 @@
 {
     "name": "Create a Timestamp Signature",
-    "teaserText": "This demo adds a document level timestamp signature to a PDF document.",
+    "title": "Add a Timestamp Signature to a PDF Document / SetaPDF-Signer Demo",
+    "teaserText": "This PHP demo adds a document level timestamp signature to a PDF document.",
     "requires": [
         "SetaPDF-Core", "SetaPDF-Signer"
     ],

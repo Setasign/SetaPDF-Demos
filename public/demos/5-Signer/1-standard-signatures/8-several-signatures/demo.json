@@ -1,5 +1,6 @@
 {
     "name": "Several Signatures",
+    "title": "Add Several Signatures to a PDF Document using PHP / SetaPDF-Signer Demo",
     "teaserText": "Sounds hard but isn't - just restart the signature process with another field name.",
     "requires": [
         "SetaPDF-Core", "SetaPDF-Signer"
