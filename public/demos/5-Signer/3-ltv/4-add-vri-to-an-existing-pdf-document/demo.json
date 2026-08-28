@@ -1,6 +1,7 @@
 {
     "name": "Add VRI to an Existing PDF Document",
-    "teaserText": "This demo will add VRI information to an already signed PDF document to gain LTV level.",
+    "title": "Add VRI to an Existing PDF Document / SetaPDF-Signer Demo",
+    "teaserText": "This PHP demo will add VRI (validation related information) to an already signed PDF document to gain LTV (long term validation) level.",
     "requires": [
         "SetaPDF-Core", "SetaPDF-Signer"
     ],
