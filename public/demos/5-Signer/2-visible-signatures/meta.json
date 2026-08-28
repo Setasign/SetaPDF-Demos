@@ -1,7 +1,7 @@
 {
     "name": "Visible Signatures",
     "title": "Visible Signatures / Signature Appearances in PDF Documents Created with PHP / SetaPDF-Signer Demos",
-    "teaserText": "See how to use and configure signature appearances in PDF documents.",
+    "teaserText": "See how to use and configure appearances for digtial signature in PDF documents.",
     "requires": ["SetaPDF-Core", "SetaPDF-Signer"],
     "faIcon": "&#xf56c;"
 }

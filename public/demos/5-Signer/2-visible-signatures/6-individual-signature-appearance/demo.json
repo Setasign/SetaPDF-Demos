@@ -1,7 +1,7 @@
 {
     "name": "Individual Signature Appearance",
     "title": "Individual Signature Appearance for a Signature Field in a PDF Document / SetaPDF-Signer Demo",
-    "teaserText": "A demo that shows how to create an individual signature appearance.",
+    "teaserText": "A demo that shows how to create an individual appearance for a digital PDF signature.",
     "requires": [
         "SetaPDF-Core", "SetaPDF-Signer"
     ],
