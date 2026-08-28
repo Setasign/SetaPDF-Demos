@@ -41,7 +41,7 @@ $module = new PadesModule();
 $module->setCertificate('file://' . $certificatePath);
 $module->setPrivateKey('file://' . $certificatePath, '');
 
-// creat an appearance module instance
+// create an appearance module instance
 $appearance = new Dynamic($module);
 // pass it to the signer instance
 $signer->setAppearance($appearance);
@@ -81,7 +81,7 @@ $module = new PadesModule();
 $module->setCertificate('file://' . $certificatePath);
 $module->setPrivateKey('file://' . $certificatePath, '');
 
-// creat an appearance module instance
+// create an appearance module instance
 $appearance = new Dynamic($module);
 // pass it to the signer instance
 $signer->setAppearance($appearance);

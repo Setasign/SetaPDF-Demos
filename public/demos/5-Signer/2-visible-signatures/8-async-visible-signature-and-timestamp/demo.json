@@ -1,6 +1,7 @@
 {
     "name": "Async Visible Signature With Timestamp",
-    "teaserText": "A demo of an async visible signature and timestamp workflow.",
+    "title": "Async Visible Signature with Timestamp in a PDF document / SetaPDF-Signer Demo",
+    "teaserText": "A PHP demo of an async visible signature and timestamp workflow.",
     "requires": [
         "SetaPDF-Core", "SetaPDF-Signer"
     ],

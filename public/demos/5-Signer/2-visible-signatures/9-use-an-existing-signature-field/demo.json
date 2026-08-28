@@ -1,6 +1,7 @@
 {
     "name": "Use an Existing Signature Field",
-    "teaserText": "A demo that uses an existing signature field.",
+    "title": "Create Signature in an Existing Signature Field in a PDF Document / SetaPDF-Signer Demo",
+    "teaserText": "A PHP demo that creates a signature in an existing signature field.",
     "requires": [
         "SetaPDF-Core", "SetaPDF-Signer"
     ],

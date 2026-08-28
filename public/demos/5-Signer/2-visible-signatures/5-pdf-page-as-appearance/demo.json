@@ -1,6 +1,7 @@
 {
     "name": "PDF Page as Appearance",
-    "teaserText": "This demo shows you how to use a PDF page as the signature appearance.",
+    "title": "PDF Page as Appearance for a Digital Signature in a PDF Document / SetaPDF-Signer Demo",
+    "teaserText": "This PHP demo shows how to use a PDF page as the appearance of a digital signature.",
     "requires": [
         "SetaPDF-Core", "SetaPDF-Signer"
     ],

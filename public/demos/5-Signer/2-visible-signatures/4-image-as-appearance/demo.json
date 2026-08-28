@@ -1,6 +1,7 @@
 {
     "name": "Image as Appearance",
-    "teaserText": "This demo shows you how to use an image as the signature appearance.",
+    "title": "Image as Appearance for a Digital Signature in a PDF Document / SetaPDF-Signer Demo",
+    "teaserText": "This PHP demo shows how to use an image as the signature appearance.",
     "requires": [
         "SetaPDF-Core", "SetaPDF-Signer"
     ],

@@ -1,5 +1,6 @@
 {
     "name": "Several Visible Signatures",
+    "title": "Add Several Visibile Digital Signatures to a PDF Document using PHP / SetaPDF-Signer Demo",
     "teaserText": "Just restart the signature process with another field name.",
     "requires": [
         "SetaPDF-Core", "SetaPDF-Signer"

@@ -1,6 +1,7 @@
 {
     "name": "Dynamic Appearance with Background and Graphic",
-    "teaserText": "An enhanced demo of the dynamic appearance module that uses a background and a graphic.",
+    "title": "Dynamic Appearance with Background and Graphic for Signature Fields in PDF Documents / SetaPDF-Signer Demo",
+    "teaserText": "An enhanced PHP demo of the dynamic signature appearance module that uses a background and a graphic.",
     "requires": [
         "SetaPDF-Core", "SetaPDF-Signer"
     ],
