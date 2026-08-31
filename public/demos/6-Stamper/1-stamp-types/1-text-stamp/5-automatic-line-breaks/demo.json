@@ -1,5 +1,6 @@
 {
     "name": "Automatic Line Breaks",
+    "title": "Add Text Stamps with Automatic Line Breaks to a PDF using PHP / SetaPDF-Stamper Demo",
     "teaserText": "This demo shows you how to enable automatic line breaks.",
     "requires": [
         "SetaPDF-Core", "SetaPDF-Stamper"

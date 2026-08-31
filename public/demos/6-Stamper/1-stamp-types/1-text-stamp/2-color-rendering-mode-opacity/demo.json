@@ -1,5 +1,6 @@
 {
     "name": "Color, Rendering-Mode and Opacity",
+    "title": "Add Text Stamp with Color, Rendering-Mode and Opacity to PDF Pages in PHP / SetaPDF-Stamper Demo",
     "teaserText": "A text stamp with some alternative style elements.",
     "requires": [
         "SetaPDF-Core", "SetaPDF-Stamper"

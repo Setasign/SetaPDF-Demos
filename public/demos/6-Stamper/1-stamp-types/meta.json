@@ -1,5 +1,6 @@
 {
     "name": "Stamp Types",
+    "title" : "All Available Stamp Types to Add Content to PDFs using PHP / SetaPDF-Stamper Demos",
     "teaserText": "Demos of all available stamp types.",
     "requires": ["SetaPDF-Core", "SetaPDF-Stamper"],
     "faIcon": "&#xf5bf;"

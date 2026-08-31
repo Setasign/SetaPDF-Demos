@@ -1,5 +1,6 @@
 {
     "name": "SetaPDF-Stamper",
-    "teaserText": "Add new content to existing PDF documents without changing their internal structure or loosing any functionality in pure PHP with the SetaPDF-Stamper.",
+    "title": "PHP Demos of the SetaPDF-Stamper",
+    "teaserText": "Add new content to existing PDF documents without changing their internal structure or loosing any functionality with the SetaPDF-Stamper in pure PHP.",
     "requires": ["SetaPDF-Core", "SetaPDF-Stamper"]
 }
