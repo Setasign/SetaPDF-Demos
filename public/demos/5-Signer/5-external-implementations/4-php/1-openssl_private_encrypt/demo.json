@@ -1,5 +1,6 @@
 {
     "name": "openssl_private_encrypt() (external)",
+    "title": "Create PDF Signature With openssl_private_encrypt in PHP / SetaPDF-Signer Demo",
     "teaserText": "This demo uses the openssl_private_encrypt() function to create the signature value external and injecting it back into the used PAdES module.",
     "requires": [
         "SetaPDF-Core", "SetaPDF-Signer"
