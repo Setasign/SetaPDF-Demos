@@ -1,5 +1,6 @@
 {
     "name": "Simple Demo",
+    "title": "Add an Image Stamp to an Existing PDF using PHP / SetaPDF-Stamper Demo",
     "teaserText": "Add a simple image stamp to an existing PDF document.",
     "requires": [
         "SetaPDF-Core", "SetaPDF-Stamper"
