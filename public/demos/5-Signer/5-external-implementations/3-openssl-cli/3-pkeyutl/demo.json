@@ -1,6 +1,6 @@
 {
     "name": "openssl-pkeyutl",
-    "title": "Create Signature Value with openssl pkeyutl Command using PHP / SetaPDF-Signer Demo",
+    "title": "Create PDF Signature with openssl pkeyutl Command using PHP / SetaPDF-Signer Demo",
     "teaserText": "Use the pkeyutl command to create the signature value.",
     "requires": [
         "SetaPDF-Core", "SetaPDF-Signer"
