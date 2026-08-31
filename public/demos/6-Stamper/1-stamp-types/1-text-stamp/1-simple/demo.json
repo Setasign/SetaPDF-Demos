@@ -1,5 +1,6 @@
 {
     "name": "Simple Demo",
+    "title": "Add Text Stamp to an Existing PDF using PHP / SetaPDF-Stamper Demo",
     "teaserText": "Add a simple text stamp to an existing PDF document.",
     "requires": [
         "SetaPDF-Core", "SetaPDF-Stamper"

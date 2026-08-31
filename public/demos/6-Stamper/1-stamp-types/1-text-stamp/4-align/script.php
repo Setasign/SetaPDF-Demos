@@ -49,19 +49,19 @@ $stamper->addStamp($stampCenter, [
 ]);
 
 // create a stamp instance justified
-$stampCenter = new TextStamp($font, 12);
-$stampCenter->setText($text);
-$stampCenter->setAlign(Text::ALIGN_JUSTIFY);
-$stamper->addStamp($stampCenter, [
+$stampJustified = new TextStamp($font, 12);
+$stampJustified->setText($text);
+$stampJustified->setAlign(Text::ALIGN_JUSTIFY);
+$stamper->addStamp($stampJustified, [
     'position' => Stamper::POSITION_CENTER_MIDDLE,
     'translateY' => -140
 ]);
 
 // create a stamp instance right aligned
-$stampLeft = new TextStamp($font, 12);
-$stampLeft->setText($text);
-$stampLeft->setAlign(Text::ALIGN_RIGHT);
-$stamper->addStamp($stampLeft, Stamper::POSITION_RIGHT_BOTTOM);
+$stampRight = new TextStamp($font, 12);
+$stampRight->setText($text);
+$stampRight->setAlign(Text::ALIGN_RIGHT);
+$stamper->addStamp($stampRight, Stamper::POSITION_RIGHT_BOTTOM);
 
 // execute the stamp process
 $stamper->stamp();

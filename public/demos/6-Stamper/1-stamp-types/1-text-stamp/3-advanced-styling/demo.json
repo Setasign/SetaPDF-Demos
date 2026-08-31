@@ -1,6 +1,7 @@
 {
     "name": "Advanced Styling",
-    "teaserText": "A text stamp with borders, background and padding.",
+    "title": "Add Text Stamp with Borders, Background and Padding to a PDF Document with PHP / SetaPDF-Stamper Demo",
+    "teaserText": "A text stamp with borders, background and padding to an existing PDF document.",
     "requires": [
         "SetaPDF-Core", "SetaPDF-Stamper"
     ]

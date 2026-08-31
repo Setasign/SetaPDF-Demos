@@ -42,7 +42,7 @@ $font = new Subset(
     $assetsDirectory . '/fonts/DejaVu/ttf/DejaVuSans.ttf'
 );
 
-// another stamp will be printed on every page centered with the text "TOP SECRET" rotated
+// a stamp will be printed on every page centered with the text "TOP SECRET" rotated
 // by 50 degrees as a filled stroke text with transparency
 $stamp = new TextStamp($font, 100);
 $stamp->setText("TOP SECRET");

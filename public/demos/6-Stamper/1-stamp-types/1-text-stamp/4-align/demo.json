@@ -1,5 +1,6 @@
 {
     "name": "Text Align",
+    "title": "Add Text Stamps with Different Alignments to PDF Pages using PHP / SetaPDF-Stamper Demo",
     "teaserText": "Shows the behavior of text alignment.",
     "requires": [
         "SetaPDF-Core", "SetaPDF-Stamper"

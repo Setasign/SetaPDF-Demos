@@ -1,5 +1,6 @@
 {
     "name": "Dynamic Font Size",
+    "title": "Add Text Stamps with Dynamic Font Size to PDF Pages in PHP / SetaPDF-Stamper Demo",
     "teaserText": "Let's fit the text to a given width.",
     "requires": [
         "SetaPDF-Core", "SetaPDF-Stamper"
