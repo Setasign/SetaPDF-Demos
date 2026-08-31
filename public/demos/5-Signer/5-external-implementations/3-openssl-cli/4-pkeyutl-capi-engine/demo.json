@@ -1,5 +1,6 @@
 {
     "name": "openssl-pkeyutl + CAPI engine",
+    "title": "Create Signature Value with openssl pkeyutl Command with the CAPI Engine / SetaPDF-Signer Demo",
     "teaserText": "Use the pkeyutl command with the CAPI engine to create the signature value.",
     "requires": [
         "SetaPDF-Core", "SetaPDF-Signer"
