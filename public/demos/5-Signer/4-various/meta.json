@@ -1,5 +1,6 @@
 {
     "name": "Various",
-    "teaserText": "Various demos of the SetaPDF-Signer component.",
+    "title": "PHP Demos Showing Solutions Created with the SetaPDF-Signer / SetaPDF-Signer Demos",
+    "teaserText": "Various PHP demos of solutions created with the SetaPDF-Signer component.",
     "requires": ["SetaPDF-Core", "SetaPDF-Signer"]
 }

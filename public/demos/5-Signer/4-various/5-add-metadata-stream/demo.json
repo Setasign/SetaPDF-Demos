@@ -1,5 +1,6 @@
 {
     "name": "Add Metadata Stream to Signature Dictionary",
+    "title": "Add Metadata to the Signature Dictionary / SetaPDF-Signer Demo",
     "teaserText": "Shows how to pass a XMP metadata package to the signature dictionary.",
     "requires": [
         "SetaPDF-Core", "SetaPDF-Signer"

@@ -1,5 +1,6 @@
 {
     "name": "Sign Encrypted PDF Document",
+    "title": "Sign an Encrypted PDF Document using PHP / SetaPDF-Signer Demo",
     "teaserText": "See how to authenticate for a signature process.",
     "requires": [
         "SetaPDF-Core", "SetaPDF-Signer"

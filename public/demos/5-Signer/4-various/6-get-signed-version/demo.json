@@ -1,5 +1,6 @@
 {
     "name": "Get Signed Version",
+    "title": "Extract the Document Version of the Signed PDF Document / SetaPDF-Signer Demo",
     "teaserText": "Extract the document version that was signed.",
     "requires": [
         "SetaPDF-Core", "SetaPDF-Signer"

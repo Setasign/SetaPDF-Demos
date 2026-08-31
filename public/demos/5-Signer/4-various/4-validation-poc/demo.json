@@ -1,5 +1,6 @@
 {
     "name": "Validation (Proof of Concept)",
+    "title": "PDF Signature Validation (PoC) in PHP / SetaPDF-Signer Demo",
     "teaserText": "A proof of concept for signature validation.",
     "requires": [
         "SetaPDF-Core", "SetaPDF-Signer"
