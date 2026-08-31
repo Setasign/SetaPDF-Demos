@@ -1,5 +1,6 @@
 {
     "name": "Fortify Web-component",
+    "title": "Example Usage of the Fortify Web-Component / SetaPDF-Signer Demo",
     "teaserText": "Use the web-component of Fortify.",
     "requires": [
         "SetaPDF-Core", "SetaPDF-Signer"

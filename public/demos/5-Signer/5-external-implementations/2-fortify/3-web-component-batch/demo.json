@@ -1,6 +1,7 @@
 {
     "name": "Fortify Web-component Batch Signatures",
-    "teaserText": "Use the web-component of Fortify for signing multiple documents at once.",
+    "title": "Fortify Web-component Signing Multiple PDF Documents at Once / SetaPDF-Signer Demo",
+    "teaserText": "Use the web-component of Fortify for signing multiple PDF documents at once.",
     "requires": [
         "SetaPDF-Core", "SetaPDF-Signer"
     ],

@@ -1,5 +1,6 @@
 {
     "name": "Fortify With Vanilla JavaScript",
+    "title": "Fortify With Vanilla JavaScript / SetaPDF-Signer Demo",
     "teaserText": "See how to use Fortify with vanilla JavaScript.",
     "requires": [
         "SetaPDF-Core", "SetaPDF-Signer"
