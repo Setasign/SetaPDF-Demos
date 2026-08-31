@@ -1,6 +1,6 @@
 {
     "name": "OpenSSL Command Line",
-    "titles": "External Implementations Using the OpenSSL Command Line / SetaPDF-Signer Demos",
+    "title": "External Implementations Using the OpenSSL Command Line / SetaPDF-Signer Demos",
     "teaserText": "External implementations using the OpenSSL command line.",
     "requires": ["SetaPDF-Core", "SetaPDF-Signer"],
     "faIcon": "&#xf120;"

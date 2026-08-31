@@ -1,6 +1,7 @@
 {
     "name": "PHP",
-    "teaserText": "External implementations using PHP extensions or libraries.",
+    "title": "External Implementations Using PHP extensions or Libraries / SetaPDF-Signer Demos",
+    "teaserText": "External implementations using PHP extensions or libraries to create the PDF signature.",
     "requires": ["SetaPDF-Core", "SetaPDF-Signer"],
     "faIcon": "&#xf457;"
 }
