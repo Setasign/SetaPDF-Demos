@@ -1,6 +1,6 @@
 {
     "name": "External Implementations",
-    "title": "External Signature Implementations for Digital Signatures in PDFs using PHP/ SetaPDF-Signer Demos",
+    "title": "External Signature Implementations for Digital Signatures in PDFs using PHP / SetaPDF-Signer Demos",
     "teaserText": "Use external signature services or programs in the digital signature workflow.",
     "requires": ["SetaPDF-Core", "SetaPDF-Signer"],
     "faIcon": "&#xf35d;"
