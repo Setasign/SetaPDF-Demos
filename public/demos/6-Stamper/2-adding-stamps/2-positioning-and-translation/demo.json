@@ -1,6 +1,6 @@
 {
     "name": "Positioning & Translation",
-    "title": "Modify Positions of Stamp Objects using PHP / SetaPDF-Stamper Demo",
+    "title": "Modify Positions of PDF Stamp Objects using PHP / SetaPDF-Stamper Demo",
     "teaserText": "See how to modify positions of stamp objects.",
     "requires": [
         "SetaPDF-Core", "SetaPDF-Stamper"
