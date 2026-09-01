@@ -567,7 +567,8 @@ echo <<<HTML
 <footer>
     <div class="wrapper">
         <div class="copyright">
-            ©{$year} <a href="https://www.setasign.com/">Setasign GmbH &amp; Co. KG</a>
+            ©$year <a href="https://www.setasign.com/">Setasign GmbH &amp; Co. KG</a>
+            · <a href="https://www.setasign.com/contact/">Contact / Imprint</a>
         </div>
     </div>
 </footer>
