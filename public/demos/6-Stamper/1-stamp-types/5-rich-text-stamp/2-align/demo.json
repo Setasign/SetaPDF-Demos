@@ -1,5 +1,6 @@
 {
     "name": "Styles and Text Align",
+    "title": "Add Rich-Text Stamps with Different Alignments to PDF Pages using PHP / SetaPDF-Stamper Demo",
     "teaserText": "Shows the behavior of text alignment for rich text content.",
     "requires": [
         "SetaPDF-Core", "SetaPDF-Stamper"
