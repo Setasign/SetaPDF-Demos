@@ -1,5 +1,6 @@
 {
     "name": "Adding Stamps",
+    "title" : "Adding Stamps to the Stamper Instance in PHP / SetaPDF-Stamper Demos",
     "teaserText": "See how you can add stamp objects to a stamper instance.",
     "requires": ["SetaPDF-Core", "SetaPDF-Stamper"],
     "faIcon": "&#xf067;"

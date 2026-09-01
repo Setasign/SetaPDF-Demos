@@ -1,5 +1,6 @@
 {
     "name": "Rotation",
+    "title": "Rotation of Stamps in a PDF Document using PHP / SetaPDF-Stamper Demo",
     "teaserText": "See how stamps can be rotated.",
     "requires": [
         "SetaPDF-Core", "SetaPDF-Stamper"
