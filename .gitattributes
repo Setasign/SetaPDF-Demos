@@ -1,0 +1,2 @@
+# Use lf as eol for all files
+*.php text eol=lf
