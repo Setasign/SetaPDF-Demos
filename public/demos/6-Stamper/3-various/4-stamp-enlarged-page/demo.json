@@ -1,6 +1,7 @@
 {
     "name": "Stamp Enlarged Page",
-    "teaserText": "This demo enlarges a page and adds a stamp in the \"new\" area.",
+    "title": "Stamp an Enlarged PDF Page using PHP / SetaPDF-Stamper Demo",
+    "teaserText": "This PHP demo enlarges a PDF page and adds a stamp in the \"new\" area.",
     "requires": [
         "SetaPDF-Core", "SetaPDF-Stamper"
     ],

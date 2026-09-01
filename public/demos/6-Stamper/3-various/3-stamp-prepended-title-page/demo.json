@@ -1,6 +1,7 @@
 {
     "name": "Stamp Prepended Title Page",
-    "teaserText": "This demo prepends an empty page and stamps various data on it.",
+    "title": "Stamp Prepended Title PDF Page using PHP / SetaPDF-Stamper Demo",
+    "teaserText": "This PHP demo prepends an empty PDF page and stamps various data on it.",
     "requires": [
         "SetaPDF-Core", "SetaPDF-Stamper"
     ],

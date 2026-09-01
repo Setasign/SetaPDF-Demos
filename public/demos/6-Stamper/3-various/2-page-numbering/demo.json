@@ -1,5 +1,6 @@
 {
     "name": "Page Numbering",
+    "title": "Page Numbering with Dynamic Data in a PDF Stamp Object / SetaPDF-Stamper Demo",
     "teaserText": "Use dynamic data in a stamp object.",
     "requires": [
         "SetaPDF-Core", "SetaPDF-Stamper"

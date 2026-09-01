@@ -1,5 +1,6 @@
 {
     "name": "Stamp Visibility",
+    "title": "Make Stamp Visible Only When Printing a PDF or on Screen / SetaPDF-Stamper Demo",
     "teaserText": "Make stamps only visible for printing or on screen.",
     "requires": [
         "SetaPDF-Core", "SetaPDF-Stamper"
