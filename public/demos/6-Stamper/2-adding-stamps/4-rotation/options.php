@@ -9,7 +9,7 @@ return [
         'rotation' => 45
     ],
     [
-        'displayValue' => '\setasign\SetaPDF2\Stamper\Stamper::POSITION_LEFT_TOP & -45°',
+        'displayValue' => '\setasign\SetaPDF2\Stamper\Stamper::POSITION_RIGHT_TOP & -45°',
         'position' => Stamper::POSITION_RIGHT_TOP,
         'rotation' => -45
     ],

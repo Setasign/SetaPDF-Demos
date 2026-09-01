@@ -1,5 +1,6 @@
 {
     "name": "Positioning",
+    "title": "Positioning of Stamp Objects using PHP / SetaPDF-Stamper Demo",
     "teaserText": "See how to define positions of stamp objects.",
     "requires": [
         "SetaPDF-Core", "SetaPDF-Stamper"

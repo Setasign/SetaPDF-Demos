@@ -1,5 +1,6 @@
 {
     "name": "Show On Page",
+    "title": "Define PDF Pages with Shown Stamp in PHP / SetaPDF-Stamper Demo",
     "teaserText": "Define the pages on which a stamp should appear.",
     "requires": [
         "SetaPDF-Core", "SetaPDF-Stamper"
