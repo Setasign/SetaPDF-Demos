@@ -1,6 +1,7 @@
 {
     "name": "Simple Font-Loader",
-    "teaserText": "A very simple font-loader implementation.",
+    "title": "Use a Simple Font-Loader for Different Styles with a Rich-Text Stamp in a PDF / SetaPDF-Stamper Demo",
+    "teaserText": "A very simple font-loader implementation using PHP.",
     "requires": [
         "SetaPDF-Core", "SetaPDF-Stamper"
     ],

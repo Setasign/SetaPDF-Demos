@@ -1,6 +1,7 @@
 {
     "name": "Styled Text",
-    "teaserText": "A XObject stamp with different font styles.",
+    "title": "Add an XObject Stamp with Different Font Styles to an Existing PDF Document / SetaPDF-Stamper Demo",
+    "teaserText": "An XObject stamp with different font styles.",
     "requires": [
         "SetaPDF-Core", "SetaPDF-Stamper"
     ],

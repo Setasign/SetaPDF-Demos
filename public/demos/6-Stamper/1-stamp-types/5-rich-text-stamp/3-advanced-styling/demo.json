@@ -1,5 +1,6 @@
 {
     "name": "Advanced Styling",
+    "title": "Add Rich-Text Stamps with Borders, Background and Padding to PDF Pages using PHP / SetaPDF-Stamper Demo",
     "teaserText": "A rich-text stamp with borders, background and padding.",
     "requires": [
         "SetaPDF-Core", "SetaPDF-Stamper"

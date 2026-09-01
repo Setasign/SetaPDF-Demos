@@ -1,5 +1,6 @@
 {
     "name": "Different Font-Styles",
+    "title": "Add a Rich-Text Stamp with Different Font Styles to an Existing PDF Document / SetaPDF-Stamper Demo",
     "teaserText": "A simple demo showing the usage of different font styles (bold, italic, underline).",
     "requires": [
         "SetaPDF-Core", "SetaPDF-Stamper"
