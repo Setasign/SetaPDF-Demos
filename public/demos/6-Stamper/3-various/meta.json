@@ -1,5 +1,6 @@
 {
     "name": "Various Demos",
+    "title": "PHP Demos Showing Solutions Created with the SetaPDF-Stamper / SetaPDF-Stamper Demos",
     "teaserText": "Check out various demos of the SetaPDF-Stamper component.",
     "requires": ["SetaPDF-Core", "SetaPDF-Stamper"]
 }

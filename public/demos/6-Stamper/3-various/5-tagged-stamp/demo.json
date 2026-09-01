@@ -1,5 +1,6 @@
 {
     "name": "Tagged Stamp",
+    "title": "Stamp with Tagging Structure to a PDF Document with PHP / SetaPDF-Stamper Demo",
     "teaserText": "Proof-of-concept of a stamp proxy that allows you to add tagging structure to the stamps.",
     "requires": [
         "SetaPDF-Core", "SetaPDF-Stamper"
