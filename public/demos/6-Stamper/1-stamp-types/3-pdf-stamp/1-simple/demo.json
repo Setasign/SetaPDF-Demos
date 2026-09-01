@@ -1,5 +1,6 @@
 {
     "name": "Simple Demo",
+    "title": "Add a PDF stamp to an Existing PDF Document / SetaPDF-Stamper Demo",
     "teaserText": "Add a simple PDF stamp to an existing PDF document.",
     "requires": [
         "SetaPDF-Core", "SetaPDF-Stamper"

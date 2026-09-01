@@ -1,6 +1,7 @@
 {
     "name": "Stamp Image onto a PDF form",
-    "teaserText": "This demo adds a signature image to an existing PDF form while leaving the form fields editable.",
+    "title": "Stamp Image onto a PDF form using PHP / SetaPDF-Stamper Demo",
+    "teaserText": "This PHP demo adds a signature image to an existing PDF form while leaving the form fields editable.",
     "requires": [
         "SetaPDF-Core", "SetaPDF-Stamper"
     ],
