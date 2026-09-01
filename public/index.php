@@ -1,5 +1,7 @@
 <?php
 
+use setasign\SetaPDF2\Demos\SitemapBuilder;
+
 if (PHP_SAPI === 'cli-server') {
     // To help the built-in PHP dev server, check if the request was actually for
     // something which should probably be served as a static file
@@ -12,7 +14,8 @@ if (PHP_SAPI === 'cli-server') {
 require_once __DIR__ . '/../bootstrap.php';
 
 if (!function_exists('str_ends_with')) {
-  function str_ends_with($str, $end) {
+  function str_ends_with($str, $end): bool
+  {
     return (@substr_compare($str, $end, -strlen($end))==0);
   }
 }
@@ -88,6 +91,13 @@ if ($requestPath === '/previewFile') {
 
     return;
 }
+if ($requestPath === '/sitemap.xml' && $_SERVER['SERVER_NAME'] === 'demos.setasign.com') {
+    /** @noinspection PhpUndefinedVariableInspection */
+    require_once $classesDirectory . '/SitemapBuilder.php';
+    header('Content-Type: application/xml');
+    echo (new SitemapBuilder(__DIR__, __DIR__ . '/sitemap.xml'))->build();
+    return;
+}
 
 $requestPath = trim($requestPath, '/');
 
@@ -96,24 +106,6 @@ if (strpos($requestPath, '..') !== false || !is_dir($demosDirectory . '/' . $req
     ob_end_clean();
     return;
 }
-
-$sorter = static function($a, $b) {
-    $a = str_replace('/demo.json', '', $a);
-    $b = str_replace('/demo.json', '', $b);
-
-    $a = pathinfo($a, PATHINFO_BASENAME);
-    $b = pathinfo($b, PATHINFO_BASENAME);
-
-    if (is_numeric($a[0])) {
-        $a = strstr($a, '-', true);
-    }
-
-    if (is_numeric($b[0])) {
-        $b = strstr($b, '-', true);
-    }
-
-    return $a <=> $b;
-};
 
 $breadCrumb = [
     ['path' => '/', 'text' => 'Demos', 'title' => 'Demos'],
@@ -264,7 +256,7 @@ if (file_exists($demoDirectory . '/demo.json')) {
     $nextDemos = [];
     $currentDemoFound = false;
     $demoPaths = glob(dirname($demoDirectory) . '/*/demo.json', GLOB_NOSORT);
-    usort($demoPaths, $sorter);
+    usort($demoPaths, 'sortDemoPaths');
     foreach ($demoPaths as $actualDemo) {
         $actualDemoDirectory = dirname($actualDemo);
         $actualDemoData = json_decode(file_get_contents($actualDemo), true);
@@ -463,7 +455,7 @@ if (file_exists($demoDirectory . '/demo.json')) {
 
     echo '<div class="directoriesWrapper">';
     $demoDirs = glob($demosDirectory . ($requestPath !== '' ? '/' . $requestPath : '') . '/*', GLOB_ONLYDIR | GLOB_NOSORT);
-    usort($demoDirs, $sorter);
+    usort($demoDirs, 'sortDemoPaths');
 
     foreach ($demoDirs as $dir) {
         if (file_exists($dir . '/demo.json')) {
@@ -519,7 +511,7 @@ if (file_exists($demoDirectory . '/demo.json')) {
     echo '<div class="demoTeaserWrapper">';
 
     $demoPaths = glob($demosDirectory . ($requestPath !== '' ? '/' . $requestPath : '') . '/*/demo.json', GLOB_NOSORT);
-    usort($demoPaths, $sorter);
+    usort($demoPaths, 'sortDemoPaths');
     /** @noinspection LowPerformingFilesystemOperationsInspection */
     foreach ($demoPaths as $demo) {
         $demoDirectory = dirname($demo);

@@ -160,3 +160,27 @@ function displayText($label, $defaultValue = '', $iframe = false, $iframeUrl = '
 
     return $_GET['data'];
 }
+
+/**
+ * @param string $a
+ * @param string $b
+ * @return int<-1,1>
+ */
+function sortDemoPaths(string $a, string $b): int
+{
+    $a = str_replace('/demo.json', '', $a);
+    $b = str_replace('/demo.json', '', $b);
+
+    $a = pathinfo($a, PATHINFO_BASENAME);
+    $b = pathinfo($b, PATHINFO_BASENAME);
+
+    if (is_numeric($a[0])) {
+        $a = strstr($a, '-', true);
+    }
+
+    if (is_numeric($b[0])) {
+        $b = strstr($b, '-', true);
+    }
+
+    return $a <=> $b;
+}
