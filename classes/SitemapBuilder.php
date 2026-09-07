@@ -102,8 +102,8 @@ XML;
                 $lastModdedFiles[] = $demoDir . '/meta.json';
             }
 
-            $currentPath = $path . \basename($demoDir) . '/';
-            yield from $this->getSitemapEntriesInDirectory($demoDir, $currentPath, $currentLastMod);
+            $currentPath = $path . \basename($demoDir);
+            yield from $this->getSitemapEntriesInDirectory($demoDir, $currentPath . '/', $currentLastMod);
             yield [
                 'loc' => $currentPath,
                 'lastmod' => $currentLastMod
@@ -118,7 +118,7 @@ XML;
 
             $lastModdedFiles[] = $actualDemo;
 
-            $currentPath = $path . \basename($demoDir) . '/';
+            $currentPath = $path . \basename($demoDir);
             $demoLastModdedFiles = [
                 $actualDemo,
                 $demoDir . '/script.php'
