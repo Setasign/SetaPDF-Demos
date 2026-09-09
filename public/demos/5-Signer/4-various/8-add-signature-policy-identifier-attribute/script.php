@@ -40,6 +40,7 @@ $module->setPrivateKey('file://' . $certificatePath, '');
 
 // All available policies for ICP Brazil can be found e.g. here:
 //   https://www.gov.br/iti/pt-br/assuntos/repositorio/artefatos-de-assinatura-digital
+// The hash value is from the signature policy DER structure (signPolicyHash field) and it is not the hash of the file!
 $module->setSignaturePolicy(
     '2.16.76.1.7.1.11.1.3',
     '23E4BE4B9B362172E4EBB0E72B86A133ECE5AAD843D8651C6E38A0BA3F08FC60',
