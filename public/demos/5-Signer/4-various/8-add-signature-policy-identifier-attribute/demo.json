@@ -1,0 +1,13 @@
+{
+    "name": "Add signature-policy-identifier attribute",
+    "title": "Add signature-policy-identifier attribute to gather PAdES-E-EPES level in PHP / SetaPDF-Signer Demo",
+    "teaserText": "Add signature policy identifiers to create PAdES-E-EPES or ICP-Brazil conforming PDF signature.",
+    "requires": [
+        "SetaPDF-Core", "SetaPDF-Signer"
+    ],
+    "faIcon": "&#xf15b;",
+    "faIcon2": "&#xf256;",
+    "previewFiles": [
+        "../../../../../classes/Signer/Module/Signature/PadesWithSignaturePolicyModule.php"
+    ]
+}

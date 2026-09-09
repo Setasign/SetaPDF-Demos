@@ -1,0 +1,17 @@
+<p>
+    Special PAdES profiles requires to add
+    <a href="https://www.rfc-editor.org/rfc/rfc5126.html#section-5.8.1" target="_blank">signature policy identifiers</a>
+    as a signed attribute to the CMS container.
+</p>
+<p>
+    This PHP demo shows you how to implement exactly that: It allows you to specify a signature policy id, its sha256
+    hash value and its URL in an individual signature module that extends the default
+    <a href="https://manuals.setasign.com/api-reference/setapdf/c/setasign.SetaPDF2.Signer.Signature.Module.Pades" target="_blank">
+        PAdES signature module</a>.
+</p>
+<p>
+    For demonstration purpose we use a signature policy from the
+    <a href="https://www.gov.br/iti/pt-br/assuntos/repositorio/artefatos-de-assinatura-digital" target="_blank">
+        ICP-Brasil</a>
+    (PKI Infrastructure from Brasil).
+</p>
