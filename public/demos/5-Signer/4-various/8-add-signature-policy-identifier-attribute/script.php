@@ -42,7 +42,7 @@ $module->setPrivateKey('file://' . $certificatePath, '');
 //   https://www.gov.br/iti/pt-br/assuntos/repositorio/artefatos-de-assinatura-digital
 $module->setSignaturePolicy(
     '2.16.76.1.7.1.11.1.3',
-    '23da544aef71f7a75dc85fa6e17a83875741e4baef41ec178258a5c86ace54dd',
+    '23E4BE4B9B362172E4EBB0E72B86A133ECE5AAD843D8651C6E38A0BA3F08FC60',
     'http://politicas.icpbrasil.gov.br/PA_PAdES_AD_RB_v1_3.der'
 );
 
