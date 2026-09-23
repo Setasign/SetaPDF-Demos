@@ -151,6 +151,7 @@ if ($requestPath === '') {
 }
 
 $canonical = 'https://demos.setasign.com/' . trim($fullRequestPath, '/');
+$ts = function ($file) {return filectime($file);};
 
 ob_start();
 echo <<<HTML
@@ -163,7 +164,7 @@ echo <<<HTML
     <meta name="description" content="{$description}"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <link rel="stylesheet" type="text/css" href="./layout/normalize.css"/>
-    <link rel="stylesheet" type="text/css" href="./layout/style.css?2"/>
+    <link rel="stylesheet" type="text/css" href="./layout/style.css?t={$ts(__DIR__ . '/layout/style.css')}"/>
     <link rel="stylesheet" type="text/css" href="./js/codemirror-5.61.1/codemirror.css"/>
     <link rel="canonical" href="{$canonical}" />
     <link rel="icon" type="image/png" href="/images/favicon/favicon-96x96.png" sizes="96x96" />
