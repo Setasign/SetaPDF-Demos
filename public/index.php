@@ -45,7 +45,6 @@ if (isset($_GET['p'])) {
 
     header("HTTP/1.0 301 Moved Permanently");
     header("Location: $fullRequestPath");
-    ob_end_clean();
     return;
 }
 
@@ -56,7 +55,6 @@ if ($requestPath === '/previewFile') {
 
         if (!is_file($file)) {
             header("HTTP/1.0 404 Not Found");
-            ob_end_clean();
             return;
         }
     } else {
@@ -103,7 +101,6 @@ $requestPath = trim($requestPath, '/');
 
 if (strpos($requestPath, '..') !== false || !is_dir($demosDirectory . '/' . $requestPath)) {
     header("HTTP/1.0 404 Not Found");
-    ob_end_clean();
     return;
 }
 
