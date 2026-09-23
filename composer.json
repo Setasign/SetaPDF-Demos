@@ -1,6 +1,6 @@
 {
     "require": {
-        "php": ">=7.1",
+        "php": ">=7.2",
         "ext-json": "*",
 
         "setasign/setapdf-core": "^2.47",
@@ -9,7 +9,8 @@
         "setasign/setapdf-merger": "^2.47",
         "setasign/setapdf-signer": "^2.47",
         "setasign/setapdf-stamper": "^2.47",
-        "phpseclib/phpseclib": "^2.0 || ^3.0"
+        "phpseclib/phpseclib": "^2.0 || ^3.0",
+        "setasign/php-syntax-highlighter": "^1.0"
     },
     "repositories": [
         {

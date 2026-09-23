@@ -1,5 +1,8 @@
 <?php
 
+use PhpParser\PhpVersion;
+use setasign\PhpSyntaxHighlighter\PhpSyntaxHighlighter;
+use setasign\SetaPDF2\Demos\ManualsLinkBuilder;
 use setasign\SetaPDF2\Demos\SitemapBuilder;
 
 if (PHP_SAPI === 'cli-server') {
@@ -354,10 +357,20 @@ if (file_exists($demoDirectory . '/demo.json')) {
             . '<ul class="buttons">'
             . '<li><a href="' . $_SERVER['REQUEST_URI'] . '#" class="copy"'
             . ($codemirrorLang === 'php' ? ' title="copy PHP code"' : '') . '>copy</a></li>'
-            . '</ul><pre class="code" data-lang="' . $codemirrorLang . '">'
-            . htmlspecialchars(file_get_contents($demoDirectory . '/' . $previewFile), ENT_QUOTES | ENT_HTML5)
-            . '</pre></div>'
-            . '</div>';
+            . '</ul>';
+        if ($codemirrorLang === 'php' && class_exists(PhpSyntaxHighlighter::class)) {
+            require_once __DIR__ . '/../classes/ManualsLinkBuilder.php';
+            $highlighter = new PhpSyntaxHighlighter(PhpVersion::fromString('7.2'));
+            $highlighter->linkBuilder->addManual(new ManualsLinkBuilder(__DIR__ . '/../apidoc.json'));
+            echo '<pre class="code highlighted">'
+                . $highlighter->highlight(file_get_contents($demoDirectory . '/' . $previewFile))
+                . '</pre>';
+        } else {
+            echo '<pre class="code" data-lang="' . $codemirrorLang . '">'
+                . htmlspecialchars(file_get_contents($demoDirectory . '/' . $previewFile), ENT_QUOTES | ENT_HTML5)
+                . '</pre>';
+        }
+        echo '</div></div>';
     }
 
     echo '<div class="step execute">'

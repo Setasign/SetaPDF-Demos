@@ -1,6 +1,6 @@
 @import "dynamic.less";
-@import "fonts/fontawesome-free-5.13.1/less/solid.css";
-@import "fonts/fontawesome-free-5.13.1/less/brands.css";
+@import "fonts/fontawesome-free-5.13.1/less/solid.less";
+@import "fonts/fontawesome-free-5.13.1/less/brands.less";
 
 @font-face {
     font-family: "PT Serif";
@@ -66,7 +66,7 @@ a
 
 header {
     &:after {
-        .clearAfter;
+        .clearAfter();
     }
 
     background-color: #558f40;
@@ -757,6 +757,47 @@ footer
         span.highlight {
             background-color: yellow;
         }
+
+        &.highlighted {
+            .php-token {
+                color: #708;
+
+                a {
+                    font-family: 'Source Code Pro';
+                    color: inherit !important;
+                    &:after {
+                        margin: 0;
+                        content: "";
+                    }
+                }
+            }
+            .php-token.php-token-t-comment, .php-token.php-token-t-doc-comment {
+                color: #a50;
+            }
+            .php-token.php-token-t-variable {
+                color: #05a;
+            }
+            .php-token.php-token-t-string,
+            .php-token.php-token-t-name-qualified,
+            .php-token-t-name-fully-qualified,
+            .php-token.php-token-char
+            {
+                color: #000;
+            }
+
+            .php-token.php-token-t-lnumber {
+                color: #164;
+            }
+            .php-token.php-token-t-constant-encapsed-string {
+                color: #a11;
+            }
+            .php-token.php-token-t-encapsed-and-whitespace {
+                color: #DD0000;
+            }
+            .php-token.php-token-t-open-tag, .php-token.php-token-t-close-tag {
+                color: #555;
+            }
+        }
     }
 
     .demo pre.code
@@ -775,7 +816,7 @@ footer
         padding-top: 1em;
         padding-bottom: 1.7em;
         margin-bottom: 1.3em;
-        .clearAfter;
+        .clearAfter();
 
         &.bottom
         {
