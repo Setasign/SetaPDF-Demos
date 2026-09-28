@@ -16,7 +16,7 @@ $document = Document::loadByFilename(
 $formFiller = new FormFiller($document);
 $fields = $formFiller->getFields();
 
-/** @var CheckboxButtonField $wlanCb */
+/** @var CheckboxButtonField $wlan */
 $wlan = $fields->get('WLAN');
 
 // that's how you can check for a checkbox (just for demonstration here)
@@ -27,14 +27,14 @@ if ($wlan instanceof CheckboxButtonField) {
     //$wlan->uncheck();
 }
 
-/** @var CheckboxButtonField $bluetoothCb */
+/** @var CheckboxButtonField $bluetooth */
 $bluetooth = $fields->get('Bluetooth');
 // you also can pass true/false to the setValue() method:
 $bluetooth->setValue(true);
 // or uncheck it
 //$bluetooth->setValue(false);
 
-/** @var CheckboxButtonField $cardReaderCb */
+/** @var CheckboxButtonField $cardReader */
 $cardReader = $fields->get('Card Reader');
 // it is also possible to check it by passing its export value to the setValue() method:
 $cardReader->setValue('Yes');

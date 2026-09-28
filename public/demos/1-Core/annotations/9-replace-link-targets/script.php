@@ -3,6 +3,7 @@
 use setasign\SetaPDF2\Core\Document;
 use setasign\SetaPDF2\Core\Document\Action\UriAction;
 use setasign\SetaPDF2\Core\Document\Page\Annotation\Annotation;
+use setasign\SetaPDF2\Core\Document\Page\Annotation\LinkAnnotation;
 use setasign\SetaPDF2\Core\Writer\HttpWriter;
 
 // load and register the autoload function
@@ -31,7 +32,7 @@ for ($pageNo = 1, $pageCount = $pages->count(); $pageNo <= $pageCount; $pageNo++
     $page = $pages->getPage($pageNo);
     $linkAnnotations = $page->getAnnotations()->getAll(Annotation::TYPE_LINK);
 
-    /** @var \setasign\SetaPDF2\Core\Document\Page\Annotation\LinkAnnotation $linkAnnotation */
+    /** @var LinkAnnotation $linkAnnotation */
     foreach ($linkAnnotations AS $linkAnnotation) {
         $action = $linkAnnotation->getAction();
         if ($action && $action instanceof UriAction) {

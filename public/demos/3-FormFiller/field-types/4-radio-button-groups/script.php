@@ -25,7 +25,7 @@ if ($corePower instanceof RadioButtonGroup) {
     $corePower->setValue('2 x 2,8 Ghz');
 }
 
-/** @var RadioButtonGroup $corePower */
+/** @var RadioButtonGroup $ram */
 $ram = $fields->get('RAM');
 // it is also possible to check the desired button by interacting with its instance directly:
 $ramButtons = $ram->getButtons();

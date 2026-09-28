@@ -14,7 +14,7 @@ use setasign\SetaPDF2\Signer\Timestamp\Module\Rfc3161\Curl as CurlTimestampModul
 use setasign\SetaPDF2\Signer\X509\Certificate;
 use setasign\SetaPDF2\Signer\X509\Collection;
 use setasign\SetaPDF2\Signer\X509\Extension\AuthorityInformationAccess;
-use setasign\SetaPDF2\Signer\X509\Extension\TimeStamp;
+use setasign\SetaPDF2\Signer\X509\Extension\TimeStamp as TimeStampExtension;
 use setasign\SetaPDF2\Signer\X509\Format;
 
 if (!isset($_GET['action'])) {
@@ -111,8 +111,8 @@ try {
             unset($_SESSION['tsUrl']);
             // get timestamp information and use it
             if (isset($data->useTimestamp) && $data->useTimestamp) {
-                /** @var TimeStamp $ts */
-                $ts = $certificate->getExtensions()->get(TimeStamp::OID);
+                /** @var TimeStampExtension $ts */
+                $ts = $certificate->getExtensions()->get(TimeStampExtension::OID);
                 if ($ts && $ts->getVersion() === 1 && $ts->requiresAuth() === false) {
                     $_SESSION['tsUrl'] = $ts->getLocation();
                     $signatureContentLength += 6000;
