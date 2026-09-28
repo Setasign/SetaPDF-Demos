@@ -1,5 +1,8 @@
 <?php
 
+use PhpParser\PhpVersion;
+use setasign\PhpSyntaxHighlighter\PhpSyntaxHighlighter;
+use setasign\SetaPDF2\Demos\ManualsLinkBuilder;
 use setasign\SetaPDF2\Demos\SitemapBuilder;
 
 if (PHP_SAPI === 'cli-server') {
@@ -45,7 +48,6 @@ if (isset($_GET['p'])) {
 
     header("HTTP/1.0 301 Moved Permanently");
     header("Location: $fullRequestPath");
-    ob_end_clean();
     return;
 }
 
@@ -56,7 +58,6 @@ if ($requestPath === '/previewFile') {
 
         if (!is_file($file)) {
             header("HTTP/1.0 404 Not Found");
-            ob_end_clean();
             return;
         }
     } else {
@@ -103,7 +104,6 @@ $requestPath = trim($requestPath, '/');
 
 if (strpos($requestPath, '..') !== false || !is_dir($demosDirectory . '/' . $requestPath)) {
     header("HTTP/1.0 404 Not Found");
-    ob_end_clean();
     return;
 }
 
@@ -151,6 +151,7 @@ if ($requestPath === '') {
 }
 
 $canonical = 'https://demos.setasign.com/' . trim($fullRequestPath, '/');
+$ts = function ($file) {return filectime($file);};
 
 ob_start();
 echo <<<HTML
@@ -163,7 +164,7 @@ echo <<<HTML
     <meta name="description" content="{$description}"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <link rel="stylesheet" type="text/css" href="./layout/normalize.css"/>
-    <link rel="stylesheet" type="text/css" href="./layout/style.css?2"/>
+    <link rel="stylesheet" type="text/css" href="./layout/style.css?t={$ts(__DIR__ . '/layout/style.css')}"/>
     <link rel="stylesheet" type="text/css" href="./js/codemirror-5.61.1/codemirror.css"/>
     <link rel="canonical" href="{$canonical}" />
     <link rel="icon" type="image/png" href="/images/favicon/favicon-96x96.png" sizes="96x96" />
@@ -357,10 +358,20 @@ if (file_exists($demoDirectory . '/demo.json')) {
             . '<ul class="buttons">'
             . '<li><a href="' . $_SERVER['REQUEST_URI'] . '#" class="copy"'
             . ($codemirrorLang === 'php' ? ' title="copy PHP code"' : '') . '>copy</a></li>'
-            . '</ul><pre class="code" data-lang="' . $codemirrorLang . '">'
-            . htmlspecialchars(file_get_contents($demoDirectory . '/' . $previewFile), ENT_QUOTES | ENT_HTML5)
-            . '</pre></div>'
-            . '</div>';
+            . '</ul>';
+        if ($codemirrorLang === 'php' && class_exists(PhpSyntaxHighlighter::class)) {
+            require_once __DIR__ . '/../classes/ManualsLinkBuilder.php';
+            $highlighter = new PhpSyntaxHighlighter(PhpVersion::fromString('7.2'));
+            $highlighter->linkBuilder->addManual(new ManualsLinkBuilder(__DIR__ . '/../apidoc.json'));
+            echo '<pre class="code highlighted">'
+                . $highlighter->highlight(file_get_contents($demoDirectory . '/' . $previewFile))
+                . '</pre>';
+        } else {
+            echo '<pre class="code" data-lang="' . $codemirrorLang . '">'
+                . htmlspecialchars(file_get_contents($demoDirectory . '/' . $previewFile), ENT_QUOTES | ENT_HTML5)
+                . '</pre>';
+        }
+        echo '</div></div>';
     }
 
     echo '<div class="step execute">'
