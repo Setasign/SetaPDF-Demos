@@ -132,6 +132,10 @@ foreach (explode('/', $requestPath) as $pathPart) {
             'path' => $fullPath,
             'text' => $metaData['name'] ?? $pathPart,
             'title' => $metaData['title'] ?? $metaData['name'] ?? $pathPart,
+            'productPage' => $metaData['productPage'] ?? 'https://www.setasign.com',
+            'manualPage' => $metaData['manualPage'] ?? 'https://manuals.setasign.com',
+            'pricingPage' => $metaData['pricingPage'] ?? 'https://www.setasign.com',
+            'keywords' => $metaData['keywords'] ?? ''
         ];
     } else {
         $breadCrumb[] = [
@@ -178,13 +182,42 @@ echo <<<HTML
     <script type="text/javascript" src="./js/clipboard.js"></script>
 </head>
 <body>
-<header>
-    <div class="wrapper default">
-        <h1>SetaPDF Demos <span>PHP libraries to handle, modify or create PDF files</span></h1>
-        <a href="https://www.setasign.com"><img src="./layout/img/small-logo.png" class="companyLogo" alt="Setasign Logo"/></a>
-    </div>
-</header>
 HTML;
+echo '<header>
+    <div class="wrapper default">';
+
+if ($requestPath !== '') {
+    $productData = $breadCrumb[1];
+    $hasIcon = file_exists($demosDirectory . $productData['path'] . '/icon.png');
+    echo '<div class="productData">';
+    if ($hasIcon) {
+        $imageData = base64_encode(file_get_contents($demosDirectory . $productData['path'] . '/icon.png'));
+        echo <<<HTML
+    <div class="logo">
+        <a href="{$productData['productPage']}">
+            <img class="productLogo" alt="{$productData['text']}" src="data:image/png;base64, {$imageData}" class="in-demo-icon"/>
+        </a>
+    </div>
+HTML;
+    }
+    echo <<<HTML
+    <h1>{$productData['text']} Demos
+    <span>
+        <a target="_blank" href="{$productData['productPage']}" title="Details of {$productData['text']}">Product Details</a>
+        <a target="_blank" href="{$productData['pricingPage']}" title="Details of {$productData['text']}">Pricing</a>
+        <a target="_blank" href="{$productData['manualPage']}" title="Manual of {$productData['text']}">Manual</a>
+    </span>
+    </h1>
+</div>
+<p class="keywords">{$productData['keywords']}</p>
+HTML;
+} else {
+    echo '<h1>SetaPDF Demos <span>PHP libraries to handle, modify or create PDF files</span></h1>';
+}
+
+echo '<a class="companyLink" href="https://www.setasign.com" target="_blank"><img src="./layout/img/small-logo.png" class="companyLogo" alt="Setasign Logo"/></a>
+    </div>
+</header>';
 
 if ($_SERVER['SERVER_NAME'] !== 'demos.setasign.com') {
     echo <<<HTML

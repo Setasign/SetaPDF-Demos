@@ -77,35 +77,80 @@ header {
     background-image: -o-linear-gradient(#72ba57 0%, #558f40 98%);
     background-image: linear-gradient(#72ba57 0%, #558f40 98%);
 
-    h1 {
-        float: left;
-        color: #fff;
-        font-size: 32px;
-        text-shadow: 1px 2px 1px rgba(52, 74, 44, 0.75);
+    .wrapper {
+        display: flex;
+        align-items: flex-start;
+        justify-content: space-between;
 
-        line-height: 34px;
-        padding: 14px 0;
+        h1 {
+            color: #fff;
+            font-size: 32px;
+            text-shadow: 1px 2px 1px rgba(52, 74, 44, 0.75);
 
-        span {
-            display: block;
-            font-size: 13px;
-            line-height: 13px;
-            text-shadow: none;
-            font-weight: normal;
+            line-height: 34px;
+            padding: 14px 0;
+
+            span {
+                display: block;
+                padding-top: 7px;
+                font-size: 13px;
+                line-height: 13px;
+                text-shadow: none;
+                font-weight: normal;
+            }
         }
-    }
 
-    img.logo {
-        float: left;
-        height: 76px;
-        margin: 3px 6px 0 0;
-    }
+        p.keywords {
+            color: #fff;
+            font-size: 18px;
 
-    img.companyLogo {
-        float: right;
-        height: 32px;
-        aspect-ratio: 68/32;
-        padding: 27px 20px;
+            line-height: 22px;
+            padding: 50px 0 0;
+        }
+
+        div.productData {
+            display: flex;
+
+            padding: 14px 0;
+
+            div.logo {
+                margin-right: 10px;
+                img.productLogo {
+                    height: 50px;
+                    aspect-ratio: 1;
+                }
+            }
+
+            h1 {
+                padding: 0;
+
+                span {
+                    padding-top: 7px;
+                    a {
+                        border-radius: 15px;
+                        background-color: #f9f9f9;
+                        border: 1px solid #fff;
+                        color: #4b4b4b;
+                        margin-right: 3px;
+                        padding: 0 14px;
+
+                        &:hover {
+                            color: #e69e04;
+                        }
+                    }
+                }
+            }
+        }
+
+        a.companyLink {
+            order: 3;
+
+            img.companyLogo {
+                height: 32px;
+                aspect-ratio: 68/32;
+                padding: 27px 20px 24px;
+            }
+        }
     }
 }
 
@@ -173,6 +218,7 @@ footer
         float: left;
     }
 }
+
 #content
 {
     flex-grow : 1;
@@ -917,6 +963,133 @@ footer
 
         span:hover .others {
             display: block;
+        }
+    }
+}
+
+@media (max-width: 1024px) {
+    header {
+        .wrapper {
+            p.keywords {
+                display: none;
+            }
+        }
+    }
+}
+
+@media (max-width: 960px) {
+    header {
+        .wrapper {
+            //flex-direction: column;
+            h1, div.productData {
+                width: 100%;
+            }
+        }
+    }
+
+    #content {
+        padding: 8px 0;
+
+        .wrapper {
+            div.demoTeaserWrapper, div.directoriesWrapper {
+                flex-direction: column;
+            }
+
+            div.demoTeaser,
+            div.demoDirectory
+            {
+                width: 100%;
+
+                &:nth-child(odd) {
+                    margin-right: 0;
+                }
+                &:nth-child(even) {
+                    margin-left: 0;
+                }
+            }
+        }
+    }
+}
+
+@media (max-width: 520px) {
+    header {
+        .wrapper {
+            //display: block;
+
+            h1 {
+                font-size: 22px;
+            }
+
+            div.productData {
+                width: auto;
+            }
+
+            a.companyLink {
+                //display: inline-block;
+                display: none;
+            }
+        }
+    }
+
+    #breadcrumb {
+        height: auto;
+    }
+
+    #content {
+        .wrapper {
+            h2 {
+                font-size: 22px;
+                line-height: 24px;
+
+                & + p {
+                    margin-top: 0;
+                }
+            }
+
+            .setapdf-demo {
+                margin-left: 0;
+            }
+
+            div.run {
+                height: 35px;
+
+                ul {
+                    margin-left: 0;
+                    width: auto;
+
+                    li {
+                        float: left;
+                        width: auto;
+                        height: 35px;
+                    }
+                }
+
+                a {
+                    width: auto !important;
+                    white-space: nowrap;
+                    padding: 0 8px;
+                    font-size: 18px;
+
+                    &.inactive {
+                        margin-left: 0;
+                        height: 80%;
+                        line-height: 26px;
+                        margin-top: 7px;
+                    }
+
+                    span {
+                        display: inline-block;
+                        font-size: 90%;
+                        line-height: 100%;
+                    }
+                }
+
+                &.bottom {
+                    a.inactive {
+                        margin-top: 0;
+                    }
+                }
+            }
         }
     }
 }

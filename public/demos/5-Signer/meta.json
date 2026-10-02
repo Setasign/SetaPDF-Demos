@@ -2,5 +2,9 @@
     "name": "SetaPDF-Signer",
     "title": "PHP Demos of the SetaPDF-Signer",
     "teaserText": "Digital sign PDF documents in pure PHP with the SetaPDF-Signer component. Check out different signature modules, appearances or how to implement external signature providers.",
-    "requires": ["SetaPDF-Core", "SetaPDF-Signer"]
+    "requires": ["SetaPDF-Core", "SetaPDF-Signer"],
+    "productPage": "https://www.setasign.com/products/setapdf-signer/",
+    "pricingPage": "https://www.setasign.com/products/setapdf-signer/pricing/",
+    "manualPage": "https://manuals.setasign.com/setapdf-signer-manual/",
+    "keywords": "Digital sign PDF documents in pure PHP"
 }

@@ -2,5 +2,9 @@
     "name": "SetaPDF-Extractor",
     "title": "PHP Demos of the SetaPDF-Extractor",
     "teaserText": "Extract text and words with their coordinates in PDF documents with the SetaPDF-Extractor component.",
-    "requires": ["SetaPDF-Core", "SetaPDF-Extractor"]
+    "requires": ["SetaPDF-Core", "SetaPDF-Extractor"],
+    "productPage": "https://www.setasign.com/products/setapdf-extractor/",
+    "pricingPage": "https://www.setasign.com/products/setapdf-extractor/pricing/",
+    "manualPage": "https://manuals.setasign.com/setapdf-extractor-manual/",
+    "keywords": "Extract Text, Glyphs, Words and Data from PDFs with PHP"
 }

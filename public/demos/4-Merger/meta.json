@@ -2,5 +2,9 @@
     "name": "SetaPDF-Merger",
     "title": "PHP Demos of the SetaPDF-Merger",
     "teaserText": "See how to concatenate PDF documents in pure PHP. You also can create PDF Portfolios (aka PDF Packages or Collections) with the SetaPDF-Merger component.",
-    "requires": ["SetaPDF-Core", "SetaPDF-Merger"]
+    "requires": ["SetaPDF-Core", "SetaPDF-Merger"],
+    "productPage": "https://www.setasign.com/products/setapdf-merger/",
+    "pricingPage": "https://www.setasign.com/products/setapdf-merger/pricing/",
+    "manualPage": "https://manuals.setasign.com/setapdf-merger-manual/",
+    "keywords": "Merge PDF files, concatenate PDF pages or create PDF Portfolios with PHP"
 }
