@@ -194,7 +194,7 @@ if ($requestPath !== '') {
         $imageData = base64_encode(file_get_contents($demosDirectory . $productData['path'] . '/icon.png'));
         echo <<<HTML
     <div class="logo">
-        <a href="{$productData['productPage']}">
+        <a target="_blank" href="{$productData['productPage']}">
             <img class="productLogo" alt="{$productData['text']}" src="data:image/png;base64, {$imageData}" class="in-demo-icon"/>
         </a>
     </div>
