@@ -440,7 +440,7 @@ if (file_exists($demoDirectory . '/demo.json')) {
     echo '<li><a href="#execute" title="Run"' . ($hasAllRequires ? '' : ' class="disabled"') . '>'
         . '&#xF04B; <span>Run</span></a></li>'
         . '</ul>'
-        . '</div>'
+//        . '</div>'
         . '</div>';
 
     echo '</div>';
