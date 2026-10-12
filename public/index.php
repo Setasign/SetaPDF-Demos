@@ -263,7 +263,7 @@ echo '<div id="breadcrumb"><div class="wrapper">'
     . '<nav><ul>';
 
 foreach ($breadCrumb as $crumb) {
-    echo '<li itemprop="title"><a itemprop="url" href="' . trim($crumb['path'], '/') . '">'
+    echo '<li itemprop="title"><a itemprop="url" href="./' . trim($crumb['path'], '/') . '">'
         . $crumb['text']
         . '</a></li>';
 }
@@ -440,7 +440,6 @@ if (file_exists($demoDirectory . '/demo.json')) {
     echo '<li><a href="#execute" title="Run"' . ($hasAllRequires ? '' : ' class="disabled"') . '>'
         . '&#xF04B; <span>Run</span></a></li>'
         . '</ul>'
-//        . '</div>'
         . '</div>';
 
     echo '</div>';
@@ -449,7 +448,7 @@ if (file_exists($demoDirectory . '/demo.json')) {
     if (count($nextDemos) > 0) {
         $nextDemo = array_shift($nextDemos);
         echo '<span>'
-            . '<a href="' . $nextDemo['path'] . '" class="next" title="' . $nextDemo['name'] . '">'
+            . '<a href="./' . $nextDemo['path'] . '" class="next" title="' . $nextDemo['name'] . '">'
             . $nextDemo['name']
             . '</a>';
 
@@ -457,7 +456,7 @@ if (file_exists($demoDirectory . '/demo.json')) {
         if (count($nextDemos) > 0) {
             echo '<div class="others"><ul>';
             foreach (array_reverse($nextDemos) as $nextDemo) {
-                echo '<li><a href="' . $nextDemo['path'] . '">' . $nextDemo['name'] . '</a></li>';
+                echo '<li><a href="./' . $nextDemo['path'] . '">' . $nextDemo['name'] . '</a></li>';
             }
             echo '</ul></div>';
         }
@@ -469,7 +468,7 @@ if (file_exists($demoDirectory . '/demo.json')) {
     if (count($previousDemos) > 0) {
         $previousDemo = array_pop($previousDemos);
         echo '<span>'
-            . '<a href="' . $previousDemo['path'] . '" class="prev" title="' . $previousDemo['name'] . '">'
+            . '<a href="./' . $previousDemo['path'] . '" class="prev" title="' . $previousDemo['name'] . '">'
             . $previousDemo['name']
             . '</a>';
 
@@ -477,7 +476,7 @@ if (file_exists($demoDirectory . '/demo.json')) {
         if (count($previousDemos) > 0) {
             echo '<div class="others"><ul>';
             foreach ($previousDemos as $previousDemo) {
-                echo '<li><a href="' . $previousDemo['path'] . '">' . $previousDemo['name'] . '</a></li>';
+                echo '<li><a href="./' . $previousDemo['path'] . '">' . $previousDemo['name'] . '</a></li>';
             }
             echo '</ul></div>';
         }
@@ -528,18 +527,18 @@ if (file_exists($demoDirectory . '/demo.json')) {
         echo '<div class="demoDirectory' . (count($missingRequires) > 0 ? ' missingRequire' : '') . '">';
 
         if ($hasIcon) {
-            echo '<a href="' . $path . '" title="' . htmlspecialchars($name, ENT_QUOTES | ENT_HTML5) . '">'
+            echo '<a href="./' . $path . '" title="' . htmlspecialchars($name, ENT_QUOTES | ENT_HTML5) . '">'
                 . '<img alt="Demo Icon" src="data:image/png;base64,'
                 . base64_encode(file_get_contents($dir . '/icon.png')) . '"/>'
                 . '</a>';
         } else {
-            echo '<a href="' . $path . '" title="' . htmlspecialchars($name, ENT_QUOTES | ENT_HTML5)
+            echo '<a href="./' . $path . '" title="' . htmlspecialchars($name, ENT_QUOTES | ENT_HTML5)
                 . '" class="teaserIcon" data-faIcon="' . $faIcon . '"'
                 . (($faIcon2) ? ' data-faIcon2="' . $faIcon2 . '"' : '')
                 . '></a>';
         }
 
-        echo '<h2><a href="' . $path . '" title="' . htmlspecialchars($name, ENT_QUOTES | ENT_HTML5) . '">'
+        echo '<h2><a href="./' . $path . '" title="' . htmlspecialchars($name, ENT_QUOTES | ENT_HTML5) . '">'
             . htmlspecialchars($name, ENT_QUOTES | ENT_HTML5)
             . '</a>';
         if (count($missingRequires) > 0) {
@@ -577,18 +576,18 @@ if (file_exists($demoDirectory . '/demo.json')) {
 
         echo '<div class="demoTeaser' . (count($missingRequires) > 0 ? ' missingRequire' : '') . '">';
         if ($hasIcon) {
-            echo '<a href="' . $path . '" title="' . htmlspecialchars($name, ENT_QUOTES | ENT_HTML5) . '">'
+            echo '<a href="./' . $path . '" title="' . htmlspecialchars($name, ENT_QUOTES | ENT_HTML5) . '">'
                 . '<img alt="Demo Icon" src="data:image/png;base64,'
                 . base64_encode(file_get_contents($demoDirectory . '/icon.png')) . '"/>'
                 . '</a>';
         } else {
-            echo '<a href="' . $path . '" title="' . htmlspecialchars($name, ENT_QUOTES | ENT_HTML5)
+            echo '<a href="./' . $path . '" title="' . htmlspecialchars($name, ENT_QUOTES | ENT_HTML5)
                 . '" class="teaserIcon" data-faIcon="' . $faIcon . '"'
                 . (($faIcon2) ? ' data-faIcon2="' . $faIcon2 . '"' : '')
                 . '></a>';
         }
 
-        echo '<h3><a href="' . $path . '" title="' . htmlspecialchars($name, ENT_QUOTES | ENT_HTML5) . '">'
+        echo '<h3><a href="./' . $path . '" title="' . htmlspecialchars($name, ENT_QUOTES | ENT_HTML5) . '">'
             . htmlspecialchars($name, ENT_QUOTES | ENT_HTML5)
             . '</a>';
 
