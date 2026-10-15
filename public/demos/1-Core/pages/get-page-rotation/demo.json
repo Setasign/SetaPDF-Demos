@@ -1,0 +1,9 @@
+{
+    "name": "Get Page Rotation",
+    "title": "Get Information About Rotations of a PDF Page using PHP / SetaPDF-Core Demo",
+    "teaserText": "Get information about rotations in PDF pages in PHP.",
+    "requires": [
+        "SetaPDF-Core"
+    ],
+    "faIcon": "&#xf05a;"
+}

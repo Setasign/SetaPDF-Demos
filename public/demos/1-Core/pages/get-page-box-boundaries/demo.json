@@ -1,0 +1,9 @@
+{
+    "name": "Get Page Boundary Box Information",
+    "title": "Get Information About the Boundary Boxes of a PDF Page using PHP / SetaPDF-Core Demo",
+    "teaserText": "Get information about the boundary boxes of a PDF page in PHP.",
+    "requires": [
+        "SetaPDF-Core"
+    ],
+    "faIcon": "&#xf05a;"
+}
