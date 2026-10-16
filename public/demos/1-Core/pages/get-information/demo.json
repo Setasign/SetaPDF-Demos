@@ -1,9 +1,0 @@
-{
-    "name": "Get Page Information",
-    "title": "Get Information About a PDF Page using PHP / SetaPDF-Core Demo",
-    "teaserText": "Get information about a PDF page in PHP.",
-    "requires": [
-        "SetaPDF-Core"
-    ],
-    "faIcon": "&#xf05a;"
-}

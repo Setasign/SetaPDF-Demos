@@ -1,0 +1,9 @@
+{
+    "name": "Get Page Size",
+    "title": "Get the Page Size of PDF Pages using PHP / SetaPDF-Core Demo",
+    "teaserText": "Get the page size of PDF pages in PHP.",
+    "requires": [
+        "SetaPDF-Core"
+    ],
+    "faIcon": "&#xf05a;"
+}
